@@ -1,0 +1,162 @@
+{
+  "documentSha256": "4fb9473e186e471f3dd33f01dd98b60ae01f9aa14e0dd78a124fd07b430af4da",
+  "purpose": "read-only animation observation on title screen",
+  "before": {
+    "state": "title",
+    "radar": 3.2486199999094008,
+    "spreader": [
+      0.008925679794523196,
+      0,
+      0.008762542511214735,
+      "XYZ"
+    ],
+    "lamps": [
+      null,
+      null
+    ],
+    "water": {
+      "system": "original Saltline kb ocean",
+      "seaY": -1.6,
+      "basins": {
+        "east": {
+          "shorelineX": 75,
+          "sourceOffset": [
+            45,
+            0,
+            -25
+          ],
+          "yaw": 0,
+          "shipFoam": false,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              75,
+              -1.600000023841858,
+              -905
+            ],
+            "max": [
+              927.5,
+              -1.600000023841858,
+              855
+            ]
+          }
+        },
+        "west": {
+          "shorelineX": -75,
+          "sourceOffset": [
+            -45,
+            0,
+            -82.5
+          ],
+          "yaw": 3.141592653589793,
+          "shipFoam": true,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              -927.5,
+              -1.600000023841858,
+              -962.5
+            ],
+            "max": [
+              -75,
+              -1.600000023841858,
+              797.5
+            ]
+          }
+        }
+      },
+      "triangles": 53324,
+      "removedWraparoundTriangles": 6,
+      "drawCalls": 4,
+      "sharedSeaGeometry": true,
+      "sharedSkirtGeometry": true,
+      "extraTextureReads": 0,
+      "extraRenderTargets": 0,
+      "extraLights": 0,
+      "extraUpdateCallbacks": 0,
+      "originalTimeUniform": true,
+      "originalReflectionExclusion": true
+    },
+    "errors": []
+  },
+  "after": {
+    "state": "title",
+    "radar": 5.508480000090598,
+    "spreader": [
+      0.007990666322542693,
+      0,
+      0.006778843022168148,
+      "XYZ"
+    ],
+    "lamps": [
+      null,
+      null
+    ],
+    "water": {
+      "system": "original Saltline kb ocean",
+      "seaY": -1.6,
+      "basins": {
+        "east": {
+          "shorelineX": 75,
+          "sourceOffset": [
+            45,
+            0,
+            -25
+          ],
+          "yaw": 0,
+          "shipFoam": false,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              75,
+              -1.600000023841858,
+              -905
+            ],
+            "max": [
+              927.5,
+              -1.600000023841858,
+              855
+            ]
+          }
+        },
+        "west": {
+          "shorelineX": -75,
+          "sourceOffset": [
+            -45,
+            0,
+            -82.5
+          ],
+          "yaw": 3.141592653589793,
+          "shipFoam": true,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              -927.5,
+              -1.600000023841858,
+              -962.5
+            ],
+            "max": [
+              -75,
+              -1.600000023841858,
+              797.5
+            ]
+          }
+        }
+      },
+      "triangles": 53324,
+      "removedWraparoundTriangles": 6,
+      "drawCalls": 4,
+      "sharedSeaGeometry": true,
+      "sharedSkirtGeometry": true,
+      "extraTextureReads": 0,
+      "extraRenderTargets": 0,
+      "extraLights": 0,
+      "extraUpdateCallbacks": 0,
+      "originalTimeUniform": true,
+      "originalReflectionExclusion": true
+    },
+    "errors": []
+  },
+  "radarMoved": true,
+  "spreaderMoved": true
+}

@@ -6135,10 +6135,7 @@ async function assaultGround(i) {
   ground.apron.geometry.dispose();ground.apron.geometry=pavement;
   ground.apron.position.set(0,0,0);ground.apron.rotation.set(0,0,0);ground.apron.scale.set(1,1,1);ground.apron.updateMatrix();
   ground.apron.frustumCulled=true;
-  for(const mesh of [...ground.root.children])if(mesh===ground.sea||mesh.name==='quaySkirt') {
-    ground.root.remove(mesh);mesh.geometry?.dispose();mesh.material?.dispose();
-  }
-  ground.sea=null;ground.seaHeight=()=>-Infinity;
+  ground.harbor=assaultHarborWater(i,ground);
 
   // Blank the original BERTH 4/container-lane markings. The scene owns actual
   // painted loading lines, so there is only one source of yard wayfinding.
@@ -6286,7 +6283,7 @@ vec2 assaultField(vec2 worldXZ){
       mat.vertexShader=mat.vertexShader.replace('kill = 1.0 - uDrip;','kill = 1.0;');
       mat.vertexShader=mat.vertexShader.replace(
         'if (p.y < (p.x > 30.0 ? -1.6 : 0.0)) kill = 1.0;',
-        'if (p.y < max(0.0, assaultField(p.xz).g * 32.0 - 0.06)) kill = 1.0;');
+        'if (p.y < ((p.x >= 75.0 || p.x <= -75.0) ? -1.6 : max(0.0, assaultField(p.xz).g * 32.0 - 0.06))) kill = 1.0;');
     }else{
       mat.vertexShader=mat.vertexShader.replace(
         'if (p.x > 29.7 || wInside(p + vec3(0.0, 0.2, 0.0))) kill = 1.0;',
@@ -6310,7 +6307,7 @@ vec2 assaultField(vec2 worldXZ){
   // A standing pool remains smoother than damp wall paint at the default wet
   // setting. Zero wetness still produces a dry yard, and the slider stays live.
   ground.uniforms.uWetG={value:Math.min(1,globalWet.value*1.65)};
-  const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:false,maskResolution:size,
+  const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:true,harbor:ground.harbor,maskResolution:size,
     maskRect:[Li.x0,Li.z0,Li.size],pavementSquareMetres:+(pavementPixels*step*step).toFixed(1),
     shelteredSquareMetres:+(shelteredPixels*step*step).toFixed(1),
     puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),
@@ -6336,6 +6333,253 @@ vec2 assaultField(vec2 worldXZ){
   ground.setRain(i.params.rain!==undefined?Number(i.params.rain):.52);
   ground.update(0);
   return ground;
+}
+
+/* Relocate Saltline's original ocean asset to the two non-playable harbors.
+ * The original mesh identity, material, wave clock and reflection exclusion
+ * remain intact. No new water renderer, texture, light or render target. */
+function assaultHarborWater(i,ground) {
+  const T=i.THREE,sea=ground.sea,skirt=ground.root.children.find(o=>o.name==='quaySkirt');
+  if(!sea?.geometry?.index||!sea.material?.onBeforeCompile||!skirt)
+    throw new Error('Original Saltline sea and quay skirt must exist before harbor adaptation');
+  const geometry=sea.geometry,position=geometry.attributes.position,index=geometry.index;
+  const shoreline=75,sourceEdge=27.5,sourceQuay=29.88;
+  const retained=[],min=new T.Vector3(Infinity,Infinity,Infinity),max=new T.Vector3(-Infinity,-Infinity,-Infinity);
+  // kb appends three enormous western wraparound quads after its adaptive
+  // eastern grid. Discard those triangles; translating them would put ocean
+  // beneath Assault's playable pavement and beyond the new dock's land side.
+  for(let k=0;k<index.count;k+=3) {
+    const a=index.getX(k),b=index.getX(k+1),c=index.getX(k+2);
+    if(Math.min(position.getX(a),position.getX(b),position.getX(c))<sourceEdge-.001)continue;
+    retained.push(a,b,c);
+    for(const j of [a,b,c]) {
+      min.x=Math.min(min.x,position.getX(j));max.x=Math.max(max.x,position.getX(j));
+      min.y=Math.min(min.y,position.getY(j));max.y=Math.max(max.y,position.getY(j));
+      min.z=Math.min(min.z,position.getZ(j));max.z=Math.max(max.z,position.getZ(j));
+    }
+  }
+  if(!retained.length||Math.abs(min.x-sourceEdge)>.001||index.count-retained.length!==18)
+    throw new Error('Saltline sea topology changed: expected one eastern grid and six wraparound triangles');
+  const removedTriangles=(index.count-retained.length)/3;
+  geometry.setIndex(retained);
+  // Bounds must exclude the now unreferenced wraparound vertices and include
+  // the original 14.2 cm swell. Keep the sea's original culling policy.
+  geometry.boundingBox=new T.Box3(min.clone().addScalar(-.16),max.clone().addScalar(.16));
+  geometry.boundingSphere=geometry.boundingBox.getBoundingSphere(new T.Sphere());
+  const material=sea.material,compile=material.onBeforeCompile,cacheKey=material.customProgramCacheKey;
+  const east={shorelineX:75,sourceOffset:[45,0,-25],yaw:0,shipFoam:false,shaderPatched:false,
+    worldBounds:{min:[75,min.y,min.z-25],max:[max.x+47.5,max.y,max.z-25]}};
+  const west={shorelineX:-75,sourceOffset:[-45,0,-82.5],yaw:Math.PI,shipFoam:true,shaderPatched:false,
+    worldBounds:{min:[-max.x-47.5,min.y,-max.z-82.5],max:[-75,max.y,-min.z-82.5]}};
+  sea.position.set(shoreline-sourceEdge,0,-25);sea.updateMatrix();
+  skirt.position.set(shoreline-sourceQuay,0,-25);skirt.updateMatrix();skirt.updateMatrixWorld(true);
+  // Parent the west mesh to the original sea: zb's existing exclusion toggles
+  // this parent, so both basins disappear during the apron reflection pass.
+  // Geometry and texture/uniform storage are shared; the west program rotates
+  // source-space waves and the hull foam to match the relocated original ship.
+  const westSea=sea.clone(false);westSea.name='assault-west-sea';westSea.material=material.clone();
+  westSea.position.set(-2*(shoreline-sourceEdge),0,-57.5);westSea.rotation.y=Math.PI;westSea.updateMatrix();
+  sea.add(westSea);sea.updateMatrixWorld(true);
+  const westSkirt=skirt.clone(false);westSkirt.name='assault-west-quay-skirt';
+  westSkirt.position.set(-shoreline+sourceQuay,0,-82.5);westSkirt.rotation.y=Math.PI;westSkirt.updateMatrix();
+  ground.root.add(westSkirt);westSkirt.updateMatrixWorld(true);
+  function patchWater(target,side,mirrored) {
+    target.onBeforeCompile=function(shader,renderer) {
+      compile.call(this,shader,renderer);
+      const worldAnchor='vec3 swp = (modelMatrix * vec4(transformed, 1.0)).xyz;';
+      const displacement='transformed += sdisp * vSAmp;';
+      const fragmentAnchor='vec2 sxz = vGWorld.xz;';
+      const normalAnchor='normal = normalize(mat3(viewMatrix) * normalize(vec3(-gNxz.x, 1.0, -gNxz.y)));';
+      const foamAnchor='float de = min(dq, dh);';
+      if(!shader.vertexShader.includes(worldAnchor)||!shader.vertexShader.includes(displacement)||
+         !shader.fragmentShader.includes(fragmentAnchor)||!shader.fragmentShader.includes(normalAnchor)||
+         !shader.fragmentShader.includes(foamAnchor)||(shader.vertexShader.match(/swp\.xz/g)||[]).length!==5)
+        throw new Error('Original Saltline sea shader anchors changed');
+      // vGWorld stays in world space: camera distance, sun glitter, fog and
+      // lighting must use the actual harbor, while wave/foam coordinates move.
+      const sourceXZ=mirrored?'-(swp.xz - vec2(-45.0, -82.5))':'swp.xz - vec2(45.0, -25.0)';
+      shader.vertexShader=shader.vertexShader.replaceAll('swp.xz','harborWaveXZ')
+        .replace(worldAnchor,worldAnchor+'\n  vec2 harborWaveXZ = '+sourceXZ+';')
+        .replace(displacement,displacement+'\n  transformed.x = max(transformed.x, 27.5);');
+      shader.fragmentShader=shader.fragmentShader.replace(fragmentAnchor,
+        'vec2 sxz = '+sourceXZ.replace('swp.xz','vGWorld.xz')+';');
+      if(mirrored)shader.fragmentShader=shader.fragmentShader.replace(normalAnchor,
+        'normal = normalize(mat3(viewMatrix) * normalize(vec3(gNxz.x, 1.0, gNxz.y)));');
+      else shader.fragmentShader=shader.fragmentShader.replace(foamAnchor,'float de = dq;');
+      side.shaderPatched=true;
+    };
+    target.customProgramCacheKey=function(){return cacheKey.call(this)+'-assault-harbor-'+(mirrored?'west':'east')+'-2';};
+    target.needsUpdate=true;
+  }
+  patchWater(material,east,false);patchWater(westSea.material,west,true);
+  const seaHeight=ground.seaHeight.bind(ground);
+  ground.seaHeight=(x,z)=>{
+    const side=x>=75?east:x<=-75?west:null;
+    if(!side||x<side.worldBounds.min[0]||x>side.worldBounds.max[0]||
+       z<side.worldBounds.min[2]||z>side.worldBounds.max[2])return -Infinity;
+    return side===east?seaHeight(x-45,z+25):seaHeight(-x-45,-z-82.5);
+  };
+  return {system:'original Saltline kb ocean',seaY:+min.y.toFixed(6),basins:{east,west},
+    triangles:retained.length/3*2+4,removedWraparoundTriangles:removedTriangles,
+    drawCalls:4,sharedSeaGeometry:true,sharedSkirtGeometry:true,extraTextureReads:0,
+    extraRenderTargets:0,extraLights:0,extraUpdateCallbacks:0,
+    originalTimeUniform:true,originalReflectionExclusion:true};
+}
+
+/* Original Saltline maritime cargo around the native Assault boundary.
+ * Decorative terminal only: source movement/collision remains authoritative.
+ * Synchronous world-space contract: assaultTerminal(i) -> {root,stats}. */
+function assaultTerminal(i){
+  const T=i.THREE,root=new T.Group(),builder=ob(i),regions=new Map();
+  root.name='assault-maritime-terminal';
+  const stats={containers:0,byRegion:{},meshes:0,triangles:0,labelsAtlased:0,
+    source:'original Saltline container40 builder; full geometry',
+    collision:'none; all cargo and quay additions are outside native bounds',
+    nativeBounds:{min:[-68.2752,0,-79.6544],max:[30.8864,19.5072,27.6352]},placements:[]};
+  function region(name){if(!regions.has(name)){const group=new T.Group();group.name='terminal-'+name;regions.set(name,group);}return regions.get(name);}
+  function into(name,object){region(name).add(object);return object;}
+  function box(name,material,size,p,bevel=0){
+    return into(name,builder.box(builder.M(material),...size,...p,{bevel}));
+  }
+  function stack(name,x,z,layers,yaw,seedOffset=0){
+    const palette=['blue','teal','red'];
+    for(let layer=0;layer<layers;layer++){
+      const color=palette[(seedOffset+layer)%palette.length],y=layer*2.59;
+      // Three deterministic source variants reuse the original builder cache;
+      // the full corrugation, corner castings, doors and locking bars remain.
+      const prop=builder.place('container40',x,z,yaw,{color,wear:.25,seed:610+(seedOffset+layer)%3,doors:0},y,{noCol:true});
+      into(name,prop);stats.containers++;stats.byRegion[name]=(stats.byRegion[name]||0)+1;
+      stats.placements.push({region:name,name:'container40',pos:[x,y,z],yaw,color,layer:layer+1});
+    }
+  }
+
+  // East berth: keep the complete scaled crane bogie rectangle free. Its rails
+  // are at X47.5/72.5 and its feet occupy Z[19.75,60.25]. Cargo is north/south.
+  box('east','concrete_dirty',[41.5,2.2,201],[54.25,-1.1,-20.5]);
+  box('east','steel_dark',[.085,.16,201],[74.93,-.08,-20.5]);
+  for(const x of [47.5,72.5]){
+    box('east','steel_dark',[.085,.08,180],[x,.04,-15]);
+    for(let z=-102;z<75;z+=7.5)box('east','concrete_dirty',[.80,.12,1.60],[x,-.04,z]);
+  }
+  for(const [row,x]of [39,44.5,51].entries()){
+    for(const [bay,z]of [-103,-88,-73,-58].entries())stack('east',x,z,[3,4,3,4][bay],Math.PI/2,row+bay);
+    for(const [bay,z]of [-28,-13].entries())stack('east',x,z,[3,2][bay],Math.PI/2,row+bay+1);
+  }
+
+  // West berth follows the ship's native mooring convention after rotation:
+  // ship centre X=-86, water west of X=-75, dry quay east of that boundary.
+  // The open Z[-63,-35] loading vista is deliberately left completely clear.
+  box('west','concrete_dirty',[6.7248,2.2,116],[-71.6376,-1.1,-33]);
+  box('west','steel_dark',[.075,.16,116],[-74.96,-.08,-33]);
+  for(const [bay,z]of [-78,-26,-11,4].entries()){
+    stack('west',-73.4,z,[4,5,4,3][bay],Math.PI/2,bay+1);
+    stack('west',-69.9,z,[3,4,3,2][bay],Math.PI/2,bay+2);
+  }
+  // Original mooring assets stay on their own quay; they add no physical route.
+  for(const z of [-69,-37,-3.5])into('west',builder.place('bollard_mooring',-74.05,z,0,{seed:702},0,{noCol:true}));
+
+  // A low northern apron provides a second cargo layer around the map, wholly
+  // beyond the original north wall. No artificially raised ground is used.
+  box('north','concrete_dirty',[95,1.8,13],[-22.5,-.9,-88.5]);
+  for(const [bay,x]of [-58,-43].entries())stack('north',x,-88,4,0,bay+2);
+
+  // One atlas for repeated source serials, then merge by region/material for
+  // useful frustum culling. Terminal geometry is excluded from shadow maps;
+  // the surrounding scene remains responsible for its ambient illumination.
+  const staging=new T.Group();for(const group of regions.values())staging.add(group);
+  staging.traverse(o=>{
+    if(!o.isMesh)return;o.castShadow=false;o.receiveShadow=false;
+    if(Array.isArray(o.material))return;const m=o.material;
+    if(m.isMeshStandardMaterial&&!m.vertexColors&&!m.transparent&&i.mats.names.includes(m.name)&&i.mats.get(m.name)===m)
+      o.material=i.mats.get(m.name,{vertexColors:true});
+  });
+  staging.updateMatrixWorld(true);
+  let atlas={count:0};try{atlas=rb(staging);}catch(error){console.warn('[assault] terminal label atlas',error);}
+  for(const [name,group]of regions){
+    group.updateMatrixWorld(true);
+    const merged=By(group);merged.name='terminal-batched-'+name;
+    merged.traverse(o=>{if(!o.isMesh)return;o.castShadow=false;o.receiveShadow=false;o.frustumCulled=true;
+      stats.meshes++;stats.triangles+=(o.geometry.index?o.geometry.index.count:o.geometry.attributes.position.count)/3;
+    });root.add(merged);
+  }
+  stats.labelsAtlased=atlas.count;
+  stats.regionBounds={east:{min:[33.5,-2.2,-121],max:[75,10.36,80]},
+    west:{min:[-75,-2.2,-91],max:[-68.2752,12.95,25]},north:{min:[-70,-1.8,-95],max:[25,10.36,-82]}};
+  return {root,stats,update:dt=>atlas.update?.(dt)};
+}
+
+// Original Saltline crane and KITTIWAKE cargo ship, outside the playable BSP.
+// Called in the original backdrop boot slot, after C1 and before ground/physics.
+// Direct builders retain their authored materials and moving assemblies without
+// Eb's automatic registration of collision boxes at the old port coordinates.
+function assaultHarbor(i) {
+  const T=i.THREE, root=new T.Group();
+  root.name='assault-harbor';
+  const originalAssets=new T.Group();originalAssets.name='assault-original-port-assets';
+  root.add(originalAssets);
+  const craneGroup=new T.Group(),shipGroup=new T.Group();
+  craneGroup.name='assault-container-crane';shipGroup.name='assault-moored-ship';
+  // The 84m ship-to-shore crane uses the original geometry at 2.5x, pivoted
+  // around its native base [23.5,0,0] and anchored at world [60,0,40].
+  craneGroup.scale.setScalar(2.5);craneGroup.position.set(1.25,0,40);
+  // Face the original mooring side toward the open western quay.
+  shipGroup.rotation.y=Math.PI;shipGroup.position.set(-45,0,-82.5);
+  originalAssets.add(craneGroup,shipGroup);
+  // Separate lamp batches keep their authored coordinates attached to the
+  // different asset transforms while both use the same animation clock.
+  const craneLamps=pb(),shipLamps=pb(),crane=z1(i,craneLamps),ship=vb(i,shipLamps);
+  craneGroup.add(crane.root);shipGroup.add(ship.root);
+  const lampMeshes=[];
+  for(const [name,builder,parent]of [['crane',craneLamps,craneGroup],['ship',shipLamps,shipGroup]]){
+    const mesh=builder.build();
+    if(mesh){mesh.name='assault-'+name+'-navigation-lamps';parent.add(mesh);lampMeshes.push(mesh);}
+  }
+  originalAssets.traverse(object=>{
+    if(!object.isMesh)return;
+    const geometry=object.geometry;
+    geometry.computeBoundingBox();geometry.computeBoundingSphere();
+    object.frustumCulled=true;
+    // Geometry and its local transform are static, including the children of
+    // the animated spreader/radar groups. Parent transforms still propagate.
+    object.updateMatrix();object.matrixAutoUpdate=object===ship.radar||object===crane.spreader;
+  });
+  // Terminal construction is authored in Assault world coordinates, so it is
+  // a sibling of the original asset groups, never under either transform.
+  const terminal=assaultTerminal(i);root.add(terminal.root);
+  let triangles=0,drawCalls=0,shadowMeshes=0;
+  root.traverse(object=>{
+    if(!object.isMesh)return;
+    const geometry=object.geometry;
+    triangles+=(geometry.index?geometry.index.count:geometry.attributes.position.count)/3;
+    drawCalls++;if(object.castShadow)shadowMeshes++;
+  });
+  i.scene.add(root);root.updateMatrixWorld(true);
+  const bounds=object=>{
+    const box=new T.Box3().setFromObject(object);
+    return {min:box.min.toArray(),max:box.max.toArray()};
+  };
+  const stats={
+    source:'original Saltline z1/vb/pb',craneId:'SALTLINE 04',shipName:'KITTIWAKE',
+    placements:{crane:{scale:2.5,nativePivot:[23.5,0,0],worldPivot:[60,0,40],translation:[1.25,0,40]},
+      ship:{scale:1,yaw:Math.PI,translation:[-45,0,-82.5]}},triangles,drawCalls,shadowMeshes,
+    collidersRegistered:0,lightsAdded:0,waterY:-1.6,quayX:75,quays:{east:75,west:-75},
+    bounds:bounds(root),craneBounds:bounds(crane.root),shipBounds:bounds(ship.root),terminal:terminal.stats,
+    animatedAssemblies:['crane spreader sway','ship radar','navigation lamp blink']
+  };
+  if(i.level?.stats)i.level.stats.harbor=stats;
+  let time=0;
+  function update(dt){
+    time+=dt;craneLamps.uTime.value=time;shipLamps.uTime.value=time;
+    // Original Eb animation expressions, unchanged. Keep the spreader group
+    // and radar group mutable; no simulation, navigation or player state used.
+    crane.spreader.rotation.x=.012*Math.sin(time*.52)+.004*Math.sin(time*1.31+1);
+    crane.spreader.rotation.z=.009*Math.sin(time*.41+1.1);
+    ship.radar.rotation.y=time*1.9;
+    terminal.update?.(dt);
+  }
+  update(0);
+  return {root,originalAssets,terminal:terminal.root,crane:crane.root,ship:ship.root,spreader:crane.spreader,radar:ship.radar,
+    lamps:lampMeshes,update,stats};
 }
 
 // Geometry finish for the source Assault truck. The native body, cab, glazing,
@@ -7479,106 +7723,9 @@ function assaultArchitecture(i, map) {
   // The source buildings remain the foreground silhouette and occluders. These
   // distant masses use only the original material library and three batches;
   // no lights, collision, navigation, or shadow-map work is added.
-  const skylineStart=stats.triangles, districtGround=-1.3;
-  const skyline={warehouses:0,silos:0,utilityFrames:0,triangles:0,batches:3};
-  box('concrete_dirty',[-360,districtGround-.25,-38],[560,.5,310],0,false,'skyline');
-  box('concrete_dirty',[22,districtGround-.25,-370],[204,.5,560],0,false,'skyline');
-  function districtBox(material,p,size,bevel=0){box(material,p,size,bevel,false,'skyline');}
-  function districtCylinder(material,x,z,radius,height,y=districtGround,sides=20,topRadius=radius){
-    const g=ot(topRadius,radius,height,sides);g.translate(x,y+height/2,z);add(g,material,false,'skyline');
-  }
-  function pitchedRoof(x,z,width,depth,y,rise){
-    const x0=x-width/2,x1=x+width/2,z0=z-depth/2,z1=z+depth/2;
-    const vertices=[
-      [x0,y,z0],[x,y+rise,z0],[x,y+rise,z1],[x0,y,z1],
-      [x,y+rise,z0],[x1,y,z0],[x1,y,z1],[x,y+rise,z1],
-      [x0,y,z0],[x1,y,z0],[x,y+rise,z0],
-      [x0,y,z1],[x,y+rise,z1],[x1,y,z1]
-    ],indices=[0,2,1,0,3,2,4,6,5,4,7,6,8,10,9,11,13,12],p=[],uv=[];
-    for(const index of indices){const v=vertices[index];p.push(...v);uv.push(v[0],v[2]+v[1]);}
-    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
-    g.computeVertexNormals();add(g,'paint_grey',false,'skyline');
-  }
-  for(const building of [
-    [-108,-101,32,24,10,1.8],[-150,-66,42,27,12,2.4],[-106,-140,42,28,14,2.2],
-    [-169,-115,39,33,11,2.0],[-144,-19,34,26,13,2.0],[-165,31,48,28,10,1.7],
-    [-52,-151,38,29,13,2.2],[-7,-169,43,34,15,2.3],[43,-151,31,28,12,1.7],
-    [-218,-28,48,40,18,2.4],[-224,-86,36,32,14,2.0]
-  ]){
-    const [x,z,w,d,h,rise]=building,y=districtGround+h;
-    districtBox('concrete_dirty',[x,districtGround+h/2,z],[w,h,d]);
-    // A shallow base and parapet tie each building to its terrain and roof.
-    districtBox('steel_dark',[x,districtGround+.28,z],[w+.25,.56,d+.25]);
-    pitchedRoof(x,z,w+.55,d+.55,y,rise);
-    for(const side of [-1,1]){
-      districtBox('steel_dark',[x+side*w/2,y-.12,z],[.16,.24,d+.35]);
-      // A single clerestory band is visible at distance; no repeated emissive
-      // window grid competes with the mission or the original map landmarks.
-      districtBox('steel_dark',[x+side*(w/2+.018),y-2.3,z],[.035,1.14,d*.72]);
-    }
-    for(const dz of [-d/2,d/2]){
-      districtBox('paint_grey',[x,districtGround+h*.29,z+dz+Math.sign(dz)*.025],[w*.20,h*.58,.08]);
-      districtBox('steel_dark',[x,districtGround+h*.58+.07,z+dz+Math.sign(dz)*.06],[w*.21,.18,.12]);
-    }
-    // One connected rooftop ventilation box, readable as a manufactured form.
-    const ventY=y+rise*.54;
-    districtBox('steel_dark',[x+w*.23,ventY+.03,z-d*.18],[3.2,.36,2.2]);
-    districtBox('paint_grey',[x+w*.23,ventY+.65,z-d*.18],[2.9,1.05,1.9]);
-    skyline.warehouses++;
-  }
-  // Grounded silo clusters form a restrained port-industrial skyline. Rings,
-  // hoppers and shared service pipes provide scale without high-frequency noise.
-  for(const cluster of [
-    {x:-139,z:-144,r:2.9,h:20,count:3},
-    {x:-182,z:-43,r:3.1,h:17,count:2,alongZ:true},
-    {x:68,z:-170,r:3.4,h:19,count:2}
-  ]){
-    const spacing=cluster.r*2+.9;
-    for(let j=0;j<cluster.count;j++){
-      const offset=(j-(cluster.count-1)/2)*spacing;
-      const x=cluster.x+(cluster.alongZ?0:offset),z=cluster.z+(cluster.alongZ?offset:0),r=cluster.r,h=cluster.h;
-      districtCylinder('concrete_dirty',x,z,r+.5,.52);
-      districtCylinder('paint_grey',x,z,r,h,districtGround+.5);
-      districtCylinder('paint_grey',x,z,r,1.15,districtGround+h+.5,20,.18);
-      for(const yy of [3.8,h-2.0])districtCylinder('steel_dark',x,z,r+.045,.09,districtGround+yy);
-      districtCylinder('steel_dark',x,z,.21,.70,districtGround+h+1.65,8);
-      pipe('steel_dark',[x+r+.12,districtGround+.1,z],[x+r+.12,districtGround+h-.35,z],.10,false,'skyline');
-      skyline.silos++;
-    }
-    const half=(cluster.count-1)*spacing/2;
-    pipe('steel_dark',[cluster.x-(cluster.alongZ?0:half),cluster.h+districtGround-.6,cluster.z-(cluster.alongZ?half:0)],
-      [cluster.x+(cluster.alongZ?0:half),cluster.h+districtGround-.6,cluster.z+(cluster.alongZ?half:0)],.13,false,'skyline');
-  }
-  // A short service bridge belongs to the plant. Its four legs and diagonal
-  // bracing terminate on pads, so there are no floating distant fixtures.
-  const bridge={x:-147,z:-112,w:18,d:3.2,h:16};
-  for(const sx of [-1,1])for(const sz of [-1,1]){
-    const x=bridge.x+sx*bridge.w/2,z=bridge.z+sz*bridge.d/2;
-    districtBox('concrete_dirty',[x,districtGround+.20,z],[1.0,.4,1.0]);
-    districtBox('steel_dark',[x,districtGround+bridge.h/2,z],[.32,bridge.h,.32]);
-  }
-  for(const sz of [-1,1]){
-    const z=bridge.z+sz*bridge.d/2,y=districtGround+bridge.h;
-    districtBox('steel_dark',[bridge.x,y,z],[bridge.w+.35,.45,.25]);
-    beam('steel_dark',[bridge.x-bridge.w/2,districtGround+.5,z],[bridge.x+bridge.w/2,y-.35,z],.15,.15,0,false,'skyline');
-  }
-  for(const dx of [-bridge.w/2,0,bridge.w/2])districtBox('steel_dark',[bridge.x+dx,districtGround+bridge.h+.15,bridge.z],[.20,.20,bridge.d+.1]);
-  for(const dz of [-.65,.65])pipe('paint_grey',[bridge.x-bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],
-    [bridge.x+bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],.22,false,'skyline');
-  skyline.utilityFrames++;
-  // A second, farther plant layer gives the district depth and a varied
-  // industrial silhouette. Tapered stacks grow out of a grounded boiler house;
-  // no smoke cards, glowing windows, lights or disconnected horizon props.
-  districtBox('concrete_dirty',[-266,districtGround+5,-31],[38,10,28]);
-  pitchedRoof(-266,-31,39,29,districtGround+10,1.6);
-  for(const [x,z,h]of[[-271,-31,28],[-260,-31,25]]){
-    districtCylinder('concrete_dirty',x,z,1.32,h,districtGround,16,.78);
-    districtCylinder('steel_dark',x,z,.84,.35,districtGround+h,16,.84);
-  }
-  districtBox('concrete_dirty',[-325,districtGround+8.6,-81],[64,17.2,30]);
-  for(let j=0;j<4;j++)pitchedRoof(-349+j*16,-81,16.2,30.8,districtGround+17.2,2.1);
-  skyline.warehouses+=2;skyline.stacks=2;skyline.layers=2;
-  skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
+  // The original Saltline harbor now owns the horizon and shoreline.
+  // Remove the former generic land slabs/factories so they cannot fill the sea.
+  stats.skyline={replacement:'original Saltline harbor and container terminal'};
 
   for(const [key,b]of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));
@@ -9197,7 +9344,7 @@ vObjP = position; vONrm = normal; vWNrm = normalize(mat3(modelMatrix) * normal);
     </div>
 
     <div class="loc-card" aria-hidden="true"><i></i><b>Saltline Terminal \xB7 cs_assault \xB7 Remix</b><span>Port Authority Breach Unit \u2014 one breacher, no backup</span></div>
-  `,t.appendChild(s);let o=U=>s.querySelector(U),r=U=>[...s.querySelectorAll(U)],a=o(".panel"),l=o(".loc-card"),c=U=>s.querySelector(`[data-f="${U}"]`),u=o("#s-sens"),h=o("#s-vol"),f=o("#s-fov"),p="none",d=null;function v(U){if((!U||U==="sens")&&(i.input.sensitivity=n.sens),(!U||U==="invertY")&&(i.input.invertY=n.invertY),!U||U==="volume")try{i.audio&&i.audio.setVolume&&i.audio.setVolume(n.volume)}catch(T){console.error(T)}if((!U||U==="fov")&&i.player&&i.player.setFov&&i.player.setFov(n.fov),U==="quality"||!U&&n.quality!=="auto"&&!i.params.shot&&!i.params.q&&n.quality!==(i.quality&&i.quality.name)){let T=Pr[n.quality];if(T)try{i.render&&i.render.setQuality?i.render.setQuality({...T}):i.quality={...T}}catch(D){console.error("[game] setQuality failed",D)}}}function g(){let U=n.quality==="auto"?i.quality&&i.quality.name:n.quality;for(let D of r(".seg button"))D.setAttribute("aria-pressed",String(D.dataset.q===U));u.value=n.sens,h.value=Math.round(n.volume*100),f.value=n.fov,o('[data-o="sens"]').textContent=n.sens.toFixed(2)+"\xD7",o('[data-o="vol"]').textContent=Math.round(n.volume*100)+"%",o('[data-o="fov"]').textContent=Math.round(n.fov)+"\xB0";let T=o('[data-act="invert"]');T.setAttribute("aria-pressed",String(n.invertY)),T.querySelector("span").textContent=n.invertY?"On":"Off",c("qnote").textContent=n.quality==="auto"?`Quality was picked for this device (${U||"default"}). Lower it if the frame rate struggles.`:"Quality changes apply at once; shadows and reflections may take a moment to rebuild."}u.addEventListener("input",()=>{n.sens=+u.value,v("sens"),g(),Wf(n)}),h.addEventListener("input",()=>{n.volume=+h.value/100,v("volume"),g(),Wf(n)}),f.addEventListener("input",()=>{n.fov=+f.value,v("fov"),g(),Wf(n)});let x=o('[data-row="fs"]'),y=o("#fs-t"),b=()=>document.fullscreenElement||document.webkitFullscreenElement||null,m=document.getElementById("app")||document.documentElement;m&&(m.requestFullscreen||m.webkitRequestFullscreen)&&document.fullscreenEnabled!==!1&&document.webkitFullscreenEnabled!==!1||(x.hidden=!0);function _(){y.textContent="Fullscreen is not available here"}function M(){try{if(b()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);return}let U=(m.requestFullscreen||m.webkitRequestFullscreen).call(m);U&&U.catch&&U.catch(_)}catch{_()}}let E=()=>{y.textContent=b()?"Exit fullscreen":"Enter fullscreen"};document.addEventListener("fullscreenchange",E),document.addEventListener("webkitfullscreenchange",E);function w(U){d=document.activeElement,a.hidden=!1,s.classList.add("panel-open"),z(U||"settings");try{a.focus({preventScroll:!0})}catch{}}function S(){return a.hidden?!1:(a.hidden=!0,s.classList.remove("panel-open"),d&&d.focus&&s.contains(d)?d.focus():H(),!0)}function z(U){for(let T of r(".tab"))T.setAttribute("aria-selected",String(T.dataset.tab===U));for(let T of r(".panel-b"))T.hidden=T.dataset.pane!==U}function H(){let U=s.querySelector(`.m-screen[data-s="${p}"] .btn.primary`);if(U)try{U.focus({preventScroll:!0})}catch{}}s.addEventListener("click",U=>{let T=U.target.closest("button");if(!T||!s.contains(T))return;if(i.events.emit("ui:click",{}),T.dataset.q){n.quality=T.dataset.q,v("quality"),g(),Wf(n);return}if(T.dataset.tab){z(T.dataset.tab);return}let D=T.dataset.act;D==="settings"?w("settings"):D==="controls"?w("controls"):D==="close-panel"?S():D==="invert"?(n.invertY=!n.invertY,v("invertY"),g(),Wf(n)):D==="fullscreen"?M():D&&e[D]&&e[D](U)}),s.addEventListener("mouseover",U=>{let T=U.target.closest("button");T&&U.relatedTarget&&!T.contains(U.relatedTarget)&&i.events.emit("ui:hover",{})}),s.addEventListener("keydown",U=>{if(U.code==="Escape"&&!a.hidden&&(S(),U.stopPropagation(),U.preventDefault()),U.code==="Tab"&&!a.hidden){let T=[...a.querySelectorAll("button, input")].filter(G=>G.offsetParent!==null);if(!T.length)return;let D=T[0],C=T[T.length-1];U.shiftKey&&document.activeElement===D?(C.focus(),U.preventDefault()):!U.shiftKey&&document.activeElement===C&&(D.focus(),U.preventDefault())}});let O=U=>(U=Math.max(0,Math.floor(U)),String(Math.floor(U/60)).padStart(2,"0")+":"+String(U%60).padStart(2,"0")),q={root:s,settings:n,fmtTime:O,get screen(){return p},get panelOpen(){return!a.hidden},closePanel:S,show(U){U!==p&&(p=U,s.dataset.screen=U,S(),s.classList.toggle("open",U!=="none"),U!=="none"?(g(),setTimeout(H,30)):document.activeElement&&s.contains(document.activeElement)&&document.activeElement.blur())},locationCard(U){l.classList.toggle("on",!!U)},setLookMode(U){c("lookmode").textContent=U||""},setDead({time:U,relays:T,total:D}){c("dead-time").textContent=O(U),c("dead-relays").textContent=`${T}/${D}`},setDebrief({time:U,accuracy:T,kills:D,retries:C,rating:G}){c("time").textContent=O(U),c("acc").textContent=T==null?"\u2014":Math.round(T*100)+"%",c("kills").textContent=String(D),c("retries").textContent=String(C),c("rating").textContent=G},applySettings:v};return g(),q}var Yi={introSeconds:3.5,retryIntroSeconds:1.3,interactRange:2.2,interactFacing:.45,cutSeconds:2.4,patrol:{gull:2,hound:1},waves:[{gull:3,hound:1},{gull:3,hound:2},{gull:4,hound:3}],maxAlive:9,spawnStagger:.85,spawnFar:18,pursuitEvery:7,pursuitMinAlive:4,pursuitExtra:5,titleSpeed:1.15,titleFov:50},jC=["NORTH","NORTH-EAST","EAST","SOUTH-EAST","SOUTH","SOUTH-WEST","WEST","NORTH-WEST"],_l={intro:"Breacher, this is Control. Assault freight depot is locked down. Cut the uplinks in the hall, operations office and roof.",contact:"It has seen you. Gulls fly, Hounds walk. Put them down.",cut:["One relay dark. It felt that \u2014 machines inbound.","Two dark. It is throwing everything it has left at you."],all:"All three dark. Return to the marked rescue perimeter at the approach. Move.",low:"You are hit hard. Get behind steel and breathe.",done:"Breacher is aboard. Saltline is dark. Good work."};function mM(i){let e=i.render&&i.render.post||{},t=typeof e.saturation=="number"?e.saturation:1,n=i.player,s=i.level,o=i.hud,r=i.input,a=(P,V,...Y)=>{try{if(P&&typeof P[V]=="function")return P[V](...Y)}catch(L){console.error(`[game] ${V} threw`,L)}},l=pM(i,{deploy(){a(i.audio,"resume"),r.requestLock(),U({})},resume(){j(!0)},restart(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},retry(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},redeploy(){a(i.audio,"resume"),r.requestLock(),U({quick:!0})}});l.applySettings();let c={time:0,retries:0,relays:[],cut:0,allCut:!1,queue:[],waveHot:0,alertT:0,pursuitT:0,pursuitLeft:0,contactSaid:!1,lowSaid:!1,extractHint:0,intensity:.15,used:new Map},u=0,h=Yi.introSeconds,f=!1,p=!1,d=0,v=0,g=!1,x="",y=.8,b=new W,m=new W,A=()=>s&&s.objectives||[],_={state:"title",flow:Yi,run:c,menus:l,start(P={}){U({skipIntro:!!P.skipIntro,quick:!!P.quick})},pause(){G()},resume(){j(!1)},update:B,debugCut(){let P=c.relays.find(V=>!V.cut);P&&me(P)}};function M(P){let V=_.state;P!==V&&(_.state=P,u=0,i.events.emit("game:state",{state:P,prev:V}))}let E={pos:[],look:[],len:1,t:0};function w(){let P=s&&s.cinematicPath||[];if(E.pos=P.map(Y=>new W(...Y.pos)),E.look=P.map(Y=>new W(...Y.look)),E.pos.length<2){let Y=s&&s.playerStart&&s.playerStart.pos||new W;E.pos=[new W(Y.x,2.2,Y.z),new W(Y.x+8,2,Y.z)],E.look=[new W(Y.x+30,2.5,Y.z-2),new W(Y.x+40,3,Y.z-2)]}let V=0;for(let Y=1;Y<E.pos.length;Y++)V+=E.pos[Y].distanceTo(E.pos[Y-1]);E.len=Math.max(V,4)}function S(P,V,Y){let L=P.length-1,Z=Zn(V,0,1)*L,J=Math.min(L-1,Math.floor(Z)),oe=Z-J,fe=P[Math.max(0,J-1)],le=P[J],R=P[J+1],I=P[Math.min(L,J+2)],se=oe*oe,ae=se*oe,k=(ce,ve,_e,Te)=>.5*(2*ve+(-ce+_e)*oe+(2*ce-5*ve+4*_e-Te)*se+(-ce+3*ve-3*_e+Te)*ae);return Y.set(k(fe.x,le.x,R.x,I.x),k(fe.y,le.y,R.y,I.y),k(fe.z,le.z,R.z,I.z))}function z(P){let V=Math.max(26,E.len/Yi.titleSpeed);E.t+=P,E.t>=V&&(E.t=0);let Y=E.t/V,L=Y*Y*(3-2*Y)*.25+Y*.75,Z=i.camera,J=i.time.t;S(E.pos,L,b),S(E.look,L,m),b.x+=Math.sin(J*.31)*.05,b.y+=Math.sin(J*.43+1.7)*.035,b.z+=Math.sin(J*.27+.6)*.05,m.y+=Math.sin(J*.19)*.12,m.x+=Math.sin(J*.13+2)*.2,Z.position.copy(b),Z.lookAt(m),Z.rotation.z+=Math.sin(J*.21)*.006,!i.params.fov&&Math.abs(Z.fov-Yi.titleFov)>.01&&(Z.fov=Yi.titleFov,Z.updateProjectionMatrix()),e.fade=Math.max(1-sl(0,1.8,E.t),sl(V-1.6,V,E.t))}function H(){s.reset&&s.reset();a(i.enemies,"clear"),a(i.fx,"clear"),a(i.combat,"reset"),a(i.weapon,"reset"),c.time=0,c.cut=0,c.allCut=!1,c.queue.length=0,c.waveHot=0,c.alertT=0,c.pursuitT=0,c.pursuitLeft=0,c.contactSaid=!1,c.lowSaid=!1,c.extractHint=0,c.used.clear(),c.relays=A().map((P,V)=>{let Y=(/([a-z0-9])$/i.exec(String(P.id||""))||[0,String.fromCharCode(65+V)])[1].toUpperCase();return O(P,"live"),{o:P,id:P.id||"relay_"+V,short:Y,t:0,cut:!1,cutting:!1}}),n.reset(s.playerStart),o.reset&&o.reset(),e.saturation=t,e.flash=0,q(),o.setRelays&&o.setRelays(0,c.relays.length),ie()}function O(P,V){try{let Y=P&&P.object&&P.object.userData;Y&&typeof Y.setState=="function"&&Y.setState(V)}catch(Y){console.error("[game] relay setState threw",Y)}}function q(){if(!o.setMarkers)return;let P=c.relays.filter(V=>!V.cut).map(V=>({id:V.id,short:V.short,label:V.o.label||"Relay "+V.short,pos:V.o.pos,kind:"relay"}));c.allCut&&s.extraction&&P.push({id:"extract",short:"EX",label:"Rescue",pos:s.extraction.pos,kind:"extract"}),o.setMarkers(P)}function U({skipIntro:P=!1,quick:V=!1,keepRetries:Y=!1}={}){if(Y||(c.retries=0),l.show("none"),l.locationCard(!1),a(i.audio,"setPaused",!1),H(),a(i.weapon,"setVisible",!0),g=!1,P){e.fade=0,T();return}h=V?Yi.retryIntroSeconds:Yi.introSeconds,f=V,p=V,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),o.show(!1),e.fade=1,a(i.audio,"setIntensity",.15),M("intro")}function T(){n.enabled=!0,o.show(!0),r.setGameplay&&r.setGameplay(!0),o.setObjective(D()),M("playing"),C(!0)}function D(){if(c.allCut)return"Return to the rescue perimeter";let P=c.relays.length-c.cut;return c.cut===0?"Cut the three uplink relays":P===1?"Cut the last relay":`Cut the remaining ${P} relays`}function C(P){let V=r.describeMode?r.describeMode():"";l.setLookMode(V),!(!P&&V===x)&&(x=V,_.state==="playing"&&(r.mode==="drag"||r.mode==="lock"&&!r.locked&&!i.params.shot&&!i.params.autostart)?o.message(V,r.mode==="drag"?7:4):_.state==="playing"&&r.locked&&o.message("",0))}r.onModeChange&&r.onModeChange(()=>C(!1)),i.events.on("input:lock",P=>{if(P.locked){g=!0,C(!1);return}_.state==="playing"&&g&&G(),g=!1}),document.addEventListener("visibilitychange",()=>{document.hidden&&_.state==="playing"&&G()}),addEventListener("keydown",P=>{_.state!=="title"||l.panelOpen||P.code!=="Enter"&&P.code!=="NumpadEnter"||P.target&&P.target.tagName==="BUTTON"||(a(i.audio,"resume"),r.requestLock(),U({}))});function G(){_.state==="playing"&&(r.setGameplay&&r.setGameplay(!1),r.exitLock(),a(i.audio,"setPaused",!0),l.setLookMode(r.mode==="drag"?r.describeMode():r.touch?"":"Resume recaptures the mouse."),o.show(!1),l.show("paused"),d=.35,M("paused"))}function j(P){_.state==="paused"&&(l.show("none"),a(i.audio,"setPaused",!1),o.show(!0),r.setGameplay&&r.setGameplay(!0),g=!1,r.requestLock(),M("playing"),setTimeout(()=>C(!0),700))}function N(P){let V=P==="gull"?"air":"ground",Y=s&&s.enemySpawns||[],L=Y.filter(Z=>Z.type===V);return L.length?L:Y}function Q(P,{minDist:V=Yi.spawnFar,from:Y=n.pos,preferHidden:L=!0}={}){let Z=N(P),J=null,oe=-1e9;for(let le of Z){let R=Math.hypot(le.pos.x-Y.x,le.pos.z-Y.z),I=i.rng()*1.5;if(I+=R>=V?2+Math.min(1,(R-V)/30)*.5:-(V-R)/4,L){b.copy(le.pos),b.y+=P==="gull"?0:1;let ae=!0;try{ae=i.physics.lineOfSight(b,n.eye)}catch{}ae||(I+=2.5)}let se=c.used.get(le);se!==void 0&&c.time-se<6&&(I-=3),I>oe&&(oe=I,J=le)}let fe=new W;if(J){c.used.set(J,c.time),fe.copy(J.pos);let le=(i.rng()-.5)*2.4,R=(i.rng()-.5)*2.4,I=P==="gull";try{I||(I=i.physics.nav.isWalkable(fe.x+le,fe.z+R,fe.y))}catch{I=!1}I&&(fe.x+=le,fe.z+=R)}else{let le=i.rng()*Math.PI*2;fe.set(Zn(Y.x+Math.cos(le)*26,-34,26),0,Zn(Y.z+Math.sin(le)*26,-26,24))}return P==="gull"&&fe.y<2.5&&(fe.y=6+i.rng()*3),fe}function K(P,V,Y){let L=null;try{L=i.enemies.spawn(P,V,Y)}catch(Z){console.error("[game] enemies.spawn threw",Z)}return L}function ie(){let P=s.playerStart&&s.playerStart.pos||n.pos;for(let V of["gull","hound"])for(let Y=0;Y<Yi.patrol[V];Y++)K(V,Q(V,{minDist:32,from:P,preferHidden:!0}),{state:"patrol"})}function F(P){let V=Yi.waves[Math.min(P,Yi.waves.length-1)],Y=[];for(let oe=0;oe<V.gull;oe++)Y.push("gull");for(let oe=0;oe<V.hound;oe++)Y.splice(Math.min(Y.length,1+oe*2),0,"hound");let L=0,Z=0;Y.forEach((oe,fe)=>{let le=Q(oe);L+=le.x-n.pos.x,Z+=le.z-n.pos.z,c.queue.push({type:oe,pos:le,at:c.time+1.6+fe*Yi.spawnStagger})}),c.waveHot=30;let J=(Math.atan2(L,-Z)*180/Math.PI+360)%360;o.warn&&o.warn("Contact \u2014 "+jC[Math.round(J/45)%8],3.4)}function X(P){let V=ne();for(let Y=0;Y<c.queue.length;Y++){let L=c.queue[Y];if(c.time<L.at)continue;if(V>=Yi.maxAlive){L.at=c.time+1;continue}if(!K(L.type,L.pos,{state:"alert",target:n.pos})&&!i.enemies.stub&&(L.tries=(L.tries||0)+1)<6){L.at=c.time+1.5;continue}c.queue.splice(Y,1),a(i.enemies,"alert",n.pos,60);break}if(c.allCut){if(c.pursuitT-=P,c.pursuitT<=0&&c.pursuitLeft>0&&!c.queue.length&&V<Yi.pursuitMinAlive){c.pursuitT=Yi.pursuitEvery,c.pursuitLeft--;let Y=i.rng()<.6?"gull":"hound";c.queue.push({type:Y,pos:Q(Y),at:c.time+.5})}c.pursuitT<=0&&(c.pursuitT=4,a(i.enemies,"alert",n.pos,90))}}function ne(){try{return i.enemies.aliveCount?i.enemies.aliveCount():i.enemies.list.filter(P=>P.alive).length}catch{return 0}}function re(P){let V=i.enemies&&i.enemies.list||[];for(let Y=0;Y<V.length;Y++){let L=V[Y];if(L&&L.alive&&L.pos&&Math.hypot(L.pos.x-n.pos.x,L.pos.z-n.pos.z)<P)return!0}return!1}i.events.on("enemy:alert",()=>{c.alertT=10,_.state==="playing"&&!c.contactSaid&&(c.contactSaid=!0,o.radio&&o.radio(_l.contact,3.2))}),i.events.on("player:hit",()=>{c.alertT=Math.max(c.alertT,8)}),i.events.on("player:rescued",()=>{_.state==="playing"&&o.message("Hauled out of the water",2.5)});function $(){let P=null,V=Yi.interactRange;for(let Y of c.relays){if(Y.cut)continue;let L=Y.o.pos.x-n.pos.x,Z=Y.o.pos.z-n.pos.z,J=Math.hypot(L,Z);J>V||Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||!i.physics.lineOfSight(n.eye,new W(Y.o.pos.x,Y.o.pos.y+1.25,Y.o.pos.z))||J>.9&&(L*n.forward.x+Z*n.forward.z)/(J*Math.max(.2,Math.hypot(n.forward.x,n.forward.z)))<Yi.interactFacing||(P=Y,V=J)}return P}function ue(P){let V=n.alive?$():null;for(let L of c.relays)L.cut||(L===V&&r.down("interact")?(L.cutting||(L.cutting=!0,O(L.o,"cutting")),L.t+=P/Yi.cutSeconds,i.events.emit("objective:progress",{id:L.id,t:Math.min(1,L.t)}),L.t>=1&&me(L)):L.t>0&&(L.t=Math.max(0,L.t-P*1.6),L.cutting&&(L.cutting=!1,O(L.o,"live"),i.events.emit("objective:progress",{id:L.id,t:0}))));V&&!V.cut?o.setPrompt&&o.setPrompt("Cut relay "+V.short,Fo(V.t)):o.setPrompt&&o.setPrompt(null);let Y=s.extraction;if(Y&&Y.pos){let L=Math.hypot(Y.pos.x-n.pos.x,Y.pos.z-n.pos.z),Z=L<(Y.radius||2.5)&&Math.abs(Y.pos.y-n.pos.y)<3.5;Z&&c.allCut&&n.alive?ee():Z&&!c.allCut&&c.extractHint<=0&&(c.extractHint=8,o.message("Relays still live \u2014 disable all three uplinks before extraction",3.5)),c.extractHint=Math.max(0,c.extractHint-P)}}function me(P){P.cut=!0,P.cutting=!1,P.t=1,c.cut++,O(P.o,"cut");let V=c.relays.length;i.events.emit("objective:done",{id:P.id,index:c.cut,total:V}),o.setRelays&&o.setRelays(c.cut,V),o.setPrompt&&o.setPrompt(null),n.addShake(.18),F(c.cut-1),c.cut>=V?(c.allCut=!0,c.pursuitLeft=Yi.pursuitExtra,c.pursuitT=12,i.events.emit("objective:all",{}),o.radio&&o.radio(_l.all,4.5)):o.radio&&o.radio(_l.cut[Math.min(c.cut-1,_l.cut.length-1)],3.6),o.setObjective(D()),q()}i.events.on("player:dead",()=>{_.state!=="playing"&&_.state!=="paused"||(r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),o.clearRadio&&o.clearRadio(),l.setDead({time:c.time,relays:c.cut,total:c.relays.length}),M("dead"))});function ee(){n.invulnerable=!0,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),i.events.emit("extraction:reached",{}),o.clearRadio&&o.clearRadio(),o.radio&&o.radio(_l.done,2.2);let P=i.combat&&i.combat.stats||{shots:0,hits:0,kills:0},V=P.shots>0?Zn(P.hits/P.shots,0,1):null,Y=(c.time<270?2:c.time<400?1:0)+(V>=.5?2:V>=.3?1:0)+(c.retries===0?1:0),L=["Messy","Loud","Steady","Clean","Sharp","Surgical"][Y];l.setDebrief({time:c.time,accuracy:V,kills:P.kills||0,retries:c.retries,rating:L}),M("complete")}function B(P){switch(u+=P,_.state){case"title":return z(P),!1;case"intro":return e.fade=1-sl(.25,Math.min(h,2.6),u),!f&&u>.5&&(f=!0,l.locationCard(!0)),!p&&u>1.3&&(p=!0,o.radio&&o.radio(_l.intro,4.2)),u>h-.6&&!o.root?.classList.contains("on")&&(o.show(!0),o.setObjective(D())),u>=h&&(l.locationCard(!1),e.fade=0,T()),!0;case"playing":{if(c.time+=P,e.fade=kn(e.fade||0,0,6,P),d>0&&(d-=P),r.pressed("pause"))return G(),!1;if(ue(P),_.state!=="playing")return!0;X(P),c.alertT=Math.max(0,c.alertT-P),c.waveHot=Math.max(0,c.waveHot-P);let V=ne();c.waveHot>0&&V===0&&!c.queue.length&&c.waveHot<24&&(c.waveHot=0);let Y=c.allCut||c.queue.length||c.waveHot>0&&V>0?1:c.alertT>0||V>0&&re(26)?.6:.15;return Y!==c.intensity&&(c.intensity=Y,a(i.audio,"setIntensity",Y)),r.mode==="lock"&&!r.locked&&!r.touch&&!i.params.shot&&!i.params.autostart?(y-=P,y<=0&&(y=2,o.message(r.describeMode(),2.6))):y=.8,!c.lowSaid&&n.alive&&n.health<30&&(c.lowSaid=!0,o.radio&&o.radio(_l.low,3)),!0}case"paused":return d>0?d-=P:r.pressed("pause")&&(l.closePanel()||j(!1)),!1;case"dead":return e.saturation=kn(e.saturation??1,.12,2.2,P),e.fade=kn(e.fade||0,.55,1.4,P),u>1.5&&l.screen!=="dead"&&(l.show("dead"),a(i.audio,"setIntensity",.15)),!0;case"complete":return e.fade=kn(e.fade||0,.72,.9,P),e.saturation=kn(e.saturation??1,t*.7,1,P),u>3.3&&l.screen!=="complete"&&(l.show("complete"),a(i.audio,"setIntensity",.15)),!0}return!1}return w(),n.enabled=!1,o.show(!1),a(i.weapon,"setVisible",!1),r.setGameplay&&r.setGameplay(!1),a(i.audio,"setIntensity",.15),i.params.shot||i.params.autostart||l.show("title"),_}var gM={mats:qg,level:cv,backdrop:mv,ground:vv,fx:Sv,weapon:Xv,enemies:ex,props:$g,render:Vg};window.__frames=0;window.__ready=!1;window.__fatal=null;window.__errors=[];var vM=document.getElementById("boot"),xM=document.getElementById("boot-msg"),yM=document.getElementById("boot-fill");function bM(i){window.__fatal=String(i),console.error("[fatal] "+i);let e=document.getElementById("fatal");e||(e=document.createElement("div"),e.id="fatal",document.getElementById("app").appendChild(e)),e.textContent="Saltline could not start: "+i}window.addEventListener("error",i=>{window.__errors.push(String(i.message))});{let i=console.error.bind(console);console.error=(...e)=>{try{window.__errors.push(e.map(t=>t&&t.stack||String(t)).join(" ").slice(0,400))}catch{}i(...e)}}var KC=()=>new Promise(i=>setTimeout(i,0));async function Nr(i,e){xM&&(xM.textContent=i),yM&&(yM.style.width=Math.round(e*100)+"%"),await KC()}async function QC(){let i=Object.fromEntries(new URLSearchParams(location.search)),e=!!i.bench||location.hash==="#bench";e&&(i.noaudio="1",i.autostart="1");let t={THREE:lt,params:i,events:Dy(),rng:il(+(i.seed||4207)),time:{t:0,dt:0,frame:0,real:0},quality:zy(i.q||(i.shot?"test":""))};window.__G=t;let n=i.show&&gM[i.show]?i.show:null;t.showcase=n;let s=null;function o(h){if(h.cam){let f=String(h.cam).split(",").map(Number);s={pos:new W(f[0],f[1],f[2]),look:new W(f[3]??0,f[4]??1,f[5]??0)}}h.cam===""&&(s=null),h.fov&&(t.camera.fov=+h.fov,t.camera.updateProjectionMatrix()),h.exposure&&(t.render.exposure=+h.exposure)}window.__setShot=o;async function r(h,f,p,d=!1){let v=performance.now();try{t[h]=await p()}catch(x){if(console.error(`[boot] module "${h}" failed: ${x&&x.stack||x}`),d||!dr[h])throw x;t[h]=dr[h]()}let g=performance.now()-v;g>150&&console.log(`[boot] ${h} ${g.toFixed(0)}ms`)}if(await Nr("Waking the renderer",.04),await r("render","render",()=>Hg(t),!0),t.renderer=t.render.renderer,t.scene=t.render.scene,t.camera=t.render.camera,t.viewCamera=t.render.viewCamera,await Nr("Mixing paint, rust and rain",.12),await r("mats","materials",()=>Gg(t)),t.physics=sAP(d3(t),t),t.props=Yg(t),t.input=n?tP():v_(t),n){let h=Qi(new rn(80,80).rotateX(-Math.PI/2),t.mats.get("concrete"),{cast:!1});if(t.scene.add(h),t.level={stub:!0,playerStart:{pos:new W(0,0,4),yaw:0},objectives:[],enemySpawns:[],zones:[],interiorBoxes:[],cinematicPath:[],extraction:{pos:new W,radius:2},groundSurfaceAt:()=>"concrete",update(){}},t.backdrop=dr.backdrop(),t.ground=dr.ground(),t.physics.build(),n==="fx")await r("fx","fx",()=>Cf(t));else try{t.fx=await Cf(t)}catch{t.fx=dr.fx()}t.audio=dr.audio(),t.hud=dr.hud(),t.player=nP(t),t.combat=zv(t),t.weapon=dr.weapon(),t.enemies=dr.enemies(),t.game={state:"showcase",update:()=>!1,start(){}};let f=null;try{f=await gM[n].showcase(t)}catch(p){bM(`showcase "${n}" threw: ${p&&p.stack||p}`)}t.showcaseInfo=f||{},f&&f.cam&&o({cam:[...f.cam,...f.target||[0,1,0]].join(",")})}else{if(await Nr("Stacking containers",.34),await r("level","level",()=>C1(t),!0),await Nr("Raising the cranes",.5),await r("backdrop","backdrop",()=>Eb(t,{only:"sky"})),t.backdrop&&t.backdrop.root&&(t.backdrop.root.visible=!1),t.backdrop&&t.backdrop.skyline&&(t.backdrop.skyline.visible=!1),t.backdrop&&t.backdrop.gulls&&(t.backdrop.gulls.visible=!1),await Nr("Flooding the apron",.58),await r("ground","ground",()=>assaultGround(t)),t.ground.stub){let h=Qi(new rn(400,400).rotateX(-Math.PI/2),t.mats.get("asphalt"),{cast:!1});t.scene.add(h)}t.physics.build(),await Nr("Loading tracers and smoke",.66),await r("fx","fx",()=>Cf(t)),await r("audio","audio",()=>i.noaudio?dr.audio():c_(t)),t.player=x_(t),t.combat=zv(t),await Nr("Checking the rifle",.74),await r("weapon","weapon",()=>dm(t)),await Nr("Waking the Harbormaster",.82),await r("enemies","enemies",()=>Em(t)),await r("hud","hud",()=>hM(t)),t.game=mM(t)}await Nr("Waiting for first light",.92);try{await t.render.onLevelReady()}catch(h){console.error("[boot] render.onLevelReady failed: "+(h&&h.stack||h))}await assaultPrewarm(t);let a=0;if(window.__stats=()=>({...t.render.stats?t.render.stats():{},fps:a?+(1/a).toFixed(1):0,state:t.game&&t.game.state}),i.cam&&o(i),i.fov&&o({fov:i.fov}),!n&&(i.shot||i.autostart))try{t.game.start({skipIntro:!0})}catch(h){console.error("[boot] game.start failed",h)}i.noweapon&&t.weapon.setVisible&&t.weapon.setVisible(!1),e&&eP(t),await Nr("Ready",1),vM.classList.add("done"),setTimeout(()=>{vM.hidden=!0},700);let l=performance.now(),c=1,u=(h,f)=>{let p=t[h];if(p&&p.update)try{p.update(f)}catch(d){u.err[h]||(u.err[h]=1,console.error(`[loop] ${h}.update threw: ${d&&d.stack||d}`))}};u.err={},t.renderer.setAnimationLoop(()=>{let h=performance.now(),f=(h-l)/1e3;l=h,a=a?a*.95+f*.05:f;let p=Math.min(f,.05);i.dt&&(p=+i.dt),t.time.dt=p,t.time.t+=p,t.time.real=h/1e3,t.time.frame++,u("input",p);let d=!1;try{d=t.game.update(p)!==!1&&t.game.state!=="title"&&t.game.state!=="paused"}catch(v){u.err.game||(u.err.game=1,console.error("[loop] game.update threw: "+(v&&v.stack||v)))}if(n){if(t.showcaseInfo.update)try{t.showcaseInfo.update(p)}catch(v){u.err.sc||(u.err.sc=1,console.error("[loop] showcase update threw: "+(v&&v.stack||v)))}}else d&&(u("player",p),u("weapon",p),u("enemies",p));if(t.weapon&&t.weapon.setWetness&&t.level&&t.level.interiorBoxes&&t.level.interiorBoxes[0]){let v=t.level.interiorBoxes[0],g=t.camera.position,x=g.x>v.min.x&&g.x<v.max.x&&g.z>v.min.z&&g.z<v.max.z&&g.y<v.max.y;c+=((x?.3:1)-c)*Math.min(1,p*(x?.25:.6));try{t.weapon.setWetness(c)}catch{}}t.game.state!=="paused"&&(u("fx",p),u("ground",p),u("level",p),u("backdrop",p),u("mats",p)),u("audio",p),u("hud",p),s&&(t.camera.position.copy(s.pos),t.camera.lookAt(s.look)),t.bench&&t.bench.frame(f);try{t.render.frame(p)}catch(v){u.err.render||(u.err.render=1,console.error("[loop] render.frame threw: "+(v&&v.stack||v)))}t.input.endFrame&&t.input.endFrame(),window.__frames++,window.__frames===2&&(window.__ready=!0)})}function eP(i){let e=document.createElement("pre");e.id="bench",e.style.cssText='position:absolute;left:12px;top:12px;z-index:90;margin:0;padding:10px 12px;font:12px/1.45 "IBM Plex Mono",ui-monospace,monospace;color:#d8f0d0;background:rgba(0,0,0,.72);white-space:pre-wrap;max-width:min(560px,90vw);pointer-events:none',document.getElementById("app").appendChild(e);let t="unknown";try{let f=i.renderer.getContext(),p=f.getExtension("WEBGL_debug_renderer_info");t=p?f.getParameter(p.UNMASKED_RENDERER_WEBGL):f.getParameter(f.RENDERER)}catch{}let n=i.level.cinematicPath&&i.level.cinematicPath.length>=2?i.level.cinematicPath:[{pos:[-32,1.7,6],look:[0,2,5]},{pos:[10,1.7,6],look:[30,6,0]}],s=[],o=0,r=0,a=30,l=new W,c=new W,u=new W,h=new W;i.player&&(i.player.enabled=!1),i.bench={frame(f){o+=f;let p=o/a%1*(n.length-1),d=Math.min(n.length-2,Math.floor(p)),v=p-d,g=v*v*(3-2*v);if(l.fromArray(n[d].pos),c.fromArray(n[d+1].pos),u.fromArray(n[d].look),h.fromArray(n[d+1].look),i.camera.position.lerpVectors(l,c,g),i.camera.lookAt(u.lerp(h,g)),o>2&&s.push(f*1e3),s.length>3e3&&s.shift(),o-r>1&&s.length>10){r=o;let x=s.slice().sort((M,E)=>M-E),y=x.reduce((M,E)=>M+E,0)/x.length,b=x[Math.floor(x.length*.99)],m=x[x.length>>1],A=i.render.stats?i.render.stats():{},_=i.renderer.getDrawingBufferSize(new Ae);e.textContent=`SALTLINE BENCH  t=${o.toFixed(0)}s
+  `,t.appendChild(s);let o=U=>s.querySelector(U),r=U=>[...s.querySelectorAll(U)],a=o(".panel"),l=o(".loc-card"),c=U=>s.querySelector(`[data-f="${U}"]`),u=o("#s-sens"),h=o("#s-vol"),f=o("#s-fov"),p="none",d=null;function v(U){if((!U||U==="sens")&&(i.input.sensitivity=n.sens),(!U||U==="invertY")&&(i.input.invertY=n.invertY),!U||U==="volume")try{i.audio&&i.audio.setVolume&&i.audio.setVolume(n.volume)}catch(T){console.error(T)}if((!U||U==="fov")&&i.player&&i.player.setFov&&i.player.setFov(n.fov),U==="quality"||!U&&n.quality!=="auto"&&!i.params.shot&&!i.params.q&&n.quality!==(i.quality&&i.quality.name)){let T=Pr[n.quality];if(T)try{i.render&&i.render.setQuality?i.render.setQuality({...T}):i.quality={...T}}catch(D){console.error("[game] setQuality failed",D)}}}function g(){let U=n.quality==="auto"?i.quality&&i.quality.name:n.quality;for(let D of r(".seg button"))D.setAttribute("aria-pressed",String(D.dataset.q===U));u.value=n.sens,h.value=Math.round(n.volume*100),f.value=n.fov,o('[data-o="sens"]').textContent=n.sens.toFixed(2)+"\xD7",o('[data-o="vol"]').textContent=Math.round(n.volume*100)+"%",o('[data-o="fov"]').textContent=Math.round(n.fov)+"\xB0";let T=o('[data-act="invert"]');T.setAttribute("aria-pressed",String(n.invertY)),T.querySelector("span").textContent=n.invertY?"On":"Off",c("qnote").textContent=n.quality==="auto"?`Quality was picked for this device (${U||"default"}). Lower it if the frame rate struggles.`:"Quality changes apply at once; shadows and reflections may take a moment to rebuild."}u.addEventListener("input",()=>{n.sens=+u.value,v("sens"),g(),Wf(n)}),h.addEventListener("input",()=>{n.volume=+h.value/100,v("volume"),g(),Wf(n)}),f.addEventListener("input",()=>{n.fov=+f.value,v("fov"),g(),Wf(n)});let x=o('[data-row="fs"]'),y=o("#fs-t"),b=()=>document.fullscreenElement||document.webkitFullscreenElement||null,m=document.getElementById("app")||document.documentElement;m&&(m.requestFullscreen||m.webkitRequestFullscreen)&&document.fullscreenEnabled!==!1&&document.webkitFullscreenEnabled!==!1||(x.hidden=!0);function _(){y.textContent="Fullscreen is not available here"}function M(){try{if(b()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);return}let U=(m.requestFullscreen||m.webkitRequestFullscreen).call(m);U&&U.catch&&U.catch(_)}catch{_()}}let E=()=>{y.textContent=b()?"Exit fullscreen":"Enter fullscreen"};document.addEventListener("fullscreenchange",E),document.addEventListener("webkitfullscreenchange",E);function w(U){d=document.activeElement,a.hidden=!1,s.classList.add("panel-open"),z(U||"settings");try{a.focus({preventScroll:!0})}catch{}}function S(){return a.hidden?!1:(a.hidden=!0,s.classList.remove("panel-open"),d&&d.focus&&s.contains(d)?d.focus():H(),!0)}function z(U){for(let T of r(".tab"))T.setAttribute("aria-selected",String(T.dataset.tab===U));for(let T of r(".panel-b"))T.hidden=T.dataset.pane!==U}function H(){let U=s.querySelector(`.m-screen[data-s="${p}"] .btn.primary`);if(U)try{U.focus({preventScroll:!0})}catch{}}s.addEventListener("click",U=>{let T=U.target.closest("button");if(!T||!s.contains(T))return;if(i.events.emit("ui:click",{}),T.dataset.q){n.quality=T.dataset.q,v("quality"),g(),Wf(n);return}if(T.dataset.tab){z(T.dataset.tab);return}let D=T.dataset.act;D==="settings"?w("settings"):D==="controls"?w("controls"):D==="close-panel"?S():D==="invert"?(n.invertY=!n.invertY,v("invertY"),g(),Wf(n)):D==="fullscreen"?M():D&&e[D]&&e[D](U)}),s.addEventListener("mouseover",U=>{let T=U.target.closest("button");T&&U.relatedTarget&&!T.contains(U.relatedTarget)&&i.events.emit("ui:hover",{})}),s.addEventListener("keydown",U=>{if(U.code==="Escape"&&!a.hidden&&(S(),U.stopPropagation(),U.preventDefault()),U.code==="Tab"&&!a.hidden){let T=[...a.querySelectorAll("button, input")].filter(G=>G.offsetParent!==null);if(!T.length)return;let D=T[0],C=T[T.length-1];U.shiftKey&&document.activeElement===D?(C.focus(),U.preventDefault()):!U.shiftKey&&document.activeElement===C&&(D.focus(),U.preventDefault())}});let O=U=>(U=Math.max(0,Math.floor(U)),String(Math.floor(U/60)).padStart(2,"0")+":"+String(U%60).padStart(2,"0")),q={root:s,settings:n,fmtTime:O,get screen(){return p},get panelOpen(){return!a.hidden},closePanel:S,show(U){U!==p&&(p=U,s.dataset.screen=U,S(),s.classList.toggle("open",U!=="none"),U!=="none"?(g(),setTimeout(H,30)):document.activeElement&&s.contains(document.activeElement)&&document.activeElement.blur())},locationCard(U){l.classList.toggle("on",!!U)},setLookMode(U){c("lookmode").textContent=U||""},setDead({time:U,relays:T,total:D}){c("dead-time").textContent=O(U),c("dead-relays").textContent=`${T}/${D}`},setDebrief({time:U,accuracy:T,kills:D,retries:C,rating:G}){c("time").textContent=O(U),c("acc").textContent=T==null?"\u2014":Math.round(T*100)+"%",c("kills").textContent=String(D),c("retries").textContent=String(C),c("rating").textContent=G},applySettings:v};return g(),q}var Yi={introSeconds:3.5,retryIntroSeconds:1.3,interactRange:2.2,interactFacing:.45,cutSeconds:2.4,patrol:{gull:2,hound:1},waves:[{gull:3,hound:1},{gull:3,hound:2},{gull:4,hound:3}],maxAlive:9,spawnStagger:.85,spawnFar:18,pursuitEvery:7,pursuitMinAlive:4,pursuitExtra:5,titleSpeed:1.15,titleFov:50},jC=["NORTH","NORTH-EAST","EAST","SOUTH-EAST","SOUTH","SOUTH-WEST","WEST","NORTH-WEST"],_l={intro:"Breacher, this is Control. Assault freight depot is locked down. Cut the uplinks in the hall, operations office and roof.",contact:"It has seen you. Gulls fly, Hounds walk. Put them down.",cut:["One relay dark. It felt that \u2014 machines inbound.","Two dark. It is throwing everything it has left at you."],all:"All three dark. Return to the marked rescue perimeter at the approach. Move.",low:"You are hit hard. Get behind steel and breathe.",done:"Breacher is aboard. Saltline is dark. Good work."};function mM(i){let e=i.render&&i.render.post||{},t=typeof e.saturation=="number"?e.saturation:1,n=i.player,s=i.level,o=i.hud,r=i.input,a=(P,V,...Y)=>{try{if(P&&typeof P[V]=="function")return P[V](...Y)}catch(L){console.error(`[game] ${V} threw`,L)}},l=pM(i,{deploy(){a(i.audio,"resume"),r.requestLock(),U({})},resume(){j(!0)},restart(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},retry(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},redeploy(){a(i.audio,"resume"),r.requestLock(),U({quick:!0})}});l.applySettings();let c={time:0,retries:0,relays:[],cut:0,allCut:!1,queue:[],waveHot:0,alertT:0,pursuitT:0,pursuitLeft:0,contactSaid:!1,lowSaid:!1,extractHint:0,intensity:.15,used:new Map},u=0,h=Yi.introSeconds,f=!1,p=!1,d=0,v=0,g=!1,x="",y=.8,b=new W,m=new W,A=()=>s&&s.objectives||[],_={state:"title",flow:Yi,run:c,menus:l,start(P={}){U({skipIntro:!!P.skipIntro,quick:!!P.quick})},pause(){G()},resume(){j(!1)},update:B,debugCut(){let P=c.relays.find(V=>!V.cut);P&&me(P)}};function M(P){let V=_.state;P!==V&&(_.state=P,u=0,i.events.emit("game:state",{state:P,prev:V}))}let E={pos:[],look:[],len:1,t:0};function w(){let P=s&&s.cinematicPath||[];if(E.pos=P.map(Y=>new W(...Y.pos)),E.look=P.map(Y=>new W(...Y.look)),E.pos.length<2){let Y=s&&s.playerStart&&s.playerStart.pos||new W;E.pos=[new W(Y.x,2.2,Y.z),new W(Y.x+8,2,Y.z)],E.look=[new W(Y.x+30,2.5,Y.z-2),new W(Y.x+40,3,Y.z-2)]}let V=0;for(let Y=1;Y<E.pos.length;Y++)V+=E.pos[Y].distanceTo(E.pos[Y-1]);E.len=Math.max(V,4)}function S(P,V,Y){let L=P.length-1,Z=Zn(V,0,1)*L,J=Math.min(L-1,Math.floor(Z)),oe=Z-J,fe=P[Math.max(0,J-1)],le=P[J],R=P[J+1],I=P[Math.min(L,J+2)],se=oe*oe,ae=se*oe,k=(ce,ve,_e,Te)=>.5*(2*ve+(-ce+_e)*oe+(2*ce-5*ve+4*_e-Te)*se+(-ce+3*ve-3*_e+Te)*ae);return Y.set(k(fe.x,le.x,R.x,I.x),k(fe.y,le.y,R.y,I.y),k(fe.z,le.z,R.z,I.z))}function z(P){let V=Math.max(26,E.len/Yi.titleSpeed);E.t+=P,E.t>=V&&(E.t=0);let Y=E.t/V,L=Y*Y*(3-2*Y)*.25+Y*.75,Z=i.camera,J=i.time.t;S(E.pos,L,b),S(E.look,L,m),b.x+=Math.sin(J*.31)*.05,b.y+=Math.sin(J*.43+1.7)*.035,b.z+=Math.sin(J*.27+.6)*.05,m.y+=Math.sin(J*.19)*.12,m.x+=Math.sin(J*.13+2)*.2,Z.position.copy(b),Z.lookAt(m),Z.rotation.z+=Math.sin(J*.21)*.006,!i.params.fov&&Math.abs(Z.fov-Yi.titleFov)>.01&&(Z.fov=Yi.titleFov,Z.updateProjectionMatrix()),e.fade=Math.max(1-sl(0,1.8,E.t),sl(V-1.6,V,E.t))}function H(){s.reset&&s.reset();a(i.enemies,"clear"),a(i.fx,"clear"),a(i.combat,"reset"),a(i.weapon,"reset"),c.time=0,c.cut=0,c.allCut=!1,c.queue.length=0,c.waveHot=0,c.alertT=0,c.pursuitT=0,c.pursuitLeft=0,c.contactSaid=!1,c.lowSaid=!1,c.extractHint=0,c.used.clear(),c.relays=A().map((P,V)=>{let Y=(/([a-z0-9])$/i.exec(String(P.id||""))||[0,String.fromCharCode(65+V)])[1].toUpperCase();return O(P,"live"),{o:P,id:P.id||"relay_"+V,short:Y,t:0,cut:!1,cutting:!1}}),n.reset(s.playerStart),o.reset&&o.reset(),e.saturation=t,e.flash=0,q(),o.setRelays&&o.setRelays(0,c.relays.length),ie()}function O(P,V){try{let Y=P&&P.object&&P.object.userData;Y&&typeof Y.setState=="function"&&Y.setState(V)}catch(Y){console.error("[game] relay setState threw",Y)}}function q(){if(!o.setMarkers)return;let P=c.relays.filter(V=>!V.cut).map(V=>({id:V.id,short:V.short,label:V.o.label||"Relay "+V.short,pos:V.o.pos,kind:"relay"}));c.allCut&&s.extraction&&P.push({id:"extract",short:"EX",label:"Rescue",pos:s.extraction.pos,kind:"extract"}),o.setMarkers(P)}function U({skipIntro:P=!1,quick:V=!1,keepRetries:Y=!1}={}){if(Y||(c.retries=0),l.show("none"),l.locationCard(!1),a(i.audio,"setPaused",!1),H(),a(i.weapon,"setVisible",!0),g=!1,P){e.fade=0,T();return}h=V?Yi.retryIntroSeconds:Yi.introSeconds,f=V,p=V,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),o.show(!1),e.fade=1,a(i.audio,"setIntensity",.15),M("intro")}function T(){n.enabled=!0,o.show(!0),r.setGameplay&&r.setGameplay(!0),o.setObjective(D()),M("playing"),C(!0)}function D(){if(c.allCut)return"Return to the rescue perimeter";let P=c.relays.length-c.cut;return c.cut===0?"Cut the three uplink relays":P===1?"Cut the last relay":`Cut the remaining ${P} relays`}function C(P){let V=r.describeMode?r.describeMode():"";l.setLookMode(V),!(!P&&V===x)&&(x=V,_.state==="playing"&&(r.mode==="drag"||r.mode==="lock"&&!r.locked&&!i.params.shot&&!i.params.autostart)?o.message(V,r.mode==="drag"?7:4):_.state==="playing"&&r.locked&&o.message("",0))}r.onModeChange&&r.onModeChange(()=>C(!1)),i.events.on("input:lock",P=>{if(P.locked){g=!0,C(!1);return}_.state==="playing"&&g&&G(),g=!1}),document.addEventListener("visibilitychange",()=>{document.hidden&&_.state==="playing"&&G()}),addEventListener("keydown",P=>{_.state!=="title"||l.panelOpen||P.code!=="Enter"&&P.code!=="NumpadEnter"||P.target&&P.target.tagName==="BUTTON"||(a(i.audio,"resume"),r.requestLock(),U({}))});function G(){_.state==="playing"&&(r.setGameplay&&r.setGameplay(!1),r.exitLock(),a(i.audio,"setPaused",!0),l.setLookMode(r.mode==="drag"?r.describeMode():r.touch?"":"Resume recaptures the mouse."),o.show(!1),l.show("paused"),d=.35,M("paused"))}function j(P){_.state==="paused"&&(l.show("none"),a(i.audio,"setPaused",!1),o.show(!0),r.setGameplay&&r.setGameplay(!0),g=!1,r.requestLock(),M("playing"),setTimeout(()=>C(!0),700))}function N(P){let V=P==="gull"?"air":"ground",Y=s&&s.enemySpawns||[],L=Y.filter(Z=>Z.type===V);return L.length?L:Y}function Q(P,{minDist:V=Yi.spawnFar,from:Y=n.pos,preferHidden:L=!0}={}){let Z=N(P),J=null,oe=-1e9;for(let le of Z){let R=Math.hypot(le.pos.x-Y.x,le.pos.z-Y.z),I=i.rng()*1.5;if(I+=R>=V?2+Math.min(1,(R-V)/30)*.5:-(V-R)/4,L){b.copy(le.pos),b.y+=P==="gull"?0:1;let ae=!0;try{ae=i.physics.lineOfSight(b,n.eye)}catch{}ae||(I+=2.5)}let se=c.used.get(le);se!==void 0&&c.time-se<6&&(I-=3),I>oe&&(oe=I,J=le)}let fe=new W;if(J){c.used.set(J,c.time),fe.copy(J.pos);let le=(i.rng()-.5)*2.4,R=(i.rng()-.5)*2.4,I=P==="gull";try{I||(I=i.physics.nav.isWalkable(fe.x+le,fe.z+R,fe.y))}catch{I=!1}I&&(fe.x+=le,fe.z+=R)}else{let le=i.rng()*Math.PI*2;fe.set(Zn(Y.x+Math.cos(le)*26,-34,26),0,Zn(Y.z+Math.sin(le)*26,-26,24))}return P==="gull"&&fe.y<2.5&&(fe.y=6+i.rng()*3),fe}function K(P,V,Y){let L=null;try{L=i.enemies.spawn(P,V,Y)}catch(Z){console.error("[game] enemies.spawn threw",Z)}return L}function ie(){let P=s.playerStart&&s.playerStart.pos||n.pos;for(let V of["gull","hound"])for(let Y=0;Y<Yi.patrol[V];Y++)K(V,Q(V,{minDist:32,from:P,preferHidden:!0}),{state:"patrol"})}function F(P){let V=Yi.waves[Math.min(P,Yi.waves.length-1)],Y=[];for(let oe=0;oe<V.gull;oe++)Y.push("gull");for(let oe=0;oe<V.hound;oe++)Y.splice(Math.min(Y.length,1+oe*2),0,"hound");let L=0,Z=0;Y.forEach((oe,fe)=>{let le=Q(oe);L+=le.x-n.pos.x,Z+=le.z-n.pos.z,c.queue.push({type:oe,pos:le,at:c.time+1.6+fe*Yi.spawnStagger})}),c.waveHot=30;let J=(Math.atan2(L,-Z)*180/Math.PI+360)%360;o.warn&&o.warn("Contact \u2014 "+jC[Math.round(J/45)%8],3.4)}function X(P){let V=ne();for(let Y=0;Y<c.queue.length;Y++){let L=c.queue[Y];if(c.time<L.at)continue;if(V>=Yi.maxAlive){L.at=c.time+1;continue}if(!K(L.type,L.pos,{state:"alert",target:n.pos})&&!i.enemies.stub&&(L.tries=(L.tries||0)+1)<6){L.at=c.time+1.5;continue}c.queue.splice(Y,1),a(i.enemies,"alert",n.pos,60);break}if(c.allCut){if(c.pursuitT-=P,c.pursuitT<=0&&c.pursuitLeft>0&&!c.queue.length&&V<Yi.pursuitMinAlive){c.pursuitT=Yi.pursuitEvery,c.pursuitLeft--;let Y=i.rng()<.6?"gull":"hound";c.queue.push({type:Y,pos:Q(Y),at:c.time+.5})}c.pursuitT<=0&&(c.pursuitT=4,a(i.enemies,"alert",n.pos,90))}}function ne(){try{return i.enemies.aliveCount?i.enemies.aliveCount():i.enemies.list.filter(P=>P.alive).length}catch{return 0}}function re(P){let V=i.enemies&&i.enemies.list||[];for(let Y=0;Y<V.length;Y++){let L=V[Y];if(L&&L.alive&&L.pos&&Math.hypot(L.pos.x-n.pos.x,L.pos.z-n.pos.z)<P)return!0}return!1}i.events.on("enemy:alert",()=>{c.alertT=10,_.state==="playing"&&!c.contactSaid&&(c.contactSaid=!0,o.radio&&o.radio(_l.contact,3.2))}),i.events.on("player:hit",()=>{c.alertT=Math.max(c.alertT,8)}),i.events.on("player:rescued",()=>{_.state==="playing"&&o.message("Hauled out of the water",2.5)});function $(){let P=null,V=Yi.interactRange;for(let Y of c.relays){if(Y.cut)continue;let L=Y.o.pos.x-n.pos.x,Z=Y.o.pos.z-n.pos.z,J=Math.hypot(L,Z);J>V||Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||!i.physics.lineOfSight(n.eye,new W(Y.o.pos.x,Y.o.pos.y+1.25,Y.o.pos.z))||J>.9&&(L*n.forward.x+Z*n.forward.z)/(J*Math.max(.2,Math.hypot(n.forward.x,n.forward.z)))<Yi.interactFacing||(P=Y,V=J)}return P}function ue(P){let V=n.alive?$():null;for(let L of c.relays)L.cut||(L===V&&r.down("interact")?(L.cutting||(L.cutting=!0,O(L.o,"cutting")),L.t+=P/Yi.cutSeconds,i.events.emit("objective:progress",{id:L.id,t:Math.min(1,L.t)}),L.t>=1&&me(L)):L.t>0&&(L.t=Math.max(0,L.t-P*1.6),L.cutting&&(L.cutting=!1,O(L.o,"live"),i.events.emit("objective:progress",{id:L.id,t:0}))));V&&!V.cut?o.setPrompt&&o.setPrompt("Cut relay "+V.short,Fo(V.t)):o.setPrompt&&o.setPrompt(null);let Y=s.extraction;if(Y&&Y.pos){let L=Math.hypot(Y.pos.x-n.pos.x,Y.pos.z-n.pos.z),Z=L<(Y.radius||2.5)&&Math.abs(Y.pos.y-n.pos.y)<3.5;Z&&c.allCut&&n.alive?ee():Z&&!c.allCut&&c.extractHint<=0&&(c.extractHint=8,o.message("Relays still live \u2014 disable all three uplinks before extraction",3.5)),c.extractHint=Math.max(0,c.extractHint-P)}}function me(P){P.cut=!0,P.cutting=!1,P.t=1,c.cut++,O(P.o,"cut");let V=c.relays.length;i.events.emit("objective:done",{id:P.id,index:c.cut,total:V}),o.setRelays&&o.setRelays(c.cut,V),o.setPrompt&&o.setPrompt(null),n.addShake(.18),F(c.cut-1),c.cut>=V?(c.allCut=!0,c.pursuitLeft=Yi.pursuitExtra,c.pursuitT=12,i.events.emit("objective:all",{}),o.radio&&o.radio(_l.all,4.5)):o.radio&&o.radio(_l.cut[Math.min(c.cut-1,_l.cut.length-1)],3.6),o.setObjective(D()),q()}i.events.on("player:dead",()=>{_.state!=="playing"&&_.state!=="paused"||(r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),o.clearRadio&&o.clearRadio(),l.setDead({time:c.time,relays:c.cut,total:c.relays.length}),M("dead"))});function ee(){n.invulnerable=!0,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),i.events.emit("extraction:reached",{}),o.clearRadio&&o.clearRadio(),o.radio&&o.radio(_l.done,2.2);let P=i.combat&&i.combat.stats||{shots:0,hits:0,kills:0},V=P.shots>0?Zn(P.hits/P.shots,0,1):null,Y=(c.time<270?2:c.time<400?1:0)+(V>=.5?2:V>=.3?1:0)+(c.retries===0?1:0),L=["Messy","Loud","Steady","Clean","Sharp","Surgical"][Y];l.setDebrief({time:c.time,accuracy:V,kills:P.kills||0,retries:c.retries,rating:L}),M("complete")}function B(P){switch(u+=P,_.state){case"title":return z(P),!1;case"intro":return e.fade=1-sl(.25,Math.min(h,2.6),u),!f&&u>.5&&(f=!0,l.locationCard(!0)),!p&&u>1.3&&(p=!0,o.radio&&o.radio(_l.intro,4.2)),u>h-.6&&!o.root?.classList.contains("on")&&(o.show(!0),o.setObjective(D())),u>=h&&(l.locationCard(!1),e.fade=0,T()),!0;case"playing":{if(c.time+=P,e.fade=kn(e.fade||0,0,6,P),d>0&&(d-=P),r.pressed("pause"))return G(),!1;if(ue(P),_.state!=="playing")return!0;X(P),c.alertT=Math.max(0,c.alertT-P),c.waveHot=Math.max(0,c.waveHot-P);let V=ne();c.waveHot>0&&V===0&&!c.queue.length&&c.waveHot<24&&(c.waveHot=0);let Y=c.allCut||c.queue.length||c.waveHot>0&&V>0?1:c.alertT>0||V>0&&re(26)?.6:.15;return Y!==c.intensity&&(c.intensity=Y,a(i.audio,"setIntensity",Y)),r.mode==="lock"&&!r.locked&&!r.touch&&!i.params.shot&&!i.params.autostart?(y-=P,y<=0&&(y=2,o.message(r.describeMode(),2.6))):y=.8,!c.lowSaid&&n.alive&&n.health<30&&(c.lowSaid=!0,o.radio&&o.radio(_l.low,3)),!0}case"paused":return d>0?d-=P:r.pressed("pause")&&(l.closePanel()||j(!1)),!1;case"dead":return e.saturation=kn(e.saturation??1,.12,2.2,P),e.fade=kn(e.fade||0,.55,1.4,P),u>1.5&&l.screen!=="dead"&&(l.show("dead"),a(i.audio,"setIntensity",.15)),!0;case"complete":return e.fade=kn(e.fade||0,.72,.9,P),e.saturation=kn(e.saturation??1,t*.7,1,P),u>3.3&&l.screen!=="complete"&&(l.show("complete"),a(i.audio,"setIntensity",.15)),!0}return!1}return w(),n.enabled=!1,o.show(!1),a(i.weapon,"setVisible",!1),r.setGameplay&&r.setGameplay(!1),a(i.audio,"setIntensity",.15),i.params.shot||i.params.autostart||l.show("title"),_}var gM={mats:qg,level:cv,backdrop:mv,ground:vv,fx:Sv,weapon:Xv,enemies:ex,props:$g,render:Vg};window.__frames=0;window.__ready=!1;window.__fatal=null;window.__errors=[];var vM=document.getElementById("boot"),xM=document.getElementById("boot-msg"),yM=document.getElementById("boot-fill");function bM(i){window.__fatal=String(i),console.error("[fatal] "+i);let e=document.getElementById("fatal");e||(e=document.createElement("div"),e.id="fatal",document.getElementById("app").appendChild(e)),e.textContent="Saltline could not start: "+i}window.addEventListener("error",i=>{window.__errors.push(String(i.message))});{let i=console.error.bind(console);console.error=(...e)=>{try{window.__errors.push(e.map(t=>t&&t.stack||String(t)).join(" ").slice(0,400))}catch{}i(...e)}}var KC=()=>new Promise(i=>setTimeout(i,0));async function Nr(i,e){xM&&(xM.textContent=i),yM&&(yM.style.width=Math.round(e*100)+"%"),await KC()}async function QC(){let i=Object.fromEntries(new URLSearchParams(location.search)),e=!!i.bench||location.hash==="#bench";e&&(i.noaudio="1",i.autostart="1");let t={THREE:lt,params:i,events:Dy(),rng:il(+(i.seed||4207)),time:{t:0,dt:0,frame:0,real:0},quality:zy(i.q||(i.shot?"test":""))};window.__G=t;let n=i.show&&gM[i.show]?i.show:null;t.showcase=n;let s=null;function o(h){if(h.cam){let f=String(h.cam).split(",").map(Number);s={pos:new W(f[0],f[1],f[2]),look:new W(f[3]??0,f[4]??1,f[5]??0)}}h.cam===""&&(s=null),h.fov&&(t.camera.fov=+h.fov,t.camera.updateProjectionMatrix()),h.exposure&&(t.render.exposure=+h.exposure)}window.__setShot=o;async function r(h,f,p,d=!1){let v=performance.now();try{t[h]=await p()}catch(x){if(console.error(`[boot] module "${h}" failed: ${x&&x.stack||x}`),d||!dr[h])throw x;t[h]=dr[h]()}let g=performance.now()-v;g>150&&console.log(`[boot] ${h} ${g.toFixed(0)}ms`)}if(await Nr("Waking the renderer",.04),await r("render","render",()=>Hg(t),!0),t.renderer=t.render.renderer,t.scene=t.render.scene,t.camera=t.render.camera,t.viewCamera=t.render.viewCamera,await Nr("Mixing paint, rust and rain",.12),await r("mats","materials",()=>Gg(t)),t.physics=sAP(d3(t),t),t.props=Yg(t),t.input=n?tP():v_(t),n){let h=Qi(new rn(80,80).rotateX(-Math.PI/2),t.mats.get("concrete"),{cast:!1});if(t.scene.add(h),t.level={stub:!0,playerStart:{pos:new W(0,0,4),yaw:0},objectives:[],enemySpawns:[],zones:[],interiorBoxes:[],cinematicPath:[],extraction:{pos:new W,radius:2},groundSurfaceAt:()=>"concrete",update(){}},t.backdrop=dr.backdrop(),t.ground=dr.ground(),t.physics.build(),n==="fx")await r("fx","fx",()=>Cf(t));else try{t.fx=await Cf(t)}catch{t.fx=dr.fx()}t.audio=dr.audio(),t.hud=dr.hud(),t.player=nP(t),t.combat=zv(t),t.weapon=dr.weapon(),t.enemies=dr.enemies(),t.game={state:"showcase",update:()=>!1,start(){}};let f=null;try{f=await gM[n].showcase(t)}catch(p){bM(`showcase "${n}" threw: ${p&&p.stack||p}`)}t.showcaseInfo=f||{},f&&f.cam&&o({cam:[...f.cam,...f.target||[0,1,0]].join(",")})}else{if(await Nr("Stacking containers",.34),await r("level","level",()=>C1(t),!0),await Nr("Raising the cranes",.5),await r("backdrop","backdrop",()=>assaultHarbor(t)),await Nr("Flooding the apron",.58),await r("ground","ground",()=>assaultGround(t)),t.ground.stub){let h=Qi(new rn(400,400).rotateX(-Math.PI/2),t.mats.get("asphalt"),{cast:!1});t.scene.add(h)}t.physics.build(),await Nr("Loading tracers and smoke",.66),await r("fx","fx",()=>Cf(t)),await r("audio","audio",()=>i.noaudio?dr.audio():c_(t)),t.player=x_(t),t.combat=zv(t),await Nr("Checking the rifle",.74),await r("weapon","weapon",()=>dm(t)),await Nr("Waking the Harbormaster",.82),await r("enemies","enemies",()=>Em(t)),await r("hud","hud",()=>hM(t)),t.game=mM(t)}await Nr("Waiting for first light",.92);try{await t.render.onLevelReady()}catch(h){console.error("[boot] render.onLevelReady failed: "+(h&&h.stack||h))}await assaultPrewarm(t);let a=0;if(window.__stats=()=>({...t.render.stats?t.render.stats():{},fps:a?+(1/a).toFixed(1):0,state:t.game&&t.game.state}),i.cam&&o(i),i.fov&&o({fov:i.fov}),!n&&(i.shot||i.autostart))try{t.game.start({skipIntro:!0})}catch(h){console.error("[boot] game.start failed",h)}i.noweapon&&t.weapon.setVisible&&t.weapon.setVisible(!1),e&&eP(t),await Nr("Ready",1),vM.classList.add("done"),setTimeout(()=>{vM.hidden=!0},700);let l=performance.now(),c=1,u=(h,f)=>{let p=t[h];if(p&&p.update)try{p.update(f)}catch(d){u.err[h]||(u.err[h]=1,console.error(`[loop] ${h}.update threw: ${d&&d.stack||d}`))}};u.err={},t.renderer.setAnimationLoop(()=>{let h=performance.now(),f=(h-l)/1e3;l=h,a=a?a*.95+f*.05:f;let p=Math.min(f,.05);i.dt&&(p=+i.dt),t.time.dt=p,t.time.t+=p,t.time.real=h/1e3,t.time.frame++,u("input",p);let d=!1;try{d=t.game.update(p)!==!1&&t.game.state!=="title"&&t.game.state!=="paused"}catch(v){u.err.game||(u.err.game=1,console.error("[loop] game.update threw: "+(v&&v.stack||v)))}if(n){if(t.showcaseInfo.update)try{t.showcaseInfo.update(p)}catch(v){u.err.sc||(u.err.sc=1,console.error("[loop] showcase update threw: "+(v&&v.stack||v)))}}else d&&(u("player",p),u("weapon",p),u("enemies",p));if(t.weapon&&t.weapon.setWetness&&t.level&&t.level.interiorBoxes&&t.level.interiorBoxes[0]){let v=t.level.interiorBoxes[0],g=t.camera.position,x=g.x>v.min.x&&g.x<v.max.x&&g.z>v.min.z&&g.z<v.max.z&&g.y<v.max.y;c+=((x?.3:1)-c)*Math.min(1,p*(x?.25:.6));try{t.weapon.setWetness(c)}catch{}}t.game.state!=="paused"&&(u("fx",p),u("ground",p),u("level",p),u("backdrop",p),u("mats",p)),u("audio",p),u("hud",p),s&&(t.camera.position.copy(s.pos),t.camera.lookAt(s.look)),t.bench&&t.bench.frame(f);try{t.render.frame(p)}catch(v){u.err.render||(u.err.render=1,console.error("[loop] render.frame threw: "+(v&&v.stack||v)))}t.input.endFrame&&t.input.endFrame(),window.__frames++,window.__frames===2&&(window.__ready=!0)})}function eP(i){let e=document.createElement("pre");e.id="bench",e.style.cssText='position:absolute;left:12px;top:12px;z-index:90;margin:0;padding:10px 12px;font:12px/1.45 "IBM Plex Mono",ui-monospace,monospace;color:#d8f0d0;background:rgba(0,0,0,.72);white-space:pre-wrap;max-width:min(560px,90vw);pointer-events:none',document.getElementById("app").appendChild(e);let t="unknown";try{let f=i.renderer.getContext(),p=f.getExtension("WEBGL_debug_renderer_info");t=p?f.getParameter(p.UNMASKED_RENDERER_WEBGL):f.getParameter(f.RENDERER)}catch{}let n=i.level.cinematicPath&&i.level.cinematicPath.length>=2?i.level.cinematicPath:[{pos:[-32,1.7,6],look:[0,2,5]},{pos:[10,1.7,6],look:[30,6,0]}],s=[],o=0,r=0,a=30,l=new W,c=new W,u=new W,h=new W;i.player&&(i.player.enabled=!1),i.bench={frame(f){o+=f;let p=o/a%1*(n.length-1),d=Math.min(n.length-2,Math.floor(p)),v=p-d,g=v*v*(3-2*v);if(l.fromArray(n[d].pos),c.fromArray(n[d+1].pos),u.fromArray(n[d].look),h.fromArray(n[d+1].look),i.camera.position.lerpVectors(l,c,g),i.camera.lookAt(u.lerp(h,g)),o>2&&s.push(f*1e3),s.length>3e3&&s.shift(),o-r>1&&s.length>10){r=o;let x=s.slice().sort((M,E)=>M-E),y=x.reduce((M,E)=>M+E,0)/x.length,b=x[Math.floor(x.length*.99)],m=x[x.length>>1],A=i.render.stats?i.render.stats():{},_=i.renderer.getDrawingBufferSize(new Ae);e.textContent=`SALTLINE BENCH  t=${o.toFixed(0)}s
 GPU: ${t}
 buffer ${_.x}x${_.y}  quality ${i.quality.name}  dpr ${window.devicePixelRatio}
 frame ms avg ${y.toFixed(1)}  median ${m.toFixed(1)}  p99 ${b.toFixed(1)}  => ${(1e3/y).toFixed(0)} fps

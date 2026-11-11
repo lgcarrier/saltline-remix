@@ -5,7 +5,7 @@ if(!await page.evaluate(()=>!!window.__G?.params?.shot)){
  await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:90000});
  await page.waitForFunction(()=>document.querySelector('#boot')?.hidden,null,{timeout:90000});
 }
-const shots=[
+const shots=globalThis.captureShots||[
  ['cargo-yard',[3,1.7,-22,-7,2.5,-32]],
  ['west-cargo',[-25,1.7,-34.6,-21,4.5,-38]],
  ['yard',[0,1.7,-30,0,6,-44]],

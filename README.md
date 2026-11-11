@@ -4,7 +4,7 @@ A remix of **Saltline**, the fully procedural browser FPS by [Felix Rieseberg](h
 
 The supplied Counter-Strike 1.6 `cs_assault.bsp` is rebuilt inside Saltline, preserving its procedural materials, props, weapon, security robots, effects, audio, and rendering pipeline. The warehouse, loading yard, office, upper ramps, roof, vents, ladders, and surrounding streets come from the actual BSP geometry.
 
-The current revision replaces the hall's hybrid wooden/container block with three original maritime containers and refines structural metal, timber wear, puddle edges and truck materials. GPU preparation, rear-gallery lighting and soft contact shadows remain. See the [latest review](docs/ASSAULT-V8-REVIEW.md) for measured frame pacing and full-route tests.
+The current revision surrounds Assault with Saltline's original giant crane, KITTIWAKE cargo ship, animated ocean and 93 maritime containers arranged in terminal rows. The warehouse roof and elevated western road reveal the port beyond the playable map. See the [latest review](docs/ASSAULT-V9-REVIEW.md) for sightline verification, frame pacing and route tests.
 
 ## Play
 
@@ -50,7 +50,9 @@ The reusable [high-fidelity-game-dev skill](skills/high-fidelity-game-dev/SKILL.
 
 See [the production brief](docs/ASSAULT-BRIEF.md) and [the review record](docs/ASSAULT-REVIEW.md) for input-based traversal, measured rendering conditions, and remaining limitations. The target is photorealistic AAA presentation; the current result is a playable procedural remake and does **not** establish that target. The source map silhouettes and procedural asset fidelity still limit some views.
 
-![Saltline Assault hall containers](output/playwright/assault/v8-final-hall-stack.png)
+![Saltline crane from the warehouse roof](output/playwright/assault/v9-final-crane-roof.png)
+
+![KITTIWAKE from the western road](output/playwright/assault/v9-final-ship-road.png)
 
 Earlier screenshots and [gantry remix notes](docs/SALTLINE-GANTRY-README.md) are preserved. The source map archive and its attribution are unchanged. Game geometry, materials, models, and sound are embedded/generated locally; the UI has local fallback fonts when Google Fonts is unavailable.
 

@@ -30,10 +30,7 @@ async function assaultGround(i) {
   ground.apron.geometry.dispose();ground.apron.geometry=pavement;
   ground.apron.position.set(0,0,0);ground.apron.rotation.set(0,0,0);ground.apron.scale.set(1,1,1);ground.apron.updateMatrix();
   ground.apron.frustumCulled=true;
-  for(const mesh of [...ground.root.children])if(mesh===ground.sea||mesh.name==='quaySkirt') {
-    ground.root.remove(mesh);mesh.geometry?.dispose();mesh.material?.dispose();
-  }
-  ground.sea=null;ground.seaHeight=()=>-Infinity;
+  ground.harbor=assaultHarborWater(i,ground);
 
   // Blank the original BERTH 4/container-lane markings. The scene owns actual
   // painted loading lines, so there is only one source of yard wayfinding.
@@ -181,7 +178,7 @@ vec2 assaultField(vec2 worldXZ){
       mat.vertexShader=mat.vertexShader.replace('kill = 1.0 - uDrip;','kill = 1.0;');
       mat.vertexShader=mat.vertexShader.replace(
         'if (p.y < (p.x > 30.0 ? -1.6 : 0.0)) kill = 1.0;',
-        'if (p.y < max(0.0, assaultField(p.xz).g * 32.0 - 0.06)) kill = 1.0;');
+        'if (p.y < ((p.x >= 75.0 || p.x <= -75.0) ? -1.6 : max(0.0, assaultField(p.xz).g * 32.0 - 0.06))) kill = 1.0;');
     }else{
       mat.vertexShader=mat.vertexShader.replace(
         'if (p.x > 29.7 || wInside(p + vec3(0.0, 0.2, 0.0))) kill = 1.0;',
@@ -205,7 +202,7 @@ vec2 assaultField(vec2 worldXZ){
   // A standing pool remains smoother than damp wall paint at the default wet
   // setting. Zero wetness still produces a dry yard, and the slider stays live.
   ground.uniforms.uWetG={value:Math.min(1,globalWet.value*1.65)};
-  const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:false,maskResolution:size,
+  const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:true,harbor:ground.harbor,maskResolution:size,
     maskRect:[Li.x0,Li.z0,Li.size],pavementSquareMetres:+(pavementPixels*step*step).toFixed(1),
     shelteredSquareMetres:+(shelteredPixels*step*step).toFixed(1),
     puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),

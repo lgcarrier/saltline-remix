@@ -1,0 +1,1437 @@
+{
+  "hash": "4fb9473e186e471f3dd33f01dd98b60ae01f9aa14e0dd78a124fd07b430af4da",
+  "warmup": {
+    "complete": true,
+    "meshes": 498,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "28ec7382-9fe4-494f-835c-84214852fb41",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "a0a02266-b714-40e8-9ce3-bbb17c1ffb25",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "ae47c06a-c408-4122-956e-f59ea6f353d8",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "f059ae3e-aed7-49ef-9f8b-b5b8ecd7cd80",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "880ca53d-19bd-4ed3-8f88-bd59064685f0",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 445,
+      "textures": 161
+    },
+    "after": {
+      "geometries": 482,
+      "textures": 201
+    },
+    "restored": true,
+    "elapsedMs": 256.5,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "harbor": {
+    "source": "original Saltline z1/vb/pb",
+    "craneId": "SALTLINE 04",
+    "shipName": "KITTIWAKE",
+    "placements": {
+      "crane": {
+        "scale": 2.5,
+        "nativePivot": [
+          23.5,
+          0,
+          0
+        ],
+        "worldPivot": [
+          60,
+          0,
+          40
+        ],
+        "translation": [
+          1.25,
+          0,
+          40
+        ]
+      },
+      "ship": {
+        "scale": 1,
+        "yaw": 3.141592653589793,
+        "translation": [
+          -45,
+          0,
+          -82.5
+        ]
+      }
+    },
+    "triangles": 664126,
+    "drawCalls": 63,
+    "shadowMeshes": 16,
+    "collidersRegistered": 0,
+    "lightsAdded": 0,
+    "waterY": -1.6,
+    "quayX": 75,
+    "quays": {
+      "east": 75,
+      "west": -75
+    },
+    "bounds": {
+      "min": [
+        -94.38000106811523,
+        -4.400000095367432,
+        -121
+      ],
+      "max": [
+        158.50000381469727,
+        83.99999618530273,
+        80
+      ]
+    },
+    "craneBounds": {
+      "min": [
+        31.25,
+        -0.10000001639127731,
+        19.849998950958252
+      ],
+      "max": [
+        158.50000381469727,
+        83.99999618530273,
+        60.15000104904175
+      ]
+    },
+    "shipBounds": {
+      "min": [
+        -94.29999923706055,
+        -4.400000095367432,
+        -80.53370928764343
+      ],
+      "max": [
+        -73.87664031982422,
+        35.2599983215332,
+        -0.160003662109375
+      ]
+    },
+    "terminal": {
+      "containers": 93,
+      "byRegion": {
+        "east": 57,
+        "west": 28,
+        "north": 8
+      },
+      "meshes": 36,
+      "triangles": 600452,
+      "labelsAtlased": 7,
+      "source": "original Saltline container40 builder; full geometry",
+      "collision": "none; all cargo and quay additions are outside native bounds",
+      "nativeBounds": {
+        "min": [
+          -68.2752,
+          0,
+          -79.6544
+        ],
+        "max": [
+          30.8864,
+          19.5072,
+          27.6352
+        ]
+      },
+      "placements": [
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            5.18,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            5.18,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            7.77,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            5.18,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            5.18,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            7.77,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            5.18,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            0,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            39,
+            2.59,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            5.18,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            5.18,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            7.77,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            5.18,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            5.18,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            7.77,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            5.18,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            0,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            44.5,
+            2.59,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            5.18,
+            -103
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            5.18,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            7.77,
+            -88
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            5.18,
+            -73
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            5.18,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            7.77,
+            -58
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 4
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            5.18,
+            -28
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            0,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "east",
+          "name": "container40",
+          "pos": [
+            51,
+            2.59,
+            -13
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            0,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            2.59,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            5.18,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            7.77,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 4
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            0,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            2.59,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            5.18,
+            -78
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            0,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            2.59,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            5.18,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            7.77,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 4
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            10.36,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 5
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            0,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            2.59,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            5.18,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            7.77,
+            -26
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 4
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            0,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            2.59,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            5.18,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            7.77,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 4
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            0,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            2.59,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            5.18,
+            -11
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            0,
+            4
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "teal",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            2.59,
+            4
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 2
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -73.4,
+            5.18,
+            4
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 3
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            0,
+            4
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "west",
+          "name": "container40",
+          "pos": [
+            -69.9,
+            2.59,
+            4
+          ],
+          "yaw": 1.5707963267948966,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -58,
+            0,
+            -88
+          ],
+          "yaw": 0,
+          "color": "red",
+          "layer": 1
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -58,
+            2.59,
+            -88
+          ],
+          "yaw": 0,
+          "color": "blue",
+          "layer": 2
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -58,
+            5.18,
+            -88
+          ],
+          "yaw": 0,
+          "color": "teal",
+          "layer": 3
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -58,
+            7.77,
+            -88
+          ],
+          "yaw": 0,
+          "color": "red",
+          "layer": 4
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -43,
+            0,
+            -88
+          ],
+          "yaw": 0,
+          "color": "blue",
+          "layer": 1
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -43,
+            2.59,
+            -88
+          ],
+          "yaw": 0,
+          "color": "teal",
+          "layer": 2
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -43,
+            5.18,
+            -88
+          ],
+          "yaw": 0,
+          "color": "red",
+          "layer": 3
+        },
+        {
+          "region": "north",
+          "name": "container40",
+          "pos": [
+            -43,
+            7.77,
+            -88
+          ],
+          "yaw": 0,
+          "color": "blue",
+          "layer": 4
+        }
+      ],
+      "regionBounds": {
+        "east": {
+          "min": [
+            33.5,
+            -2.2,
+            -121
+          ],
+          "max": [
+            75,
+            10.36,
+            80
+          ]
+        },
+        "west": {
+          "min": [
+            -75,
+            -2.2,
+            -91
+          ],
+          "max": [
+            -68.2752,
+            12.95,
+            25
+          ]
+        },
+        "north": {
+          "min": [
+            -70,
+            -1.8,
+            -95
+          ],
+          "max": [
+            25,
+            10.36,
+            -82
+          ]
+        }
+      }
+    },
+    "animatedAssemblies": [
+      "crane spreader sway",
+      "ship radar",
+      "navigation lamp blink"
+    ]
+  },
+  "ground": {
+    "system": "original Saltline O1/Ib/Nb/zb",
+    "sea": true,
+    "harbor": {
+      "system": "original Saltline kb ocean",
+      "seaY": -1.6,
+      "basins": {
+        "east": {
+          "shorelineX": 75,
+          "sourceOffset": [
+            45,
+            0,
+            -25
+          ],
+          "yaw": 0,
+          "shipFoam": false,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              75,
+              -1.600000023841858,
+              -905
+            ],
+            "max": [
+              927.5,
+              -1.600000023841858,
+              855
+            ]
+          }
+        },
+        "west": {
+          "shorelineX": -75,
+          "sourceOffset": [
+            -45,
+            0,
+            -82.5
+          ],
+          "yaw": 3.141592653589793,
+          "shipFoam": true,
+          "shaderPatched": true,
+          "worldBounds": {
+            "min": [
+              -927.5,
+              -1.600000023841858,
+              -962.5
+            ],
+            "max": [
+              -75,
+              -1.600000023841858,
+              797.5
+            ]
+          }
+        }
+      },
+      "triangles": 53324,
+      "removedWraparoundTriangles": 6,
+      "drawCalls": 4,
+      "sharedSeaGeometry": true,
+      "sharedSkirtGeometry": true,
+      "extraTextureReads": 0,
+      "extraRenderTargets": 0,
+      "extraLights": 0,
+      "extraUpdateCallbacks": 0,
+      "originalTimeUniform": true,
+      "originalReflectionExclusion": true
+    },
+    "maskResolution": 1024,
+    "maskRect": [
+      -71,
+      -77,
+      108
+    ],
+    "pavementSquareMetres": 3172.7,
+    "shelteredSquareMetres": 258.3,
+    "puddleSquareMetres": 221.9,
+    "previousPuddleSquareMetres": 236.5,
+    "raisedOrReshapedSquareMetres": 40.8,
+    "maskRefinementMs": 50,
+    "puddleShape": "shared warped depressions with aggregate crowns",
+    "planarScale": 0.35,
+    "reflectionPasses": 105,
+    "reflectionSkipped": 0
+  },
+  "stats": {
+    "calls": 450,
+    "tris": 1566750,
+    "geos": 482,
+    "tex": 207,
+    "programs": 255,
+    "res": [
+      1600,
+      900
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "fps": 59.3,
+    "state": "title"
+  },
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  },
+  "errors": []
+}

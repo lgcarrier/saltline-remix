@@ -1,0 +1,128 @@
+{
+  "documentSha256": "4fb9473e186e471f3dd33f01dd98b60ae01f9aa14e0dd78a124fd07b430af4da",
+  "state": {
+    "state": "intro",
+    "cut": 0,
+    "health": 100,
+    "invulnerable": false,
+    "pos": [
+      16.256,
+      0,
+      -4.064
+    ],
+    "combat": {
+      "shots": 0,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": [],
+    "lighting": {
+      "directLights": 11,
+      "bakedDirectLights": 10,
+      "fixtures": 20,
+      "fixtureDrawCalls": 4,
+      "bouncePatches": 100,
+      "probes": 2245,
+      "visibilityRays": 69646,
+      "clippedProbes": 0,
+      "patchedMaterials": 44,
+      "bakeMs": 440,
+      "method": "static occluded diffuse and one-bounce volumes",
+      "rearBakedFixtures": 8,
+      "shadowLights": 3,
+      "shadowBakes": 1,
+      "shadowBakeMs": 1.4,
+      "shadowPassDrawCalls": 416,
+      "shadowMaps": [
+        1024,
+        1024,
+        1024
+      ],
+      "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+      "shadowMapRefreshes": 3,
+      "shadowIgnoredChanges": 0,
+      "shadowPerLight": [
+        {
+          "index": 0,
+          "position": [
+            6.9088,
+            10.163200000000002,
+            -62.179199999999994
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.5,
+          "lastDrawCalls": 118,
+          "occluders": [
+            "func_door_rotating_11"
+          ]
+        },
+        {
+          "index": 1,
+          "position": [
+            -6.9088,
+            10.163200000000002,
+            -62.179199999999994
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.2,
+          "lastDrawCalls": 130,
+          "occluders": []
+        },
+        {
+          "index": 2,
+          "position": [
+            -20.32,
+            12.1868,
+            -62.5856
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.4,
+          "lastDrawCalls": 168,
+          "occluders": [
+            "func_door_71",
+            "func_door_72",
+            "func_breakable_67"
+          ]
+        }
+      ],
+      "irradianceEncoding": "RGBA16F",
+      "relocatedProbes": 96,
+      "maxProbeIrradiance": 9.319
+    }
+  },
+  "routes": [
+    {
+      "harborRoad": {
+        "ok": false,
+        "reason": "intro",
+        "result": [],
+        "state": {
+          "p": [
+            16.256,
+            0,
+            -4.064
+          ],
+          "yaw": 0,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "intro"
+        }
+      }
+    }
+  ],
+  "performance": {
+    "all": {
+      "samples": 0,
+      "seconds": 0,
+      "meanFPS": null,
+      "over25ms": 0,
+      "over33_4ms": 0
+    },
+    "zones": {}
+  },
+  "normalInputOnly": true
+}
