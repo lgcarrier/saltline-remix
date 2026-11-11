@@ -1,0 +1,13 @@
+{
+  "offOn": {
+    "meanChannelDifference": 0.000001388888888888889,
+    "p99ChannelDifference": 0,
+    "differentPixelsPct": 0.00034722222222222224
+  },
+  "offOffCosmeticBaseline": {
+    "meanChannelDifference": 0,
+    "p99ChannelDifference": 0,
+    "differentPixelsPct": 0
+  },
+  "note": "Frozen staged view retains cosmetic randomness; not pixel-identical images."
+}

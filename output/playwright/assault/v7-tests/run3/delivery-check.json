@@ -1,0 +1,287 @@
+{
+  "documentSha256": "af7abcac640cd07d24c70ccca1a74ea6f7f48b19bb854dfa4d3485588e6268a8",
+  "reset": {
+    "state": "playing",
+    "cut": 0,
+    "health": 100,
+    "invulnerable": false,
+    "broken": [],
+    "ladder": false,
+    "errors": []
+  },
+  "standalone": {
+    "url": "file:// local index.html",
+    "boot": {
+      "ready": true,
+      "fatal": null,
+      "errors": [],
+      "stats": {
+        "calls": 425,
+        "tris": 763408,
+        "geos": 425,
+        "tex": 195,
+        "programs": 222,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 33,
+        "state": "title"
+      },
+      "materials": 48,
+      "propBuilders": 36,
+      "vehicle": {
+        "triangles": 12864,
+        "meshes": 8,
+        "wheels": 4,
+        "sourceEnvelope": {
+          "min": [
+            5.6896,
+            0,
+            -10.418318
+          ],
+          "max": [
+            13.208,
+            2.8448,
+            -6.2992
+          ]
+        }
+      }
+    },
+    "movement": {
+      "ok": true,
+      "result": [
+        {
+          "target": [
+            16.625,
+            0,
+            -7.875
+          ],
+          "state": {
+            "p": [
+              16.602386397565137,
+              0,
+              -7.843991309352113
+            ],
+            "yaw": 0.008190000200271594,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 906
+        },
+        {
+          "target": [
+            13.625,
+            0,
+            -10.875
+          ],
+          "state": {
+            "p": [
+              13.72524774062588,
+              0,
+              -10.725361140545253
+            ],
+            "yaw": 0.9250499999999998,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1272
+        },
+        {
+          "target": [
+            7.625,
+            0,
+            -10.875
+          ],
+          "state": {
+            "p": [
+              7.921570685566204,
+              0,
+              -10.905569475326844
+            ],
+            "yaw": 1.5607200001001358,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1389
+        },
+        {
+          "target": [
+            6.125,
+            0,
+            -13.125
+          ],
+          "state": {
+            "p": [
+              6.28132468601759,
+              0,
+              -12.823486688262786
+            ],
+            "yaw": 0.5004300004005428,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1083
+        },
+        {
+          "target": [
+            6.125,
+            0,
+            -24
+          ],
+          "state": {
+            "p": [
+              6.100319892800888,
+              0,
+              -23.94535153579697
+            ],
+            "yaw": -0.2469599992990498,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 2191
+        }
+      ],
+      "state": {
+        "p": [
+          6.100319892800888,
+          0,
+          -23.94535153579697
+        ],
+        "yaw": -0.2469599992990498,
+        "pitch": 0,
+        "crouching": false,
+        "health": 100,
+        "state": "playing"
+      }
+    },
+    "cargoAisles": {
+      "ok": true,
+      "result": [
+        {
+          "target": [
+            -0.5,
+            0,
+            -29.4
+          ],
+          "state": {
+            "p": [
+              -0.24289301813432007,
+              0,
+              -29.223895724656302
+            ],
+            "yaw": 0.891030000901222,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 2039
+        },
+        {
+          "target": [
+            -15.7,
+            0,
+            -29.4
+          ],
+          "state": {
+            "p": [
+              -15.497744779026663,
+              0,
+              -29.416921433637572
+            ],
+            "yaw": 1.7280900007009503,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 3000
+        },
+        {
+          "target": [
+            -16.2,
+            0,
+            -34.6
+          ],
+          "state": {
+            "p": [
+              -16.180307947175752,
+              0,
+              -34.48219771765077
+            ],
+            "yaw": -0.009449998998642323,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1875
+        },
+        {
+          "target": [
+            -1.3,
+            0,
+            -34.6
+          ],
+          "state": {
+            "p": [
+              -1.558547102257079,
+              0,
+              -34.672245018708814
+            ],
+            "yaw": -1.7780699995994573,
+            "pitch": 0,
+            "crouching": false,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 3309
+        }
+      ],
+      "state": {
+        "p": [
+          -1.558547102257079,
+          0,
+          -34.672245018708814
+        ],
+        "yaw": -1.7780699995994573,
+        "pitch": 0,
+        "crouching": false,
+        "health": 100,
+        "state": "playing"
+      }
+    },
+    "end": {
+      "state": "paused",
+      "health": 100,
+      "combat": {
+        "shots": 7,
+        "hits": 0,
+        "kills": 0
+      },
+      "ammo": 30,
+      "errors": []
+    },
+    "motionErrors": []
+  },
+  "video": {
+    "file": "gameplay-motion.webm",
+    "inputOnly": true,
+    "audioRecorded": false,
+    "performanceBenchmark": false
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "hash": "95518713b61be28dc4096e1f198f118b57fedabde7eaa35a7d867925373451b8",
+  "ready": true,
+  "errors": [],
+  "warmup": {
+    "complete": true,
+    "meshes": 439,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "145a6f36-79f6-402f-9823-95ee127ae3e0",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "06eb902b-5319-4043-bfbb-0afc3dc0bf0e",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "f8705533-2adf-4075-a638-9ebd4ccb5aae",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "c227581a-acc2-490e-88f7-a6132d70acc7",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "1db313e6-6761-4196-8516-3f01d0407ab6",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 385,
+      "textures": 158
+    },
+    "after": {
+      "geometries": 425,
+      "textures": 198
+    },
+    "restored": true,
+    "elapsedMs": 804.2,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ]
+  },
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  },
+  "lighting": {
+    "directLights": 11,
+    "bakedDirectLights": 10,
+    "fixtures": 20,
+    "fixtureDrawCalls": 4,
+    "bouncePatches": 100,
+    "probes": 2245,
+    "visibilityRays": 69646,
+    "clippedProbes": 0,
+    "patchedMaterials": 46,
+    "bakeMs": 426,
+    "method": "static occluded diffuse and one-bounce volumes",
+    "rearBakedFixtures": 8,
+    "shadowLights": 3,
+    "shadowBakes": 1,
+    "shadowBakeMs": 2,
+    "shadowPassDrawCalls": 412,
+    "shadowMaps": [
+      1024,
+      1024,
+      1024
+    ],
+    "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+    "shadowMapRefreshes": 3,
+    "shadowIgnoredChanges": 0,
+    "shadowPerLight": [
+      {
+        "index": 0,
+        "position": [
+          6.9088,
+          10.163200000000002,
+          -62.179199999999994
+        ],
+        "refreshes": 1,
+        "invalidations": 0,
+        "lastMs": 0.6,
+        "lastDrawCalls": 118,
+        "occluders": [
+          "func_door_rotating_11"
+        ]
+      },
+      {
+        "index": 1,
+        "position": [
+          -6.9088,
+          10.163200000000002,
+          -62.179199999999994
+        ],
+        "refreshes": 1,
+        "invalidations": 0,
+        "lastMs": 0.7,
+        "lastDrawCalls": 128,
+        "occluders": []
+      },
+      {
+        "index": 2,
+        "position": [
+          -20.32,
+          12.1868,
+          -62.5856
+        ],
+        "refreshes": 1,
+        "invalidations": 0,
+        "lastMs": 0.3,
+        "lastDrawCalls": 166,
+        "occluders": [
+          "func_door_71",
+          "func_door_72",
+          "func_breakable_67"
+        ]
+      }
+    ],
+    "irradianceEncoding": "RGBA16F",
+    "relocatedProbes": 96,
+    "maxProbeIrradiance": 9.319
+  },
+  "stats": {
+    "calls": 713,
+    "tris": 1155369,
+    "geos": 425,
+    "tex": 195,
+    "programs": 222,
+    "res": [
+      1600,
+      900
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "fps": 58.4,
+    "state": "title"
+  },
+  "state": "title",
+  "actors": []
+}

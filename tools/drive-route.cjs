@@ -2,7 +2,7 @@
 // for feedback; movement, turning, jumping and interaction use browser keys.
 module.exports = async function drive(page, targets, options={}) {
   const sleep=ms=>new Promise(r=>setTimeout(r,ms)), result=[];
-  const state=()=>page.evaluate(()=>({p:__G.player.pos.toArray(),yaw:__G.player.yaw,pitch:__G.player.pitch,health:__G.player.health,state:__G.game.state}));
+  const state=()=>page.evaluate(()=>({p:__G.player.pos.toArray(),yaw:__G.player.yaw,pitch:__G.player.pitch,crouching:__G.player.crouching,health:__G.player.health,state:__G.game.state}));
   const delta=a=>Math.atan2(Math.sin(a),Math.cos(a));
   await page.bringToFront();
   for(const target of targets){
@@ -14,8 +14,11 @@ module.exports = async function drive(page, targets, options={}) {
       const turn=delta(Math.atan2(-dx,-dz)-s.yaw);
       if(Math.abs(turn)>.09){const key=turn>0?'ArrowLeft':'ArrowRight';await page.keyboard.down(key);await sleep(Math.min(180,Math.max(25,Math.abs(turn)/2.1*900)));await page.keyboard.up(key);continue;}
       await page.keyboard.down('w');
+      const sprint=!!options.sprint&&distance>2.5&&!s.crouching&&target[3]!=='jump';
+      if(sprint)await page.keyboard.down('Shift');
       if(target[3]==='jump')await page.keyboard.down('Space');
-      await sleep(Math.min(180,Math.max(45,distance/3.8*800)));
+      await sleep(Math.min(180,Math.max(45,distance/(sprint?6.4:3.8)*800)));
+      if(sprint)await page.keyboard.up('Shift');
       await page.keyboard.up('w');if(target[3]==='jump')await page.keyboard.up('Space');
       const p=(await state()).p;
       if(last&&Math.hypot(p[0]-last[0],p[2]-last[2])<.02)stuck++;else stuck=0;

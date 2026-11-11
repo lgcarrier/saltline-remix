@@ -2,9 +2,16 @@
  * supplied BSP; these additions describe construction, without moving its walls.
  * Called after source collision is installed and before the navigation build. */
 function assaultCargoStacks(map){
+  // The hall's central cover is one native assembly: a wooden lower brush and
+  // two container-textured upper layers. Select its complete material family
+  // inside the exact envelope, without touching the adjoining small crate tower.
+  const hallMin=[12.192,0,-56.896],hallMax=[15.4432,9.3472,-50.3936];
   const stacks=[
     {id:'west-yard',layers:2,colors:['blue','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^bcontainer/.test(f.texture)&&f.center[2]>-40)},
-    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)}
+    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)},
+    {id:'hall-central',layers:3,colors:['grey','red','blue'],yaw:-Math.PI/2,interior:true,
+      faces:map.faces.filter(f=>f.modelId===0&&/^(?:bcontainer|c3a1_crate)/.test(f.texture)
+        &&[0,1,2].every(k=>f.bounds.min[k]>=hallMin[k]-.001&&f.bounds.max[k]<=hallMax[k]+.001))}
   ];
   return stacks.filter(s=>s.faces.length).map(s=>({...s,
     min:[0,1,2].map(k=>Math.min(...s.faces.map(f=>f.bounds.min[k]))),
@@ -270,17 +277,24 @@ function assaultDress(i, b, map) {
   place('container20',-11.9,-27.1,0,{color:'red',wear:.36,seed:222});
   place('container20',-4.5,-27.1,Math.PI,{color:'blue',wear:.22,seed:223});
 
-  // Replace the native west-yard block and enormous exterior timber stack.
+  // Replace the native yard blocks and the hall's entire mixed-material stack.
   // Fit the source envelope so the visible cover agrees with unchanged BSP
   // collision; its historical proportions are larger than standard ISO units.
   for(const [index,stack]of assaultCargoStacks(map).entries()){
     const {min,max}=stack,h=(max[1]-min[1])/stack.layers,cx=(min[0]+max[0])/2,cz=(min[2]+max[2])/2;
+    const yaw=stack.yaw||0,alongZ=Math.abs(Math.sin(yaw))>.5;
+    const length=max[alongZ?2:0]-min[alongZ?2:0],width=max[alongZ?0:2]-min[alongZ?0:2];
     for(let k=0;k<stack.layers;k++){
       const color=stack.colors[k],y=min[1]+k*h;
-      const prop=b.place('container20',cx,cz,0,{color,wear:k?.30:.42,seed:224+index*10+k},y,{noCol:true});
-      prop.scale.set((max[0]-min[0])/6.06,h/2.59,(max[2]-min[2])/2.438);
+      const prop=b.place('container20',cx,cz,yaw,{color,wear:k?.30:.42,seed:224+index*10+k,interior:!!stack.interior},y,{noCol:true});
+      prop.scale.set(length/6.06,h/2.59,width/2.438);
+      if(stack.interior)prop.traverse(o=>{
+        if(!o.isMesh||Array.isArray(o.material))return;
+        const m=o.material;
+        if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
+      });
       prop.updateMatrixWorld(true);stats.props++;families.add('container20');
-      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw:0,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,scale:prop.scale.toArray()});
+      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,interior:!!stack.interior,scale:prop.scale.toArray()});
     }
   }
 

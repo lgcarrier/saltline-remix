@@ -1,0 +1,80 @@
+{
+  "documentSha256": "f6566964278549f1f1967dca910d010b1ccc280f3f2811bad982e349cffc9c00",
+  "mode": "staged fixed camera, CPU render submission only",
+  "results": [
+    {
+      "enabled": false,
+      "filename": "v6-guard-off-0.png",
+      "cpuMs": {
+        "mean": 4.204000007311503,
+        "p95": 4.599999904632568,
+        "p99": 4.700000047683716
+      },
+      "verify": {
+        "enabled": false,
+        "guards": 0,
+        "expectedGuards": 0,
+        "directionalAndIndirectUnchanged": true
+      }
+    },
+    {
+      "enabled": true,
+      "filename": "v6-guard-on-1.png",
+      "cpuMs": {
+        "mean": 4.177333339850108,
+        "p95": 4.5,
+        "p99": 4.599999904632568
+      },
+      "verify": {
+        "enabled": true,
+        "guards": 2,
+        "expectedGuards": 2,
+        "directionalAndIndirectUnchanged": true
+      }
+    },
+    {
+      "enabled": false,
+      "filename": "v6-guard-off-2.png",
+      "cpuMs": {
+        "mean": 4.190999999046325,
+        "p95": 4.5,
+        "p99": 4.700000047683716
+      },
+      "verify": {
+        "enabled": false,
+        "guards": 0,
+        "expectedGuards": 0,
+        "directionalAndIndirectUnchanged": true
+      }
+    },
+    {
+      "enabled": true,
+      "filename": "v6-guard-on-3.png",
+      "cpuMs": {
+        "mean": 4.22733332157135,
+        "p95": 4.599999904632568,
+        "p99": 4.700000047683716
+      },
+      "verify": {
+        "enabled": true,
+        "guards": 2,
+        "expectedGuards": 2,
+        "directionalAndIndirectUnchanged": true
+      }
+    }
+  ],
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  },
+  "errors": []
+}

@@ -11,11 +11,14 @@ async function assaultGround(i) {
   Li.x0=Math.floor(bounds.min.x)-3;Li.z0=Math.floor(bounds.min.z)-3;
   Li.size=Math.ceil(Math.max(bounds.max.x-Li.x0,bounds.max.z-Li.z0))+3;
   Sb.splice(0,Sb.length,
-    [10,-4,3.7,1.8,.26],[-2,-5.5,4.2,1.7,.24],[-14,-7,3.4,1.9,.23],
+    [10,-4,2.7,1.4,.26],[-2,-5.5,3.3,1.25,.24],[-14,-7,3.4,1.9,.23],
     [-28,-6.5,2.6,2.1,.25],[-29,-26,2.1,5,.25],[-20,-29,3.2,2.2,.22],
     [4,-32.5,5,2.4,.26],[12.5,-30,2.5,3.2,.23],[-9,-34.8,4,1.7,.24],
     [-20.5,-51.5,2.1,4,.24],[20.2,-46.8,1.1,3.5,.25],[-28,-59,2.4,3,.22],
-    [-53,-28,2.3,5.2,.23],[-52,-13,2.3,3.3,.23],[-42,3,3,4,.23]);
+    [-53,-28,2.3,5.2,.23],[-52,-13,2.3,3.3,.23],[-42,3,3,4,.23],
+    // Shallow, overlapping depressions in the open cargo apron create a
+    // broken water edge. The shared shelter field keeps container feet dry.
+    [1.7,-26.7,1.5,3.1,.25],[-4.1,-22.5,3.2,1.1,.22],[-5.7,-23.1,1.45,.8,.18]);
 
   // Capture the original reflection registration to add visibility/performance
   // gating without leaving a second, permanently running reflection pass behind.
@@ -55,10 +58,30 @@ async function assaultGround(i) {
     patch('alb = mix(alb, vec3(0.018, 0.018, 0.02), max(max(tar, seal * 0.4) * 0.94, crack * 0.9));',
       'alb = mix(alb, vec3(0.043, 0.044, 0.046), max(tar * .52, max(seal * .10, crack * .22)));');
     patch('(0.62 + 0.76 * grain)', '(0.87 + 0.26 * grain)');
+    // Keep standing-water depth/footstep masks intact. Between puddles, the
+    // existing broad detail field separates damp aggregate from soaked film.
+    patch('float damp = (1.0 - dryP) * uWetG;',
+      'float damp = (1.0 - dryP) * uWetG * mix(.48,1.0,smoothstep(.24,.72,d1.g*.65+mk.g*.35));');
+    // Basin shape now lives in the shared CPU/GPU mask. Leave only aggregate-
+    // scale variation in the shader so splashes and footsteps follow its edge.
+    patch('float depth = 0.5 - mk.r + (sn - 0.5) * 0.11 + (d1.g - 0.5) * 0.03 + (grain - 0.5) * 0.012 + groove * 0.04 + crack * 0.02 - paint * 0.01;',
+      'float depth = 0.5 - mk.r + (sn - 0.5) * .018 + (d1.g - 0.5) * .008 + (grain - 0.5) * .004 + groove * .025 + crack * .012 - paint * .01;');
+    patch('float bandW = 0.05 + 0.15 * sn1 * sn1 + 0.05 * d1.g;',
+      'float bandW = .025 + .055 * mk.g + .045 * sn1;');
+    patch('float fringe = smoothstep(-0.65, -0.02, depth);',
+      'float fringe = smoothstep(-.28, -.015, depth);');
+    patch('alb += vec3(0.11, 0.105, 0.095) * smoothstep(0.58, 0.78, d2.a)',
+      'alb += vec3(0.052, 0.050, 0.045) * smoothstep(0.58, 0.78, d2.a)');
+    patch('rough = mix(rough, 0.13, film * 0.8);',
+      'rough = mix(rough, .13+.06*(1.0-grain), film * 0.8);');
+    patch('rough = mix(clamp(rough, 0.1, 1.0), 0.055, puddle);',
+      'rough = mix(clamp(rough, .1, 1.0), mix(.085,.055,smoothstep(.015,.11,depth))+.012*uRain, puddle);');
+    patch('float wsum = puddle + film * 0.2;',
+      'float wsum = puddle + film * .06;');
     patch('(n1.rg - 0.5) * mix(2.1, 0.7, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.3',
       '(n1.rg - 0.5) * mix(1.25, 0.55, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.10');
   };
-  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-2';
+  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-4';
   ground.apron.material.needsUpdate=true;
 
   const size=ground.maskTexture.image.width, raw=ground.maskTexture.image.data;
@@ -104,15 +127,36 @@ async function assaultGround(i) {
     const write=(cell,height)=>{if(height>roof[cell])roof[cell]=height;};
     raster(points[0],points[1],points[2],write);raster(points[0],points[2],points[3],write);
   }
+  // Deform the original Saltline depression map once, at load. Metre-scale
+  // drainage lobes, small eroded edges and occasional aggregate crowns break
+  // the authored ellipses without replacing their locations or water system.
+  // R remains the sole water-level field for U1, apron shading and rain splashes.
+  const maskSource=raw.slice(),maskStarted=performance.now();
+  function refineBasin(wx,wz){
+    const dx=(fs(wx*.24,wz*.24,137,2)-.5)*1.75+(Ab(wx*.92,wz*.92,149)-.5)*.33;
+    const dz=(fs(wx*.24+13.4,wz*.24-8.1,157,2)-.5)*1.45+(Ab(wx*.92+5.2,wz*.92,163)-.5)*.28;
+    const basin=.5-U1(maskSource,size,wx+dx,wz+dz,0);
+    const edge=(fs(wx*.82,wz*.82,173,2)-.5)*.075+(Ab(wx*2.4,wz*2.4,179)-.5)*.022;
+    const crown=fl(.58,.83,Ab(wx*.41,wz*.41,181))*fl(.12,.32,basin)*.42;
+    const depth=Math.min(.34,basin)+edge-crown;
+    const damp=So(U1(maskSource,size,wx+dx,wz+dz,1)*.82+fl(-.14,.015,depth)*.18);
+    return [depth,damp];
+  }
   const field=new Uint8Array(size*size*4);
-  let pavementPixels=0,puddlePixels=0,shelteredPixels=0;
+  let pavementPixels=0,puddlePixels=0,shelteredPixels=0,originalPuddlePixels=0,raisedPixels=0;
   for(let cell=0;cell<covered.length;cell++) {
     const k=cell*4,shade=roof[cell]>.35;
     field[k]=covered[cell]?255:0;field[k+1]=Math.min(255,Math.round(roof[cell]/32*255));field[k+3]=255;
     if(covered[cell])pavementPixels++;
     if(covered[cell]&&shade)shelteredPixels++;
     if(!covered[cell]||shade){raw[k]=255;raw[k+1]=0;raw[k+2]=0;}
-    else if(raw[k]<124)puddlePixels++;
+    else{
+      const wasWater=raw[k]<124;if(wasWater)originalPuddlePixels++;
+      const wx=Li.x0+(cell%size+.5)*step,wz=Li.z0+(Math.floor(cell/size)+.5)*step;
+      const [basin,damp]=refineBasin(wx,wz);
+      raw[k]=Math.round(So(.5-basin)*255);raw[k+1]=Math.round(damp*255);
+      if(raw[k]<124)puddlePixels++;else if(wasWater)raisedPixels++;
+    }
   }
   ground.maskTexture.needsUpdate=true;
   const fieldTexture=new T.DataTexture(field,size,size,T.RGBAFormat,T.UnsignedByteType);
@@ -164,7 +208,10 @@ vec2 assaultField(vec2 worldXZ){
   const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:false,maskResolution:size,
     maskRect:[Li.x0,Li.z0,Li.size],pavementSquareMetres:+(pavementPixels*step*step).toFixed(1),
     shelteredSquareMetres:+(shelteredPixels*step*step).toFixed(1),
-    puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),planarScale:0,reflectionPasses:0,reflectionSkipped:0};
+    puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),
+    previousPuddleSquareMetres:+(originalPuddlePixels*step*step).toFixed(1),
+    raisedOrReshapedSquareMetres:+(raisedPixels*step*step).toFixed(1),maskRefinementMs:Math.round(performance.now()-maskStarted),
+    puddleShape:'shared warped depressions with aggregate crowns',planarScale:0,reflectionPasses:0,reflectionSkipped:0};
   ground.diagnostics=diagnostics;
   for(const pass of registered)register.call(i.render,(renderer,scene,camera)=>{
     const cp=camera.position,roofY=ground.shelterHeightAt(cp.x,cp.z);

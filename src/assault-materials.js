@@ -23,7 +23,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       value: entry.value?.clone ? entry.value.clone() : entry.value
     };
   }
-  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 7, source: name, vertexColors, grainAxis}};
+  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 10, source: name, vertexColors, grainAxis}};
   mat.side = T.DoubleSide;
   const concrete = /^concrete/.test(name), brick = name === 'brick';
   const masonry = concrete || brick, corrugated = name === 'corrugated_roof';
@@ -44,7 +44,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       : paintedSteel ? [.035,.92,.32,.32,.10]
       : wood ? [.10,.94,.18,.25,.085]
       : galvanized ? [.025,.94,.30,.24,.18]
-      : wornSteel ? [.025,.93,.30,.28,.20]
+      : wornSteel ? [.025,.93,.30,.28,inside?.045:.20]
       : canvas ? [.16,.98,.20,.28,.055]
       : staticAsphalt ? [.16,.86,.20,.28,.18]
       : [.14,.74,.22,inside?.4:.55,brick?.52:.34];
@@ -89,6 +89,23 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       if (!shader.fragmentShader.includes(anchor)) throw new Error('Assault surface shader anchor missing: ' + name + ' / ' + anchor.slice(0, 65));
       shader.fragmentShader = shader.fragmentShader.replace(anchor, replacement);
     }
+    if(concrete){
+      // Original concrete maps remain the asset. Orientation selects a finer
+      // cast/slab texture scale without splitting the existing draw batches.
+      shader.vertexShader=shader.vertexShader.replace('#include <common>',
+        '#include <common>\nvarying float vAssaultConcreteUp;');
+      shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',
+        '#include <begin_vertex>\nvAssaultConcreteUp=abs(normalize(mat3(modelMatrix)*normal).y);');
+      shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
+        varying float vAssaultConcreteUp;
+        float assaultTraffic(vec2 p,vec2 a,vec2 b){
+          vec2 d=b-a;float t=clamp(dot(p-a,d)/dot(d,d),0.0,1.0);
+          return 1.0-smoothstep(.35,1.8,length(p-a-t*d));
+        }
+      `);
+      patch('slUv = vMapUv * uSlUv.xy;',
+        'slUv = vMapUv * uSlUv.xy * mix(1.0,2.25,smoothstep(.65,.96,vAssaultConcreteUp));');
+    }
     if(wood&&grainAxis==='v')patch('slUv = vMapUv * uSlUv.xy;', 'slUv = vMapUv.yx * uSlUv.xy;');
     const sampling = 'slORM = texture2D(roughnessMap, slUv);';
     let finish = `
@@ -99,14 +116,31 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     if (galvanized) {
       finish += `
         sampledDiffuseColor.rgb=mix(vec3(.50,.525,.55),sampledDiffuseColor.rgb,.18);
-        slORM.g=mix(.55,slORM.g,.22);
+        // Low-contrast zinc bloom and dull runoff are broad enough to remain
+        // stable in motion. The original fine spangle stays in the source map.
+        float assaultZinc=slN3(vSlPos*vec3(1.7,.28,1.7)+vec3(4.2,7.1,1.6));
+        float assaultZincBloom=smoothstep(.48,.77,assaultZinc);
+        sampledDiffuseColor.rgb*=mix(.94,1.035,assaultZinc);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.43,.465,.48),assaultZincBloom*.18);
+        slORM.g=mix(.55,slORM.g,.22)+assaultZincBloom*.09;
         slORM.b=mix(.92,slORM.b,.18);
       `;
     } else if (wornSteel) {
-      finish += `
-        sampledDiffuseColor.rgb*=.12;
+      finish += (inside ? `
+        sampledDiffuseColor.rgb=mix(vec3(.040,.047,.048),sampledDiffuseColor.rgb*.12,.24);
+        slORM.b=mix(.42,slORM.b,.20);
+      ` : `sampledDiffuseColor.rgb*=.12;`) + `
         sampledDiffuseColor.a=mix(.80,.94,sampledDiffuseColor.a);
         slORM.g=mix(.60,slORM.g,.28);
+        // Worn structural steel: quiet mill-scale fields with isolated dull
+        // oxidation, rather than fine bright scratches on every visible pixel.
+        float assaultSteelAge=slN3(vSlPos*vec3(.48,.22,.48)+vec3(7.2,1.5,9.4));
+        float assaultSteelRun=slN3(vSlPos*vec3(3.4,.32,3.4)+vec3(2.8,8.1,4.6));
+        float assaultSteelOxide=smoothstep(.57,.77,assaultSteelAge)*smoothstep(.46,.72,assaultSteelRun);
+        sampledDiffuseColor.rgb*=mix(.84,1.13,assaultSteelAge);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.067,.038,.022),assaultSteelOxide*.65);
+        slORM.b*=1.0-assaultSteelOxide*.85;
+        slORM.g=mix(slORM.g,.91,assaultSteelOxide);
       `;
     } else if (canvas) {
       finish += `
@@ -130,9 +164,20 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         sampledDiffuseColor.a=mix(.84,.96,sampledDiffuseColor.a);
       `;
     } else if (wood) {
-      // The supplied grain and knots remain, compressed around a weathered
-      // pale-timber substrate. Fine grain carries color; the face stays planar.
-      finish += `sampledDiffuseColor.rgb=mix(vec3(.245,.188,.130),sampledDiffuseColor.rgb,.38);`;
+      // Sawn boards age individually; original grain/knots remain visible.
+      // Mineral streaks follow the timber rather than random black speckles.
+      finish += `
+        vec2 assaultTimberUv=${grainAxis==='v'?'vMapUv.yx':'vMapUv'};
+        float assaultBoard=slH(vec3(floor(assaultTimberUv.y/.16),floor(assaultTimberUv.x/2.4),3.8));
+        float assaultTimberAge=slN3(vSlPos*.38+vec3(3.4,8.9,2.7));
+        float assaultTimberStreak=slN3(vec3(assaultTimberUv*vec2(.65,11.0),6.2));
+        float assaultTimberDirt=smoothstep(.51,.76,assaultTimberAge)*smoothstep(.45,.75,assaultTimberStreak);
+        vec3 assaultTimberBase=mix(vec3(.212,.151,.090),vec3(.236,.216,.174),assaultBoard*.75);
+        sampledDiffuseColor.rgb=mix(assaultTimberBase,sampledDiffuseColor.rgb,.44)*mix(.86,1.08,assaultBoard);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.088,.071,.044),assaultTimberDirt*.40);
+        sampledDiffuseColor.rgb*=1.0-assaultContact*.09;
+        slORM.g=mix(slORM.g,.94,assaultTimberDirt*.55);
+      `;
     } else if (brick) {
       // Offsets are whole bricks and even row counts. Mortar courses stay
       // aligned while the source tile's broad stains lose their periodic motif.
@@ -145,7 +190,15 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       `;
     } else if (concrete) {
       finish += `
-        sampledDiffuseColor.rgb=mix(vec3(.225,.216,.197),sampledDiffuseColor.rgb,.40);
+        float assaultSlab=smoothstep(.65,.96,vAssaultConcreteUp);
+        float assaultWalk=max(assaultTraffic(vSlPos.xz,vec2(-18.2,-65.6),vec2(-23.5,-62.6)),
+          assaultTraffic(vSlPos.xz,vec2(-23.5,-62.6),vec2(-26.0,-64.5)));
+        assaultWalk=max(assaultWalk,assaultTraffic(vSlPos.xz,vec2(8.0,-59.0),vec2(-2.0,-70.0)));
+        assaultWalk*=assaultSlab;
+        sampledDiffuseColor.rgb=mix(mix(vec3(.225,.216,.197),vec3(.222,.218,.207),assaultSlab),
+          sampledDiffuseColor.rgb,mix(.20,.30,assaultSlab));
+        sampledDiffuseColor.rgb*=1.0-.055*assaultWalk;
+        slORM.g=mix(slORM.g,mix(.84,.64,assaultWalk),.65);
       `;
       if (name === 'concrete_painted') {
         // A continuous paint film with local abrasion at the plinth. The
@@ -161,6 +214,21 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         // alternate white/black once the pitch approaches a screen pixel.
         sampledDiffuseColor.rgb=mix(vec3(.39,.425,.46),sampledDiffuseColor.rgb,
           mix(.16,.58,assaultDetail));
+      `;
+      if(!inside)finish += `
+        // Individual sheets age differently. Slow runoff streaks interrupt
+        // the rib repetition without introducing another normal-map scale.
+        float assaultSheet=slH(vec3(floor(vMapUv.x/1.05),floor(vMapUv.y/4.2),7.3));
+        float assaultRunoff=slN3(vSlPos*vec3(1.8,.12,1.8)+vec3(13.7,4.8,1.2));
+        float assaultOxide=slN3(vSlPos*.17+vec3(6.2,2.9,8.1));
+        float assaultAge=smoothstep(.42,.79,assaultRunoff)*(.28+.72*assaultOxide);
+        float assaultRoofFacing=abs(normalize(cross(dFdx(vSlPos),dFdy(vSlPos))).y);
+        float assaultRoofDamp=smoothstep(.36,.68,assaultOxide)*smoothstep(.65,.95,assaultRoofFacing);
+        sampledDiffuseColor.rgb*=mix(.90,1.055,assaultSheet);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,
+          sampledDiffuseColor.rgb*vec3(.66,.62,.56),assaultAge*.38);
+        slORM.g=mix(slORM.g,.90,assaultAge*.32);
+        sampledDiffuseColor.rgb*=1.0-assaultRoofDamp*.12;
       `;
     }
     patch(sampling, sampling + finish);
@@ -181,7 +249,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     patch(roughness, roughness + (galvanized
       ? '\nroughnessFactor=max(roughnessFactor,.50);'
       : wornSteel
-      ? '\nroughnessFactor=max(roughnessFactor,.57);'
+      ? '\nroughnessFactor=max(roughnessFactor,'+(inside?'.72':'.57')+');'
       : canvas
       ? '\nroughnessFactor=max(roughnessFactor,.84);'
       : staticAsphalt
@@ -193,8 +261,12 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       : corrugated
       ? '\nroughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));'
       : '\nroughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));'));
+    if(corrugated&&!inside)patch('roughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));',
+      'roughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));\nroughnessFactor=mix(roughnessFactor,.39,assaultRoofDamp*.68);');
+    if(concrete)patch('roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));',
+      'roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));\nroughnessFactor=mix(max(roughnessFactor,.80),mix(.76,.61,assaultWalk),assaultSlab);');
   };
-  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-7|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + (staticAsphalt?':'+!!inside:'');
+  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-10|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
   cache.set(key, mat);
   return mat;
 }

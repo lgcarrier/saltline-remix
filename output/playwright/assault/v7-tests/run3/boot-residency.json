@@ -1,0 +1,87 @@
+{
+  "hash": "af7abcac640cd07d24c70ccca1a74ea6f7f48b19bb854dfa4d3485588e6268a8",
+  "warmup": {
+    "complete": true,
+    "meshes": 439,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "7514c017-04a3-4f74-8750-de97c89911a1",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "4b8c6916-f722-4ffe-9571-4abec6589c3f",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "9acefb9a-2f00-4e28-ba94-0453c4325442",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "433aca68-3435-4b34-9990-5faa55d82400",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "f2310ff0-1227-47ee-b485-3c043b5c6f7f",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 385,
+      "textures": 158
+    },
+    "after": {
+      "geometries": 425,
+      "textures": 198
+    },
+    "restored": true,
+    "elapsedMs": 244.8,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "stats": {
+    "calls": 426,
+    "tris": 763440,
+    "geos": 425,
+    "tex": 204,
+    "programs": 247,
+    "res": [
+      1600,
+      900
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "fps": 60.5,
+    "state": "title"
+  },
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  },
+  "errors": []
+}

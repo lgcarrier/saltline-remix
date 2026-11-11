@@ -263,6 +263,8 @@ function assaultArchitecture(i, map) {
   // Each source crate face becomes timber construction, rather than a texture
   // stretched over a box. Coplanar BSP splits are joined before laying battens.
   const cratePlanes=new Map();
+  // The same complete-stack selection hides BSP faces and timber relief, so a
+  // maritime replacement never retains the original oversized wooden base.
   const replacedCargo=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   for(const f of map.faces||[]){
     if(replacedCargo.has(f.id))continue;
@@ -306,6 +308,74 @@ function assaultArchitecture(i, map) {
       }
     }
   }
+
+  // Construction at a useful medium scale: sheet laps, folded gutter sections,
+  // fixings and local repairs interrupt the uninterrupted cladding field. The
+  // roof height is the exact intersection of the native hip-roof planes.
+  // Surface relief is at most 25 mm on walking surfaces; no route is narrowed.
+  const finishStart=stats.triangles;
+  const roofHeight=(x,z)=>13.0048-.5*Math.max(0,Math.abs(x)-12.192,z+46.3296);
+  function roofRibbon(material,a,b,width,lift=.016){
+    const dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),px=-dz/length*width/2,pz=dx/length*width/2;
+    const corners=[[a[0]+px,a[1]+pz],[b[0]+px,b[1]+pz],[b[0]-px,b[1]-pz],[a[0]-px,a[1]-pz]];
+    const vertices=corners.map(([x,z])=>[x,roofHeight(x,z)+lift,z]);
+    vertices.push(...vertices.map(v=>[v[0],v[1]-.009,v[2]]));
+    const indices=[0,1,2,0,2,3,4,6,5,4,7,6,0,4,5,0,5,1,1,5,6,1,6,2,2,6,7,2,7,3,3,7,4,3,4,0],p=[],uv=[];
+    for(const k of indices){const v=vertices[k];p.push(...v);uv.push(v[0],v[2]);}
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
+    g.computeVertexNormals();add(g,material,false,'warehouse');
+  }
+  function roofFixing(x,z){
+    const g=ot(.018,.018,.012,6);g.translate(x,roofHeight(x,z)+.025,z);add(g,'steel_worn',false,'warehouse');
+  }
+  for(const z of [-49.70,-53.40]){
+    for(const [x0,x1]of[[-18.12,-12.192],[-12.192,0],[0,12.192],[12.192,18.12]])roofRibbon('steel_worn',[x0,z],[x1,z],.065);
+    for(let x=-16.8;x<17;x+=2.4)roofFixing(x,z);
+  }
+  // Two-piece wall apron: the vertical leg meets masonry, the lower leg covers
+  // the roofing junction. Keep the central vent/ladder aperture entirely clear.
+  for(const [x0,x1]of[[-11.90,-1.10],[1.10,11.90]]){
+    box('steel_worn',[(x0+x1)/2,13.14,-56.825],[x1-x0,.25,.035],.004,false,'warehouse');
+    roofRibbon('steel_worn',[x0,-56.70],[x1,-56.70],.24,.018);
+  }
+  // Sparse repair sheets have their own folded edges and fasteners. These are
+  // tangible patches using Saltline worn steel, not random dirt polygons.
+  for(const [x,z,w,d]of[[-3.65,-50.65,1.18,1.90],[3.35,-47.95,.88,1.42],[-9.45,-54.55,1.10,1.62]]){
+    const y=roofHeight(x,z);
+    box('steel_worn',[x,y+.012,z],[w,.024,d],.005,false,'warehouse');
+    for(const sx of [-1,1])for(const sz of [-1,1])roofFixing(x+sx*(w/2-.065),z+sz*(d/2-.065));
+    for(const sx of [-1,1])box('steel_dark',[x+sx*(w/2-.012),y+.019,z],[.022,.014,d-.025],0,false,'warehouse');
+  }
+  // Rainwater gutter with a real U section, bracket returns and connections to
+  // the original two downpipes. It sits beneath the native front roof edge.
+  box('steel_worn',[0,9.865,-40.105],[36.55,.025,.235],.004,false,'warehouse');
+  box('steel_worn',[0,9.95,-39.988],[36.55,.18,.025],.004,false,'warehouse');
+  box('steel_dark',[0,9.91,-40.218],[36.55,.11,.022],0,false,'warehouse');
+  for(let x=-16.3;x<17;x+=2.96){
+    box('steel_dark',[x,9.838,-40.10],[.055,.035,.29],0,false,'warehouse');
+    box('steel_dark',[x,9.90,-39.966],[.055,.14,.025],0,false,'warehouse');
+  }
+  for(const x of [-17.61,17.61])pipe('steel_worn',[x,9.87,-40.105],[x,9.91,-40.37],.065,false,'warehouse');
+  // The horizontal cladding lap is below the freight sign. Short folded end
+  // tabs meet the bay posts; a gasket shadow separates overlapping steel sheets.
+  front.box('steel_dark',0,5.728,35.50,.024,.024,.040,0);
+  front.box('steel_worn',0,5.77,35.50,.055,.085,.041,.004);
+  for(const x of [-17.73,-11.8,-5.9,0,5.9,11.8,17.73]){
+    front.box('steel_worn',x,5.77,.34,.16,.10,.035,.006);
+    for(const dx of [-.105,.105]){
+      const g=ot(.021,.021,.015,6);g.rotateX(Math.PI/2);g.translate(x+dx,5.77,-40.544);add(g,'steel_dark',false,'warehouse');
+    }
+  }
+  // Receiving canopy is wholly above the original doorway. Its folded drip
+  // edge and triangular wall brackets give the entrance proper construction.
+  const canopy=chamferBox(.79,.060,9.30,.009);canopy.rotateZ(.075);canopy.translate(-18.22,5.34,-51.61);add(canopy,'steel_worn',false,'warehouse');
+  box('steel_dark',[-18.60,5.28,-51.61],[.045,.12,9.34],.005,false,'warehouse');
+  for(const z of [-55.70,-53.00,-50.30,-47.60]){
+    box('steel_dark',[-17.955,5.10,z],[.06,.49,.13],.006,false,'warehouse');
+    beam('steel_worn',[-17.98,4.91,z],[-18.54,5.285,z],.055,.065,.004,false,'warehouse');
+    box('steel_worn',[-18.25,5.275,z],[.61,.055,.065],.004,false,'warehouse');
+  }
+  stats.constructionFinish={triangles:stats.triangles-finishStart,roofLaps:2,repairSheets:3,gutters:1,receivingCanopies:1};
 
   // A surrounding freight district closes the otherwise empty blue horizon.
   // Everything is outside the native playable bounds, with a generous setback.
@@ -398,7 +468,20 @@ function assaultArchitecture(i, map) {
   for(const dx of [-bridge.w/2,0,bridge.w/2])districtBox('steel_dark',[bridge.x+dx,districtGround+bridge.h+.15,bridge.z],[.20,.20,bridge.d+.1]);
   for(const dz of [-.65,.65])pipe('paint_grey',[bridge.x-bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],
     [bridge.x+bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],.22,false,'skyline');
-  skyline.utilityFrames++;skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
+  skyline.utilityFrames++;
+  // A second, farther plant layer gives the district depth and a varied
+  // industrial silhouette. Tapered stacks grow out of a grounded boiler house;
+  // no smoke cards, glowing windows, lights or disconnected horizon props.
+  districtBox('concrete_dirty',[-266,districtGround+5,-31],[38,10,28]);
+  pitchedRoof(-266,-31,39,29,districtGround+10,1.6);
+  for(const [x,z,h]of[[-271,-31,28],[-260,-31,25]]){
+    districtCylinder('concrete_dirty',x,z,1.32,h,districtGround,16,.78);
+    districtCylinder('steel_dark',x,z,.84,.35,districtGround+h,16,.84);
+  }
+  districtBox('concrete_dirty',[-325,districtGround+8.6,-81],[64,17.2,30]);
+  for(let j=0;j<4;j++)pitchedRoof(-349+j*16,-81,16.2,30.8,districtGround+17.2,2.1);
+  skyline.warehouses+=2;skyline.stacks=2;skyline.layers=2;
+  skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
 
   for(const [key,b]of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));

@@ -5762,9 +5762,16 @@ function sAP(o, i) {
  * supplied BSP; these additions describe construction, without moving its walls.
  * Called after source collision is installed and before the navigation build. */
 function assaultCargoStacks(map){
+  // The hall's central cover is one native assembly: a wooden lower brush and
+  // two container-textured upper layers. Select its complete material family
+  // inside the exact envelope, without touching the adjoining small crate tower.
+  const hallMin=[12.192,0,-56.896],hallMax=[15.4432,9.3472,-50.3936];
   const stacks=[
     {id:'west-yard',layers:2,colors:['blue','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^bcontainer/.test(f.texture)&&f.center[2]>-40)},
-    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)}
+    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)},
+    {id:'hall-central',layers:3,colors:['grey','red','blue'],yaw:-Math.PI/2,interior:true,
+      faces:map.faces.filter(f=>f.modelId===0&&/^(?:bcontainer|c3a1_crate)/.test(f.texture)
+        &&[0,1,2].every(k=>f.bounds.min[k]>=hallMin[k]-.001&&f.bounds.max[k]<=hallMax[k]+.001))}
   ];
   return stacks.filter(s=>s.faces.length).map(s=>({...s,
     min:[0,1,2].map(k=>Math.min(...s.faces.map(f=>f.bounds.min[k]))),
@@ -6030,17 +6037,24 @@ function assaultDress(i, b, map) {
   place('container20',-11.9,-27.1,0,{color:'red',wear:.36,seed:222});
   place('container20',-4.5,-27.1,Math.PI,{color:'blue',wear:.22,seed:223});
 
-  // Replace the native west-yard block and enormous exterior timber stack.
+  // Replace the native yard blocks and the hall's entire mixed-material stack.
   // Fit the source envelope so the visible cover agrees with unchanged BSP
   // collision; its historical proportions are larger than standard ISO units.
   for(const [index,stack]of assaultCargoStacks(map).entries()){
     const {min,max}=stack,h=(max[1]-min[1])/stack.layers,cx=(min[0]+max[0])/2,cz=(min[2]+max[2])/2;
+    const yaw=stack.yaw||0,alongZ=Math.abs(Math.sin(yaw))>.5;
+    const length=max[alongZ?2:0]-min[alongZ?2:0],width=max[alongZ?0:2]-min[alongZ?0:2];
     for(let k=0;k<stack.layers;k++){
       const color=stack.colors[k],y=min[1]+k*h;
-      const prop=b.place('container20',cx,cz,0,{color,wear:k?.30:.42,seed:224+index*10+k},y,{noCol:true});
-      prop.scale.set((max[0]-min[0])/6.06,h/2.59,(max[2]-min[2])/2.438);
+      const prop=b.place('container20',cx,cz,yaw,{color,wear:k?.30:.42,seed:224+index*10+k,interior:!!stack.interior},y,{noCol:true});
+      prop.scale.set(length/6.06,h/2.59,width/2.438);
+      if(stack.interior)prop.traverse(o=>{
+        if(!o.isMesh||Array.isArray(o.material))return;
+        const m=o.material;
+        if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
+      });
       prop.updateMatrixWorld(true);stats.props++;families.add('container20');
-      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw:0,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,scale:prop.scale.toArray()});
+      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,interior:!!stack.interior,scale:prop.scale.toArray()});
     }
   }
 
@@ -6102,11 +6116,14 @@ async function assaultGround(i) {
   Li.x0=Math.floor(bounds.min.x)-3;Li.z0=Math.floor(bounds.min.z)-3;
   Li.size=Math.ceil(Math.max(bounds.max.x-Li.x0,bounds.max.z-Li.z0))+3;
   Sb.splice(0,Sb.length,
-    [10,-4,3.7,1.8,.26],[-2,-5.5,4.2,1.7,.24],[-14,-7,3.4,1.9,.23],
+    [10,-4,2.7,1.4,.26],[-2,-5.5,3.3,1.25,.24],[-14,-7,3.4,1.9,.23],
     [-28,-6.5,2.6,2.1,.25],[-29,-26,2.1,5,.25],[-20,-29,3.2,2.2,.22],
     [4,-32.5,5,2.4,.26],[12.5,-30,2.5,3.2,.23],[-9,-34.8,4,1.7,.24],
     [-20.5,-51.5,2.1,4,.24],[20.2,-46.8,1.1,3.5,.25],[-28,-59,2.4,3,.22],
-    [-53,-28,2.3,5.2,.23],[-52,-13,2.3,3.3,.23],[-42,3,3,4,.23]);
+    [-53,-28,2.3,5.2,.23],[-52,-13,2.3,3.3,.23],[-42,3,3,4,.23],
+    // Shallow, overlapping depressions in the open cargo apron create a
+    // broken water edge. The shared shelter field keeps container feet dry.
+    [1.7,-26.7,1.5,3.1,.25],[-4.1,-22.5,3.2,1.1,.22],[-5.7,-23.1,1.45,.8,.18]);
 
   // Capture the original reflection registration to add visibility/performance
   // gating without leaving a second, permanently running reflection pass behind.
@@ -6146,10 +6163,30 @@ async function assaultGround(i) {
     patch('alb = mix(alb, vec3(0.018, 0.018, 0.02), max(max(tar, seal * 0.4) * 0.94, crack * 0.9));',
       'alb = mix(alb, vec3(0.043, 0.044, 0.046), max(tar * .52, max(seal * .10, crack * .22)));');
     patch('(0.62 + 0.76 * grain)', '(0.87 + 0.26 * grain)');
+    // Keep standing-water depth/footstep masks intact. Between puddles, the
+    // existing broad detail field separates damp aggregate from soaked film.
+    patch('float damp = (1.0 - dryP) * uWetG;',
+      'float damp = (1.0 - dryP) * uWetG * mix(.48,1.0,smoothstep(.24,.72,d1.g*.65+mk.g*.35));');
+    // Basin shape now lives in the shared CPU/GPU mask. Leave only aggregate-
+    // scale variation in the shader so splashes and footsteps follow its edge.
+    patch('float depth = 0.5 - mk.r + (sn - 0.5) * 0.11 + (d1.g - 0.5) * 0.03 + (grain - 0.5) * 0.012 + groove * 0.04 + crack * 0.02 - paint * 0.01;',
+      'float depth = 0.5 - mk.r + (sn - 0.5) * .018 + (d1.g - 0.5) * .008 + (grain - 0.5) * .004 + groove * .025 + crack * .012 - paint * .01;');
+    patch('float bandW = 0.05 + 0.15 * sn1 * sn1 + 0.05 * d1.g;',
+      'float bandW = .025 + .055 * mk.g + .045 * sn1;');
+    patch('float fringe = smoothstep(-0.65, -0.02, depth);',
+      'float fringe = smoothstep(-.28, -.015, depth);');
+    patch('alb += vec3(0.11, 0.105, 0.095) * smoothstep(0.58, 0.78, d2.a)',
+      'alb += vec3(0.052, 0.050, 0.045) * smoothstep(0.58, 0.78, d2.a)');
+    patch('rough = mix(rough, 0.13, film * 0.8);',
+      'rough = mix(rough, .13+.06*(1.0-grain), film * 0.8);');
+    patch('rough = mix(clamp(rough, 0.1, 1.0), 0.055, puddle);',
+      'rough = mix(clamp(rough, .1, 1.0), mix(.085,.055,smoothstep(.015,.11,depth))+.012*uRain, puddle);');
+    patch('float wsum = puddle + film * 0.2;',
+      'float wsum = puddle + film * .06;');
     patch('(n1.rg - 0.5) * mix(2.1, 0.7, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.3',
       '(n1.rg - 0.5) * mix(1.25, 0.55, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.10');
   };
-  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-2';
+  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-4';
   ground.apron.material.needsUpdate=true;
 
   const size=ground.maskTexture.image.width, raw=ground.maskTexture.image.data;
@@ -6195,15 +6232,36 @@ async function assaultGround(i) {
     const write=(cell,height)=>{if(height>roof[cell])roof[cell]=height;};
     raster(points[0],points[1],points[2],write);raster(points[0],points[2],points[3],write);
   }
+  // Deform the original Saltline depression map once, at load. Metre-scale
+  // drainage lobes, small eroded edges and occasional aggregate crowns break
+  // the authored ellipses without replacing their locations or water system.
+  // R remains the sole water-level field for U1, apron shading and rain splashes.
+  const maskSource=raw.slice(),maskStarted=performance.now();
+  function refineBasin(wx,wz){
+    const dx=(fs(wx*.24,wz*.24,137,2)-.5)*1.75+(Ab(wx*.92,wz*.92,149)-.5)*.33;
+    const dz=(fs(wx*.24+13.4,wz*.24-8.1,157,2)-.5)*1.45+(Ab(wx*.92+5.2,wz*.92,163)-.5)*.28;
+    const basin=.5-U1(maskSource,size,wx+dx,wz+dz,0);
+    const edge=(fs(wx*.82,wz*.82,173,2)-.5)*.075+(Ab(wx*2.4,wz*2.4,179)-.5)*.022;
+    const crown=fl(.58,.83,Ab(wx*.41,wz*.41,181))*fl(.12,.32,basin)*.42;
+    const depth=Math.min(.34,basin)+edge-crown;
+    const damp=So(U1(maskSource,size,wx+dx,wz+dz,1)*.82+fl(-.14,.015,depth)*.18);
+    return [depth,damp];
+  }
   const field=new Uint8Array(size*size*4);
-  let pavementPixels=0,puddlePixels=0,shelteredPixels=0;
+  let pavementPixels=0,puddlePixels=0,shelteredPixels=0,originalPuddlePixels=0,raisedPixels=0;
   for(let cell=0;cell<covered.length;cell++) {
     const k=cell*4,shade=roof[cell]>.35;
     field[k]=covered[cell]?255:0;field[k+1]=Math.min(255,Math.round(roof[cell]/32*255));field[k+3]=255;
     if(covered[cell])pavementPixels++;
     if(covered[cell]&&shade)shelteredPixels++;
     if(!covered[cell]||shade){raw[k]=255;raw[k+1]=0;raw[k+2]=0;}
-    else if(raw[k]<124)puddlePixels++;
+    else{
+      const wasWater=raw[k]<124;if(wasWater)originalPuddlePixels++;
+      const wx=Li.x0+(cell%size+.5)*step,wz=Li.z0+(Math.floor(cell/size)+.5)*step;
+      const [basin,damp]=refineBasin(wx,wz);
+      raw[k]=Math.round(So(.5-basin)*255);raw[k+1]=Math.round(damp*255);
+      if(raw[k]<124)puddlePixels++;else if(wasWater)raisedPixels++;
+    }
   }
   ground.maskTexture.needsUpdate=true;
   const fieldTexture=new T.DataTexture(field,size,size,T.RGBAFormat,T.UnsignedByteType);
@@ -6255,7 +6313,10 @@ vec2 assaultField(vec2 worldXZ){
   const diagnostics={system:'original Saltline O1/Ib/Nb/zb',sea:false,maskResolution:size,
     maskRect:[Li.x0,Li.z0,Li.size],pavementSquareMetres:+(pavementPixels*step*step).toFixed(1),
     shelteredSquareMetres:+(shelteredPixels*step*step).toFixed(1),
-    puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),planarScale:0,reflectionPasses:0,reflectionSkipped:0};
+    puddleSquareMetres:+(puddlePixels*step*step).toFixed(1),
+    previousPuddleSquareMetres:+(originalPuddlePixels*step*step).toFixed(1),
+    raisedOrReshapedSquareMetres:+(raisedPixels*step*step).toFixed(1),maskRefinementMs:Math.round(performance.now()-maskStarted),
+    puddleShape:'shared warped depressions with aggregate crowns',planarScale:0,reflectionPasses:0,reflectionSkipped:0};
   ground.diagnostics=diagnostics;
   for(const pass of registered)register.call(i.render,(renderer,scene,camera)=>{
     const cp=camera.position,roofY=ground.shelterHeightAt(cp.x,cp.z);
@@ -6288,6 +6349,20 @@ function assaultVehicle(i, map) {
     const min = face.bounds.min, max = face.bounds.max;
     if ((face.texture === 'trk_canvas' && min[0] >= 8.12 && max[1] > 1.7)
       || face.texture === 'trk_rim') hideFaceIds.add(face.id);
+  }
+  // Own the native truck's finish without changing its brush geometry or any
+  // shared Saltline material. The original window openings receive glazing;
+  // `recharged` is the cab's metal roof/A-pillars, not a window texture.
+  const nativeFinish = new Map();
+  for (const face of map.faces || []) {
+    const mn=face.bounds.min,mx=face.bounds.max;
+    if(face.modelId!==0||mn[0]<5.68||mx[0]>13.21||mn[2]<-10.17||mx[2]>-6.49||hideFaceIds.has(face.id))continue;
+    let name=null;
+    if(/^trk_(door|side|bed|hood)$/.test(face.texture)||face.texture==='recharged')name='body';
+    else if(/^basetrim0[12]$/.test(face.texture))name='steel_worn';
+    else if(/^trk_(bumper|grille)$/.test(face.texture))name='steel_galv';
+    else if(face.texture==='trk_canvas')name=mx[1]<.82?'steel_dark':'body';
+    if(name){nativeFinish.set(face.id,name);hideFaceIds.add(face.id);}
   }
   let triangles = 0;
   function add(geometry, name) {
@@ -6328,6 +6403,63 @@ function assaultVehicle(i, map) {
     g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
     add(g, name);
   }
+  // Transfer only the selected face ranges. A surface can contain unrelated
+  // architecture using the same texture, so texture-wide hiding is unsafe.
+  const facesById=new Map(map.faces.map(face=>[face.id,face]));
+  let nativeTriangles=0;
+  for(const surface of map.surfaces)for(const id of surface.faceIds){
+    const name=nativeFinish.get(id);if(!name)continue;
+    const face=facesById.get(id),start=face.vertexStart,end=start+face.vertexCount;
+    const g=new T.BufferGeometry();
+    g.setAttribute('position',new T.Float32BufferAttribute(surface.positions.slice(start*3,end*3),3));
+    g.setAttribute('normal',new T.Float32BufferAttribute(surface.normals.slice(start*3,end*3),3));
+    g.setAttribute('uv',new T.Float32BufferAttribute(surface.uvMeters.slice(start*2,end*2),2));
+    nativeTriangles+=face.vertexCount/3;add(g,name);
+  }
+
+  // Glass sits just inside the native openings. Thin seals and a centre mullion
+  // attach it to the existing cab; no collision or glass-breaking state changes.
+  patch('glass',1,1,(u,v)=>[7.135+v*.195,1.654+v*.960,-9.946+u*3.230],[3.23,.98]);
+  for(const z of [-10.145,-6.517]){
+    patch('glass',1,1,(u,v)=>[7.441+u*.660,1.654+v*.960,z],[.66,.96]);
+    for(const x of [7.435,8.108])rod('rubber',[x,1.645,z],[x,2.627,z],.013,6);
+    for(const y of [1.645,2.627])rod('rubber',[7.435,y,z],[8.108,y,z],.013,6);
+    box('steel_dark',[7.70,1.365,z],[.19,.035,.026]);
+  }
+  for(const z of [-9.951,-8.3312,-6.711])rod('rubber',[7.130,1.645,z],[7.328,2.629,z],.014,6);
+  for(const v of [0,1])rod('rubber',[7.130+v*.198,1.645+v*.984,-9.951],[7.130+v*.198,1.645+v*.984,-6.711],.014,6);
+  for(const z of [-9.13,-7.53]){
+    rod('steel_dark',[7.126,1.685,z],[7.209,2.08,z+.30],.010,6);
+    rod('rubber',[7.205,2.06,z+.07],[7.205,2.06,z+.55],.015,6);
+  }
+
+  // Shallow manufactured fittings attach to the source front panel. The dark
+  // grille backing, proud bars and lens bezels create real material boundaries
+  // without changing the native brush, wheelbase, collision or gameplay route.
+  const frontX=5.6896,frontZ=-8.3312;
+  box('steel_dark',[frontX-.009,.865,frontZ],[.020,.43,1.77]);
+  for(let k=0;k<6;k++)box('steel_galv',[frontX-.025,.695+k*.067,frontZ],[.014,.022,1.68]);
+  for(const y of [.642,1.088])box('steel_worn',[frontX-.024,y,frontZ],[.025,.024,1.82]);
+  for(const z of [frontZ-.902,frontZ+.902])box('steel_worn',[frontX-.024,.865,z],[.025,.47,.024]);
+  for(const z of [frontZ-1.24,frontZ+1.24]){
+    box('rubber',[frontX-.016,.925,z],[.035,.304,.516]);
+    box('paint_white',[frontX-.037,.925,z],[.012,.235,.442]);
+    // Lower bezel lip catches the environment without adding a light source.
+    box('steel_galv',[frontX-.038,.792,z],[.016,.018,.474]);
+  }
+  box('steel_worn',[frontX-.033,.486,frontZ],[.072,.13,3.20]);
+  for(const z of [frontZ-1.03,frontZ+1.03])box('steel_dark',[frontX+.10,.467,z],[.25,.095,.10]);
+  for(const side of [-1,1]){
+    const z=side<0?-10.163:-6.4994;
+    for(const x of [7.143,8.087])box('steel_dark',[x,1.12,z],[.009,.97,.009]);
+    box('steel_dark',[7.615,.632,z],[.953,.009,.009]);
+  }
+  // Hood edge seams follow the source slope exactly, rather than floating
+  // horizontal strips above it. They share the existing dark-metal batch.
+  for(const z of [-9.88,-6.7824])patch('steel_dark',1,1,(u,v)=>{
+    const x=5.756+u*1.30;
+    return [x,1.2192+(x-frontX)*2/7+.0025,z+(v-.5)*.008];
+  },[1.3,.008]);
 
   // Four native wheel locations, including the original front steering angle.
   // Rounded shoulder profiles retain source radius .4572m and grounded contact.
@@ -6393,15 +6525,18 @@ function assaultVehicle(i, map) {
   const x0=8.128,x1=13.0048,z0=-10.16,z1=-6.5024,yBottom=1.2192,yEave=2.43,yTop=2.8448;
   const length=x1-x0,width=z1-z0;
   const arch = v => yEave+(yTop-yEave)*Math.pow(Math.max(0,Math.sin(Math.PI*v)),.72);
-  patch('tarp',22,16,(u,v)=>{
-    const support=Math.sin(Math.PI*u*4),fold=.014*support*Math.sin(v*Math.PI*10+u*5)*Math.sin(v*Math.PI);
-    return [x0+u*length,Math.min(yTop,arch(v)+fold),z0+v*width];
+  patch('tarp',32,18,(u,v)=>{
+    const betweenBows=Math.sin(Math.PI*u*2)**2;
+    const fold=.018*betweenBows*Math.sin(v*Math.PI*10+u*5)*Math.sin(v*Math.PI);
+    return [x0+u*length,Math.min(yTop,arch(v)-.060*betweenBows+fold),z0+v*width];
   },[length,width]);
   for(const side of [-1,1]){
     const z=side<0?z0:z1;
-    patch('tarp',22,8,(u,v)=>{
-      const tension=Math.sin(Math.PI*v),fold=(.014*Math.sin(u*Math.PI*24+v*3)+.012*Math.sin(u*Math.PI*10-v*5))*tension;
-      const sag=.025*Math.sin(Math.PI*u*4)**2*Math.sin(Math.PI*v);
+    patch('tarp',48,14,(u,v)=>{
+      // Broad folds rise from the tie points, with smaller diagonal creases
+      // between them. The perimeter stays on the original collision envelope.
+      const tension=Math.sin(Math.PI*v),fold=(.040*Math.sin(u*Math.PI*12+v*1.1)+.018*Math.sin(u*Math.PI*24-v*4))*tension;
+      const sag=.048*Math.sin(Math.PI*u*6)**2*Math.sin(Math.PI*v);
       return [x0+u*length,yBottom+v*(yEave-yBottom)-sag,z+side*fold];
     },[length,yEave-yBottom]);
     // Continuous hem and tie-down cords terminate at actual lower-side hooks.
@@ -6427,16 +6562,131 @@ function assaultVehicle(i, map) {
     box('paint_red',[13.086,.70,z],[.012,.09,.155]);
   }
   box('steel_worn',[13.15,.38,zCenter],[.11,.08,2.65]);
+  // Pressed bed rails, tailgate hinges and boarding step break the native
+  // featureless rear slab into manufactured, load-bearing parts.
+  for(const z of [z0+.055,z1-.055]){
+    box('steel_dark',[10.56,.87,z],[4.81,.065,.065]);
+    for(const x of [8.35,9.82,11.3,12.78]){
+      box('steel_dark',[x,.70,z],[.048,.28,.04]);
+      for(const y of [.61,.79])rod('steel_galv',[x,y,z-.024],[x,y,z+.024],.013,6);
+    }
+  }
+  for(const z of [zCenter-.92,zCenter+.92]){
+    box('steel_dark',[13.03,.63,z],[.025,.20,.11]);
+    rod('steel_worn',[13.055,.58,z-.09],[13.055,.58,z+.09],.027,10);
+  }
+  box('steel_dark',[13.18,.25,zCenter],[.20,.038,.64]);
+  for(const z of [zCenter-.24,zCenter+.24]){
+    box('steel_galv',[13.19,.34,z],[.045,.20,.055]);
+    box('steel_galv',[13.12,.43,z],[.18,.045,.055]);
+  }
 
+  function finish(name){
+    const sourceName=name==='body'?'hull_paint':name;
+    const source=i.mats.get(sourceName,{interior:false}),mat=source.clone();
+    mat.defines={...source.defines};
+    const uniforms={};
+    for(const [key,entry]of Object.entries(source.userData.sl))uniforms[key]=key==='uSlWet'?entry:{value:entry.value?.clone?entry.value.clone():entry.value};
+    mat.userData={...source.userData,sl:uniforms,assaultTruckFinish:{version:2,source:sourceName}};
+    mat.side=T.DoubleSide;
+    // Original maps remain shared. Local scalar response separates coated
+    // steel, oxidized hardware, woven canvas, road rubber and laminated glass.
+    const settings={
+      body:{color:0x3e5560,rough:.66,metal:0,normal:.045,uv:2.5},
+      tarp:{color:0x626754,rough:1,metal:0,normal:.035,uv:3},
+      steel_worn:{color:0x75817b,rough:.70,metal:.78,normal:.045,uv:4},
+      steel_dark:{color:0x354247,rough:.82,metal:.72,normal:.12,uv:3},
+      steel_galv:{rough:.70,metal:.92,normal:.08,uv:4},
+      tire:{rough:.98,metal:0,normal:.24,uv:1},
+      rubber:{rough:1.05,metal:0,normal:.20,uv:2},
+      paint_white:{color:0xc7c6b8,rough:.30,metal:0,normal:.025,uv:3},
+      glass:{rough:.24,metal:0,normal:.025,uv:1.5}
+    }[name];
+    if(settings){
+      if(settings.color!==undefined)mat.color.setHex(settings.color);
+      mat.roughness=settings.rough;mat.metalness=settings.metal;mat.normalScale.multiplyScalar(settings.normal);
+      uniforms.uSlUv.value.x=uniforms.uSlUv.value.y=settings.uv;
+      uniforms.uSlMacro.value.set(.025,.018,.65,.035);
+      uniforms.uSlWetP.value.set(name==='tarp'?.20:.045,name==='tarp'?.95:.84,.35,0);
+      mat.aoMapIntensity=.35;
+    }
+    if(name==='glass'){mat.transparent=true;mat.opacity=.55;mat.depthWrite=false;mat.forceSinglePass=true;mat.envMapIntensity=1.1;}
+    const compile=source.onBeforeCompile,key=source.customProgramCacheKey.bind(source);
+    mat.onBeforeCompile=shader=>{
+      compile(shader);Object.assign(shader.uniforms,uniforms);
+      if(!settings)return;
+      const anchor='slORM = texture2D(roughnessMap, slUv);';
+      if(!shader.fragmentShader.includes(anchor))throw new Error('Truck material source anchor missing: '+name);
+      let sample=`
+        float truckLow=1.0-smoothstep(.30,1.16,vSlPos.y);
+        float truckWheel=max(1.0-smoothstep(.35,1.35,abs(vSlPos.x-6.40)),1.0-smoothstep(.35,1.35,abs(vSlPos.x-11.8364)));
+        float truckSoil=truckLow*(.18+.82*truckWheel);
+      `;
+      if(name==='body')sample+=`
+        sampledDiffuseColor.rgb*=.035;
+        sampledDiffuseColor.a=mix(.965,.995,sampledDiffuseColor.a);
+        // Sun/rain exposure lightens upper paint, road spray dirties the sill;
+        // a small rubbed patch is tied to the actual handle, not random rust.
+        float truckUpperFade=smoothstep(.42,1.85,vSlPos.y);
+        float truckHandleRub=1.0-smoothstep(.055,.23,length(vec2(vSlPos.x-7.70,(vSlPos.y-1.365)*1.6)));
+        sampledDiffuseColor.a*=mix(.92,1.035,truckUpperFade)*(1.0-.075*truckHandleRub);
+        slORM.g=mix(.62,.88,truckSoil);
+      `;
+      else if(name==='tarp')sample+=`
+        sampledDiffuseColor.rgb*=.065;
+        sampledDiffuseColor.a=mix(.91,.98,sampledDiffuseColor.a);
+        float truckTieDistance=abs(fract((vSlPos.x-8.348)/.7394667+.5)-.5)*.7394667;
+        float truckHem=(1.0-smoothstep(.025,.075,abs(vSlPos.y-1.2192)));
+        float truckTape=(1.0-smoothstep(.012,.035,truckTieDistance))*(1.0-smoothstep(1.30,1.72,vSlPos.y));
+        sampledDiffuseColor.a*=1.0-.07*max(truckHem,truckTape);
+        slORM.g=mix(.90,slORM.g,.08);
+      `;
+      else if(name==='steel_worn'||name==='steel_dark')sample+=`
+        sampledDiffuseColor.rgb*=.018;
+        sampledDiffuseColor.a=mix(.94,.985,sampledDiffuseColor.a);
+        slORM.g=mix(.72,.92,truckSoil);slORM.b=mix(.82,slORM.b,.12);
+      `;
+      else if(name==='steel_galv')sample+=`
+        sampledDiffuseColor.rgb=mix(vec3(.32,.37,.38),sampledDiffuseColor.rgb,.10);
+        slORM.g=mix(.64,slORM.g,.15);slORM.b=.94;
+      `;
+      else if(name==='tire')sample+=`
+        sampledDiffuseColor.rgb=mix(vec3(.018,.020,.021),sampledDiffuseColor.rgb,.12);
+        slORM.g=mix(.88,slORM.g,.12);
+      `;
+      else if(name==='rubber')sample+=`sampledDiffuseColor.rgb*=.06;sampledDiffuseColor.a=mix(.94,1.0,sampledDiffuseColor.a);slORM.g=.86;`;
+      else if(name==='paint_white')sample+=`
+        sampledDiffuseColor.rgb*=.012;
+        sampledDiffuseColor.a=.97;
+        // Subtle moulded lens fluting, with no emissive or added illumination.
+        float truckLensFlute=.5+.5*cos(vSlPos.z*150.0);
+        sampledDiffuseColor.a*=mix(.94,1.0,truckLensFlute);
+        slORM.g=mix(.52,.65,truckLensFlute);slORM.b=0.0;
+      `;
+      else if(name==='glass')sample+=`
+        sampledDiffuseColor.rgb=mix(vec3(.19,.25,.27),sampledDiffuseColor.rgb,.06);
+        sampledDiffuseColor.a=.62;slORM.g=.66;slORM.b=0.0;
+      `;
+      shader.fragmentShader=shader.fragmentShader.replace(anchor,anchor+sample);
+      if(name==='body'||name==='steel_dark'||name==='steel_worn'||name==='tire'){
+        shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+          diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.070,.061,.046),truckSoil*${name==='tire'?'.23':'.17'});
+        `);
+      }
+      const rough='roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);';
+      const floor=name==='glass'?'.14':name==='paint_white'?'.18':name==='tarp'?'.83':name==='tire'||name==='rubber'?'.78':name==='body'?'.45':'.48';
+      shader.fragmentShader=shader.fragmentShader.replace(rough,rough+'\nroughnessFactor=max(roughnessFactor,'+floor+');');
+    };
+    mat.customProgramCacheKey=()=>key()+'|assault-truck-finish-2|'+name;
+    return mat;
+  }
   for(const [name,batch] of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(batch.p,3));
     g.setAttribute('normal',new T.Float32BufferAttribute(batch.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(batch.uv,2));g.computeBoundingSphere();
-    const mat=/^(tarp|steel_galv|steel_worn)$/.test(name)
-      ?assaultMaterial(i,name,false,false,{vertexColors:false})
-      :i.mats.get(name,{interior:false});mat.side=T.DoubleSide;
-    const mesh=new T.Mesh(g,mat);mesh.name='truck-'+name;mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);
+    const mat=finish(name);
+    const mesh=new T.Mesh(g,mat);mesh.name='truck-'+name;mesh.castShadow=name!=='glass';mesh.receiveShadow=true;root.add(mesh);
   }
-  return {root,hideFaceIds,hideTextures,stats:{triangles,meshes:batches.size,wheels:wheels.length,
+  return {root,hideFaceIds,hideTextures,stats:{triangles,meshes:batches.size,wheels:wheels.length,nativeTriangles,remappedFaces:nativeFinish.size,
     sourceEnvelope:{min:[5.6896,0,-10.418318],max:[13.208,2.8448,-6.2992]}}};
 }
 
@@ -6465,7 +6715,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       value: entry.value?.clone ? entry.value.clone() : entry.value
     };
   }
-  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 7, source: name, vertexColors, grainAxis}};
+  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 10, source: name, vertexColors, grainAxis}};
   mat.side = T.DoubleSide;
   const concrete = /^concrete/.test(name), brick = name === 'brick';
   const masonry = concrete || brick, corrugated = name === 'corrugated_roof';
@@ -6486,7 +6736,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       : paintedSteel ? [.035,.92,.32,.32,.10]
       : wood ? [.10,.94,.18,.25,.085]
       : galvanized ? [.025,.94,.30,.24,.18]
-      : wornSteel ? [.025,.93,.30,.28,.20]
+      : wornSteel ? [.025,.93,.30,.28,inside?.045:.20]
       : canvas ? [.16,.98,.20,.28,.055]
       : staticAsphalt ? [.16,.86,.20,.28,.18]
       : [.14,.74,.22,inside?.4:.55,brick?.52:.34];
@@ -6531,6 +6781,23 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       if (!shader.fragmentShader.includes(anchor)) throw new Error('Assault surface shader anchor missing: ' + name + ' / ' + anchor.slice(0, 65));
       shader.fragmentShader = shader.fragmentShader.replace(anchor, replacement);
     }
+    if(concrete){
+      // Original concrete maps remain the asset. Orientation selects a finer
+      // cast/slab texture scale without splitting the existing draw batches.
+      shader.vertexShader=shader.vertexShader.replace('#include <common>',
+        '#include <common>\nvarying float vAssaultConcreteUp;');
+      shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',
+        '#include <begin_vertex>\nvAssaultConcreteUp=abs(normalize(mat3(modelMatrix)*normal).y);');
+      shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
+        varying float vAssaultConcreteUp;
+        float assaultTraffic(vec2 p,vec2 a,vec2 b){
+          vec2 d=b-a;float t=clamp(dot(p-a,d)/dot(d,d),0.0,1.0);
+          return 1.0-smoothstep(.35,1.8,length(p-a-t*d));
+        }
+      `);
+      patch('slUv = vMapUv * uSlUv.xy;',
+        'slUv = vMapUv * uSlUv.xy * mix(1.0,2.25,smoothstep(.65,.96,vAssaultConcreteUp));');
+    }
     if(wood&&grainAxis==='v')patch('slUv = vMapUv * uSlUv.xy;', 'slUv = vMapUv.yx * uSlUv.xy;');
     const sampling = 'slORM = texture2D(roughnessMap, slUv);';
     let finish = `
@@ -6541,14 +6808,31 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     if (galvanized) {
       finish += `
         sampledDiffuseColor.rgb=mix(vec3(.50,.525,.55),sampledDiffuseColor.rgb,.18);
-        slORM.g=mix(.55,slORM.g,.22);
+        // Low-contrast zinc bloom and dull runoff are broad enough to remain
+        // stable in motion. The original fine spangle stays in the source map.
+        float assaultZinc=slN3(vSlPos*vec3(1.7,.28,1.7)+vec3(4.2,7.1,1.6));
+        float assaultZincBloom=smoothstep(.48,.77,assaultZinc);
+        sampledDiffuseColor.rgb*=mix(.94,1.035,assaultZinc);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.43,.465,.48),assaultZincBloom*.18);
+        slORM.g=mix(.55,slORM.g,.22)+assaultZincBloom*.09;
         slORM.b=mix(.92,slORM.b,.18);
       `;
     } else if (wornSteel) {
-      finish += `
-        sampledDiffuseColor.rgb*=.12;
+      finish += (inside ? `
+        sampledDiffuseColor.rgb=mix(vec3(.040,.047,.048),sampledDiffuseColor.rgb*.12,.24);
+        slORM.b=mix(.42,slORM.b,.20);
+      ` : `sampledDiffuseColor.rgb*=.12;`) + `
         sampledDiffuseColor.a=mix(.80,.94,sampledDiffuseColor.a);
         slORM.g=mix(.60,slORM.g,.28);
+        // Worn structural steel: quiet mill-scale fields with isolated dull
+        // oxidation, rather than fine bright scratches on every visible pixel.
+        float assaultSteelAge=slN3(vSlPos*vec3(.48,.22,.48)+vec3(7.2,1.5,9.4));
+        float assaultSteelRun=slN3(vSlPos*vec3(3.4,.32,3.4)+vec3(2.8,8.1,4.6));
+        float assaultSteelOxide=smoothstep(.57,.77,assaultSteelAge)*smoothstep(.46,.72,assaultSteelRun);
+        sampledDiffuseColor.rgb*=mix(.84,1.13,assaultSteelAge);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.067,.038,.022),assaultSteelOxide*.65);
+        slORM.b*=1.0-assaultSteelOxide*.85;
+        slORM.g=mix(slORM.g,.91,assaultSteelOxide);
       `;
     } else if (canvas) {
       finish += `
@@ -6572,9 +6856,20 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         sampledDiffuseColor.a=mix(.84,.96,sampledDiffuseColor.a);
       `;
     } else if (wood) {
-      // The supplied grain and knots remain, compressed around a weathered
-      // pale-timber substrate. Fine grain carries color; the face stays planar.
-      finish += `sampledDiffuseColor.rgb=mix(vec3(.245,.188,.130),sampledDiffuseColor.rgb,.38);`;
+      // Sawn boards age individually; original grain/knots remain visible.
+      // Mineral streaks follow the timber rather than random black speckles.
+      finish += `
+        vec2 assaultTimberUv=${grainAxis==='v'?'vMapUv.yx':'vMapUv'};
+        float assaultBoard=slH(vec3(floor(assaultTimberUv.y/.16),floor(assaultTimberUv.x/2.4),3.8));
+        float assaultTimberAge=slN3(vSlPos*.38+vec3(3.4,8.9,2.7));
+        float assaultTimberStreak=slN3(vec3(assaultTimberUv*vec2(.65,11.0),6.2));
+        float assaultTimberDirt=smoothstep(.51,.76,assaultTimberAge)*smoothstep(.45,.75,assaultTimberStreak);
+        vec3 assaultTimberBase=mix(vec3(.212,.151,.090),vec3(.236,.216,.174),assaultBoard*.75);
+        sampledDiffuseColor.rgb=mix(assaultTimberBase,sampledDiffuseColor.rgb,.44)*mix(.86,1.08,assaultBoard);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.088,.071,.044),assaultTimberDirt*.40);
+        sampledDiffuseColor.rgb*=1.0-assaultContact*.09;
+        slORM.g=mix(slORM.g,.94,assaultTimberDirt*.55);
+      `;
     } else if (brick) {
       // Offsets are whole bricks and even row counts. Mortar courses stay
       // aligned while the source tile's broad stains lose their periodic motif.
@@ -6587,7 +6882,15 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       `;
     } else if (concrete) {
       finish += `
-        sampledDiffuseColor.rgb=mix(vec3(.225,.216,.197),sampledDiffuseColor.rgb,.40);
+        float assaultSlab=smoothstep(.65,.96,vAssaultConcreteUp);
+        float assaultWalk=max(assaultTraffic(vSlPos.xz,vec2(-18.2,-65.6),vec2(-23.5,-62.6)),
+          assaultTraffic(vSlPos.xz,vec2(-23.5,-62.6),vec2(-26.0,-64.5)));
+        assaultWalk=max(assaultWalk,assaultTraffic(vSlPos.xz,vec2(8.0,-59.0),vec2(-2.0,-70.0)));
+        assaultWalk*=assaultSlab;
+        sampledDiffuseColor.rgb=mix(mix(vec3(.225,.216,.197),vec3(.222,.218,.207),assaultSlab),
+          sampledDiffuseColor.rgb,mix(.20,.30,assaultSlab));
+        sampledDiffuseColor.rgb*=1.0-.055*assaultWalk;
+        slORM.g=mix(slORM.g,mix(.84,.64,assaultWalk),.65);
       `;
       if (name === 'concrete_painted') {
         // A continuous paint film with local abrasion at the plinth. The
@@ -6603,6 +6906,21 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         // alternate white/black once the pitch approaches a screen pixel.
         sampledDiffuseColor.rgb=mix(vec3(.39,.425,.46),sampledDiffuseColor.rgb,
           mix(.16,.58,assaultDetail));
+      `;
+      if(!inside)finish += `
+        // Individual sheets age differently. Slow runoff streaks interrupt
+        // the rib repetition without introducing another normal-map scale.
+        float assaultSheet=slH(vec3(floor(vMapUv.x/1.05),floor(vMapUv.y/4.2),7.3));
+        float assaultRunoff=slN3(vSlPos*vec3(1.8,.12,1.8)+vec3(13.7,4.8,1.2));
+        float assaultOxide=slN3(vSlPos*.17+vec3(6.2,2.9,8.1));
+        float assaultAge=smoothstep(.42,.79,assaultRunoff)*(.28+.72*assaultOxide);
+        float assaultRoofFacing=abs(normalize(cross(dFdx(vSlPos),dFdy(vSlPos))).y);
+        float assaultRoofDamp=smoothstep(.36,.68,assaultOxide)*smoothstep(.65,.95,assaultRoofFacing);
+        sampledDiffuseColor.rgb*=mix(.90,1.055,assaultSheet);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,
+          sampledDiffuseColor.rgb*vec3(.66,.62,.56),assaultAge*.38);
+        slORM.g=mix(slORM.g,.90,assaultAge*.32);
+        sampledDiffuseColor.rgb*=1.0-assaultRoofDamp*.12;
       `;
     }
     patch(sampling, sampling + finish);
@@ -6623,7 +6941,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     patch(roughness, roughness + (galvanized
       ? '\nroughnessFactor=max(roughnessFactor,.50);'
       : wornSteel
-      ? '\nroughnessFactor=max(roughnessFactor,.57);'
+      ? '\nroughnessFactor=max(roughnessFactor,'+(inside?'.72':'.57')+');'
       : canvas
       ? '\nroughnessFactor=max(roughnessFactor,.84);'
       : staticAsphalt
@@ -6635,8 +6953,12 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       : corrugated
       ? '\nroughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));'
       : '\nroughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));'));
+    if(corrugated&&!inside)patch('roughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));',
+      'roughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));\nroughnessFactor=mix(roughnessFactor,.39,assaultRoofDamp*.68);');
+    if(concrete)patch('roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));',
+      'roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));\nroughnessFactor=mix(max(roughnessFactor,.80),mix(.76,.61,assaultWalk),assaultSlab);');
   };
-  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-7|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + (staticAsphalt?':'+!!inside:'');
+  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-10|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
   cache.set(key, mat);
   return mat;
 }
@@ -7038,6 +7360,8 @@ function assaultArchitecture(i, map) {
   // Each source crate face becomes timber construction, rather than a texture
   // stretched over a box. Coplanar BSP splits are joined before laying battens.
   const cratePlanes=new Map();
+  // The same complete-stack selection hides BSP faces and timber relief, so a
+  // maritime replacement never retains the original oversized wooden base.
   const replacedCargo=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   for(const f of map.faces||[]){
     if(replacedCargo.has(f.id))continue;
@@ -7081,6 +7405,74 @@ function assaultArchitecture(i, map) {
       }
     }
   }
+
+  // Construction at a useful medium scale: sheet laps, folded gutter sections,
+  // fixings and local repairs interrupt the uninterrupted cladding field. The
+  // roof height is the exact intersection of the native hip-roof planes.
+  // Surface relief is at most 25 mm on walking surfaces; no route is narrowed.
+  const finishStart=stats.triangles;
+  const roofHeight=(x,z)=>13.0048-.5*Math.max(0,Math.abs(x)-12.192,z+46.3296);
+  function roofRibbon(material,a,b,width,lift=.016){
+    const dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),px=-dz/length*width/2,pz=dx/length*width/2;
+    const corners=[[a[0]+px,a[1]+pz],[b[0]+px,b[1]+pz],[b[0]-px,b[1]-pz],[a[0]-px,a[1]-pz]];
+    const vertices=corners.map(([x,z])=>[x,roofHeight(x,z)+lift,z]);
+    vertices.push(...vertices.map(v=>[v[0],v[1]-.009,v[2]]));
+    const indices=[0,1,2,0,2,3,4,6,5,4,7,6,0,4,5,0,5,1,1,5,6,1,6,2,2,6,7,2,7,3,3,7,4,3,4,0],p=[],uv=[];
+    for(const k of indices){const v=vertices[k];p.push(...v);uv.push(v[0],v[2]);}
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
+    g.computeVertexNormals();add(g,material,false,'warehouse');
+  }
+  function roofFixing(x,z){
+    const g=ot(.018,.018,.012,6);g.translate(x,roofHeight(x,z)+.025,z);add(g,'steel_worn',false,'warehouse');
+  }
+  for(const z of [-49.70,-53.40]){
+    for(const [x0,x1]of[[-18.12,-12.192],[-12.192,0],[0,12.192],[12.192,18.12]])roofRibbon('steel_worn',[x0,z],[x1,z],.065);
+    for(let x=-16.8;x<17;x+=2.4)roofFixing(x,z);
+  }
+  // Two-piece wall apron: the vertical leg meets masonry, the lower leg covers
+  // the roofing junction. Keep the central vent/ladder aperture entirely clear.
+  for(const [x0,x1]of[[-11.90,-1.10],[1.10,11.90]]){
+    box('steel_worn',[(x0+x1)/2,13.14,-56.825],[x1-x0,.25,.035],.004,false,'warehouse');
+    roofRibbon('steel_worn',[x0,-56.70],[x1,-56.70],.24,.018);
+  }
+  // Sparse repair sheets have their own folded edges and fasteners. These are
+  // tangible patches using Saltline worn steel, not random dirt polygons.
+  for(const [x,z,w,d]of[[-3.65,-50.65,1.18,1.90],[3.35,-47.95,.88,1.42],[-9.45,-54.55,1.10,1.62]]){
+    const y=roofHeight(x,z);
+    box('steel_worn',[x,y+.012,z],[w,.024,d],.005,false,'warehouse');
+    for(const sx of [-1,1])for(const sz of [-1,1])roofFixing(x+sx*(w/2-.065),z+sz*(d/2-.065));
+    for(const sx of [-1,1])box('steel_dark',[x+sx*(w/2-.012),y+.019,z],[.022,.014,d-.025],0,false,'warehouse');
+  }
+  // Rainwater gutter with a real U section, bracket returns and connections to
+  // the original two downpipes. It sits beneath the native front roof edge.
+  box('steel_worn',[0,9.865,-40.105],[36.55,.025,.235],.004,false,'warehouse');
+  box('steel_worn',[0,9.95,-39.988],[36.55,.18,.025],.004,false,'warehouse');
+  box('steel_dark',[0,9.91,-40.218],[36.55,.11,.022],0,false,'warehouse');
+  for(let x=-16.3;x<17;x+=2.96){
+    box('steel_dark',[x,9.838,-40.10],[.055,.035,.29],0,false,'warehouse');
+    box('steel_dark',[x,9.90,-39.966],[.055,.14,.025],0,false,'warehouse');
+  }
+  for(const x of [-17.61,17.61])pipe('steel_worn',[x,9.87,-40.105],[x,9.91,-40.37],.065,false,'warehouse');
+  // The horizontal cladding lap is below the freight sign. Short folded end
+  // tabs meet the bay posts; a gasket shadow separates overlapping steel sheets.
+  front.box('steel_dark',0,5.728,35.50,.024,.024,.040,0);
+  front.box('steel_worn',0,5.77,35.50,.055,.085,.041,.004);
+  for(const x of [-17.73,-11.8,-5.9,0,5.9,11.8,17.73]){
+    front.box('steel_worn',x,5.77,.34,.16,.10,.035,.006);
+    for(const dx of [-.105,.105]){
+      const g=ot(.021,.021,.015,6);g.rotateX(Math.PI/2);g.translate(x+dx,5.77,-40.544);add(g,'steel_dark',false,'warehouse');
+    }
+  }
+  // Receiving canopy is wholly above the original doorway. Its folded drip
+  // edge and triangular wall brackets give the entrance proper construction.
+  const canopy=chamferBox(.79,.060,9.30,.009);canopy.rotateZ(.075);canopy.translate(-18.22,5.34,-51.61);add(canopy,'steel_worn',false,'warehouse');
+  box('steel_dark',[-18.60,5.28,-51.61],[.045,.12,9.34],.005,false,'warehouse');
+  for(const z of [-55.70,-53.00,-50.30,-47.60]){
+    box('steel_dark',[-17.955,5.10,z],[.06,.49,.13],.006,false,'warehouse');
+    beam('steel_worn',[-17.98,4.91,z],[-18.54,5.285,z],.055,.065,.004,false,'warehouse');
+    box('steel_worn',[-18.25,5.275,z],[.61,.055,.065],.004,false,'warehouse');
+  }
+  stats.constructionFinish={triangles:stats.triangles-finishStart,roofLaps:2,repairSheets:3,gutters:1,receivingCanopies:1};
 
   // A surrounding freight district closes the otherwise empty blue horizon.
   // Everything is outside the native playable bounds, with a generous setback.
@@ -7173,7 +7565,20 @@ function assaultArchitecture(i, map) {
   for(const dx of [-bridge.w/2,0,bridge.w/2])districtBox('steel_dark',[bridge.x+dx,districtGround+bridge.h+.15,bridge.z],[.20,.20,bridge.d+.1]);
   for(const dz of [-.65,.65])pipe('paint_grey',[bridge.x-bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],
     [bridge.x+bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],.22,false,'skyline');
-  skyline.utilityFrames++;skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
+  skyline.utilityFrames++;
+  // A second, farther plant layer gives the district depth and a varied
+  // industrial silhouette. Tapered stacks grow out of a grounded boiler house;
+  // no smoke cards, glowing windows, lights or disconnected horizon props.
+  districtBox('concrete_dirty',[-266,districtGround+5,-31],[38,10,28]);
+  pitchedRoof(-266,-31,39,29,districtGround+10,1.6);
+  for(const [x,z,h]of[[-271,-31,28],[-260,-31,25]]){
+    districtCylinder('concrete_dirty',x,z,1.32,h,districtGround,16,.78);
+    districtCylinder('steel_dark',x,z,.84,.35,districtGround+h,16,.84);
+  }
+  districtBox('concrete_dirty',[-325,districtGround+8.6,-81],[64,17.2,30]);
+  for(let j=0;j<4;j++)pitchedRoof(-349+j*16,-81,16.2,30.8,districtGround+17.2,2.1);
+  skyline.warehouses+=2;skyline.stacks=2;skyline.layers=2;
+  skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
 
   for(const [key,b]of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));
@@ -7280,6 +7685,20 @@ function assaultLighting(i,map,root){
     patches.push({pos:source,normal:V([0,-1,0]),color:tint,power:intensity,gain:1});
     emitters.push({pos:source,color:tint,intensity,area:8,reflectance:.45});stats.bakedDirectLights++;
   }
+  // The BSP also contains five service lights below the rear gallery and three
+  // long ceiling lights above it. Their existing housings were previously dark.
+  // Bake their occluded contribution: warm recesses below a cooler upper route
+  // give the rear wall depth without adding a global light or shadow sampler.
+  const rearPanels=map.faces.filter(face=>face.normal[1]<-.99&&face.center[2]<-70.5&&face.center[2]>-73.2&&Math.abs(face.center[0])<17&&['+0~light6a','~light5a'].includes(face.texture));
+  stats.rearBakedFixtures=rearPanels.length;
+  for(const panel of rearPanels){
+    const upper=panel.center[1]>10,color=upper?0xdce7ef:0xf2dec0,intensity=upper?28:13;
+    const width=panel.bounds.max[0]-panel.bounds.min[0],depth=panel.bounds.max[2]-panel.bounds.min[2],pos=panel.center;
+    fixture([pos[0],pos[1]-.025,pos[2]],upper?1:0,width*.94,depth*.94);
+    const source=V([pos[0],pos[1]-.18,pos[2]]),tint=new T.Color(color);
+    patches.push({pos:source,normal:V([0,-1,0]),color:tint,power:intensity,gain:1});
+    emitters.push({pos:source,color:tint,intensity,area:upper?10:6,reflectance:.42});stats.bakedDirectLights++;
+  }
   // Fixtures share four geometry/material batches instead of seventy draw calls.
   const batches=new Map();
   for(const part of fixtureParts){const key=part.geometry.uuid+':'+part.material.uuid;if(!batches.has(key))batches.set(key,[]);batches.get(key).push(part);}
@@ -7290,14 +7709,20 @@ function assaultLighting(i,map,root){
   stats.directLights=lamps.length;
   stats.shadowLights=shadowLights.length;stats.shadowBakes=0;stats.shadowBakeMs=0;stats.shadowPassDrawCalls=0;
   stats.shadowMaps=shadowLights.map(light=>light.shadow.mapSize.x);
-  // Four depth comparisons give a narrow local contact, not the sun's metre-wide
-  // search/filter kernel. This runs after Saltline installs its sun shader chunk.
+  stats.shadowFilter='area PCF: 4 blocker + 4 contact / 12 penumbra taps';stats.shadowMapRefreshes=0;stats.shadowIgnoredChanges=0;
+  const shadowProfiles=shadowLights.map((light,index)=>{
+    light.shadow.radius=-(index+1);
+    return `if(shadowRadius<-${(index+.5).toFixed(1)}){nearZ=${light.shadow.camera.near.toFixed(6)};farZ=${light.shadow.camera.far.toFixed(6)};tanHalfFov=${Math.tan(light.angle).toFixed(8)};emitterRadius=${light.intensity>100?'0.50':'0.35'};}`;
+  }).join('\n');
+  const disk=Array.from({length:12},(_,n)=>{const r=Math.sqrt((n+.5)/12),angle=n*2.39996323;return `vec2(${(Math.cos(angle)*r).toFixed(7)},${(Math.sin(angle)*r).toFixed(7)})`;}).join(',');
+  // Linearized blocker depth gives the broad fixtures a distance-dependent
+  // penumbra. Close contacts retain bilinear PCF; the sun path stays unchanged.
   const shadowChunk=T.ShaderChunk.shadowmap_pars_fragment;
   if(!shadowChunk.includes('ASSAULT_LOCAL_CONTACT')){
     const signature=/float getShadow\([^)]*\)\s*\{/;
     if(!signature.test(shadowChunk))throw new Error('Local contact-shadow shader anchor is missing');
     T.ShaderChunk.shadowmap_pars_fragment=shadowChunk.replace(signature,match=>match+`
-      // ASSAULT_LOCAL_CONTACT: reserved negative radius, four-tap local PCF.
+      // ASSAULT_LOCAL_CONTACT: negative radius indexes a fixed fixture profile.
       if(shadowRadius<0.0){
         vec3 q=shadowCoord.xyz/shadowCoord.w;
         if(q.x<0.0||q.x>1.0||q.y<0.0||q.y>1.0||q.z>1.0)return 1.0;
@@ -7306,22 +7731,53 @@ function assaultLighting(i,map,root){
         if(abs(det)>1e-12)dz=vec2(dy.y*dx.z-dx.y*dy.z,dx.x*dy.z-dy.x*dx.z)/det;
         dz=clamp(dz,vec2(-.2),vec2(.2));
         float z=q.z+shadowBias-dot(abs(dz),texel)*.35;
-        // Compare at the four texel centres, then interpolate their visibility
-        // by fractional texel position. Fixed equal weights quantize the edge.
-        vec2 p=q.xy*shadowMapSize-.5,f=fract(p),uv=(floor(p)+.5)*texel;
-        vec2 a=uv-q.xy,b=a+vec2(texel.x,0.0),c=a+vec2(0.0,texel.y),d=a+texel;
-        float aa=step(z+dot(a,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+a)));
-        float bb=step(z+dot(b,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+b)));
-        float cc=step(z+dot(c,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+c)));
-        float dd=step(z+dot(d,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+d)));
-        float lit=mix(mix(aa,bb,f.x),mix(cc,dd,f.x),f.y);
-        return mix(1.0,lit,shadowIntensity);
+        float nearZ=.12,farZ=22.0,tanHalfFov=1.87,emitterRadius=.5;
+        ${shadowProfiles}
+        float receiverDistance=max(shadowCoord.w,nearZ+.001),uvPerMetre=1.0/(2.0*tanHalfFov*receiverDistance);
+        vec2 searchRadius=max(texel*1.25,vec2(.20*uvPerMetre));
+        const vec2 searchDisk[4]=vec2[4](vec2(0.0),vec2(.8660254,0.0),vec2(-.4330127,.75),vec2(-.4330127,-.75));
+        float blockers=0.0,blockerDistance=0.0;
+        for(int sampleIndex=0;sampleIndex<4;sampleIndex++){
+          vec2 offset=searchDisk[sampleIndex]*searchRadius;
+          float depth=unpackRGBAToDepth(texture2D(shadowMap,q.xy+offset));
+          if(depth<z+dot(offset,dz)-.00001){
+            blockerDistance+=nearZ*farZ/max(.00001,farZ-depth*(farZ-nearZ));blockers+=1.0;
+          }
+        }
+        float penumbra=0.0;
+        if(blockers>.5){blockerDistance/=blockers;penumbra=clamp(emitterRadius*(receiverDistance-blockerDistance)/max(blockerDistance,.01),0.0,.18)*uvPerMetre;}
+        if(blockers<.5||penumbra<max(texel.x,texel.y)*1.25){
+          // The no-blocker path still checks bilinear centre visibility. A thin
+          // chair leg between sparse search probes must retain its contact.
+          vec2 p=q.xy*shadowMapSize-.5,f=fract(p),uv=(floor(p)+.5)*texel;
+          vec2 a=uv-q.xy,b=a+vec2(texel.x,0.0),c=a+vec2(0.0,texel.y),d=a+texel;
+          float aa=step(z+dot(a,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+a)));
+          float bb=step(z+dot(b,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+b)));
+          float cc=step(z+dot(c,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+c)));
+          float dd=step(z+dot(d,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+d)));
+          return mix(1.0,mix(mix(aa,bb,f.x),mix(cc,dd,f.x),f.y),shadowIntensity);
+        }
+        const vec2 filterDisk[12]=vec2[12](${disk});float lit=0.0;
+        for(int sampleIndex=0;sampleIndex<12;sampleIndex++){
+          vec2 offset=filterDisk[sampleIndex]*penumbra;
+          lit+=step(z+dot(offset,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+offset)));
+        }
+        return mix(1.0,lit/12.0,shadowIntensity);
       }
     `);
   }
   const environmentCasters=new Set();root.traverse(object=>{if(object.isMesh&&object.castShadow)environmentCasters.add(object);});
-  const movingOccluders=[...map.doors,...map.breakables].map(data=>root.getObjectByName(data.id)).filter(Boolean);
-  let shadowState=null,shadowUpdatedAt=-Infinity;
+  const movingOccluders=[...map.doors,...map.breakables].map(data=>{
+    const object=root.getObjectByName(data.id);if(!object)return null;
+    let casts=false;object.traverse(child=>{if(environmentCasters.has(child))casts=true;});
+    // Transparent breakables already excluded from the source shadow geometry
+    // cannot invalidate a map when broken or reset.
+    return casts?{object,id:data.id,seen:false,visible:false,matrix:new Float64Array(16),bounds:new T.Box3()}:null;
+  }).filter(Boolean);
+  const shadowCache=shadowLights.map((light,index)=>({light,list:[light],dirty:true,updatedAt:-Infinity,frustum:null,
+    stats:{index,position:light.position.toArray(),refreshes:0,invalidations:0,lastMs:0,lastDrawCalls:0,occluders:[]}}));
+  stats.shadowPerLight=shadowCache.map(entry=>entry.stats);
+  const newBounds=new T.Box3(),affectedBounds=new T.Box3();
   // Three keeps its render state alive through onAfterRender. Baking from a
   // pre-pass outside renderer.render fails on later door invalidation. Update
   // after the main-camera pass instead; the refreshed map is used next frame.
@@ -7329,19 +7785,45 @@ function assaultLighting(i,map,root){
   i.scene.onAfterRender=function(renderer,scene,camera){
     previousAfterRender?.call(this,renderer,scene,camera);
     if(camera!==i.camera)return;
-    const state=movingOccluders.map(o=>[o.visible,o.position.x,o.position.y,o.position.z,o.rotation.y].join(',')).join('|');
-    // A moving door may change every frame; refresh its cached occlusion at
-    // most 8 Hz instead of submitting all three depth maps at frame rate.
-    if(state===shadowState||performance.now()-shadowUpdatedAt<125)return;
+    for(const entry of shadowCache)if(!entry.frustum){entry.light.shadow.updateMatrices(entry.light);entry.frustum=entry.light.shadow.getFrustum();}
+    for(const record of movingOccluders){
+      const object=record.object,elements=object.matrixWorld.elements,visible=object.visible;
+      let changed=!record.seen||visible!==record.visible;
+      for(let n=0;n<16&&!changed;n++)changed=elements[n]!==record.matrix[n];
+      if(!changed)continue;
+      newBounds.setFromObject(object).expandByScalar(.12);
+      affectedBounds.makeEmpty();
+      if(record.seen&&record.visible)affectedBounds.union(record.bounds);
+      if(visible)affectedBounds.union(newBounds);
+      let relevant=false;
+      for(const entry of shadowCache){
+        if(!affectedBounds.isEmpty()&&entry.frustum.intersectsBox(affectedBounds)){
+          entry.dirty=true;relevant=true;
+          if(record.seen)entry.stats.invalidations++;
+          if(!entry.stats.occluders.includes(record.id))entry.stats.occluders.push(record.id);
+        }
+      }
+      if(record.seen&&!relevant)stats.shadowIgnoredChanges++;
+      record.bounds.copy(newBounds);record.matrix.set(elements);record.visible=visible;record.seen=true;
+    }
+    // Preserve dirty state while throttled. A caster leaving a frustum still
+    // clears its old shadow; unrelated maps retain their already valid content.
+    const now=performance.now(),due=shadowCache.filter(entry=>entry.dirty&&now-entry.updatedAt>=125);
+    if(!due.length)return;
     const disabled=[],before=renderer.info.render.calls,begin=performance.now(),pending=renderer.shadowMap.needsUpdate;
     // Cache environmental contacts only. Actors retain their normal sun shadows
     // and never leave a frozen silhouette in a local map after they move away.
     scene.traverse(o=>{if((o.isMesh||o.isLine||o.isPoints)&&o.castShadow&&!environmentCasters.has(o)){disabled.push(o);o.castShadow=false;}});
     try{
       scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
-      for(const light of shadowLights)light.shadow.needsUpdate=true;
-      renderer.shadowMap.needsUpdate=true;renderer.shadowMap.render(shadowLights,scene,camera);
-      shadowState=state;shadowUpdatedAt=performance.now();stats.shadowBakes++;stats.shadowBakeMs=Math.round((performance.now()-begin)*100)/100;
+      for(const entry of due){
+        const drawStart=renderer.info.render.calls,timeStart=performance.now();
+        entry.light.shadow.needsUpdate=true;renderer.shadowMap.needsUpdate=true;
+        renderer.shadowMap.render(entry.list,scene,camera);
+        entry.dirty=false;entry.updatedAt=performance.now();entry.stats.refreshes++;stats.shadowMapRefreshes++;
+        entry.stats.lastMs=Math.round((entry.updatedAt-timeStart)*100)/100;entry.stats.lastDrawCalls=renderer.info.render.calls-drawStart;
+      }
+      stats.shadowBakes++;stats.shadowBakeMs=Math.round((performance.now()-begin)*100)/100;
       stats.shadowPassDrawCalls=renderer.info.render.calls-before;
     }finally{for(const o of disabled)o.castShadow=true;renderer.shadowMap.needsUpdate=pending;}
   };
@@ -7363,11 +7845,20 @@ function assaultLighting(i,map,root){
   // Broad sky/sun contribution arrives only through an unobstructed opening.
   patches.push({pos:V([0,3.1,-39.5]),normal:V([0,0,-1]),color:new T.Color(0xffdab0),power:48});
   stats.bouncePatches=patches.length;
-  const ENERGY_RANGE=6;
+  // HDR half floats retain small bounced contributions without clipping the
+  // probes immediately under fixtures. Direction remains compact RGBA8.
+  const ENERGY_RANGE=1;
+  stats.irradianceEncoding='RGBA16F';stats.relocatedProbes=0;stats.maxProbeIrradiance=0;
+  const upward=V([0,1,0]);
   function volume(min,max,dimensions){
-    const [nx,ny,nz]=dimensions,energy=new Uint8Array(nx*ny*nz*4),direction=new Uint8Array(energy.length),p=new T.Vector3(),to=new T.Vector3(),sum=new T.Vector3();
+    const [nx,ny,nz]=dimensions,energy=new Uint16Array(nx*ny*nz*4),direction=new Uint8Array(energy.length),p=new T.Vector3(),to=new T.Vector3(),sum=new T.Vector3();
     for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
       p.set(min[0]+(max[0]-min[0])*x/(nx-1),min[1]+(max[1]-min[1])*y/(ny-1),min[2]+(max[2]-min[2])*z/(nz-1));
+      // A sample just inside a floor slab would interpolate black onto the
+      // visible floor. Original triangle normals distinguish an upward exit
+      // from a ceiling hit, so relocate only these near-surface solid samples.
+      const floorExit=i.physics.raycast(p,upward,.25);stats.visibilityRays++;
+      if(floorExit&&floorExit.normal.y>.7){p.y=floorExit.point.y+.08;stats.relocatedProbes++;}
       let r=0,g=0,b=0;sum.set(0,0,0);
       for(const patch of patches){
         to.subVectors(p,patch.pos);const distance=to.length();if(distance<.01||distance>25)continue;to.multiplyScalar(1/distance);
@@ -7379,15 +7870,17 @@ function assaultLighting(i,map,root){
         const e=power*(patch.gain??2.1);r+=patch.color.r*e;g+=patch.color.g*e;b+=patch.color.b*e;
         sum.addScaledVector(to,-e);
       }
-      const index=((z*ny+y)*nx+x)*4,peak=Math.max(r,g,b);if(peak>ENERGY_RANGE)stats.clippedProbes++;
-      energy[index]=Math.min(255,Math.round(r/ENERGY_RANGE*255));energy[index+1]=Math.min(255,Math.round(g/ENERGY_RANGE*255));energy[index+2]=Math.min(255,Math.round(b/ENERGY_RANGE*255));energy[index+3]=255;
+      const index=((z*ny+y)*nx+x)*4,peak=Math.max(r,g,b);stats.maxProbeIrradiance=Math.max(stats.maxProbeIrradiance,peak);if(peak>65504)stats.clippedProbes++;
+      energy[index]=T.DataUtils.toHalfFloat(Math.min(65504,r));energy[index+1]=T.DataUtils.toHalfFloat(Math.min(65504,g));energy[index+2]=T.DataUtils.toHalfFloat(Math.min(65504,b));energy[index+3]=T.DataUtils.toHalfFloat(1);
       if(sum.lengthSq()>1e-8)sum.normalize();
       direction[index]=Math.round((sum.x*.5+.5)*255);direction[index+1]=Math.round((sum.y*.5+.5)*255);direction[index+2]=Math.round((sum.z*.5+.5)*255);direction[index+3]=255;stats.probes++;
     }
-    const texture=data=>{const t=new T.Data3DTexture(data,nx,ny,nz);t.format=T.RGBAFormat;t.type=T.UnsignedByteType;t.minFilter=t.magFilter=T.LinearFilter;t.wrapS=t.wrapT=t.wrapR=T.ClampToEdgeWrapping;t.unpackAlignment=1;t.needsUpdate=true;return t;};
+    const texture=data=>{const t=new T.Data3DTexture(data,nx,ny,nz);t.format=T.RGBAFormat;t.type=data instanceof Uint16Array?T.HalfFloatType:T.UnsignedByteType;t.minFilter=t.magFilter=T.LinearFilter;t.wrapS=t.wrapT=t.wrapR=T.ClampToEdgeWrapping;t.unpackAlignment=1;t.needsUpdate=true;return t;};
     return {min:V(min),max:V(max),energy:texture(energy),direction:texture(direction)};
   }
-  const hall=volume([-17.35,.22,-73.1],[17.35,12.45,-41.15],[11,6,11]);
+  // Vertical slices at 3.24 and 8.5067 m lie just below the two native floors;
+  // relocation above resolves both surfaces without adding shader lookups.
+  const hall=volume([-17.35,.08,-73.1],[17.35,12.72,-41.15],[11,13,15]);
   const officeVolume=volume([-29.0,8.68,-70.0],[-17.7,12.45,-59.85],[5,4,5]);
   const uniforms={uAssaultHall:{value:hall.energy},uAssaultHallDirection:{value:hall.direction},uAssaultOffice:{value:officeVolume.energy},uAssaultOfficeDirection:{value:officeVolume.direction},uAssaultHallMin:{value:hall.min},uAssaultHallMax:{value:hall.max},uAssaultOfficeMin:{value:officeVolume.min},uAssaultOfficeMax:{value:officeVolume.max},uAssaultBounceStrength:{value:1}};
   group.userData.bounceStrength=uniforms.uAssaultBounceStrength;
@@ -7440,18 +7933,273 @@ function assaultLighting(i,map,root){
     }
   });
   stats.bakeMs=Math.round(performance.now()-started);
+  stats.maxProbeIrradiance=Math.round(stats.maxProbeIrradiance*1000)/1000;
   return {lamps,root:group,stats,uniforms,volumes:{hall,office:officeVolume}};
+}
+
+/* Preserve the light inventory and every nonzero lighting contribution while
+ * avoiding BRDF evaluation for finite-range lights that contribute exactly 0.
+ * Install before the level is compiled. The A/B switch is for paused profiling;
+ * it invalidates shader programs, so compilation/settling is not benchmark time.
+ */
+function assaultPerformance(i) {
+  if (i.assaultPerformance) return i.assaultPerformance;
+  const chunks = i.THREE.ShaderChunk;
+  const original = chunks.lights_fragment_begin;
+  const marker = 'ASSAULT_ZERO_LIGHT_GUARD';
+  const directCall = 'RE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+  if (original.includes(marker)) throw new Error('Assault direct-light guard installed twice');
+  let optimized = original;
+  for (const [family, next] of [['POINT', 'SPOT'], ['SPOT', 'DIR']]) {
+    const start = optimized.indexOf('#if ( NUM_' + family + '_LIGHTS > 0 ) && defined( RE_Direct )');
+    const end = optimized.indexOf('#if ( NUM_' + next + '_LIGHTS > 0 ) && defined( RE_Direct )', start);
+    if (start < 0 || end <= start) throw new Error('Missing ' + family + ' light shader section');
+    const section = optimized.slice(start, end);
+    if (section.split(directCall).length !== 2) throw new Error('Unexpected ' + family + ' direct-light call count');
+    // Three already defines visible from the attenuated RGB value. The shadow
+    // path uses that same predicate. Keep all shadow/map/attenuation work and
+    // guard only the BRDF's accumulation into reflectedLight: a zero light adds
+    // zero diffuse/specular energy. Do not change directional or indirect light.
+    const guarded = section.replace(directCall,
+      '// ' + marker + '_' + family + '\n\t\tif ( directLight.visible ) {\n\t\t\t' + directCall + '\n\t\t}');
+    optimized = optimized.slice(0, start) + guarded + optimized.slice(end);
+  }
+
+  const registered = new WeakSet();
+  const materialRevisions = new WeakMap();
+  const diagnostics = {
+    version: 1,
+    enabled: String(i.params?.directlightguard ?? '1') !== '0',
+    guardedFamilies: ['point', 'spot'],
+    changedLightCounts: false,
+    changedQuality: false,
+    programRevision: 0,
+    registeredMaterials: 0,
+    invalidatedMaterials: 0
+  };
+  function register(material) {
+    if (!material) return;
+    if (registered.has(material)) {
+      // A cached bank material may have been absent from the scene during an
+      // A/B switch. Invalidate it on reuse before its old program can render.
+      if (materialRevisions.get(material) !== diagnostics.programRevision) {
+        material.needsUpdate = true;
+        materialRevisions.set(material, diagnostics.programRevision);
+      }
+      return;
+    }
+    registered.add(material);
+    // Preserve material/lighting-specific cache keys and hooks. Including the
+    // mode prevents Three from reusing the other A/B branch's compiled program.
+    const previous = material.customProgramCacheKey;
+    material.customProgramCacheKey = function () {
+      return previous.call(this) + '|assault-zero-light-' + Number(diagnostics.enabled);
+    };
+    material.needsUpdate = true;
+    materialRevisions.set(material, diagnostics.programRevision);
+    diagnostics.registeredMaterials++;
+  }
+  function registerScene(invalidate) {
+    const seen = new Set();
+    i.scene.traverse(object => {
+      for (const material of object.material ? (Array.isArray(object.material) ? object.material : [object.material]) : []) {
+        if (seen.has(material)) continue;
+        seen.add(material); register(material);
+      }
+    });
+    if (invalidate) diagnostics.invalidatedMaterials = seen.size;
+  }
+  // Original material-bank objects may be created after initial compilation
+  // (for example an enemy or a weapon). Register them when requested, without
+  // altering their textures, uniforms, shader hooks, identity, or return value.
+  const getMaterial = i.mats.get;
+  i.mats.get = function (...args) {
+    const material = getMaterial.apply(this, args); register(material); return material;
+  };
+  chunks.lights_fragment_begin = diagnostics.enabled ? optimized : original;
+  registerScene(false);
+  const api = {
+    diagnostics,
+    setEnabled(enabled) {
+      enabled = !!enabled;
+      if (enabled === diagnostics.enabled) return diagnostics;
+      diagnostics.enabled = enabled;
+      diagnostics.programRevision++;
+      chunks.lights_fragment_begin = enabled ? optimized : original;
+      registerScene(true);
+      return diagnostics;
+    },
+    // Can be checked before rendering: exactly two guards and unchanged
+    // directional/indirect sections are required, independently of frame rate.
+    verify() {
+      const source = chunks.lights_fragment_begin;
+      const suffix = '#if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )';
+      return {
+        enabled: diagnostics.enabled,
+        guards: source.split(marker).length - 1,
+        expectedGuards: diagnostics.enabled ? 2 : 0,
+        directionalAndIndirectUnchanged: source.slice(source.indexOf(suffix)) === original.slice(original.indexOf(suffix))
+      };
+    }
+  };
+  i.assaultPerformance = api;
+  return api;
+}
+
+// Resource residency is separate from shader compilation. Three's compileAsync
+// does not upload the hidden decal atlas, dormant skinning textures, or the
+// vertex buffers of invisible pools. Draw the already-created objects once
+// during loading, before the game loop starts. No effects or actors are spawned.
+let assaultWarmupSerial = 0;
+async function assaultPrewarm(i) {
+  const api = i.assaultPerformance || assaultPerformance(i);
+  if (api.warmup?.complete) return api.warmup;
+  if (String(i.params?.prewarm ?? '1') === '0') return api.warmup = { complete: false, skipped: true, reason: 'prewarm=0 diagnostic baseline' };
+  if (i.game && !['title', 'boot', 'loading'].includes(i.game.state)) {
+    throw new Error('Assault resource warmup must run before Deploy');
+  }
+  const T = i.THREE, renderer = i.renderer, scene = i.scene;
+  const started = performance.now(), objects = [], materials = new Set(), textures = new Set(), skeletons = new Set();
+  const diagnostics = api.warmup = {
+    complete: false, meshes: 0, texturesInitialized: 0, skeletonTexturesCreated: 0,
+    fxTextures: [], before: { ...renderer.info.memory }, after: null,
+    restored: false, elapsedMs: 0, gameplayUpdates: 0, offscreenSize: [8, 8], samples: i.quality.msaa | 0
+  };
+  // Three allocates UUIDs with Math.random. Use a private stream only inside
+  // synchronous resource-construction/upload blocks; restore the native stream
+  // before yielding. Neither the gameplay RNG nor cosmetic RNG is advanced.
+  let uuidState = (0x51a17e00 + ++assaultWarmupSerial) >>> 0;
+  function resourceWork(work) {
+    const random = Math.random;
+    Math.random = () => {
+      uuidState = (Math.imul(uuidState, 1664525) + 1013904223) >>> 0;
+      return uuidState / 4294967296;
+    };
+    try { return work(); } finally { Math.random = random; }
+  }
+  function collectTexture(value) {
+    if (Array.isArray(value)) { value.forEach(collectTexture); return; }
+    if (value?.isTexture && !value.isRenderTargetTexture && !value.isDepthTexture && value.image) textures.add(value);
+  }
+  function resident(texture) { return !!renderer.properties.get(texture).__webglTexture; }
+  scene.traverse(object => {
+    let effectiveVisible = true;
+    for (let parent = object; parent; parent = parent.parent) effectiveVisible &&= parent.visible;
+    objects.push({ object, visible: object.visible, effectiveVisible, frustumCulled: object.frustumCulled,
+      before: object.onBeforeRender, after: object.onAfterRender, matrix: object.matrix.clone(),
+      world: object.matrixWorld.clone(), matrixWorldNeedsUpdate: object.matrixWorldNeedsUpdate,
+      bind: object.bindMatrix?.clone(), bindInverse: object.bindMatrixInverse?.clone() });
+    if (object.isSkinnedMesh && object.skeleton) skeletons.add(object.skeleton);
+    if (object.isMesh || object.isLine || object.isPoints) diagnostics.meshes++;
+    for (const material of object.material ? (Array.isArray(object.material) ? object.material : [object.material]) : []) materials.add(material);
+  });
+  const materialCallbacks = [];
+  for (const material of materials) {
+    materialCallbacks.push([material, material.onBeforeRender]);
+    Object.values(material).forEach(collectTexture);
+    for (const uniform of Object.values(material.uniforms || {})) collectTexture(uniform.value);
+    if (material.name === 'fx_decals' || material.name === 'fx_lit' || material.name === 'fx_add') {
+      const unique = new Set();
+      for (const value of [...Object.values(material), ...Object.values(material.uniforms || {}).map(u => u.value)]) {
+        if (value?.isTexture && !unique.has(value)) {
+          unique.add(value); diagnostics.fxTextures.push({ material: material.name, texture: value.name || value.uuid,
+            before: resident(value), after: false, reference: value });
+        }
+      }
+    }
+  }
+  const saved = {
+    target: renderer.getRenderTarget(), face: renderer.getActiveCubeFace(), mip: renderer.getActiveMipmapLevel(),
+    viewport: renderer.getViewport(new T.Vector4()), scissor: renderer.getScissor(new T.Vector4()),
+    scissorTest: renderer.getScissorTest(), autoClear: renderer.autoClear,
+    shadowAuto: renderer.shadowMap.autoUpdate, shadowNeeds: renderer.shadowMap.needsUpdate,
+    xr: renderer.xr.enabled
+  };
+  const noCallback = () => {};
+  const skeletonMatrices = new Map([...skeletons].map(skeleton => [skeleton, skeleton.boneMatrices.slice()]));
+  const owned = resourceWork(() => ({
+    target: new T.WebGLRenderTarget(8, 8, { type: T.HalfFloatType, format: T.RGBAFormat, minFilter: T.NearestFilter,
+      magFilter: T.NearestFilter, generateMipmaps: false, depthBuffer: true, stencilBuffer: false, samples: i.quality.msaa | 0 }),
+    cameras: [i.camera, i.render.viewCamera].filter(Boolean).map(camera => camera.clone())
+  }));
+  let fence = null;
+  const gl = renderer.getContext();
+  try {
+    for (const record of objects) {
+      const object = record.object;
+      // Keep the exact light inventory. Hidden ancestors of pooled meshes may
+      // be revealed for the warm draw, but must not reveal additional lights.
+      object.visible = object.isLight ? record.effectiveVisible : true;
+      object.frustumCulled = false;
+      object.onBeforeRender = object.onAfterRender = noCallback;
+    }
+    for (const [material] of materialCallbacks) material.onBeforeRender = noCallback;
+    renderer.shadowMap.autoUpdate = false;
+    renderer.shadowMap.needsUpdate = false;
+    renderer.xr.enabled = false;
+    renderer.autoClear = true;
+    resourceWork(() => {
+      for (const skeleton of skeletons) {
+        if (!skeleton.boneTexture) { skeleton.computeBoneTexture(); diagnostics.skeletonTexturesCreated++; }
+        collectTexture(skeleton.boneTexture);
+      }
+      for (const texture of textures) {
+        if (!resident(texture)) { renderer.initTexture(texture); diagnostics.texturesInitialized++; }
+      }
+      renderer.setRenderTarget(owned.target);
+      renderer.setViewport(0, 0, 8, 8);
+      renderer.setScissorTest(false);
+      for (const camera of owned.cameras) renderer.render(scene, camera);
+      fence = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
+      gl.flush();
+    });
+    if (!fence) throw new Error('Could not fence the Assault resource warmup');
+    const deadline = performance.now() + 10000;
+    for (;;) {
+      const status = gl.clientWaitSync(fence, 0, 0);
+      if (status === gl.ALREADY_SIGNALED || status === gl.CONDITION_SATISFIED) break;
+      if (status === gl.WAIT_FAILED || performance.now() > deadline) throw new Error('Assault resource warmup did not finish');
+      await new Promise(resolve => setTimeout(resolve, 4));
+    }
+    diagnostics.complete = true;
+  } finally {
+    if (fence) gl.deleteSync(fence);
+    for (const record of objects) {
+      const object = record.object;
+      object.visible = record.visible; object.frustumCulled = record.frustumCulled;
+      object.onBeforeRender = record.before; object.onAfterRender = record.after;
+      object.matrix.copy(record.matrix); object.matrixWorld.copy(record.world); object.matrixWorldNeedsUpdate = record.matrixWorldNeedsUpdate;
+      if (record.bind) object.bindMatrix.copy(record.bind);
+      if (record.bindInverse) object.bindMatrixInverse.copy(record.bindInverse);
+    }
+    for (const [skeleton, values] of skeletonMatrices) skeleton.boneMatrices.set(values);
+    for (const [material, callback] of materialCallbacks) material.onBeforeRender = callback;
+    renderer.shadowMap.autoUpdate = saved.shadowAuto;
+    renderer.shadowMap.needsUpdate = saved.shadowNeeds;
+    renderer.xr.enabled = saved.xr; renderer.autoClear = saved.autoClear;
+    renderer.setRenderTarget(saved.target, saved.face, saved.mip);
+    renderer.setViewport(saved.viewport); renderer.setScissor(saved.scissor); renderer.setScissorTest(saved.scissorTest);
+    owned.target.dispose();
+    for (const entry of diagnostics.fxTextures) { entry.after = resident(entry.reference); delete entry.reference; }
+    diagnostics.after = { ...renderer.info.memory };
+    diagnostics.restored = objects.every(record => record.object.visible === record.visible &&
+      record.object.frustumCulled === record.frustumCulled && record.object.onBeforeRender === record.before && record.object.onAfterRender === record.after);
+    diagnostics.elapsedMs = Math.round((performance.now() - started) * 100) / 100;
+  }
+  return diagnostics;
 }
 
 // Assault scene integration. All surfaces and coordinates come from the supplied BSP.
 async function C1(i) {
+  assaultPerformance(i);
   const T = i.THREE, map = window.__ASSAULT_MAP;
   if (!map) throw new Error('Assault scene data missing');
   const root = new T.Group(); root.name = 'assault'; i.scene.add(root);
   const vehicle=assaultVehicle(i,map);root.add(vehicle.root);
   const sourceFaces=new Map(map.faces.map(f=>[f.id,f]));
-  // The west-yard container brush keeps its native collision and cover height;
-  // original Saltline maritime meshes supply its visible panels and hardware.
+  // Every designated cargo assembly keeps its native collision/cover envelope;
+  // original Saltline containers replace all source faces, including the hall's
+  // wooden base and painted upper brushes as one complete stack.
   const cargoFaces=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   const V = a => new T.Vector3(...a);
   const b = ob(i), dynamic = [], broken = [];
@@ -7503,8 +8251,27 @@ async function C1(i) {
   }
   const worldMeshes=geometry(map.surfaces,root);
   const pavementGeometry=new T.BufferGeometry();pavementGeometry.setAttribute('position',new T.Float32BufferAttribute(pavement,3));pavementGeometry.computeVertexNormals();pavementGeometry.computeBoundingSphere();
-  const positions=new Float32Array(map.collision.positions), indices=Uint32Array.from({length:positions.length/3},(_,n)=>n);
-  i.physics.addTriangles(positions,indices);
+  const positions=new Float32Array(map.collision.positions);
+  // Preserve every native collision vertex. Match only the designated cargo's
+  // source triangles so impacts and top-surface footsteps agree with the new
+  // metal cover; neighbouring crates, floors and walls keep their prior surface.
+  const triangleKey=(p,k)=>[0,3,6].map(j=>[p[k+j],p[k+j+1],p[k+j+2]].map(v=>v.toFixed(4)).join(',')).sort().join('|');
+  const cargoTriangles=new Set();
+  for(const s of map.surfaces)for(const id of s.faceIds){
+    if(!cargoFaces.has(id))continue;
+    const face=sourceFaces.get(id);
+    for(let v=face.vertexStart;v<face.vertexStart+face.vertexCount;v+=3)cargoTriangles.add(triangleKey(s.positions,v*3));
+  }
+  const collisionRuns=[];
+  for(let k=0;k<positions.length;k+=9){
+    const surface=cargoTriangles.has(triangleKey(positions,k))?'metal':'concrete';
+    let run=collisionRuns[collisionRuns.length-1];
+    if(!run||run.surface!==surface){run={surface,indices:[]};collisionRuns.push(run);}
+    run.indices.push(k/3,k/3+1,k/3+2);
+  }
+  // Contiguous runs retain the original triangle insertion order, including
+  // coplanar ray/nav tie behaviour.
+  for(const run of collisionRuns)i.physics.addTriangles(positions,Uint32Array.from(run.indices),run.surface);
   for(const l of map.ladders){
     const mn=l.bounds.min.slice(),mx=l.bounds.max.slice();mn[0]-=.42;mx[0]+=.42;mn[2]-=.42;mx[2]+=.42;
     i.physics.addLadder(mn,mx);
@@ -8430,7 +9197,7 @@ vObjP = position; vONrm = normal; vWNrm = normalize(mat3(modelMatrix) * normal);
     </div>
 
     <div class="loc-card" aria-hidden="true"><i></i><b>Saltline Terminal \xB7 cs_assault \xB7 Remix</b><span>Port Authority Breach Unit \u2014 one breacher, no backup</span></div>
-  `,t.appendChild(s);let o=U=>s.querySelector(U),r=U=>[...s.querySelectorAll(U)],a=o(".panel"),l=o(".loc-card"),c=U=>s.querySelector(`[data-f="${U}"]`),u=o("#s-sens"),h=o("#s-vol"),f=o("#s-fov"),p="none",d=null;function v(U){if((!U||U==="sens")&&(i.input.sensitivity=n.sens),(!U||U==="invertY")&&(i.input.invertY=n.invertY),!U||U==="volume")try{i.audio&&i.audio.setVolume&&i.audio.setVolume(n.volume)}catch(T){console.error(T)}if((!U||U==="fov")&&i.player&&i.player.setFov&&i.player.setFov(n.fov),U==="quality"||!U&&n.quality!=="auto"&&!i.params.shot&&!i.params.q&&n.quality!==(i.quality&&i.quality.name)){let T=Pr[n.quality];if(T)try{i.render&&i.render.setQuality?i.render.setQuality({...T}):i.quality={...T}}catch(D){console.error("[game] setQuality failed",D)}}}function g(){let U=n.quality==="auto"?i.quality&&i.quality.name:n.quality;for(let D of r(".seg button"))D.setAttribute("aria-pressed",String(D.dataset.q===U));u.value=n.sens,h.value=Math.round(n.volume*100),f.value=n.fov,o('[data-o="sens"]').textContent=n.sens.toFixed(2)+"\xD7",o('[data-o="vol"]').textContent=Math.round(n.volume*100)+"%",o('[data-o="fov"]').textContent=Math.round(n.fov)+"\xB0";let T=o('[data-act="invert"]');T.setAttribute("aria-pressed",String(n.invertY)),T.querySelector("span").textContent=n.invertY?"On":"Off",c("qnote").textContent=n.quality==="auto"?`Quality was picked for this device (${U||"default"}). Lower it if the frame rate struggles.`:"Quality changes apply at once; shadows and reflections may take a moment to rebuild."}u.addEventListener("input",()=>{n.sens=+u.value,v("sens"),g(),Wf(n)}),h.addEventListener("input",()=>{n.volume=+h.value/100,v("volume"),g(),Wf(n)}),f.addEventListener("input",()=>{n.fov=+f.value,v("fov"),g(),Wf(n)});let x=o('[data-row="fs"]'),y=o("#fs-t"),b=()=>document.fullscreenElement||document.webkitFullscreenElement||null,m=document.getElementById("app")||document.documentElement;m&&(m.requestFullscreen||m.webkitRequestFullscreen)&&document.fullscreenEnabled!==!1&&document.webkitFullscreenEnabled!==!1||(x.hidden=!0);function _(){y.textContent="Fullscreen is not available here"}function M(){try{if(b()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);return}let U=(m.requestFullscreen||m.webkitRequestFullscreen).call(m);U&&U.catch&&U.catch(_)}catch{_()}}let E=()=>{y.textContent=b()?"Exit fullscreen":"Enter fullscreen"};document.addEventListener("fullscreenchange",E),document.addEventListener("webkitfullscreenchange",E);function w(U){d=document.activeElement,a.hidden=!1,s.classList.add("panel-open"),z(U||"settings");try{a.focus({preventScroll:!0})}catch{}}function S(){return a.hidden?!1:(a.hidden=!0,s.classList.remove("panel-open"),d&&d.focus&&s.contains(d)?d.focus():H(),!0)}function z(U){for(let T of r(".tab"))T.setAttribute("aria-selected",String(T.dataset.tab===U));for(let T of r(".panel-b"))T.hidden=T.dataset.pane!==U}function H(){let U=s.querySelector(`.m-screen[data-s="${p}"] .btn.primary`);if(U)try{U.focus({preventScroll:!0})}catch{}}s.addEventListener("click",U=>{let T=U.target.closest("button");if(!T||!s.contains(T))return;if(i.events.emit("ui:click",{}),T.dataset.q){n.quality=T.dataset.q,v("quality"),g(),Wf(n);return}if(T.dataset.tab){z(T.dataset.tab);return}let D=T.dataset.act;D==="settings"?w("settings"):D==="controls"?w("controls"):D==="close-panel"?S():D==="invert"?(n.invertY=!n.invertY,v("invertY"),g(),Wf(n)):D==="fullscreen"?M():D&&e[D]&&e[D](U)}),s.addEventListener("mouseover",U=>{let T=U.target.closest("button");T&&U.relatedTarget&&!T.contains(U.relatedTarget)&&i.events.emit("ui:hover",{})}),s.addEventListener("keydown",U=>{if(U.code==="Escape"&&!a.hidden&&(S(),U.stopPropagation(),U.preventDefault()),U.code==="Tab"&&!a.hidden){let T=[...a.querySelectorAll("button, input")].filter(G=>G.offsetParent!==null);if(!T.length)return;let D=T[0],C=T[T.length-1];U.shiftKey&&document.activeElement===D?(C.focus(),U.preventDefault()):!U.shiftKey&&document.activeElement===C&&(D.focus(),U.preventDefault())}});let O=U=>(U=Math.max(0,Math.floor(U)),String(Math.floor(U/60)).padStart(2,"0")+":"+String(U%60).padStart(2,"0")),q={root:s,settings:n,fmtTime:O,get screen(){return p},get panelOpen(){return!a.hidden},closePanel:S,show(U){U!==p&&(p=U,s.dataset.screen=U,S(),s.classList.toggle("open",U!=="none"),U!=="none"?(g(),setTimeout(H,30)):document.activeElement&&s.contains(document.activeElement)&&document.activeElement.blur())},locationCard(U){l.classList.toggle("on",!!U)},setLookMode(U){c("lookmode").textContent=U||""},setDead({time:U,relays:T,total:D}){c("dead-time").textContent=O(U),c("dead-relays").textContent=`${T}/${D}`},setDebrief({time:U,accuracy:T,kills:D,retries:C,rating:G}){c("time").textContent=O(U),c("acc").textContent=T==null?"\u2014":Math.round(T*100)+"%",c("kills").textContent=String(D),c("retries").textContent=String(C),c("rating").textContent=G},applySettings:v};return g(),q}var Yi={introSeconds:3.5,retryIntroSeconds:1.3,interactRange:2.2,interactFacing:.45,cutSeconds:2.4,patrol:{gull:2,hound:1},waves:[{gull:3,hound:1},{gull:3,hound:2},{gull:4,hound:3}],maxAlive:9,spawnStagger:.85,spawnFar:18,pursuitEvery:7,pursuitMinAlive:4,pursuitExtra:5,titleSpeed:1.15,titleFov:50},jC=["NORTH","NORTH-EAST","EAST","SOUTH-EAST","SOUTH","SOUTH-WEST","WEST","NORTH-WEST"],_l={intro:"Breacher, this is Control. Assault freight depot is locked down. Cut the uplinks in the hall, operations office and roof.",contact:"It has seen you. Gulls fly, Hounds walk. Put them down.",cut:["One relay dark. It felt that \u2014 machines inbound.","Two dark. It is throwing everything it has left at you."],all:"All three dark. Return to the marked rescue perimeter at the approach. Move.",low:"You are hit hard. Get behind steel and breathe.",done:"Breacher is aboard. Saltline is dark. Good work."};function mM(i){let e=i.render&&i.render.post||{},t=typeof e.saturation=="number"?e.saturation:1,n=i.player,s=i.level,o=i.hud,r=i.input,a=(P,V,...Y)=>{try{if(P&&typeof P[V]=="function")return P[V](...Y)}catch(L){console.error(`[game] ${V} threw`,L)}},l=pM(i,{deploy(){a(i.audio,"resume"),r.requestLock(),U({})},resume(){j(!0)},restart(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},retry(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},redeploy(){a(i.audio,"resume"),r.requestLock(),U({quick:!0})}});l.applySettings();let c={time:0,retries:0,relays:[],cut:0,allCut:!1,queue:[],waveHot:0,alertT:0,pursuitT:0,pursuitLeft:0,contactSaid:!1,lowSaid:!1,extractHint:0,intensity:.15,used:new Map},u=0,h=Yi.introSeconds,f=!1,p=!1,d=0,v=0,g=!1,x="",y=.8,b=new W,m=new W,A=()=>s&&s.objectives||[],_={state:"title",flow:Yi,run:c,menus:l,start(P={}){U({skipIntro:!!P.skipIntro,quick:!!P.quick})},pause(){G()},resume(){j(!1)},update:B,debugCut(){let P=c.relays.find(V=>!V.cut);P&&me(P)}};function M(P){let V=_.state;P!==V&&(_.state=P,u=0,i.events.emit("game:state",{state:P,prev:V}))}let E={pos:[],look:[],len:1,t:0};function w(){let P=s&&s.cinematicPath||[];if(E.pos=P.map(Y=>new W(...Y.pos)),E.look=P.map(Y=>new W(...Y.look)),E.pos.length<2){let Y=s&&s.playerStart&&s.playerStart.pos||new W;E.pos=[new W(Y.x,2.2,Y.z),new W(Y.x+8,2,Y.z)],E.look=[new W(Y.x+30,2.5,Y.z-2),new W(Y.x+40,3,Y.z-2)]}let V=0;for(let Y=1;Y<E.pos.length;Y++)V+=E.pos[Y].distanceTo(E.pos[Y-1]);E.len=Math.max(V,4)}function S(P,V,Y){let L=P.length-1,Z=Zn(V,0,1)*L,J=Math.min(L-1,Math.floor(Z)),oe=Z-J,fe=P[Math.max(0,J-1)],le=P[J],R=P[J+1],I=P[Math.min(L,J+2)],se=oe*oe,ae=se*oe,k=(ce,ve,_e,Te)=>.5*(2*ve+(-ce+_e)*oe+(2*ce-5*ve+4*_e-Te)*se+(-ce+3*ve-3*_e+Te)*ae);return Y.set(k(fe.x,le.x,R.x,I.x),k(fe.y,le.y,R.y,I.y),k(fe.z,le.z,R.z,I.z))}function z(P){let V=Math.max(26,E.len/Yi.titleSpeed);E.t+=P,E.t>=V&&(E.t=0);let Y=E.t/V,L=Y*Y*(3-2*Y)*.25+Y*.75,Z=i.camera,J=i.time.t;S(E.pos,L,b),S(E.look,L,m),b.x+=Math.sin(J*.31)*.05,b.y+=Math.sin(J*.43+1.7)*.035,b.z+=Math.sin(J*.27+.6)*.05,m.y+=Math.sin(J*.19)*.12,m.x+=Math.sin(J*.13+2)*.2,Z.position.copy(b),Z.lookAt(m),Z.rotation.z+=Math.sin(J*.21)*.006,!i.params.fov&&Math.abs(Z.fov-Yi.titleFov)>.01&&(Z.fov=Yi.titleFov,Z.updateProjectionMatrix()),e.fade=Math.max(1-sl(0,1.8,E.t),sl(V-1.6,V,E.t))}function H(){s.reset&&s.reset();a(i.enemies,"clear"),a(i.fx,"clear"),a(i.combat,"reset"),a(i.weapon,"reset"),c.time=0,c.cut=0,c.allCut=!1,c.queue.length=0,c.waveHot=0,c.alertT=0,c.pursuitT=0,c.pursuitLeft=0,c.contactSaid=!1,c.lowSaid=!1,c.extractHint=0,c.used.clear(),c.relays=A().map((P,V)=>{let Y=(/([a-z0-9])$/i.exec(String(P.id||""))||[0,String.fromCharCode(65+V)])[1].toUpperCase();return O(P,"live"),{o:P,id:P.id||"relay_"+V,short:Y,t:0,cut:!1,cutting:!1}}),n.reset(s.playerStart),o.reset&&o.reset(),e.saturation=t,e.flash=0,q(),o.setRelays&&o.setRelays(0,c.relays.length),ie()}function O(P,V){try{let Y=P&&P.object&&P.object.userData;Y&&typeof Y.setState=="function"&&Y.setState(V)}catch(Y){console.error("[game] relay setState threw",Y)}}function q(){if(!o.setMarkers)return;let P=c.relays.filter(V=>!V.cut).map(V=>({id:V.id,short:V.short,label:V.o.label||"Relay "+V.short,pos:V.o.pos,kind:"relay"}));c.allCut&&s.extraction&&P.push({id:"extract",short:"EX",label:"Rescue",pos:s.extraction.pos,kind:"extract"}),o.setMarkers(P)}function U({skipIntro:P=!1,quick:V=!1,keepRetries:Y=!1}={}){if(Y||(c.retries=0),l.show("none"),l.locationCard(!1),a(i.audio,"setPaused",!1),H(),a(i.weapon,"setVisible",!0),g=!1,P){e.fade=0,T();return}h=V?Yi.retryIntroSeconds:Yi.introSeconds,f=V,p=V,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),o.show(!1),e.fade=1,a(i.audio,"setIntensity",.15),M("intro")}function T(){n.enabled=!0,o.show(!0),r.setGameplay&&r.setGameplay(!0),o.setObjective(D()),M("playing"),C(!0)}function D(){if(c.allCut)return"Return to the rescue perimeter";let P=c.relays.length-c.cut;return c.cut===0?"Cut the three uplink relays":P===1?"Cut the last relay":`Cut the remaining ${P} relays`}function C(P){let V=r.describeMode?r.describeMode():"";l.setLookMode(V),!(!P&&V===x)&&(x=V,_.state==="playing"&&(r.mode==="drag"||r.mode==="lock"&&!r.locked&&!i.params.shot&&!i.params.autostart)?o.message(V,r.mode==="drag"?7:4):_.state==="playing"&&r.locked&&o.message("",0))}r.onModeChange&&r.onModeChange(()=>C(!1)),i.events.on("input:lock",P=>{if(P.locked){g=!0,C(!1);return}_.state==="playing"&&g&&G(),g=!1}),document.addEventListener("visibilitychange",()=>{document.hidden&&_.state==="playing"&&G()}),addEventListener("keydown",P=>{_.state!=="title"||l.panelOpen||P.code!=="Enter"&&P.code!=="NumpadEnter"||P.target&&P.target.tagName==="BUTTON"||(a(i.audio,"resume"),r.requestLock(),U({}))});function G(){_.state==="playing"&&(r.setGameplay&&r.setGameplay(!1),r.exitLock(),a(i.audio,"setPaused",!0),l.setLookMode(r.mode==="drag"?r.describeMode():r.touch?"":"Resume recaptures the mouse."),o.show(!1),l.show("paused"),d=.35,M("paused"))}function j(P){_.state==="paused"&&(l.show("none"),a(i.audio,"setPaused",!1),o.show(!0),r.setGameplay&&r.setGameplay(!0),g=!1,r.requestLock(),M("playing"),setTimeout(()=>C(!0),700))}function N(P){let V=P==="gull"?"air":"ground",Y=s&&s.enemySpawns||[],L=Y.filter(Z=>Z.type===V);return L.length?L:Y}function Q(P,{minDist:V=Yi.spawnFar,from:Y=n.pos,preferHidden:L=!0}={}){let Z=N(P),J=null,oe=-1e9;for(let le of Z){let R=Math.hypot(le.pos.x-Y.x,le.pos.z-Y.z),I=i.rng()*1.5;if(I+=R>=V?2+Math.min(1,(R-V)/30)*.5:-(V-R)/4,L){b.copy(le.pos),b.y+=P==="gull"?0:1;let ae=!0;try{ae=i.physics.lineOfSight(b,n.eye)}catch{}ae||(I+=2.5)}let se=c.used.get(le);se!==void 0&&c.time-se<6&&(I-=3),I>oe&&(oe=I,J=le)}let fe=new W;if(J){c.used.set(J,c.time),fe.copy(J.pos);let le=(i.rng()-.5)*2.4,R=(i.rng()-.5)*2.4,I=P==="gull";try{I||(I=i.physics.nav.isWalkable(fe.x+le,fe.z+R,fe.y))}catch{I=!1}I&&(fe.x+=le,fe.z+=R)}else{let le=i.rng()*Math.PI*2;fe.set(Zn(Y.x+Math.cos(le)*26,-34,26),0,Zn(Y.z+Math.sin(le)*26,-26,24))}return P==="gull"&&fe.y<2.5&&(fe.y=6+i.rng()*3),fe}function K(P,V,Y){let L=null;try{L=i.enemies.spawn(P,V,Y)}catch(Z){console.error("[game] enemies.spawn threw",Z)}return L}function ie(){let P=s.playerStart&&s.playerStart.pos||n.pos;for(let V of["gull","hound"])for(let Y=0;Y<Yi.patrol[V];Y++)K(V,Q(V,{minDist:32,from:P,preferHidden:!0}),{state:"patrol"})}function F(P){let V=Yi.waves[Math.min(P,Yi.waves.length-1)],Y=[];for(let oe=0;oe<V.gull;oe++)Y.push("gull");for(let oe=0;oe<V.hound;oe++)Y.splice(Math.min(Y.length,1+oe*2),0,"hound");let L=0,Z=0;Y.forEach((oe,fe)=>{let le=Q(oe);L+=le.x-n.pos.x,Z+=le.z-n.pos.z,c.queue.push({type:oe,pos:le,at:c.time+1.6+fe*Yi.spawnStagger})}),c.waveHot=30;let J=(Math.atan2(L,-Z)*180/Math.PI+360)%360;o.warn&&o.warn("Contact \u2014 "+jC[Math.round(J/45)%8],3.4)}function X(P){let V=ne();for(let Y=0;Y<c.queue.length;Y++){let L=c.queue[Y];if(c.time<L.at)continue;if(V>=Yi.maxAlive){L.at=c.time+1;continue}if(!K(L.type,L.pos,{state:"alert",target:n.pos})&&!i.enemies.stub&&(L.tries=(L.tries||0)+1)<6){L.at=c.time+1.5;continue}c.queue.splice(Y,1),a(i.enemies,"alert",n.pos,60);break}if(c.allCut){if(c.pursuitT-=P,c.pursuitT<=0&&c.pursuitLeft>0&&!c.queue.length&&V<Yi.pursuitMinAlive){c.pursuitT=Yi.pursuitEvery,c.pursuitLeft--;let Y=i.rng()<.6?"gull":"hound";c.queue.push({type:Y,pos:Q(Y),at:c.time+.5})}c.pursuitT<=0&&(c.pursuitT=4,a(i.enemies,"alert",n.pos,90))}}function ne(){try{return i.enemies.aliveCount?i.enemies.aliveCount():i.enemies.list.filter(P=>P.alive).length}catch{return 0}}function re(P){let V=i.enemies&&i.enemies.list||[];for(let Y=0;Y<V.length;Y++){let L=V[Y];if(L&&L.alive&&L.pos&&Math.hypot(L.pos.x-n.pos.x,L.pos.z-n.pos.z)<P)return!0}return!1}i.events.on("enemy:alert",()=>{c.alertT=10,_.state==="playing"&&!c.contactSaid&&(c.contactSaid=!0,o.radio&&o.radio(_l.contact,3.2))}),i.events.on("player:hit",()=>{c.alertT=Math.max(c.alertT,8)}),i.events.on("player:rescued",()=>{_.state==="playing"&&o.message("Hauled out of the water",2.5)});function $(){let P=null,V=Yi.interactRange;for(let Y of c.relays){if(Y.cut)continue;let L=Y.o.pos.x-n.pos.x,Z=Y.o.pos.z-n.pos.z,J=Math.hypot(L,Z);J>V||Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||!i.physics.lineOfSight(n.eye,new W(Y.o.pos.x,Y.o.pos.y+1.25,Y.o.pos.z))||J>.9&&(L*n.forward.x+Z*n.forward.z)/(J*Math.max(.2,Math.hypot(n.forward.x,n.forward.z)))<Yi.interactFacing||(P=Y,V=J)}return P}function ue(P){let V=n.alive?$():null;for(let L of c.relays)L.cut||(L===V&&r.down("interact")?(L.cutting||(L.cutting=!0,O(L.o,"cutting")),L.t+=P/Yi.cutSeconds,i.events.emit("objective:progress",{id:L.id,t:Math.min(1,L.t)}),L.t>=1&&me(L)):L.t>0&&(L.t=Math.max(0,L.t-P*1.6),L.cutting&&(L.cutting=!1,O(L.o,"live"),i.events.emit("objective:progress",{id:L.id,t:0}))));V&&!V.cut?o.setPrompt&&o.setPrompt("Cut relay "+V.short,Fo(V.t)):o.setPrompt&&o.setPrompt(null);let Y=s.extraction;if(Y&&Y.pos){let L=Math.hypot(Y.pos.x-n.pos.x,Y.pos.z-n.pos.z),Z=L<(Y.radius||2.5)&&Math.abs(Y.pos.y-n.pos.y)<3.5;Z&&c.allCut&&n.alive?ee():Z&&!c.allCut&&c.extractHint<=0&&(c.extractHint=8,o.message("Relays still live \u2014 disable all three uplinks before extraction",3.5)),c.extractHint=Math.max(0,c.extractHint-P)}}function me(P){P.cut=!0,P.cutting=!1,P.t=1,c.cut++,O(P.o,"cut");let V=c.relays.length;i.events.emit("objective:done",{id:P.id,index:c.cut,total:V}),o.setRelays&&o.setRelays(c.cut,V),o.setPrompt&&o.setPrompt(null),n.addShake(.18),F(c.cut-1),c.cut>=V?(c.allCut=!0,c.pursuitLeft=Yi.pursuitExtra,c.pursuitT=12,i.events.emit("objective:all",{}),o.radio&&o.radio(_l.all,4.5)):o.radio&&o.radio(_l.cut[Math.min(c.cut-1,_l.cut.length-1)],3.6),o.setObjective(D()),q()}i.events.on("player:dead",()=>{_.state!=="playing"&&_.state!=="paused"||(r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),o.clearRadio&&o.clearRadio(),l.setDead({time:c.time,relays:c.cut,total:c.relays.length}),M("dead"))});function ee(){n.invulnerable=!0,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),i.events.emit("extraction:reached",{}),o.clearRadio&&o.clearRadio(),o.radio&&o.radio(_l.done,2.2);let P=i.combat&&i.combat.stats||{shots:0,hits:0,kills:0},V=P.shots>0?Zn(P.hits/P.shots,0,1):null,Y=(c.time<270?2:c.time<400?1:0)+(V>=.5?2:V>=.3?1:0)+(c.retries===0?1:0),L=["Messy","Loud","Steady","Clean","Sharp","Surgical"][Y];l.setDebrief({time:c.time,accuracy:V,kills:P.kills||0,retries:c.retries,rating:L}),M("complete")}function B(P){switch(u+=P,_.state){case"title":return z(P),!1;case"intro":return e.fade=1-sl(.25,Math.min(h,2.6),u),!f&&u>.5&&(f=!0,l.locationCard(!0)),!p&&u>1.3&&(p=!0,o.radio&&o.radio(_l.intro,4.2)),u>h-.6&&!o.root?.classList.contains("on")&&(o.show(!0),o.setObjective(D())),u>=h&&(l.locationCard(!1),e.fade=0,T()),!0;case"playing":{if(c.time+=P,e.fade=kn(e.fade||0,0,6,P),d>0&&(d-=P),r.pressed("pause"))return G(),!1;if(ue(P),_.state!=="playing")return!0;X(P),c.alertT=Math.max(0,c.alertT-P),c.waveHot=Math.max(0,c.waveHot-P);let V=ne();c.waveHot>0&&V===0&&!c.queue.length&&c.waveHot<24&&(c.waveHot=0);let Y=c.allCut||c.queue.length||c.waveHot>0&&V>0?1:c.alertT>0||V>0&&re(26)?.6:.15;return Y!==c.intensity&&(c.intensity=Y,a(i.audio,"setIntensity",Y)),r.mode==="lock"&&!r.locked&&!r.touch&&!i.params.shot&&!i.params.autostart?(y-=P,y<=0&&(y=2,o.message(r.describeMode(),2.6))):y=.8,!c.lowSaid&&n.alive&&n.health<30&&(c.lowSaid=!0,o.radio&&o.radio(_l.low,3)),!0}case"paused":return d>0?d-=P:r.pressed("pause")&&(l.closePanel()||j(!1)),!1;case"dead":return e.saturation=kn(e.saturation??1,.12,2.2,P),e.fade=kn(e.fade||0,.55,1.4,P),u>1.5&&l.screen!=="dead"&&(l.show("dead"),a(i.audio,"setIntensity",.15)),!0;case"complete":return e.fade=kn(e.fade||0,.72,.9,P),e.saturation=kn(e.saturation??1,t*.7,1,P),u>3.3&&l.screen!=="complete"&&(l.show("complete"),a(i.audio,"setIntensity",.15)),!0}return!1}return w(),n.enabled=!1,o.show(!1),a(i.weapon,"setVisible",!1),r.setGameplay&&r.setGameplay(!1),a(i.audio,"setIntensity",.15),i.params.shot||i.params.autostart||l.show("title"),_}var gM={mats:qg,level:cv,backdrop:mv,ground:vv,fx:Sv,weapon:Xv,enemies:ex,props:$g,render:Vg};window.__frames=0;window.__ready=!1;window.__fatal=null;window.__errors=[];var vM=document.getElementById("boot"),xM=document.getElementById("boot-msg"),yM=document.getElementById("boot-fill");function bM(i){window.__fatal=String(i),console.error("[fatal] "+i);let e=document.getElementById("fatal");e||(e=document.createElement("div"),e.id="fatal",document.getElementById("app").appendChild(e)),e.textContent="Saltline could not start: "+i}window.addEventListener("error",i=>{window.__errors.push(String(i.message))});{let i=console.error.bind(console);console.error=(...e)=>{try{window.__errors.push(e.map(t=>t&&t.stack||String(t)).join(" ").slice(0,400))}catch{}i(...e)}}var KC=()=>new Promise(i=>setTimeout(i,0));async function Nr(i,e){xM&&(xM.textContent=i),yM&&(yM.style.width=Math.round(e*100)+"%"),await KC()}async function QC(){let i=Object.fromEntries(new URLSearchParams(location.search)),e=!!i.bench||location.hash==="#bench";e&&(i.noaudio="1",i.autostart="1");let t={THREE:lt,params:i,events:Dy(),rng:il(+(i.seed||4207)),time:{t:0,dt:0,frame:0,real:0},quality:zy(i.q||(i.shot?"test":""))};window.__G=t;let n=i.show&&gM[i.show]?i.show:null;t.showcase=n;let s=null;function o(h){if(h.cam){let f=String(h.cam).split(",").map(Number);s={pos:new W(f[0],f[1],f[2]),look:new W(f[3]??0,f[4]??1,f[5]??0)}}h.cam===""&&(s=null),h.fov&&(t.camera.fov=+h.fov,t.camera.updateProjectionMatrix()),h.exposure&&(t.render.exposure=+h.exposure)}window.__setShot=o;async function r(h,f,p,d=!1){let v=performance.now();try{t[h]=await p()}catch(x){if(console.error(`[boot] module "${h}" failed: ${x&&x.stack||x}`),d||!dr[h])throw x;t[h]=dr[h]()}let g=performance.now()-v;g>150&&console.log(`[boot] ${h} ${g.toFixed(0)}ms`)}if(await Nr("Waking the renderer",.04),await r("render","render",()=>Hg(t),!0),t.renderer=t.render.renderer,t.scene=t.render.scene,t.camera=t.render.camera,t.viewCamera=t.render.viewCamera,await Nr("Mixing paint, rust and rain",.12),await r("mats","materials",()=>Gg(t)),t.physics=sAP(d3(t),t),t.props=Yg(t),t.input=n?tP():v_(t),n){let h=Qi(new rn(80,80).rotateX(-Math.PI/2),t.mats.get("concrete"),{cast:!1});if(t.scene.add(h),t.level={stub:!0,playerStart:{pos:new W(0,0,4),yaw:0},objectives:[],enemySpawns:[],zones:[],interiorBoxes:[],cinematicPath:[],extraction:{pos:new W,radius:2},groundSurfaceAt:()=>"concrete",update(){}},t.backdrop=dr.backdrop(),t.ground=dr.ground(),t.physics.build(),n==="fx")await r("fx","fx",()=>Cf(t));else try{t.fx=await Cf(t)}catch{t.fx=dr.fx()}t.audio=dr.audio(),t.hud=dr.hud(),t.player=nP(t),t.combat=zv(t),t.weapon=dr.weapon(),t.enemies=dr.enemies(),t.game={state:"showcase",update:()=>!1,start(){}};let f=null;try{f=await gM[n].showcase(t)}catch(p){bM(`showcase "${n}" threw: ${p&&p.stack||p}`)}t.showcaseInfo=f||{},f&&f.cam&&o({cam:[...f.cam,...f.target||[0,1,0]].join(",")})}else{if(await Nr("Stacking containers",.34),await r("level","level",()=>C1(t),!0),await Nr("Raising the cranes",.5),await r("backdrop","backdrop",()=>Eb(t,{only:"sky"})),t.backdrop&&t.backdrop.root&&(t.backdrop.root.visible=!1),t.backdrop&&t.backdrop.skyline&&(t.backdrop.skyline.visible=!1),t.backdrop&&t.backdrop.gulls&&(t.backdrop.gulls.visible=!1),await Nr("Flooding the apron",.58),await r("ground","ground",()=>assaultGround(t)),t.ground.stub){let h=Qi(new rn(400,400).rotateX(-Math.PI/2),t.mats.get("asphalt"),{cast:!1});t.scene.add(h)}t.physics.build(),await Nr("Loading tracers and smoke",.66),await r("fx","fx",()=>Cf(t)),await r("audio","audio",()=>i.noaudio?dr.audio():c_(t)),t.player=x_(t),t.combat=zv(t),await Nr("Checking the rifle",.74),await r("weapon","weapon",()=>dm(t)),await Nr("Waking the Harbormaster",.82),await r("enemies","enemies",()=>Em(t)),await r("hud","hud",()=>hM(t)),t.game=mM(t)}await Nr("Waiting for first light",.92);try{await t.render.onLevelReady()}catch(h){console.error("[boot] render.onLevelReady failed: "+(h&&h.stack||h))}let a=0;if(window.__stats=()=>({...t.render.stats?t.render.stats():{},fps:a?+(1/a).toFixed(1):0,state:t.game&&t.game.state}),i.cam&&o(i),i.fov&&o({fov:i.fov}),!n&&(i.shot||i.autostart))try{t.game.start({skipIntro:!0})}catch(h){console.error("[boot] game.start failed",h)}i.noweapon&&t.weapon.setVisible&&t.weapon.setVisible(!1),e&&eP(t),await Nr("Ready",1),vM.classList.add("done"),setTimeout(()=>{vM.hidden=!0},700);let l=performance.now(),c=1,u=(h,f)=>{let p=t[h];if(p&&p.update)try{p.update(f)}catch(d){u.err[h]||(u.err[h]=1,console.error(`[loop] ${h}.update threw: ${d&&d.stack||d}`))}};u.err={},t.renderer.setAnimationLoop(()=>{let h=performance.now(),f=(h-l)/1e3;l=h,a=a?a*.95+f*.05:f;let p=Math.min(f,.05);i.dt&&(p=+i.dt),t.time.dt=p,t.time.t+=p,t.time.real=h/1e3,t.time.frame++,u("input",p);let d=!1;try{d=t.game.update(p)!==!1&&t.game.state!=="title"&&t.game.state!=="paused"}catch(v){u.err.game||(u.err.game=1,console.error("[loop] game.update threw: "+(v&&v.stack||v)))}if(n){if(t.showcaseInfo.update)try{t.showcaseInfo.update(p)}catch(v){u.err.sc||(u.err.sc=1,console.error("[loop] showcase update threw: "+(v&&v.stack||v)))}}else d&&(u("player",p),u("weapon",p),u("enemies",p));if(t.weapon&&t.weapon.setWetness&&t.level&&t.level.interiorBoxes&&t.level.interiorBoxes[0]){let v=t.level.interiorBoxes[0],g=t.camera.position,x=g.x>v.min.x&&g.x<v.max.x&&g.z>v.min.z&&g.z<v.max.z&&g.y<v.max.y;c+=((x?.3:1)-c)*Math.min(1,p*(x?.25:.6));try{t.weapon.setWetness(c)}catch{}}t.game.state!=="paused"&&(u("fx",p),u("ground",p),u("level",p),u("backdrop",p),u("mats",p)),u("audio",p),u("hud",p),s&&(t.camera.position.copy(s.pos),t.camera.lookAt(s.look)),t.bench&&t.bench.frame(f);try{t.render.frame(p)}catch(v){u.err.render||(u.err.render=1,console.error("[loop] render.frame threw: "+(v&&v.stack||v)))}t.input.endFrame&&t.input.endFrame(),window.__frames++,window.__frames===2&&(window.__ready=!0)})}function eP(i){let e=document.createElement("pre");e.id="bench",e.style.cssText='position:absolute;left:12px;top:12px;z-index:90;margin:0;padding:10px 12px;font:12px/1.45 "IBM Plex Mono",ui-monospace,monospace;color:#d8f0d0;background:rgba(0,0,0,.72);white-space:pre-wrap;max-width:min(560px,90vw);pointer-events:none',document.getElementById("app").appendChild(e);let t="unknown";try{let f=i.renderer.getContext(),p=f.getExtension("WEBGL_debug_renderer_info");t=p?f.getParameter(p.UNMASKED_RENDERER_WEBGL):f.getParameter(f.RENDERER)}catch{}let n=i.level.cinematicPath&&i.level.cinematicPath.length>=2?i.level.cinematicPath:[{pos:[-32,1.7,6],look:[0,2,5]},{pos:[10,1.7,6],look:[30,6,0]}],s=[],o=0,r=0,a=30,l=new W,c=new W,u=new W,h=new W;i.player&&(i.player.enabled=!1),i.bench={frame(f){o+=f;let p=o/a%1*(n.length-1),d=Math.min(n.length-2,Math.floor(p)),v=p-d,g=v*v*(3-2*v);if(l.fromArray(n[d].pos),c.fromArray(n[d+1].pos),u.fromArray(n[d].look),h.fromArray(n[d+1].look),i.camera.position.lerpVectors(l,c,g),i.camera.lookAt(u.lerp(h,g)),o>2&&s.push(f*1e3),s.length>3e3&&s.shift(),o-r>1&&s.length>10){r=o;let x=s.slice().sort((M,E)=>M-E),y=x.reduce((M,E)=>M+E,0)/x.length,b=x[Math.floor(x.length*.99)],m=x[x.length>>1],A=i.render.stats?i.render.stats():{},_=i.renderer.getDrawingBufferSize(new Ae);e.textContent=`SALTLINE BENCH  t=${o.toFixed(0)}s
+  `,t.appendChild(s);let o=U=>s.querySelector(U),r=U=>[...s.querySelectorAll(U)],a=o(".panel"),l=o(".loc-card"),c=U=>s.querySelector(`[data-f="${U}"]`),u=o("#s-sens"),h=o("#s-vol"),f=o("#s-fov"),p="none",d=null;function v(U){if((!U||U==="sens")&&(i.input.sensitivity=n.sens),(!U||U==="invertY")&&(i.input.invertY=n.invertY),!U||U==="volume")try{i.audio&&i.audio.setVolume&&i.audio.setVolume(n.volume)}catch(T){console.error(T)}if((!U||U==="fov")&&i.player&&i.player.setFov&&i.player.setFov(n.fov),U==="quality"||!U&&n.quality!=="auto"&&!i.params.shot&&!i.params.q&&n.quality!==(i.quality&&i.quality.name)){let T=Pr[n.quality];if(T)try{i.render&&i.render.setQuality?i.render.setQuality({...T}):i.quality={...T}}catch(D){console.error("[game] setQuality failed",D)}}}function g(){let U=n.quality==="auto"?i.quality&&i.quality.name:n.quality;for(let D of r(".seg button"))D.setAttribute("aria-pressed",String(D.dataset.q===U));u.value=n.sens,h.value=Math.round(n.volume*100),f.value=n.fov,o('[data-o="sens"]').textContent=n.sens.toFixed(2)+"\xD7",o('[data-o="vol"]').textContent=Math.round(n.volume*100)+"%",o('[data-o="fov"]').textContent=Math.round(n.fov)+"\xB0";let T=o('[data-act="invert"]');T.setAttribute("aria-pressed",String(n.invertY)),T.querySelector("span").textContent=n.invertY?"On":"Off",c("qnote").textContent=n.quality==="auto"?`Quality was picked for this device (${U||"default"}). Lower it if the frame rate struggles.`:"Quality changes apply at once; shadows and reflections may take a moment to rebuild."}u.addEventListener("input",()=>{n.sens=+u.value,v("sens"),g(),Wf(n)}),h.addEventListener("input",()=>{n.volume=+h.value/100,v("volume"),g(),Wf(n)}),f.addEventListener("input",()=>{n.fov=+f.value,v("fov"),g(),Wf(n)});let x=o('[data-row="fs"]'),y=o("#fs-t"),b=()=>document.fullscreenElement||document.webkitFullscreenElement||null,m=document.getElementById("app")||document.documentElement;m&&(m.requestFullscreen||m.webkitRequestFullscreen)&&document.fullscreenEnabled!==!1&&document.webkitFullscreenEnabled!==!1||(x.hidden=!0);function _(){y.textContent="Fullscreen is not available here"}function M(){try{if(b()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);return}let U=(m.requestFullscreen||m.webkitRequestFullscreen).call(m);U&&U.catch&&U.catch(_)}catch{_()}}let E=()=>{y.textContent=b()?"Exit fullscreen":"Enter fullscreen"};document.addEventListener("fullscreenchange",E),document.addEventListener("webkitfullscreenchange",E);function w(U){d=document.activeElement,a.hidden=!1,s.classList.add("panel-open"),z(U||"settings");try{a.focus({preventScroll:!0})}catch{}}function S(){return a.hidden?!1:(a.hidden=!0,s.classList.remove("panel-open"),d&&d.focus&&s.contains(d)?d.focus():H(),!0)}function z(U){for(let T of r(".tab"))T.setAttribute("aria-selected",String(T.dataset.tab===U));for(let T of r(".panel-b"))T.hidden=T.dataset.pane!==U}function H(){let U=s.querySelector(`.m-screen[data-s="${p}"] .btn.primary`);if(U)try{U.focus({preventScroll:!0})}catch{}}s.addEventListener("click",U=>{let T=U.target.closest("button");if(!T||!s.contains(T))return;if(i.events.emit("ui:click",{}),T.dataset.q){n.quality=T.dataset.q,v("quality"),g(),Wf(n);return}if(T.dataset.tab){z(T.dataset.tab);return}let D=T.dataset.act;D==="settings"?w("settings"):D==="controls"?w("controls"):D==="close-panel"?S():D==="invert"?(n.invertY=!n.invertY,v("invertY"),g(),Wf(n)):D==="fullscreen"?M():D&&e[D]&&e[D](U)}),s.addEventListener("mouseover",U=>{let T=U.target.closest("button");T&&U.relatedTarget&&!T.contains(U.relatedTarget)&&i.events.emit("ui:hover",{})}),s.addEventListener("keydown",U=>{if(U.code==="Escape"&&!a.hidden&&(S(),U.stopPropagation(),U.preventDefault()),U.code==="Tab"&&!a.hidden){let T=[...a.querySelectorAll("button, input")].filter(G=>G.offsetParent!==null);if(!T.length)return;let D=T[0],C=T[T.length-1];U.shiftKey&&document.activeElement===D?(C.focus(),U.preventDefault()):!U.shiftKey&&document.activeElement===C&&(D.focus(),U.preventDefault())}});let O=U=>(U=Math.max(0,Math.floor(U)),String(Math.floor(U/60)).padStart(2,"0")+":"+String(U%60).padStart(2,"0")),q={root:s,settings:n,fmtTime:O,get screen(){return p},get panelOpen(){return!a.hidden},closePanel:S,show(U){U!==p&&(p=U,s.dataset.screen=U,S(),s.classList.toggle("open",U!=="none"),U!=="none"?(g(),setTimeout(H,30)):document.activeElement&&s.contains(document.activeElement)&&document.activeElement.blur())},locationCard(U){l.classList.toggle("on",!!U)},setLookMode(U){c("lookmode").textContent=U||""},setDead({time:U,relays:T,total:D}){c("dead-time").textContent=O(U),c("dead-relays").textContent=`${T}/${D}`},setDebrief({time:U,accuracy:T,kills:D,retries:C,rating:G}){c("time").textContent=O(U),c("acc").textContent=T==null?"\u2014":Math.round(T*100)+"%",c("kills").textContent=String(D),c("retries").textContent=String(C),c("rating").textContent=G},applySettings:v};return g(),q}var Yi={introSeconds:3.5,retryIntroSeconds:1.3,interactRange:2.2,interactFacing:.45,cutSeconds:2.4,patrol:{gull:2,hound:1},waves:[{gull:3,hound:1},{gull:3,hound:2},{gull:4,hound:3}],maxAlive:9,spawnStagger:.85,spawnFar:18,pursuitEvery:7,pursuitMinAlive:4,pursuitExtra:5,titleSpeed:1.15,titleFov:50},jC=["NORTH","NORTH-EAST","EAST","SOUTH-EAST","SOUTH","SOUTH-WEST","WEST","NORTH-WEST"],_l={intro:"Breacher, this is Control. Assault freight depot is locked down. Cut the uplinks in the hall, operations office and roof.",contact:"It has seen you. Gulls fly, Hounds walk. Put them down.",cut:["One relay dark. It felt that \u2014 machines inbound.","Two dark. It is throwing everything it has left at you."],all:"All three dark. Return to the marked rescue perimeter at the approach. Move.",low:"You are hit hard. Get behind steel and breathe.",done:"Breacher is aboard. Saltline is dark. Good work."};function mM(i){let e=i.render&&i.render.post||{},t=typeof e.saturation=="number"?e.saturation:1,n=i.player,s=i.level,o=i.hud,r=i.input,a=(P,V,...Y)=>{try{if(P&&typeof P[V]=="function")return P[V](...Y)}catch(L){console.error(`[game] ${V} threw`,L)}},l=pM(i,{deploy(){a(i.audio,"resume"),r.requestLock(),U({})},resume(){j(!0)},restart(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},retry(){a(i.audio,"resume"),r.requestLock(),c.retries++,U({quick:!0,keepRetries:!0})},redeploy(){a(i.audio,"resume"),r.requestLock(),U({quick:!0})}});l.applySettings();let c={time:0,retries:0,relays:[],cut:0,allCut:!1,queue:[],waveHot:0,alertT:0,pursuitT:0,pursuitLeft:0,contactSaid:!1,lowSaid:!1,extractHint:0,intensity:.15,used:new Map},u=0,h=Yi.introSeconds,f=!1,p=!1,d=0,v=0,g=!1,x="",y=.8,b=new W,m=new W,A=()=>s&&s.objectives||[],_={state:"title",flow:Yi,run:c,menus:l,start(P={}){U({skipIntro:!!P.skipIntro,quick:!!P.quick})},pause(){G()},resume(){j(!1)},update:B,debugCut(){let P=c.relays.find(V=>!V.cut);P&&me(P)}};function M(P){let V=_.state;P!==V&&(_.state=P,u=0,i.events.emit("game:state",{state:P,prev:V}))}let E={pos:[],look:[],len:1,t:0};function w(){let P=s&&s.cinematicPath||[];if(E.pos=P.map(Y=>new W(...Y.pos)),E.look=P.map(Y=>new W(...Y.look)),E.pos.length<2){let Y=s&&s.playerStart&&s.playerStart.pos||new W;E.pos=[new W(Y.x,2.2,Y.z),new W(Y.x+8,2,Y.z)],E.look=[new W(Y.x+30,2.5,Y.z-2),new W(Y.x+40,3,Y.z-2)]}let V=0;for(let Y=1;Y<E.pos.length;Y++)V+=E.pos[Y].distanceTo(E.pos[Y-1]);E.len=Math.max(V,4)}function S(P,V,Y){let L=P.length-1,Z=Zn(V,0,1)*L,J=Math.min(L-1,Math.floor(Z)),oe=Z-J,fe=P[Math.max(0,J-1)],le=P[J],R=P[J+1],I=P[Math.min(L,J+2)],se=oe*oe,ae=se*oe,k=(ce,ve,_e,Te)=>.5*(2*ve+(-ce+_e)*oe+(2*ce-5*ve+4*_e-Te)*se+(-ce+3*ve-3*_e+Te)*ae);return Y.set(k(fe.x,le.x,R.x,I.x),k(fe.y,le.y,R.y,I.y),k(fe.z,le.z,R.z,I.z))}function z(P){let V=Math.max(26,E.len/Yi.titleSpeed);E.t+=P,E.t>=V&&(E.t=0);let Y=E.t/V,L=Y*Y*(3-2*Y)*.25+Y*.75,Z=i.camera,J=i.time.t;S(E.pos,L,b),S(E.look,L,m),b.x+=Math.sin(J*.31)*.05,b.y+=Math.sin(J*.43+1.7)*.035,b.z+=Math.sin(J*.27+.6)*.05,m.y+=Math.sin(J*.19)*.12,m.x+=Math.sin(J*.13+2)*.2,Z.position.copy(b),Z.lookAt(m),Z.rotation.z+=Math.sin(J*.21)*.006,!i.params.fov&&Math.abs(Z.fov-Yi.titleFov)>.01&&(Z.fov=Yi.titleFov,Z.updateProjectionMatrix()),e.fade=Math.max(1-sl(0,1.8,E.t),sl(V-1.6,V,E.t))}function H(){s.reset&&s.reset();a(i.enemies,"clear"),a(i.fx,"clear"),a(i.combat,"reset"),a(i.weapon,"reset"),c.time=0,c.cut=0,c.allCut=!1,c.queue.length=0,c.waveHot=0,c.alertT=0,c.pursuitT=0,c.pursuitLeft=0,c.contactSaid=!1,c.lowSaid=!1,c.extractHint=0,c.used.clear(),c.relays=A().map((P,V)=>{let Y=(/([a-z0-9])$/i.exec(String(P.id||""))||[0,String.fromCharCode(65+V)])[1].toUpperCase();return O(P,"live"),{o:P,id:P.id||"relay_"+V,short:Y,t:0,cut:!1,cutting:!1}}),n.reset(s.playerStart),o.reset&&o.reset(),e.saturation=t,e.flash=0,q(),o.setRelays&&o.setRelays(0,c.relays.length),ie()}function O(P,V){try{let Y=P&&P.object&&P.object.userData;Y&&typeof Y.setState=="function"&&Y.setState(V)}catch(Y){console.error("[game] relay setState threw",Y)}}function q(){if(!o.setMarkers)return;let P=c.relays.filter(V=>!V.cut).map(V=>({id:V.id,short:V.short,label:V.o.label||"Relay "+V.short,pos:V.o.pos,kind:"relay"}));c.allCut&&s.extraction&&P.push({id:"extract",short:"EX",label:"Rescue",pos:s.extraction.pos,kind:"extract"}),o.setMarkers(P)}function U({skipIntro:P=!1,quick:V=!1,keepRetries:Y=!1}={}){if(Y||(c.retries=0),l.show("none"),l.locationCard(!1),a(i.audio,"setPaused",!1),H(),a(i.weapon,"setVisible",!0),g=!1,P){e.fade=0,T();return}h=V?Yi.retryIntroSeconds:Yi.introSeconds,f=V,p=V,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),o.show(!1),e.fade=1,a(i.audio,"setIntensity",.15),M("intro")}function T(){n.enabled=!0,o.show(!0),r.setGameplay&&r.setGameplay(!0),o.setObjective(D()),M("playing"),C(!0)}function D(){if(c.allCut)return"Return to the rescue perimeter";let P=c.relays.length-c.cut;return c.cut===0?"Cut the three uplink relays":P===1?"Cut the last relay":`Cut the remaining ${P} relays`}function C(P){let V=r.describeMode?r.describeMode():"";l.setLookMode(V),!(!P&&V===x)&&(x=V,_.state==="playing"&&(r.mode==="drag"||r.mode==="lock"&&!r.locked&&!i.params.shot&&!i.params.autostart)?o.message(V,r.mode==="drag"?7:4):_.state==="playing"&&r.locked&&o.message("",0))}r.onModeChange&&r.onModeChange(()=>C(!1)),i.events.on("input:lock",P=>{if(P.locked){g=!0,C(!1);return}_.state==="playing"&&g&&G(),g=!1}),document.addEventListener("visibilitychange",()=>{document.hidden&&_.state==="playing"&&G()}),addEventListener("keydown",P=>{_.state!=="title"||l.panelOpen||P.code!=="Enter"&&P.code!=="NumpadEnter"||P.target&&P.target.tagName==="BUTTON"||(a(i.audio,"resume"),r.requestLock(),U({}))});function G(){_.state==="playing"&&(r.setGameplay&&r.setGameplay(!1),r.exitLock(),a(i.audio,"setPaused",!0),l.setLookMode(r.mode==="drag"?r.describeMode():r.touch?"":"Resume recaptures the mouse."),o.show(!1),l.show("paused"),d=.35,M("paused"))}function j(P){_.state==="paused"&&(l.show("none"),a(i.audio,"setPaused",!1),o.show(!0),r.setGameplay&&r.setGameplay(!0),g=!1,r.requestLock(),M("playing"),setTimeout(()=>C(!0),700))}function N(P){let V=P==="gull"?"air":"ground",Y=s&&s.enemySpawns||[],L=Y.filter(Z=>Z.type===V);return L.length?L:Y}function Q(P,{minDist:V=Yi.spawnFar,from:Y=n.pos,preferHidden:L=!0}={}){let Z=N(P),J=null,oe=-1e9;for(let le of Z){let R=Math.hypot(le.pos.x-Y.x,le.pos.z-Y.z),I=i.rng()*1.5;if(I+=R>=V?2+Math.min(1,(R-V)/30)*.5:-(V-R)/4,L){b.copy(le.pos),b.y+=P==="gull"?0:1;let ae=!0;try{ae=i.physics.lineOfSight(b,n.eye)}catch{}ae||(I+=2.5)}let se=c.used.get(le);se!==void 0&&c.time-se<6&&(I-=3),I>oe&&(oe=I,J=le)}let fe=new W;if(J){c.used.set(J,c.time),fe.copy(J.pos);let le=(i.rng()-.5)*2.4,R=(i.rng()-.5)*2.4,I=P==="gull";try{I||(I=i.physics.nav.isWalkable(fe.x+le,fe.z+R,fe.y))}catch{I=!1}I&&(fe.x+=le,fe.z+=R)}else{let le=i.rng()*Math.PI*2;fe.set(Zn(Y.x+Math.cos(le)*26,-34,26),0,Zn(Y.z+Math.sin(le)*26,-26,24))}return P==="gull"&&fe.y<2.5&&(fe.y=6+i.rng()*3),fe}function K(P,V,Y){let L=null;try{L=i.enemies.spawn(P,V,Y)}catch(Z){console.error("[game] enemies.spawn threw",Z)}return L}function ie(){let P=s.playerStart&&s.playerStart.pos||n.pos;for(let V of["gull","hound"])for(let Y=0;Y<Yi.patrol[V];Y++)K(V,Q(V,{minDist:32,from:P,preferHidden:!0}),{state:"patrol"})}function F(P){let V=Yi.waves[Math.min(P,Yi.waves.length-1)],Y=[];for(let oe=0;oe<V.gull;oe++)Y.push("gull");for(let oe=0;oe<V.hound;oe++)Y.splice(Math.min(Y.length,1+oe*2),0,"hound");let L=0,Z=0;Y.forEach((oe,fe)=>{let le=Q(oe);L+=le.x-n.pos.x,Z+=le.z-n.pos.z,c.queue.push({type:oe,pos:le,at:c.time+1.6+fe*Yi.spawnStagger})}),c.waveHot=30;let J=(Math.atan2(L,-Z)*180/Math.PI+360)%360;o.warn&&o.warn("Contact \u2014 "+jC[Math.round(J/45)%8],3.4)}function X(P){let V=ne();for(let Y=0;Y<c.queue.length;Y++){let L=c.queue[Y];if(c.time<L.at)continue;if(V>=Yi.maxAlive){L.at=c.time+1;continue}if(!K(L.type,L.pos,{state:"alert",target:n.pos})&&!i.enemies.stub&&(L.tries=(L.tries||0)+1)<6){L.at=c.time+1.5;continue}c.queue.splice(Y,1),a(i.enemies,"alert",n.pos,60);break}if(c.allCut){if(c.pursuitT-=P,c.pursuitT<=0&&c.pursuitLeft>0&&!c.queue.length&&V<Yi.pursuitMinAlive){c.pursuitT=Yi.pursuitEvery,c.pursuitLeft--;let Y=i.rng()<.6?"gull":"hound";c.queue.push({type:Y,pos:Q(Y),at:c.time+.5})}c.pursuitT<=0&&(c.pursuitT=4,a(i.enemies,"alert",n.pos,90))}}function ne(){try{return i.enemies.aliveCount?i.enemies.aliveCount():i.enemies.list.filter(P=>P.alive).length}catch{return 0}}function re(P){let V=i.enemies&&i.enemies.list||[];for(let Y=0;Y<V.length;Y++){let L=V[Y];if(L&&L.alive&&L.pos&&Math.hypot(L.pos.x-n.pos.x,L.pos.z-n.pos.z)<P)return!0}return!1}i.events.on("enemy:alert",()=>{c.alertT=10,_.state==="playing"&&!c.contactSaid&&(c.contactSaid=!0,o.radio&&o.radio(_l.contact,3.2))}),i.events.on("player:hit",()=>{c.alertT=Math.max(c.alertT,8)}),i.events.on("player:rescued",()=>{_.state==="playing"&&o.message("Hauled out of the water",2.5)});function $(){let P=null,V=Yi.interactRange;for(let Y of c.relays){if(Y.cut)continue;let L=Y.o.pos.x-n.pos.x,Z=Y.o.pos.z-n.pos.z,J=Math.hypot(L,Z);J>V||Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||!i.physics.lineOfSight(n.eye,new W(Y.o.pos.x,Y.o.pos.y+1.25,Y.o.pos.z))||J>.9&&(L*n.forward.x+Z*n.forward.z)/(J*Math.max(.2,Math.hypot(n.forward.x,n.forward.z)))<Yi.interactFacing||(P=Y,V=J)}return P}function ue(P){let V=n.alive?$():null;for(let L of c.relays)L.cut||(L===V&&r.down("interact")?(L.cutting||(L.cutting=!0,O(L.o,"cutting")),L.t+=P/Yi.cutSeconds,i.events.emit("objective:progress",{id:L.id,t:Math.min(1,L.t)}),L.t>=1&&me(L)):L.t>0&&(L.t=Math.max(0,L.t-P*1.6),L.cutting&&(L.cutting=!1,O(L.o,"live"),i.events.emit("objective:progress",{id:L.id,t:0}))));V&&!V.cut?o.setPrompt&&o.setPrompt("Cut relay "+V.short,Fo(V.t)):o.setPrompt&&o.setPrompt(null);let Y=s.extraction;if(Y&&Y.pos){let L=Math.hypot(Y.pos.x-n.pos.x,Y.pos.z-n.pos.z),Z=L<(Y.radius||2.5)&&Math.abs(Y.pos.y-n.pos.y)<3.5;Z&&c.allCut&&n.alive?ee():Z&&!c.allCut&&c.extractHint<=0&&(c.extractHint=8,o.message("Relays still live \u2014 disable all three uplinks before extraction",3.5)),c.extractHint=Math.max(0,c.extractHint-P)}}function me(P){P.cut=!0,P.cutting=!1,P.t=1,c.cut++,O(P.o,"cut");let V=c.relays.length;i.events.emit("objective:done",{id:P.id,index:c.cut,total:V}),o.setRelays&&o.setRelays(c.cut,V),o.setPrompt&&o.setPrompt(null),n.addShake(.18),F(c.cut-1),c.cut>=V?(c.allCut=!0,c.pursuitLeft=Yi.pursuitExtra,c.pursuitT=12,i.events.emit("objective:all",{}),o.radio&&o.radio(_l.all,4.5)):o.radio&&o.radio(_l.cut[Math.min(c.cut-1,_l.cut.length-1)],3.6),o.setObjective(D()),q()}i.events.on("player:dead",()=>{_.state!=="playing"&&_.state!=="paused"||(r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),o.clearRadio&&o.clearRadio(),l.setDead({time:c.time,relays:c.cut,total:c.relays.length}),M("dead"))});function ee(){n.invulnerable=!0,n.enabled=!1,r.setGameplay&&r.setGameplay(!1),r.exitLock(),o.setPrompt&&o.setPrompt(null),o.show(!1),i.events.emit("extraction:reached",{}),o.clearRadio&&o.clearRadio(),o.radio&&o.radio(_l.done,2.2);let P=i.combat&&i.combat.stats||{shots:0,hits:0,kills:0},V=P.shots>0?Zn(P.hits/P.shots,0,1):null,Y=(c.time<270?2:c.time<400?1:0)+(V>=.5?2:V>=.3?1:0)+(c.retries===0?1:0),L=["Messy","Loud","Steady","Clean","Sharp","Surgical"][Y];l.setDebrief({time:c.time,accuracy:V,kills:P.kills||0,retries:c.retries,rating:L}),M("complete")}function B(P){switch(u+=P,_.state){case"title":return z(P),!1;case"intro":return e.fade=1-sl(.25,Math.min(h,2.6),u),!f&&u>.5&&(f=!0,l.locationCard(!0)),!p&&u>1.3&&(p=!0,o.radio&&o.radio(_l.intro,4.2)),u>h-.6&&!o.root?.classList.contains("on")&&(o.show(!0),o.setObjective(D())),u>=h&&(l.locationCard(!1),e.fade=0,T()),!0;case"playing":{if(c.time+=P,e.fade=kn(e.fade||0,0,6,P),d>0&&(d-=P),r.pressed("pause"))return G(),!1;if(ue(P),_.state!=="playing")return!0;X(P),c.alertT=Math.max(0,c.alertT-P),c.waveHot=Math.max(0,c.waveHot-P);let V=ne();c.waveHot>0&&V===0&&!c.queue.length&&c.waveHot<24&&(c.waveHot=0);let Y=c.allCut||c.queue.length||c.waveHot>0&&V>0?1:c.alertT>0||V>0&&re(26)?.6:.15;return Y!==c.intensity&&(c.intensity=Y,a(i.audio,"setIntensity",Y)),r.mode==="lock"&&!r.locked&&!r.touch&&!i.params.shot&&!i.params.autostart?(y-=P,y<=0&&(y=2,o.message(r.describeMode(),2.6))):y=.8,!c.lowSaid&&n.alive&&n.health<30&&(c.lowSaid=!0,o.radio&&o.radio(_l.low,3)),!0}case"paused":return d>0?d-=P:r.pressed("pause")&&(l.closePanel()||j(!1)),!1;case"dead":return e.saturation=kn(e.saturation??1,.12,2.2,P),e.fade=kn(e.fade||0,.55,1.4,P),u>1.5&&l.screen!=="dead"&&(l.show("dead"),a(i.audio,"setIntensity",.15)),!0;case"complete":return e.fade=kn(e.fade||0,.72,.9,P),e.saturation=kn(e.saturation??1,t*.7,1,P),u>3.3&&l.screen!=="complete"&&(l.show("complete"),a(i.audio,"setIntensity",.15)),!0}return!1}return w(),n.enabled=!1,o.show(!1),a(i.weapon,"setVisible",!1),r.setGameplay&&r.setGameplay(!1),a(i.audio,"setIntensity",.15),i.params.shot||i.params.autostart||l.show("title"),_}var gM={mats:qg,level:cv,backdrop:mv,ground:vv,fx:Sv,weapon:Xv,enemies:ex,props:$g,render:Vg};window.__frames=0;window.__ready=!1;window.__fatal=null;window.__errors=[];var vM=document.getElementById("boot"),xM=document.getElementById("boot-msg"),yM=document.getElementById("boot-fill");function bM(i){window.__fatal=String(i),console.error("[fatal] "+i);let e=document.getElementById("fatal");e||(e=document.createElement("div"),e.id="fatal",document.getElementById("app").appendChild(e)),e.textContent="Saltline could not start: "+i}window.addEventListener("error",i=>{window.__errors.push(String(i.message))});{let i=console.error.bind(console);console.error=(...e)=>{try{window.__errors.push(e.map(t=>t&&t.stack||String(t)).join(" ").slice(0,400))}catch{}i(...e)}}var KC=()=>new Promise(i=>setTimeout(i,0));async function Nr(i,e){xM&&(xM.textContent=i),yM&&(yM.style.width=Math.round(e*100)+"%"),await KC()}async function QC(){let i=Object.fromEntries(new URLSearchParams(location.search)),e=!!i.bench||location.hash==="#bench";e&&(i.noaudio="1",i.autostart="1");let t={THREE:lt,params:i,events:Dy(),rng:il(+(i.seed||4207)),time:{t:0,dt:0,frame:0,real:0},quality:zy(i.q||(i.shot?"test":""))};window.__G=t;let n=i.show&&gM[i.show]?i.show:null;t.showcase=n;let s=null;function o(h){if(h.cam){let f=String(h.cam).split(",").map(Number);s={pos:new W(f[0],f[1],f[2]),look:new W(f[3]??0,f[4]??1,f[5]??0)}}h.cam===""&&(s=null),h.fov&&(t.camera.fov=+h.fov,t.camera.updateProjectionMatrix()),h.exposure&&(t.render.exposure=+h.exposure)}window.__setShot=o;async function r(h,f,p,d=!1){let v=performance.now();try{t[h]=await p()}catch(x){if(console.error(`[boot] module "${h}" failed: ${x&&x.stack||x}`),d||!dr[h])throw x;t[h]=dr[h]()}let g=performance.now()-v;g>150&&console.log(`[boot] ${h} ${g.toFixed(0)}ms`)}if(await Nr("Waking the renderer",.04),await r("render","render",()=>Hg(t),!0),t.renderer=t.render.renderer,t.scene=t.render.scene,t.camera=t.render.camera,t.viewCamera=t.render.viewCamera,await Nr("Mixing paint, rust and rain",.12),await r("mats","materials",()=>Gg(t)),t.physics=sAP(d3(t),t),t.props=Yg(t),t.input=n?tP():v_(t),n){let h=Qi(new rn(80,80).rotateX(-Math.PI/2),t.mats.get("concrete"),{cast:!1});if(t.scene.add(h),t.level={stub:!0,playerStart:{pos:new W(0,0,4),yaw:0},objectives:[],enemySpawns:[],zones:[],interiorBoxes:[],cinematicPath:[],extraction:{pos:new W,radius:2},groundSurfaceAt:()=>"concrete",update(){}},t.backdrop=dr.backdrop(),t.ground=dr.ground(),t.physics.build(),n==="fx")await r("fx","fx",()=>Cf(t));else try{t.fx=await Cf(t)}catch{t.fx=dr.fx()}t.audio=dr.audio(),t.hud=dr.hud(),t.player=nP(t),t.combat=zv(t),t.weapon=dr.weapon(),t.enemies=dr.enemies(),t.game={state:"showcase",update:()=>!1,start(){}};let f=null;try{f=await gM[n].showcase(t)}catch(p){bM(`showcase "${n}" threw: ${p&&p.stack||p}`)}t.showcaseInfo=f||{},f&&f.cam&&o({cam:[...f.cam,...f.target||[0,1,0]].join(",")})}else{if(await Nr("Stacking containers",.34),await r("level","level",()=>C1(t),!0),await Nr("Raising the cranes",.5),await r("backdrop","backdrop",()=>Eb(t,{only:"sky"})),t.backdrop&&t.backdrop.root&&(t.backdrop.root.visible=!1),t.backdrop&&t.backdrop.skyline&&(t.backdrop.skyline.visible=!1),t.backdrop&&t.backdrop.gulls&&(t.backdrop.gulls.visible=!1),await Nr("Flooding the apron",.58),await r("ground","ground",()=>assaultGround(t)),t.ground.stub){let h=Qi(new rn(400,400).rotateX(-Math.PI/2),t.mats.get("asphalt"),{cast:!1});t.scene.add(h)}t.physics.build(),await Nr("Loading tracers and smoke",.66),await r("fx","fx",()=>Cf(t)),await r("audio","audio",()=>i.noaudio?dr.audio():c_(t)),t.player=x_(t),t.combat=zv(t),await Nr("Checking the rifle",.74),await r("weapon","weapon",()=>dm(t)),await Nr("Waking the Harbormaster",.82),await r("enemies","enemies",()=>Em(t)),await r("hud","hud",()=>hM(t)),t.game=mM(t)}await Nr("Waiting for first light",.92);try{await t.render.onLevelReady()}catch(h){console.error("[boot] render.onLevelReady failed: "+(h&&h.stack||h))}await assaultPrewarm(t);let a=0;if(window.__stats=()=>({...t.render.stats?t.render.stats():{},fps:a?+(1/a).toFixed(1):0,state:t.game&&t.game.state}),i.cam&&o(i),i.fov&&o({fov:i.fov}),!n&&(i.shot||i.autostart))try{t.game.start({skipIntro:!0})}catch(h){console.error("[boot] game.start failed",h)}i.noweapon&&t.weapon.setVisible&&t.weapon.setVisible(!1),e&&eP(t),await Nr("Ready",1),vM.classList.add("done"),setTimeout(()=>{vM.hidden=!0},700);let l=performance.now(),c=1,u=(h,f)=>{let p=t[h];if(p&&p.update)try{p.update(f)}catch(d){u.err[h]||(u.err[h]=1,console.error(`[loop] ${h}.update threw: ${d&&d.stack||d}`))}};u.err={},t.renderer.setAnimationLoop(()=>{let h=performance.now(),f=(h-l)/1e3;l=h,a=a?a*.95+f*.05:f;let p=Math.min(f,.05);i.dt&&(p=+i.dt),t.time.dt=p,t.time.t+=p,t.time.real=h/1e3,t.time.frame++,u("input",p);let d=!1;try{d=t.game.update(p)!==!1&&t.game.state!=="title"&&t.game.state!=="paused"}catch(v){u.err.game||(u.err.game=1,console.error("[loop] game.update threw: "+(v&&v.stack||v)))}if(n){if(t.showcaseInfo.update)try{t.showcaseInfo.update(p)}catch(v){u.err.sc||(u.err.sc=1,console.error("[loop] showcase update threw: "+(v&&v.stack||v)))}}else d&&(u("player",p),u("weapon",p),u("enemies",p));if(t.weapon&&t.weapon.setWetness&&t.level&&t.level.interiorBoxes&&t.level.interiorBoxes[0]){let v=t.level.interiorBoxes[0],g=t.camera.position,x=g.x>v.min.x&&g.x<v.max.x&&g.z>v.min.z&&g.z<v.max.z&&g.y<v.max.y;c+=((x?.3:1)-c)*Math.min(1,p*(x?.25:.6));try{t.weapon.setWetness(c)}catch{}}t.game.state!=="paused"&&(u("fx",p),u("ground",p),u("level",p),u("backdrop",p),u("mats",p)),u("audio",p),u("hud",p),s&&(t.camera.position.copy(s.pos),t.camera.lookAt(s.look)),t.bench&&t.bench.frame(f);try{t.render.frame(p)}catch(v){u.err.render||(u.err.render=1,console.error("[loop] render.frame threw: "+(v&&v.stack||v)))}t.input.endFrame&&t.input.endFrame(),window.__frames++,window.__frames===2&&(window.__ready=!0)})}function eP(i){let e=document.createElement("pre");e.id="bench",e.style.cssText='position:absolute;left:12px;top:12px;z-index:90;margin:0;padding:10px 12px;font:12px/1.45 "IBM Plex Mono",ui-monospace,monospace;color:#d8f0d0;background:rgba(0,0,0,.72);white-space:pre-wrap;max-width:min(560px,90vw);pointer-events:none',document.getElementById("app").appendChild(e);let t="unknown";try{let f=i.renderer.getContext(),p=f.getExtension("WEBGL_debug_renderer_info");t=p?f.getParameter(p.UNMASKED_RENDERER_WEBGL):f.getParameter(f.RENDERER)}catch{}let n=i.level.cinematicPath&&i.level.cinematicPath.length>=2?i.level.cinematicPath:[{pos:[-32,1.7,6],look:[0,2,5]},{pos:[10,1.7,6],look:[30,6,0]}],s=[],o=0,r=0,a=30,l=new W,c=new W,u=new W,h=new W;i.player&&(i.player.enabled=!1),i.bench={frame(f){o+=f;let p=o/a%1*(n.length-1),d=Math.min(n.length-2,Math.floor(p)),v=p-d,g=v*v*(3-2*v);if(l.fromArray(n[d].pos),c.fromArray(n[d+1].pos),u.fromArray(n[d].look),h.fromArray(n[d+1].look),i.camera.position.lerpVectors(l,c,g),i.camera.lookAt(u.lerp(h,g)),o>2&&s.push(f*1e3),s.length>3e3&&s.shift(),o-r>1&&s.length>10){r=o;let x=s.slice().sort((M,E)=>M-E),y=x.reduce((M,E)=>M+E,0)/x.length,b=x[Math.floor(x.length*.99)],m=x[x.length>>1],A=i.render.stats?i.render.stats():{},_=i.renderer.getDrawingBufferSize(new Ae);e.textContent=`SALTLINE BENCH  t=${o.toFixed(0)}s
 GPU: ${t}
 buffer ${_.x}x${_.y}  quality ${i.quality.name}  dpr ${window.devicePixelRatio}
 frame ms avg ${y.toFixed(1)}  median ${m.toFixed(1)}  p99 ${b.toFixed(1)}  => ${(1e3/y).toFixed(0)} fps

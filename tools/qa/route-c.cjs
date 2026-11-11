@@ -12,6 +12,6 @@ if(r.ok){
  await page.keyboard.up('c');
  if(roof?.pos[1]>12.8){relay=await drive(page,[[2,13.0048,-53.5],[10,13.0048,-50.5]]);routeEvidence.push({roof:relay});if(relay.ok){await face(Math.PI,0);await page.keyboard.down('e');await sleep(2700);await page.keyboard.up('e');}}
 }
-await page.screenshot({path:ROOT+'/qa-roof.png'});await page.keyboard.press('p');await sleep(200);
+await page.keyboard.press('p');await sleep(200);await page.screenshot({path:ROOT+'/qa-roof.png'});
 await fs.writeFile(ROOT+'/qa-route.json',JSON.stringify(routeEvidence,null,2));
 return {route:r.ok,ascent,vent,roof,relay,state:await page.evaluate(()=>({state:__G.game.state,pos:__G.player.pos.toArray(),cut:__G.game.run.cut,health:__G.player.health,crouch:__G.player.crouching,pitch:__G.player.pitch,ladder:__assault.diagnostics().ladder,errors:__errors}))};

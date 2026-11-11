@@ -9,8 +9,8 @@ return await page.evaluate(()=>{
   if(playing&&firstPlaying===null)firstPlaying=now;
   if(playing&&wasPlaying&&now-firstPlaying>2000){
    const zone=p.y>12.8?'roof':p.x<-17.5&&p.y>8?'office':p.y>10.5&&Math.abs(p.x)<.9?'vent':p.z<-40.6&&p.x>-18.3&&p.x<18.3?'hall':'yard';
-   report.frames.push({ms:dt,zone});
-   if(report.frames.length%120===0)report.checkpoints.push({t:now-firstPlaying,zone,pos:p.toArray(),stats:__stats(),lights:{...G.level.stats.lighting}});
+   report.frames.push({ms:dt,zone,...(dt>25?{t:now-firstPlaying,pos:p.toArray(),stats:__stats(),lighting:structuredClone(G.level.stats.lighting)}:{})});
+   if(report.frames.length%120===0)report.checkpoints.push({t:now-firstPlaying,zone,pos:p.toArray(),stats:__stats(),lights:structuredClone(G.level.stats.lighting)});
   }
   wasPlaying=playing;
   if(report.active)requestAnimationFrame(frame);

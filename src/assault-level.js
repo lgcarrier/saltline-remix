@@ -1,12 +1,14 @@
 // Assault scene integration. All surfaces and coordinates come from the supplied BSP.
 async function C1(i) {
+  assaultPerformance(i);
   const T = i.THREE, map = window.__ASSAULT_MAP;
   if (!map) throw new Error('Assault scene data missing');
   const root = new T.Group(); root.name = 'assault'; i.scene.add(root);
   const vehicle=assaultVehicle(i,map);root.add(vehicle.root);
   const sourceFaces=new Map(map.faces.map(f=>[f.id,f]));
-  // The west-yard container brush keeps its native collision and cover height;
-  // original Saltline maritime meshes supply its visible panels and hardware.
+  // Every designated cargo assembly keeps its native collision/cover envelope;
+  // original Saltline containers replace all source faces, including the hall's
+  // wooden base and painted upper brushes as one complete stack.
   const cargoFaces=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   const V = a => new T.Vector3(...a);
   const b = ob(i), dynamic = [], broken = [];
@@ -58,8 +60,27 @@ async function C1(i) {
   }
   const worldMeshes=geometry(map.surfaces,root);
   const pavementGeometry=new T.BufferGeometry();pavementGeometry.setAttribute('position',new T.Float32BufferAttribute(pavement,3));pavementGeometry.computeVertexNormals();pavementGeometry.computeBoundingSphere();
-  const positions=new Float32Array(map.collision.positions), indices=Uint32Array.from({length:positions.length/3},(_,n)=>n);
-  i.physics.addTriangles(positions,indices);
+  const positions=new Float32Array(map.collision.positions);
+  // Preserve every native collision vertex. Match only the designated cargo's
+  // source triangles so impacts and top-surface footsteps agree with the new
+  // metal cover; neighbouring crates, floors and walls keep their prior surface.
+  const triangleKey=(p,k)=>[0,3,6].map(j=>[p[k+j],p[k+j+1],p[k+j+2]].map(v=>v.toFixed(4)).join(',')).sort().join('|');
+  const cargoTriangles=new Set();
+  for(const s of map.surfaces)for(const id of s.faceIds){
+    if(!cargoFaces.has(id))continue;
+    const face=sourceFaces.get(id);
+    for(let v=face.vertexStart;v<face.vertexStart+face.vertexCount;v+=3)cargoTriangles.add(triangleKey(s.positions,v*3));
+  }
+  const collisionRuns=[];
+  for(let k=0;k<positions.length;k+=9){
+    const surface=cargoTriangles.has(triangleKey(positions,k))?'metal':'concrete';
+    let run=collisionRuns[collisionRuns.length-1];
+    if(!run||run.surface!==surface){run={surface,indices:[]};collisionRuns.push(run);}
+    run.indices.push(k/3,k/3+1,k/3+2);
+  }
+  // Contiguous runs retain the original triangle insertion order, including
+  // coplanar ray/nav tie behaviour.
+  for(const run of collisionRuns)i.physics.addTriangles(positions,Uint32Array.from(run.indices),run.surface);
   for(const l of map.ladders){
     const mn=l.bounds.min.slice(),mx=l.bounds.max.slice();mn[0]-=.42;mx[0]+=.42;mn[2]-=.42;mx[2]+=.42;
     i.physics.addLadder(mn,mx);

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "python3 tools/extract-assault.py && python3 tools/build-assault.py",
     "start": "python3 -m http.server 8767 --bind 127.0.0.1",
-    "test": "node tools/test-assault-physics.mjs && node tools/test-assault-ladders.mjs",
+    "test": "node tools/test-assault-physics.mjs && node tools/test-assault-ladders.mjs && node tools/test-assault-prewarm.cjs",
     "map:inspect": "node tools/inspect-assault-map.mjs"
   }
 }

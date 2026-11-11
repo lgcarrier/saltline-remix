@@ -1,0 +1,54 @@
+{
+  "documentSha256": "5dc8a384cf898364ae76df0b572ebb710fe88d76e4514fde0b9c40565c9ee79c",
+  "readOnlyPhysicsProbes": true,
+  "ground": {
+    "system": "original Saltline O1/Ib/Nb/zb",
+    "sea": false,
+    "maskResolution": 1024,
+    "maskRect": [
+      -71,
+      -77,
+      108
+    ],
+    "pavementSquareMetres": 3172.7,
+    "shelteredSquareMetres": 258.3,
+    "puddleSquareMetres": 221.9,
+    "previousPuddleSquareMetres": 236.5,
+    "raisedOrReshapedSquareMetres": 40.8,
+    "maskRefinementMs": 52,
+    "puddleShape": "shared warped depressions with aggregate crowns",
+    "planarScale": 0.35,
+    "reflectionPasses": 6573,
+    "reflectionSkipped": 7319
+  },
+  "errors": [],
+  "containerProbes": [
+    {
+      "y": 1.5,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        1.5,
+        -53.5
+      ]
+    },
+    {
+      "y": 4.5,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        4.5,
+        -53.5
+      ]
+    },
+    {
+      "y": 7.6,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        7.6,
+        -53.5
+      ]
+    }
+  ]
+}

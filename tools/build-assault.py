@@ -21,7 +21,7 @@ end = text.index('function dR(i,e)', start)
 scene = json.loads(source('src/assault-map.json'))
 if not scene.get('surfaces') or not scene.get('collision', {}).get('positions'):
     raise SystemExit('Required Assault map has no render or collision geometry')
-modules = ['assault-physics.js', 'assault-dressing.js', 'assault-ground.js', 'assault-vehicle.js', 'assault-materials.js', 'assault-office.js', 'assault-architecture.js', 'assault-lighting.js', 'assault-level.js']
+modules = ['assault-physics.js', 'assault-dressing.js', 'assault-ground.js', 'assault-vehicle.js', 'assault-materials.js', 'assault-office.js', 'assault-architecture.js', 'assault-lighting.js', 'assault-performance.js', 'assault-level.js']
 # The draft's encoded geometry, relays and lights have all been replaced by the
 # BSP extraction and authored level. Do not ship its unused duplicate payload.
 payload = 'window.__ASSAULT_MAP=' + json.dumps(scene,separators=(',',':')) + ';\n'
@@ -45,6 +45,7 @@ replace('function H(){a(i.enemies,"clear"),','function H(){s.reset&&s.reset();a(
 replace('z.uniforms.uAspect.value=Re,l(z,y.aoA)','z.uniforms.uAspect.value=Re,z.uniforms.uRadius.value=g.aoRadius,z.uniforms.uIntensity.value=g.aoIntensity,l(z,y.aoA)')
 replace('be.uVolOn.value=dt?1:0,l(U,y.scene)','be.uVolOn.value=dt?1:0,be.uAoStrength.value=g.aoStrength,l(U,y.scene)')
 replace('()=>({stub:!1,update(){}})','()=>assaultGround(t)')
+replace('let a=0;if(window.__stats=', 'await assaultPrewarm(t);let a=0;if(window.__stats=')
 replace('t.backdrop&&t.backdrop.skyline&&(t.backdrop.skyline.visible=!1),','t.backdrop&&t.backdrop.root&&(t.backdrop.root.visible=!1),t.backdrop&&t.backdrop.skyline&&(t.backdrop.skyline.visible=!1),')
 replace('Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||','Math.abs((Y.o.pos.y||0)-n.pos.y)>2.5||!i.physics.lineOfSight(n.eye,new W(Y.o.pos.x,Y.o.pos.y+1.25,Y.o.pos.z))||')
 # Preserve the input loop but report the actual Assault setting and objective.

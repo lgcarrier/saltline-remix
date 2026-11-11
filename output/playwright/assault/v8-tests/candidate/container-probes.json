@@ -1,0 +1,36 @@
+{
+  "documentSha256": "fc5e2bf2e206a7fe0e655ebee8e20f5bd51f8382e0cb61454c7bb077a5477dc4",
+  "readOnlyPhysicsProbe": true,
+  "result": [
+    {
+      "height": 1.5,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        1.5,
+        -53.5
+      ],
+      "distance": 1.1920003890991209
+    },
+    {
+      "height": 4.5,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        4.5,
+        -53.5
+      ],
+      "distance": 1.192000389099121
+    },
+    {
+      "height": 7.6,
+      "surface": "metal",
+      "point": [
+        12.192000389099121,
+        7.6,
+        -53.5
+      ],
+      "distance": 1.192000389099121
+    }
+  ]
+}

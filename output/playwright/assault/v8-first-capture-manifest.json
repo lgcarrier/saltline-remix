@@ -1,0 +1,5113 @@
+{
+  "purpose": "staged art review; not gameplay or performance evidence",
+  "documentSha256": "fc5e2bf2e206a7fe0e655ebee8e20f5bd51f8382e0cb61454c7bb077a5477dc4",
+  "quality": "high/native",
+  "viewport": [
+    1600,
+    900
+  ],
+  "dpr": 1,
+  "fov": 74,
+  "seed": 4207,
+  "time": 18,
+  "autoExposure": false,
+  "manualExposure": 1,
+  "weaponUIEnemiesHidden": true,
+  "remainingNondeterminism": "cosmetic particle positions and unseeded cosmetic sources",
+  "captures": [
+    {
+      "name": "cargo-yard",
+      "cam": [
+        3,
+        1.7,
+        -22,
+        -7,
+        2.5,
+        -32
+      ],
+      "filename": "v8-first-cargo-yard.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          3,
+          1.7,
+          -22
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 864,
+          "tris": 1213579,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0721,
+            "auto": 1.542,
+            "sunVis": 0
+          },
+          "fps": 60.1,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "west-cargo",
+      "cam": [
+        -25,
+        1.7,
+        -34.6,
+        -21,
+        4.5,
+        -38
+      ],
+      "filename": "v8-first-west-cargo.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          -25,
+          1.7,
+          -34.6
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 755,
+          "tris": 1196601,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0894,
+            "auto": 1.285,
+            "sunVis": 0.38
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "yard",
+      "cam": [
+        0,
+        1.7,
+        -30,
+        0,
+        6,
+        -44
+      ],
+      "filename": "v8-first-yard.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          0,
+          1.7,
+          -30
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 811,
+          "tris": 1220691,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0762,
+            "auto": 1.472,
+            "sunVis": 0
+          },
+          "fps": 60.1,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "gate",
+      "cam": [
+        -23,
+        1.7,
+        -44,
+        -8,
+        4,
+        -51
+      ],
+      "filename": "v8-first-gate.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          -23,
+          1.7,
+          -44
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 747,
+          "tris": 1205177,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0337,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "hall",
+      "cam": [
+        3,
+        1.7,
+        -52,
+        0,
+        4,
+        -65
+      ],
+      "filename": "v8-first-hall.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          3,
+          1.7,
+          -52
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 478,
+          "tris": 764149,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0435,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "hall-stack",
+      "cam": [
+        6.5,
+        2.5,
+        -60,
+        13.8,
+        4.7,
+        -53.5
+      ],
+      "filename": "v8-first-hall-stack.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          6.5,
+          2.5,
+          -60
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 472,
+          "tris": 791983,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0374,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "hall-upper",
+      "cam": [
+        -12,
+        10.2144,
+        -71,
+        3,
+        7.5,
+        -59
+      ],
+      "filename": "v8-first-hall-upper.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          -12,
+          10.2144,
+          -71
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 564,
+          "tris": 817950,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0772,
+            "auto": 1.455,
+            "sunVis": 0
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "office-wide",
+      "cam": [
+        -20,
+        10.2144,
+        -66,
+        -20.5,
+        10,
+        -60
+      ],
+      "filename": "v8-first-office-wide.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          -20,
+          10.2144,
+          -66
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 581,
+          "tris": 825107,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0605,
+            "auto": 1.789,
+            "sunVis": 0
+          },
+          "fps": 60,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "roof",
+      "cam": [
+        15,
+        14.7,
+        -45,
+        -6,
+        13.3,
+        -54
+      ],
+      "filename": "v8-first-roof.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          15,
+          14.7,
+          -45
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 836,
+          "tris": 1213876,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.1245,
+            "auto": 0.969,
+            "sunVis": 0
+          },
+          "fps": 59.9,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "truck",
+      "cam": [
+        15.5,
+        1.3,
+        -3.7,
+        9.8,
+        1.3,
+        -8.3
+      ],
+      "filename": "v8-first-truck.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          15.5,
+          1.3,
+          -3.7
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 1033,
+          "tris": 1270029,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0654,
+            "auto": 1.675,
+            "sunVis": 0
+          },
+          "fps": 59.9,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    },
+    {
+      "name": "truck-front",
+      "cam": [
+        3.8,
+        1.4,
+        -3.9,
+        7.2,
+        1.5,
+        -8.2
+      ],
+      "filename": "v8-first-truck-front.png",
+      "actual": {
+        "errors": [],
+        "fatal": null,
+        "camera": [
+          3.8,
+          1.4,
+          -3.9
+        ],
+        "fov": 74,
+        "autoExposure": false,
+        "manualExposure": 1,
+        "stats": {
+          "calls": 759,
+          "tris": 1196977,
+          "geos": 422,
+          "tex": 204,
+          "programs": 257,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0504,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 60.1,
+          "state": "paused"
+        },
+        "level": {
+          "tris": 6343,
+          "meshes": 150,
+          "props": 49,
+          "doors": 3,
+          "breakables": 12,
+          "dressing": {
+            "props": 46,
+            "windows": 142,
+            "ladders": 8,
+            "trusses": 5,
+            "fixtures": 8,
+            "containers": [
+              {
+                "name": "container40",
+                "pos": [
+                  -9,
+                  0,
+                  -31.7
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -11.9,
+                  0,
+                  -27.1
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -4.5,
+                  0,
+                  -27.1
+                ],
+                "yaw": 3.141592653589793,
+                "color": "blue",
+                "source": "original Saltline prop builder"
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  0,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -26.0096,
+                  3.2512,
+                  -30.886400000000002
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "west-yard",
+                "interior": false,
+                "scale": [
+                  1.0730033003300328,
+                  1.2552895752895754,
+                  1.3335520918785893
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  0,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  3.1834666666666664,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -21.1328,
+                  6.366933333333333,
+                  -39.0144
+                ],
+                "yaw": 0,
+                "color": "teal",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "loading-stack",
+                "interior": false,
+                "scale": [
+                  1.0730033003300332,
+                  1.2291377091377091,
+                  1.3335520918785877
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  0,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "grey",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  3.1157333333333335,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "red",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  13.817599999999999,
+                  6.231466666666667,
+                  -53.644800000000004
+                ],
+                "yaw": -1.5707963267948966,
+                "color": "blue",
+                "source": "original Saltline prop builder",
+                "fit": "native BSP cover envelope",
+                "stack": "hall-central",
+                "interior": true,
+                "scale": [
+                  1.0730033003300332,
+                  1.202985842985843,
+                  1.3335520918785886
+                ]
+              },
+              {
+                "name": "container20",
+                "pos": [
+                  -42.1,
+                  0,
+                  5.4
+                ],
+                "yaw": 1.5707963267948966,
+                "color": "teal",
+                "source": "original Saltline prop builder"
+              }
+            ],
+            "rejected": [
+              {
+                "name": "sandbags",
+                "x": -28.7,
+                "z": -47.2,
+                "reason": "source obstruction"
+              },
+              {
+                "name": "toolbox_cart",
+                "x": 14.7,
+                "z": -52.7,
+                "reason": "no source floor"
+              },
+              {
+                "name": "gas_cylinders",
+                "x": 15.8,
+                "z": -57.8,
+                "reason": "no source floor"
+              },
+              {
+                "name": "sign_post",
+                "x": -35,
+                "z": 8.2,
+                "reason": "no source floor"
+              }
+            ],
+            "families": [
+              "pallet_stack",
+              "crate_wood",
+              "barrel",
+              "dumpster",
+              "tire_stack",
+              "traffic_cone",
+              "jersey_barrier",
+              "generator",
+              "jerry_can",
+              "cable_reel",
+              "ibc_tote",
+              "gas_cylinders",
+              "forklift",
+              "pallet",
+              "cardboard_boxes",
+              "toolbox_cart",
+              "floodlight_stand",
+              "pipe_stack",
+              "tarp_cargo",
+              "shelf_rack",
+              "crate_stack",
+              "reefer_unit",
+              "bollard_post",
+              "container40",
+              "container20",
+              "guard_booth",
+              "gate_arm",
+              "light_mast"
+            ],
+            "meshes": 93,
+            "triangles": 318312,
+            "labelsAtlased": 55
+          },
+          "vehicle": {
+            "triangles": 13444,
+            "meshes": 10,
+            "wheels": 4,
+            "nativeTriangles": 142,
+            "remappedFaces": 62,
+            "sourceEnvelope": {
+              "min": [
+                5.6896,
+                0,
+                -10.418318
+              ],
+              "max": [
+                13.208,
+                2.8448,
+                -6.2992
+              ]
+            }
+          },
+          "office": {
+            "meshes": 11,
+            "triangles": 17662,
+            "rooms": 2,
+            "desks": 1,
+            "chairs": 1,
+            "terminals": 1
+          },
+          "architecture": {
+            "triangles": 43884,
+            "meshes": 16,
+            "pilasters": 39,
+            "windows": 34,
+            "cratePanels": 42,
+            "structuralBays": 7,
+            "constructionFinish": {
+              "triangles": 3188,
+              "roofLaps": 2,
+              "repairSheets": 3,
+              "gutters": 1,
+              "receivingCanopies": 1
+            },
+            "skyline": {
+              "warehouses": 13,
+              "silos": 7,
+              "utilityFrames": 1,
+              "triangles": 5572,
+              "batches": 3,
+              "stacks": 2,
+              "layers": 2
+            },
+            "regions": {
+              "warehouse": 4,
+              "street": 5,
+              "west": 1,
+              "hall": 3,
+              "skyline": 3
+            }
+          },
+          "lighting": {
+            "directLights": 11,
+            "bakedDirectLights": 10,
+            "fixtures": 20,
+            "fixtureDrawCalls": 4,
+            "bouncePatches": 100,
+            "probes": 2245,
+            "visibilityRays": 69646,
+            "clippedProbes": 0,
+            "patchedMaterials": 44,
+            "bakeMs": 424,
+            "method": "static occluded diffuse and one-bounce volumes",
+            "rearBakedFixtures": 8,
+            "shadowLights": 3,
+            "shadowBakes": 1,
+            "shadowBakeMs": 6.2,
+            "shadowPassDrawCalls": 416,
+            "shadowMaps": [
+              1024,
+              1024,
+              1024
+            ],
+            "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+            "shadowMapRefreshes": 3,
+            "shadowIgnoredChanges": 0,
+            "shadowPerLight": [
+              {
+                "index": 0,
+                "position": [
+                  6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 5.1,
+                "lastDrawCalls": 118,
+                "occluders": [
+                  "func_door_rotating_11"
+                ]
+              },
+              {
+                "index": 1,
+                "position": [
+                  -6.9088,
+                  10.163200000000002,
+                  -62.179199999999994
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.5,
+                "lastDrawCalls": 130,
+                "occluders": []
+              },
+              {
+                "index": 2,
+                "position": [
+                  -20.32,
+                  12.1868,
+                  -62.5856
+                ],
+                "refreshes": 1,
+                "invalidations": 0,
+                "lastMs": 0.3,
+                "lastDrawCalls": 168,
+                "occluders": [
+                  "func_door_71",
+                  "func_door_72",
+                  "func_breakable_67"
+                ]
+              }
+            ],
+            "irradianceEncoding": "RGBA16F",
+            "relocatedProbes": 96,
+            "maxProbeIrradiance": 9.319
+          }
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        }
+      }
+    }
+  ],
+  "consoleErrors": []
+}

@@ -79,6 +79,20 @@ function assaultLighting(i,map,root){
     patches.push({pos:source,normal:V([0,-1,0]),color:tint,power:intensity,gain:1});
     emitters.push({pos:source,color:tint,intensity,area:8,reflectance:.45});stats.bakedDirectLights++;
   }
+  // The BSP also contains five service lights below the rear gallery and three
+  // long ceiling lights above it. Their existing housings were previously dark.
+  // Bake their occluded contribution: warm recesses below a cooler upper route
+  // give the rear wall depth without adding a global light or shadow sampler.
+  const rearPanels=map.faces.filter(face=>face.normal[1]<-.99&&face.center[2]<-70.5&&face.center[2]>-73.2&&Math.abs(face.center[0])<17&&['+0~light6a','~light5a'].includes(face.texture));
+  stats.rearBakedFixtures=rearPanels.length;
+  for(const panel of rearPanels){
+    const upper=panel.center[1]>10,color=upper?0xdce7ef:0xf2dec0,intensity=upper?28:13;
+    const width=panel.bounds.max[0]-panel.bounds.min[0],depth=panel.bounds.max[2]-panel.bounds.min[2],pos=panel.center;
+    fixture([pos[0],pos[1]-.025,pos[2]],upper?1:0,width*.94,depth*.94);
+    const source=V([pos[0],pos[1]-.18,pos[2]]),tint=new T.Color(color);
+    patches.push({pos:source,normal:V([0,-1,0]),color:tint,power:intensity,gain:1});
+    emitters.push({pos:source,color:tint,intensity,area:upper?10:6,reflectance:.42});stats.bakedDirectLights++;
+  }
   // Fixtures share four geometry/material batches instead of seventy draw calls.
   const batches=new Map();
   for(const part of fixtureParts){const key=part.geometry.uuid+':'+part.material.uuid;if(!batches.has(key))batches.set(key,[]);batches.get(key).push(part);}
@@ -89,14 +103,20 @@ function assaultLighting(i,map,root){
   stats.directLights=lamps.length;
   stats.shadowLights=shadowLights.length;stats.shadowBakes=0;stats.shadowBakeMs=0;stats.shadowPassDrawCalls=0;
   stats.shadowMaps=shadowLights.map(light=>light.shadow.mapSize.x);
-  // Four depth comparisons give a narrow local contact, not the sun's metre-wide
-  // search/filter kernel. This runs after Saltline installs its sun shader chunk.
+  stats.shadowFilter='area PCF: 4 blocker + 4 contact / 12 penumbra taps';stats.shadowMapRefreshes=0;stats.shadowIgnoredChanges=0;
+  const shadowProfiles=shadowLights.map((light,index)=>{
+    light.shadow.radius=-(index+1);
+    return `if(shadowRadius<-${(index+.5).toFixed(1)}){nearZ=${light.shadow.camera.near.toFixed(6)};farZ=${light.shadow.camera.far.toFixed(6)};tanHalfFov=${Math.tan(light.angle).toFixed(8)};emitterRadius=${light.intensity>100?'0.50':'0.35'};}`;
+  }).join('\n');
+  const disk=Array.from({length:12},(_,n)=>{const r=Math.sqrt((n+.5)/12),angle=n*2.39996323;return `vec2(${(Math.cos(angle)*r).toFixed(7)},${(Math.sin(angle)*r).toFixed(7)})`;}).join(',');
+  // Linearized blocker depth gives the broad fixtures a distance-dependent
+  // penumbra. Close contacts retain bilinear PCF; the sun path stays unchanged.
   const shadowChunk=T.ShaderChunk.shadowmap_pars_fragment;
   if(!shadowChunk.includes('ASSAULT_LOCAL_CONTACT')){
     const signature=/float getShadow\([^)]*\)\s*\{/;
     if(!signature.test(shadowChunk))throw new Error('Local contact-shadow shader anchor is missing');
     T.ShaderChunk.shadowmap_pars_fragment=shadowChunk.replace(signature,match=>match+`
-      // ASSAULT_LOCAL_CONTACT: reserved negative radius, four-tap local PCF.
+      // ASSAULT_LOCAL_CONTACT: negative radius indexes a fixed fixture profile.
       if(shadowRadius<0.0){
         vec3 q=shadowCoord.xyz/shadowCoord.w;
         if(q.x<0.0||q.x>1.0||q.y<0.0||q.y>1.0||q.z>1.0)return 1.0;
@@ -105,22 +125,53 @@ function assaultLighting(i,map,root){
         if(abs(det)>1e-12)dz=vec2(dy.y*dx.z-dx.y*dy.z,dx.x*dy.z-dy.x*dx.z)/det;
         dz=clamp(dz,vec2(-.2),vec2(.2));
         float z=q.z+shadowBias-dot(abs(dz),texel)*.35;
-        // Compare at the four texel centres, then interpolate their visibility
-        // by fractional texel position. Fixed equal weights quantize the edge.
-        vec2 p=q.xy*shadowMapSize-.5,f=fract(p),uv=(floor(p)+.5)*texel;
-        vec2 a=uv-q.xy,b=a+vec2(texel.x,0.0),c=a+vec2(0.0,texel.y),d=a+texel;
-        float aa=step(z+dot(a,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+a)));
-        float bb=step(z+dot(b,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+b)));
-        float cc=step(z+dot(c,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+c)));
-        float dd=step(z+dot(d,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+d)));
-        float lit=mix(mix(aa,bb,f.x),mix(cc,dd,f.x),f.y);
-        return mix(1.0,lit,shadowIntensity);
+        float nearZ=.12,farZ=22.0,tanHalfFov=1.87,emitterRadius=.5;
+        ${shadowProfiles}
+        float receiverDistance=max(shadowCoord.w,nearZ+.001),uvPerMetre=1.0/(2.0*tanHalfFov*receiverDistance);
+        vec2 searchRadius=max(texel*1.25,vec2(.20*uvPerMetre));
+        const vec2 searchDisk[4]=vec2[4](vec2(0.0),vec2(.8660254,0.0),vec2(-.4330127,.75),vec2(-.4330127,-.75));
+        float blockers=0.0,blockerDistance=0.0;
+        for(int sampleIndex=0;sampleIndex<4;sampleIndex++){
+          vec2 offset=searchDisk[sampleIndex]*searchRadius;
+          float depth=unpackRGBAToDepth(texture2D(shadowMap,q.xy+offset));
+          if(depth<z+dot(offset,dz)-.00001){
+            blockerDistance+=nearZ*farZ/max(.00001,farZ-depth*(farZ-nearZ));blockers+=1.0;
+          }
+        }
+        float penumbra=0.0;
+        if(blockers>.5){blockerDistance/=blockers;penumbra=clamp(emitterRadius*(receiverDistance-blockerDistance)/max(blockerDistance,.01),0.0,.18)*uvPerMetre;}
+        if(blockers<.5||penumbra<max(texel.x,texel.y)*1.25){
+          // The no-blocker path still checks bilinear centre visibility. A thin
+          // chair leg between sparse search probes must retain its contact.
+          vec2 p=q.xy*shadowMapSize-.5,f=fract(p),uv=(floor(p)+.5)*texel;
+          vec2 a=uv-q.xy,b=a+vec2(texel.x,0.0),c=a+vec2(0.0,texel.y),d=a+texel;
+          float aa=step(z+dot(a,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+a)));
+          float bb=step(z+dot(b,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+b)));
+          float cc=step(z+dot(c,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+c)));
+          float dd=step(z+dot(d,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+d)));
+          return mix(1.0,mix(mix(aa,bb,f.x),mix(cc,dd,f.x),f.y),shadowIntensity);
+        }
+        const vec2 filterDisk[12]=vec2[12](${disk});float lit=0.0;
+        for(int sampleIndex=0;sampleIndex<12;sampleIndex++){
+          vec2 offset=filterDisk[sampleIndex]*penumbra;
+          lit+=step(z+dot(offset,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+offset)));
+        }
+        return mix(1.0,lit/12.0,shadowIntensity);
       }
     `);
   }
   const environmentCasters=new Set();root.traverse(object=>{if(object.isMesh&&object.castShadow)environmentCasters.add(object);});
-  const movingOccluders=[...map.doors,...map.breakables].map(data=>root.getObjectByName(data.id)).filter(Boolean);
-  let shadowState=null,shadowUpdatedAt=-Infinity;
+  const movingOccluders=[...map.doors,...map.breakables].map(data=>{
+    const object=root.getObjectByName(data.id);if(!object)return null;
+    let casts=false;object.traverse(child=>{if(environmentCasters.has(child))casts=true;});
+    // Transparent breakables already excluded from the source shadow geometry
+    // cannot invalidate a map when broken or reset.
+    return casts?{object,id:data.id,seen:false,visible:false,matrix:new Float64Array(16),bounds:new T.Box3()}:null;
+  }).filter(Boolean);
+  const shadowCache=shadowLights.map((light,index)=>({light,list:[light],dirty:true,updatedAt:-Infinity,frustum:null,
+    stats:{index,position:light.position.toArray(),refreshes:0,invalidations:0,lastMs:0,lastDrawCalls:0,occluders:[]}}));
+  stats.shadowPerLight=shadowCache.map(entry=>entry.stats);
+  const newBounds=new T.Box3(),affectedBounds=new T.Box3();
   // Three keeps its render state alive through onAfterRender. Baking from a
   // pre-pass outside renderer.render fails on later door invalidation. Update
   // after the main-camera pass instead; the refreshed map is used next frame.
@@ -128,19 +179,45 @@ function assaultLighting(i,map,root){
   i.scene.onAfterRender=function(renderer,scene,camera){
     previousAfterRender?.call(this,renderer,scene,camera);
     if(camera!==i.camera)return;
-    const state=movingOccluders.map(o=>[o.visible,o.position.x,o.position.y,o.position.z,o.rotation.y].join(',')).join('|');
-    // A moving door may change every frame; refresh its cached occlusion at
-    // most 8 Hz instead of submitting all three depth maps at frame rate.
-    if(state===shadowState||performance.now()-shadowUpdatedAt<125)return;
+    for(const entry of shadowCache)if(!entry.frustum){entry.light.shadow.updateMatrices(entry.light);entry.frustum=entry.light.shadow.getFrustum();}
+    for(const record of movingOccluders){
+      const object=record.object,elements=object.matrixWorld.elements,visible=object.visible;
+      let changed=!record.seen||visible!==record.visible;
+      for(let n=0;n<16&&!changed;n++)changed=elements[n]!==record.matrix[n];
+      if(!changed)continue;
+      newBounds.setFromObject(object).expandByScalar(.12);
+      affectedBounds.makeEmpty();
+      if(record.seen&&record.visible)affectedBounds.union(record.bounds);
+      if(visible)affectedBounds.union(newBounds);
+      let relevant=false;
+      for(const entry of shadowCache){
+        if(!affectedBounds.isEmpty()&&entry.frustum.intersectsBox(affectedBounds)){
+          entry.dirty=true;relevant=true;
+          if(record.seen)entry.stats.invalidations++;
+          if(!entry.stats.occluders.includes(record.id))entry.stats.occluders.push(record.id);
+        }
+      }
+      if(record.seen&&!relevant)stats.shadowIgnoredChanges++;
+      record.bounds.copy(newBounds);record.matrix.set(elements);record.visible=visible;record.seen=true;
+    }
+    // Preserve dirty state while throttled. A caster leaving a frustum still
+    // clears its old shadow; unrelated maps retain their already valid content.
+    const now=performance.now(),due=shadowCache.filter(entry=>entry.dirty&&now-entry.updatedAt>=125);
+    if(!due.length)return;
     const disabled=[],before=renderer.info.render.calls,begin=performance.now(),pending=renderer.shadowMap.needsUpdate;
     // Cache environmental contacts only. Actors retain their normal sun shadows
     // and never leave a frozen silhouette in a local map after they move away.
     scene.traverse(o=>{if((o.isMesh||o.isLine||o.isPoints)&&o.castShadow&&!environmentCasters.has(o)){disabled.push(o);o.castShadow=false;}});
     try{
       scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
-      for(const light of shadowLights)light.shadow.needsUpdate=true;
-      renderer.shadowMap.needsUpdate=true;renderer.shadowMap.render(shadowLights,scene,camera);
-      shadowState=state;shadowUpdatedAt=performance.now();stats.shadowBakes++;stats.shadowBakeMs=Math.round((performance.now()-begin)*100)/100;
+      for(const entry of due){
+        const drawStart=renderer.info.render.calls,timeStart=performance.now();
+        entry.light.shadow.needsUpdate=true;renderer.shadowMap.needsUpdate=true;
+        renderer.shadowMap.render(entry.list,scene,camera);
+        entry.dirty=false;entry.updatedAt=performance.now();entry.stats.refreshes++;stats.shadowMapRefreshes++;
+        entry.stats.lastMs=Math.round((entry.updatedAt-timeStart)*100)/100;entry.stats.lastDrawCalls=renderer.info.render.calls-drawStart;
+      }
+      stats.shadowBakes++;stats.shadowBakeMs=Math.round((performance.now()-begin)*100)/100;
       stats.shadowPassDrawCalls=renderer.info.render.calls-before;
     }finally{for(const o of disabled)o.castShadow=true;renderer.shadowMap.needsUpdate=pending;}
   };
@@ -162,11 +239,20 @@ function assaultLighting(i,map,root){
   // Broad sky/sun contribution arrives only through an unobstructed opening.
   patches.push({pos:V([0,3.1,-39.5]),normal:V([0,0,-1]),color:new T.Color(0xffdab0),power:48});
   stats.bouncePatches=patches.length;
-  const ENERGY_RANGE=6;
+  // HDR half floats retain small bounced contributions without clipping the
+  // probes immediately under fixtures. Direction remains compact RGBA8.
+  const ENERGY_RANGE=1;
+  stats.irradianceEncoding='RGBA16F';stats.relocatedProbes=0;stats.maxProbeIrradiance=0;
+  const upward=V([0,1,0]);
   function volume(min,max,dimensions){
-    const [nx,ny,nz]=dimensions,energy=new Uint8Array(nx*ny*nz*4),direction=new Uint8Array(energy.length),p=new T.Vector3(),to=new T.Vector3(),sum=new T.Vector3();
+    const [nx,ny,nz]=dimensions,energy=new Uint16Array(nx*ny*nz*4),direction=new Uint8Array(energy.length),p=new T.Vector3(),to=new T.Vector3(),sum=new T.Vector3();
     for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
       p.set(min[0]+(max[0]-min[0])*x/(nx-1),min[1]+(max[1]-min[1])*y/(ny-1),min[2]+(max[2]-min[2])*z/(nz-1));
+      // A sample just inside a floor slab would interpolate black onto the
+      // visible floor. Original triangle normals distinguish an upward exit
+      // from a ceiling hit, so relocate only these near-surface solid samples.
+      const floorExit=i.physics.raycast(p,upward,.25);stats.visibilityRays++;
+      if(floorExit&&floorExit.normal.y>.7){p.y=floorExit.point.y+.08;stats.relocatedProbes++;}
       let r=0,g=0,b=0;sum.set(0,0,0);
       for(const patch of patches){
         to.subVectors(p,patch.pos);const distance=to.length();if(distance<.01||distance>25)continue;to.multiplyScalar(1/distance);
@@ -178,15 +264,17 @@ function assaultLighting(i,map,root){
         const e=power*(patch.gain??2.1);r+=patch.color.r*e;g+=patch.color.g*e;b+=patch.color.b*e;
         sum.addScaledVector(to,-e);
       }
-      const index=((z*ny+y)*nx+x)*4,peak=Math.max(r,g,b);if(peak>ENERGY_RANGE)stats.clippedProbes++;
-      energy[index]=Math.min(255,Math.round(r/ENERGY_RANGE*255));energy[index+1]=Math.min(255,Math.round(g/ENERGY_RANGE*255));energy[index+2]=Math.min(255,Math.round(b/ENERGY_RANGE*255));energy[index+3]=255;
+      const index=((z*ny+y)*nx+x)*4,peak=Math.max(r,g,b);stats.maxProbeIrradiance=Math.max(stats.maxProbeIrradiance,peak);if(peak>65504)stats.clippedProbes++;
+      energy[index]=T.DataUtils.toHalfFloat(Math.min(65504,r));energy[index+1]=T.DataUtils.toHalfFloat(Math.min(65504,g));energy[index+2]=T.DataUtils.toHalfFloat(Math.min(65504,b));energy[index+3]=T.DataUtils.toHalfFloat(1);
       if(sum.lengthSq()>1e-8)sum.normalize();
       direction[index]=Math.round((sum.x*.5+.5)*255);direction[index+1]=Math.round((sum.y*.5+.5)*255);direction[index+2]=Math.round((sum.z*.5+.5)*255);direction[index+3]=255;stats.probes++;
     }
-    const texture=data=>{const t=new T.Data3DTexture(data,nx,ny,nz);t.format=T.RGBAFormat;t.type=T.UnsignedByteType;t.minFilter=t.magFilter=T.LinearFilter;t.wrapS=t.wrapT=t.wrapR=T.ClampToEdgeWrapping;t.unpackAlignment=1;t.needsUpdate=true;return t;};
+    const texture=data=>{const t=new T.Data3DTexture(data,nx,ny,nz);t.format=T.RGBAFormat;t.type=data instanceof Uint16Array?T.HalfFloatType:T.UnsignedByteType;t.minFilter=t.magFilter=T.LinearFilter;t.wrapS=t.wrapT=t.wrapR=T.ClampToEdgeWrapping;t.unpackAlignment=1;t.needsUpdate=true;return t;};
     return {min:V(min),max:V(max),energy:texture(energy),direction:texture(direction)};
   }
-  const hall=volume([-17.35,.22,-73.1],[17.35,12.45,-41.15],[11,6,11]);
+  // Vertical slices at 3.24 and 8.5067 m lie just below the two native floors;
+  // relocation above resolves both surfaces without adding shader lookups.
+  const hall=volume([-17.35,.08,-73.1],[17.35,12.72,-41.15],[11,13,15]);
   const officeVolume=volume([-29.0,8.68,-70.0],[-17.7,12.45,-59.85],[5,4,5]);
   const uniforms={uAssaultHall:{value:hall.energy},uAssaultHallDirection:{value:hall.direction},uAssaultOffice:{value:officeVolume.energy},uAssaultOfficeDirection:{value:officeVolume.direction},uAssaultHallMin:{value:hall.min},uAssaultHallMax:{value:hall.max},uAssaultOfficeMin:{value:officeVolume.min},uAssaultOfficeMax:{value:officeVolume.max},uAssaultBounceStrength:{value:1}};
   group.userData.bounceStrength=uniforms.uAssaultBounceStrength;
@@ -239,5 +327,6 @@ function assaultLighting(i,map,root){
     }
   });
   stats.bakeMs=Math.round(performance.now()-started);
+  stats.maxProbeIrradiance=Math.round(stats.maxProbeIrradiance*1000)/1000;
   return {lamps,root:group,stats,uniforms,volumes:{hall,office:officeVolume}};
 }

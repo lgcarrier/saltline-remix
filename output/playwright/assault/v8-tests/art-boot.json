@@ -1,0 +1,110 @@
+{
+  "hash": "fc5e2bf2e206a7fe0e655ebee8e20f5bd51f8382e0cb61454c7bb077a5477dc4",
+  "ground": {
+    "system": "original Saltline O1/Ib/Nb/zb",
+    "sea": false,
+    "maskResolution": 1024,
+    "maskRect": [
+      -71,
+      -77,
+      108
+    ],
+    "pavementSquareMetres": 3172.7,
+    "shelteredSquareMetres": 258.3,
+    "puddleSquareMetres": 221.9,
+    "previousPuddleSquareMetres": 236.5,
+    "raisedOrReshapedSquareMetres": 40.8,
+    "maskRefinementMs": 56,
+    "puddleShape": "shared warped depressions with aggregate crowns",
+    "planarScale": 0.35,
+    "reflectionPasses": 3437,
+    "reflectionSkipped": 373
+  },
+  "vehicle": {
+    "triangles": 13444,
+    "meshes": 10,
+    "wheels": 4,
+    "nativeTriangles": 142,
+    "remappedFaces": 62,
+    "sourceEnvelope": {
+      "min": [
+        5.6896,
+        0,
+        -10.418318
+      ],
+      "max": [
+        13.208,
+        2.8448,
+        -6.2992
+      ]
+    }
+  },
+  "warmup": {
+    "complete": true,
+    "meshes": 436,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "19ffa687-8e32-4eba-b053-4ea02c33dc1c",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "9002510a-49ae-4806-bee1-38c411742112",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "73cd23db-cfe6-4325-90ae-f6070ba4d84a",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "39e1c9e1-c167-4049-ac2f-82888b543e1f",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "7cd49389-b992-4ced-ae2e-1322c6b5828f",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 382,
+      "textures": 158
+    },
+    "after": {
+      "geometries": 422,
+      "textures": 198
+    },
+    "restored": true,
+    "elapsedMs": 251.9,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  },
+  "errors": []
+}

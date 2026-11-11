@@ -1,0 +1,45 @@
+{
+  "purpose": "Static verification of the shared Assault puddle mask; supplements the central browser art/performance tests",
+  "source": "src/assault-ground.js",
+  "sourceSHA256": "3dbe8f5de8fce5404864f824e0e9d0c28f55433d17043d34f7beddbe9e0727fb",
+  "method": {
+    "script": "/private/tmp/test-assault-ground-mask.cjs",
+    "execution": "Node VM, 1024\u00d71024 mask; actual source block from assault-ground.js",
+    "inputs": [
+      "src/assault-map.json",
+      "reference/grok-assault.html",
+      "output/playwright/assault/v7-final-capture-manifest.json"
+    ],
+    "originalFunctions": "Original Saltline F1/Ab/fs/SR/Rb/U1 noise, depression generation and CPU bilinear sampler",
+    "geometry": "Original BSP asphalt triangles at ground level outside the warehouse, with actual-map roof rasterization and reused-container shelter bounds from the v7 manifest",
+    "shaderAnchors": "All twelve patch anchors must exist in the original Saltline shader source",
+    "shelterCheck": "Every texel outside pavement or below shelter higher than0.35m must retain the dry R=255 value",
+    "cpuMaskCheck": "At exposed pavement texel centres whose cell index modulo113 is0, compare U1 CPU depth with the same stored R value; tolerance0.000001",
+    "coverageGuard": "Revised standing-water area must remain between70% and115% of the original exposed-mask area"
+  },
+  "pass": true,
+  "results": {
+    "shaderAnchorsPassed": 12,
+    "syntaxCheck": "node --check passed",
+    "originalPuddleSquareMetres": 236.45558166503906,
+    "revisedPuddleSquareMetres": 221.939208984375,
+    "coverageChangePercent": -6.14,
+    "raisedOrReshapedSquareMetres": 40.823822021484375,
+    "pavementSquareMetres": 3172.6783905029297,
+    "shelteredSquareMetres": 258.2690734863281,
+    "shelteredWaterLeaks": 0,
+    "sampledCPUMaskDepthMismatches": 0,
+    "nodeVMRefinementMs": 6282.362874999999
+  },
+  "centralBrowserConfirmation": {
+    "reportedBy": "root agent",
+    "refinementMs": 56,
+    "puddleSquareMetres": 221.9,
+    "runtimeErrors": 0
+  },
+  "limits": [
+    "The static CPU check does not compare bicubic GPU interpolation or shader-scale aggregate detail at arbitrary shoreline positions.",
+    "Node VM timing is not representative of browser startup or frame performance.",
+    "Visual quality and sustained60FPS are evaluated by the separate central browser tests."
+  ]
+}
