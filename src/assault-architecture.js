@@ -377,11 +377,6 @@ function assaultArchitecture(i, map) {
   }
   stats.constructionFinish={triangles:stats.triangles-finishStart,roofLaps:2,repairSheets:3,gutters:1,receivingCanopies:1};
 
-  // A surrounding freight district closes the otherwise empty blue horizon.
-  // Everything is outside the native playable bounds, with a generous setback.
-  // The source buildings remain the foreground silhouette and occluders. These
-  // distant masses use only the original material library and three batches;
-  // no lights, collision, navigation, or shadow-map work is added.
   // The original Saltline harbor now owns the horizon and shoreline.
   // Remove the former generic land slabs/factories so they cannot fill the sea.
   stats.skyline={replacement:'original Saltline harbor and container terminal'};
@@ -390,7 +385,7 @@ function assaultArchitecture(i, map) {
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));
     g.setAttribute('normal',new T.Float32BufferAttribute(b.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(b.uv,2));
     g.computeBoundingSphere();g.computeBoundingBox();
-    let material=/^(wood_|concrete|brick$|steel_galv$|steel_worn$)/.test(b.material)
+    let material=/^(wood_|concrete|brick$|glass$|steel_galv$|steel_worn$)/.test(b.material)
       ?assaultMaterial(i,b.material,b.interior,false,{vertexColors:false})
       :i.mats.get(b.material,{interior:b.interior});
     if(b.region==='skyline'){

@@ -35,20 +35,26 @@ function assaultTerminal(i){
   }
   for(const [row,x]of [39,44.5,51].entries()){
     for(const [bay,z]of [-103,-88,-73,-58].entries())stack('east',x,z,[3,4,3,4][bay],Math.PI/2,row+bay);
-    for(const [bay,z]of [-28,-13].entries())stack('east',x,z,[3,2][bay],Math.PI/2,row+bay+1);
+    // Five containers from the occluded third east row now occupy the visible
+    // west bay. Geometry count and source asset fidelity remain unchanged.
+    if(row<2)for(const [bay,z]of [-28,-13].entries())stack('east',x,z,[3,2][bay],Math.PI/2,row+bay+1);
   }
 
   // West berth follows the ship's native mooring convention after rotation:
   // ship centre X=-86, water west of X=-75, dry quay east of that boundary.
-  // The open Z[-63,-35] loading vista is deliberately left completely clear.
-  box('west','concrete_dirty',[6.7248,2.2,116],[-71.6376,-1.1,-33]);
-  box('west','steel_dark',[.075,.16,116],[-74.96,-.08,-33]);
-  for(const [bay,z]of [-78,-26,-11,4].entries()){
-    stack('west',-73.4,z,[4,5,4,3][bay],Math.PI/2,bay+1);
-    stack('west',-69.9,z,[3,4,3,2][bay],Math.PI/2,bay+2);
+  // The gangway lands at Z=-44.6. Preserve a 12.3m cargo-free service
+  // corridor between the visible -56m and -31.5m bays. Lower inner stacks
+  // expose the back row from the elevated road, instead of a solid cargo wall.
+  box('west','concrete_dirty',[6.7248,2.2,123],[-71.6376,-1.1,-36.5]);
+  box('west','steel_dark',[.075,.16,123],[-74.96,-.08,-36.5]);
+  for(const [bay,z]of [-91,-56,-31.5,-16,8].entries()){
+    stack('west',-73.4,z,[4,4,5,4,3][bay],Math.PI/2,bay+1);
+    stack('west',-69.9,z,[3,2,3,3,2][bay],Math.PI/2,bay+2);
   }
+  // The original ship mooring points at Z=-80.5,-70.5,-24.5,-.5
+  // remain clear. The outer northern bay moves past them, on the extended quay.
   // Original mooring assets stay on their own quay; they add no physical route.
-  for(const z of [-69,-37,-3.5])into('west',builder.place('bollard_mooring',-74.05,z,0,{seed:702},0,{noCol:true}));
+  for(const z of [-69,-43.5,17])into('west',builder.place('bollard_mooring',-74.05,z,0,{seed:702},0,{noCol:true}));
 
   // A low northern apron provides a second cargo layer around the map, wholly
   // beyond the original north wall. No artificially raised ground is used.
@@ -76,6 +82,6 @@ function assaultTerminal(i){
   }
   stats.labelsAtlased=atlas.count;
   stats.regionBounds={east:{min:[33.5,-2.2,-121],max:[75,10.36,80]},
-    west:{min:[-75,-2.2,-91],max:[-68.2752,12.95,25]},north:{min:[-70,-1.8,-95],max:[25,10.36,-82]}};
+    west:{min:[-75,-2.2,-98],max:[-68.2752,12.95,25]},north:{min:[-70,-1.8,-95],max:[25,10.36,-82]}};
   return {root,stats,update:dt=>atlas.update?.(dt)};
 }

@@ -23,11 +23,11 @@ function assaultDress(i, b, map) {
   const root = new THREE.Group();
   root.name = 'assault-detail';
   const before = new Set(b.staticRoot.children);
-  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
+  const stats = { placements: [], ladderMounts: [], fenceFrames: [], windowsOmittedForLadders: 0, props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
   const families = new Set(), lamps = [];
   const steel = b.M('steel_galv'), dark = b.M('steel_dark'), worn = b.M('steel_worn');
   const paint = b.M('paint_grey'), white = b.M('paint_white'), yellow = b.M('paint_yellow');
-  const rubber = b.M('rubber'), glass = b.M('glass');
+  const rubber = b.M('rubber'), glass = assaultMaterial(i,'glass',false,false,{vertexColors:false});
   const box = (mat, w, h, d, x, y, z, bevel = .008) => b.box(mat,w,h,d,x,y,z,{bevel});
   const rod = (mat,a,c,r=.024) => b.rod(mat,a,c,r,{seg:8});
   const label = (text,h,x,y,z,face='z+',opts={}) => b.label(text,h,x,y,z,face,{font:'sans',color:'white',distress:.24,...opts});
@@ -63,7 +63,7 @@ function assaultDress(i, b, map) {
     const size=Gi[name]||[1,1,1], c=Math.cos(yaw),s=Math.sin(yaw);
     const probe=options.floor??1.1, y=floorAt(x,z,probe);
     let reason=y===null?'no source floor':null;
-    if(!reason) for(const xx of [-.45,0,.45])for(const zz of [-.45,0,.45]) {
+    if(!reason) for(const xx of [-.5,0,.5])for(const zz of [-.5,0,.5]) {
       const u=xx*size[0],v=zz*size[2],xxw=x+u*c+v*s,zzw=z-u*s+v*c;
       const fy=floorAt(xxw,zzw,probe);
       if(fy===null||Math.abs(fy-y)>.16)reason='uneven source footprint';
@@ -79,6 +79,20 @@ function assaultDress(i, b, map) {
         if(hit&&hit.dist<dist+.06)reason='source obstruction';
       }
     }
+    // Some native chain-link brushes are intentionally non-colliding. They
+    // still occupy visual space: keep cargo clear of their finite segments.
+    if(!reason)for(const fence of stats.fenceFrames){
+      if(y+size[1]<=fence.start[1]||y>=fence.top)continue;
+      const local=p=>{const dx=p[0]-x,dz=p[2]-z;return [dx*c-dz*s,dx*s+dz*c];};
+      const a=local(fence.start),end=local(fence.end),half=[size[0]/2+.09,size[2]/2+.09];
+      let enter=0,leave=1;
+      for(let axis=0;axis<2;axis++){
+        const d=end[axis]-a[axis];
+        if(Math.abs(d)<1e-8){if(Math.abs(a[axis])>half[axis]){enter=1;leave=0;break;}}
+        else{const aa=(-half[axis]-a[axis])/d,bb=(half[axis]-a[axis])/d;enter=Math.max(enter,Math.min(aa,bb));leave=Math.min(leave,Math.max(aa,bb));}
+      }
+      if(enter<=leave){reason='decorative fence clearance';break;}
+    }
     if(reason){stats.rejected.push({name,x,z,reason});return null;}
     const prop=b.place(name,x,z,yaw,{seed:options.seed??(stats.props+197),...options},y);
     if(options.interior)prop.traverse(o=>{
@@ -87,30 +101,96 @@ function assaultDress(i, b, map) {
       if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
     });
     stats.props++;families.add(name);
+    stats.placements.push({name,pos:[x,y,z],yaw,footprint:size.slice(0,3),support:'nine source-floor samples including footprint corners',maxFloorVariation:.16});
     if(name.startsWith('container'))stats.containers.push({name,pos:[x,y,z],yaw,color:options.color,source:'original Saltline prop builder'});
     return prop;
   }
 
-  // The BSP stores ladders as masked textures. Replace the masks with actual
-  // galvanized rails, flattened grip rungs and stand-off wall brackets.
+  // Preserve all native climb planes. Mounts are measured against the real
+  // supporting surface, rather than sending every bracket in the same direction.
   for(const ladder of map.ladders||[]) {
     const mn=ladder.bounds.min,mx=ladder.bounds.max,alongX=mx[0]-mn[0]>mx[2]-mn[2];
     const cx=(mn[0]+mx[0])/2,cz=(mn[2]+mx[2])/2;
     const width=Math.min(1.05,(alongX?mx[0]-mn[0]:mx[2]-mn[2])-.12);
     const at=(u,y,off=0)=>alongX?[cx+u,y,cz+off]:[cx+off,y,cz+u];
+    const mount={id:ladder.id,climbPlane:alongX?cz:cx,axis:alongX?'z':'x',width,mounts:[]};
+    function plate(u,y,off){
+      box(dark,alongX?.14:.045,.18,alongX?.045:.14,...at(u,y,off),.005);
+      for(const dy of [-.055,.055])box(steel,alongX?.035:.055,.027,alongX?.055:.035,...at(u,y+dy,off),.003);
+    }
+    // Gallery-to-duct ladder: the original map leaves this span open. Two
+    // slim uprights stand on the actual gallery and attach to the duct lip.
+    if(ladder.id==='ladder_26'){
+      const back=-69.9808-cz;
+      for(const side of [-1,1]){
+        box(dark,.065,10.9728-mn[1],.065,...at(side*width*.5,(mn[1]+10.9728)/2,back),.006);
+        box(steel,.19,.035,.15,...at(side*width*.5,mn[1]+.0175,back),.006);
+        rod(dark,at(side*width*.5,10.98,back),at(side*width*.5,10.98,-69.89-cz),.027);
+      }
+      box(dark,1.42,.085,.065,...at(0,10.9303,back),.006);
+      mount.support='gallery floor to original duct lip support frame';
+    }
     for(const side of [-1,1]) {
       rod(steel,at(side*width*.5,mn[1]+.08),at(side*width*.5,mx[1]+.18),.033);
-      for(let y=mn[1]+.3;y<mx[1]-.2;y+=1.55) {
-        rod(dark,at(side*width*.5,y),at(side*width*.5,y,-.12),.027);
+      const count=Math.max(2,Math.ceil((mx[1]-mn[1]) / 1.55));
+      for(let j=0;j<count;j++){
+        // The roof/duct side wall ends below the handrails; do not anchor a
+        // top bracket to empty space above its actual end.
+        const ceiling=ladder.id==='ladder_28'||ladder.id==='ladder_78'?12.40:mx[1]-.20;
+        const y=mn[1]+.30+(ceiling-mn[1]-.30)*j/(count-1);
+        let off=0,u=side*width*.5,anchorU=u;
+        if(ladder.id==='ladder_65'){
+          // Native out_wall2c vertical jambs flank the opening. Attach sideways
+          // into their centers, preserving the clear climbing opening.
+          anchorU=side*.6604;off=11.3632-cx;mount.support='original vertical ladder jamb faces';
+        }else{
+          const surface={ladder_13:17.8816,ladder_26:-69.9808,ladder_28:-55.2704,
+            ladder_38:17.8816,ladder_45:-8.5344,ladder_69:-17.8816,ladder_78:-.7112}[ladder.id];
+          off=surface-(alongX?cz:cx);mount.support ||= 'original vertical source surface';
+        }
+        rod(dark,at(u,y),at(anchorU,y,off),.027);plate(anchorU,y,off);
+        mount.mounts.push({rail:at(u,y),anchor:at(anchorU,y,off),length:Math.hypot(anchorU-u,off)});
       }
     }
     const steps=Math.max(2,Math.round((mx[1]-mn[1])/.29));
     for(let j=0;j<=steps;j++) {
       const y=mn[1]+.12+(mx[1]-mn[1]-.2)*j/steps;
-      const a=at(-width*.5,y),d=at(width*.5,y);
-      rod(worn,a,d,.026);
+      rod(worn,at(-width*.5,y),at(width*.5,y),.026);
     }
-    stats.ladders++;
+    stats.ladders++;stats.ladderMounts.push(mount);
+  }
+
+  // The native chain-link sheets had no construction frame. Derive each
+  // panel's baseline from its actual long faces, including the angled west
+  // service fence; do not flatten a diagonal brush into its bounding box.
+  const fenceGroups=new Map();
+  for(const f of map.faces||[])if(/^\{fence/.test(f.texture)&&Math.abs(f.normal[1])<.01){
+    let group=fenceGroups.get(f.modelId);if(!group){group=[];fenceGroups.set(f.modelId,group);}group.push(f);
+  }
+  for(const [id,faces]of fenceGroups){
+    const main=faces.reduce((a,b)=>a.area>b.area?a:b),n=main.normal;
+    const tangent=[-n[2],0,n[0]],normal=[n[0],0,n[2]];
+    let lo=Infinity,hi=-Infinity,y0=Infinity,y1=-Infinity,planeMin=Infinity,planeMax=-Infinity;
+    for(const f of faces){
+      y0=Math.min(y0,f.bounds.min[1]);y1=Math.max(y1,f.bounds.max[1]);
+      for(const p of [f.bounds.min,f.bounds.max]){
+        const t=p[0]*tangent[0]+p[2]*tangent[2],d=p[0]*normal[0]+p[2]*normal[2];
+        lo=Math.min(lo,t);hi=Math.max(hi,t);planeMin=Math.min(planeMin,d);planeMax=Math.max(planeMax,d);
+      }
+    }
+    // The dominant side's plane is exact even when its axis-aligned bounds
+    // contain points outside a diagonal panel. Average opposing end centers.
+    const center=faces.reduce((a,f)=>{a[0]+=f.center[0]*f.area;a[1]+=f.area;a[2]+=f.center[2]*f.area;return a;},[0,0,0]);
+    const plane=(center[0]*normal[0]+center[2]*normal[2])/center[1];
+    const point=(t,y)=>[t*tangent[0]+plane*normal[0],y,t*tangent[2]+plane*normal[2]];
+    const length=hi-lo,count=Math.max(1,Math.ceil(length/2.3));
+    for(let j=0;j<=count;j++){
+      const t=lo+length*j/count,p=point(t,y0);
+      rod(steel,p,point(t,y1+.045),.038);
+      box(dark,.17,.035,.17,p[0],y0+.0175,p[2],.004);
+    }
+    for(const y of [y0+.08,y1-.035])rod(steel,point(lo,y),point(hi,y),.028);
+    stats.fenceFrames.push({modelId:id,start:point(lo,y0),end:point(hi,y0),top:y1,posts:count+1});
   }
 
   // Original balcony guards and open-web roof trusses retain their BSP spans.
@@ -231,6 +311,11 @@ function assaultDress(i, b, map) {
     const plane=onX?mn[0]:mn[2],norm=onX?normal[0]:normal[2];
     for(let u=Math.ceil((lo+.85)/3.2)*3.2;u<hi-.85;u+=3.2)for(let y=Math.ceil((Math.max(mn[1],2.5)+.86)/3.45)*3.45;y<mx[1]-.86;y+=3.45) {
       const key=`${onX?'x':'z'}:${plane.toFixed(2)}:${u.toFixed(2)}:${y.toFixed(2)}`;if(usedWindows.has(key))continue;usedWindows.add(key);
+      // Keep window apertures clear of ladder fixing plates.
+      if((map.ladders||[]).some(l=>{
+        const b=l.bounds,n=onX?0:2,t=onX?2:0;
+        return Math.abs((b.min[n]+b.max[n])/2-plane)<.65&&u+.90>b.min[t]-.10&&u-.90<b.max[t]+.10&&y+.99>b.min[1]&&y-.99<b.max[1];
+      })){stats.windowsOmittedForLadders++;continue;}
       const x=onX?plane+norm*.035:u,z=onX?u:plane+norm*.035;
       const width=1.45,height=1.78;
       const add=(mat,ww,hh,dd,du,dy,depth,bevel=.005)=>box(mat,onX?dd:ww,hh,onX?ww:dd,x+(onX?norm*depth:du),y+dy,z+(onX?du:norm*depth),bevel);
@@ -255,8 +340,8 @@ function assaultDress(i, b, map) {
     ['ibc_tote',15.9,-34.2],['barrel',16.1,-35.6,0,{color:'blue'}],['gas_cylinders',16.4,-37.0],
     ['forklift',-10.4,-37.2,.3],['pallet',-13.4,-36.8,-.1],['cardboard_boxes',-15.4,-37.3,.08],
     ['toolbox_cart',20.9,-51.6,Math.PI/2],['floodlight_stand',20.8,-48.3,.3],
-    ['pipe_stack',-28.8,-50.8,Math.PI/2],['sandbags',-28.7,-47.2,Math.PI/2],
-    ['tarp_cargo',-27.6,-55.0,.1],['barrel',-29,-53.2,.2,{color:'red'}],
+    ['pipe_stack',-27.1,-49.8,0],['sandbags',-28.7,-47.2,Math.PI/2],
+    ['tarp_cargo',-27.6,-55.0,.1],['barrel',-26.8,-51.1,.2,{color:'red'}],
     ['shelf_rack',-14.6,-49.8,Math.PI/2,{floor:3.5,interior:true}],
     ['crate_stack',-13.6,-54.2,.1,{floor:3.5,interior:true}],
     ['pallet_stack',-11.8,-55.0,.1,{floor:3.5,interior:true}],

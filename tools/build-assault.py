@@ -21,7 +21,7 @@ end = text.index('function dR(i,e)', start)
 scene = json.loads(source('src/assault-map.json'))
 if not scene.get('surfaces') or not scene.get('collision', {}).get('positions'):
     raise SystemExit('Required Assault map has no render or collision geometry')
-modules = ['assault-physics.js', 'assault-dressing.js', 'assault-ground.js', 'assault-harbor-water.js', 'assault-terminal.js', 'assault-harbor.js', 'assault-vehicle.js', 'assault-materials.js', 'assault-office.js', 'assault-architecture.js', 'assault-lighting.js', 'assault-performance.js', 'assault-level.js']
+modules = ['assault-physics.js', 'assault-dressing.js', 'assault-ground.js', 'assault-harbor-water.js', 'assault-terminal.js', 'assault-harbor-materials.js', 'assault-harbor.js', 'assault-vehicle.js', 'assault-materials.js', 'assault-office.js', 'assault-architecture.js', 'assault-lighting.js', 'assault-performance.js', 'assault-level.js']
 # The draft's encoded geometry, relays and lights have all been replaced by the
 # BSP extraction and authored level. Do not ship its unused duplicate payload.
 payload = 'window.__ASSAULT_MAP=' + json.dumps(scene,separators=(',',':')) + ';\n'

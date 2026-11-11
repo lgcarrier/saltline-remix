@@ -1,0 +1,188 @@
+{
+  "documentSha256": "439315bbe983481a9c8670e477b29b8fc13d60298a7c969071ebcc87061ffaf4",
+  "normalInputOnly": true,
+  "approach": {
+    "ok": true,
+    "result": [
+      {
+        "target": [
+          16.625,
+          0,
+          -7.875
+        ],
+        "state": {
+          "p": [
+            16.6516016243171,
+            0,
+            -7.817778272905323
+          ],
+          "yaw": -0.10500000000000001,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 914
+      },
+      {
+        "target": [
+          13.625,
+          0,
+          -10.875
+        ],
+        "state": {
+          "p": [
+            13.714772474789315,
+            0,
+            -10.836486146131643
+          ],
+          "yaw": 0.9099299998998642,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 1384
+      },
+      {
+        "target": [
+          7.625,
+          0,
+          -10.875
+        ],
+        "state": {
+          "p": [
+            7.910287381635896,
+            0,
+            -10.951243045709399
+          ],
+          "yaw": 1.5773099997997286,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 1419
+      },
+      {
+        "target": [
+          6.125,
+          0,
+          -13.125
+        ],
+        "state": {
+          "p": [
+            6.129306351180946,
+            0,
+            -13.04956393768091
+          ],
+          "yaw": 0.6310500000000001,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 1130
+      },
+      {
+        "target": [
+          6.125,
+          0,
+          -28.125
+        ],
+        "state": {
+          "p": [
+            6.107980880990511,
+            0,
+            -27.991900110716152
+          ],
+          "yaw": -0.10520999979972827,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 2933
+      },
+      {
+        "target": [
+          18.875,
+          0,
+          -40.875
+        ],
+        "state": {
+          "p": [
+            18.646470356844873,
+            0,
+            -40.74360082683916
+          ],
+          "yaw": -0.8754899996995924,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 3320
+      },
+      {
+        "target": [
+          18.85,
+          0,
+          -44.704
+        ],
+        "state": {
+          "p": [
+            18.83821502571589,
+            0,
+            -44.611875668948116
+          ],
+          "yaw": -0.0006299998998638284,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        },
+        "ms": 1267
+      }
+    ],
+    "state": {
+      "p": [
+        18.83821502571589,
+        0,
+        -44.611875668948116
+      ],
+      "yaw": -0.0006299998998638284,
+      "pitch": 0,
+      "crouching": false,
+      "health": 100,
+      "state": "playing"
+    }
+  },
+  "ascent": {
+    "pos": [
+      17.69019627007783,
+      10.363726569318528,
+      -44.723145638516826
+    ],
+    "ladder": false,
+    "state": "playing",
+    "health": 100
+  },
+  "descent": {
+    "pos": [
+      18.883986762163453,
+      0.7944528932099272,
+      -44.64022103850981
+    ],
+    "ladder": false,
+    "state": "playing",
+    "health": 100
+  },
+  "passed": true,
+  "state": {
+    "state": "paused",
+    "health": 100,
+    "invulnerable": false,
+    "errors": []
+  }
+}

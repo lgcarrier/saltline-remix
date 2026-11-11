@@ -18,6 +18,7 @@ function assaultHarbor(i) {
   // Separate lamp batches keep their authored coordinates attached to the
   // different asset transforms while both use the same animation clock.
   const craneLamps=pb(),shipLamps=pb(),crane=z1(i,craneLamps),ship=vb(i,shipLamps);
+  const materialFinish=assaultHarborMaterials(i,ship.root);
   craneGroup.add(crane.root);shipGroup.add(ship.root);
   const lampMeshes=[];
   for(const [name,builder,parent]of [['crane',craneLamps,craneGroup],['ship',shipLamps,shipGroup]]){
@@ -49,7 +50,7 @@ function assaultHarbor(i) {
     return {min:box.min.toArray(),max:box.max.toArray()};
   };
   const stats={
-    source:'original Saltline z1/vb/pb',craneId:'SALTLINE 04',shipName:'KITTIWAKE',
+    materialFinish,source:'original Saltline z1/vb/pb',craneId:'SALTLINE 04',shipName:'KITTIWAKE',
     placements:{crane:{scale:2.5,nativePivot:[23.5,0,0],worldPivot:[60,0,40],translation:[1.25,0,40]},
       ship:{scale:1,yaw:Math.PI,translation:[-45,0,-82.5]}},triangles,drawCalls,shadowMeshes,
     collidersRegistered:0,lightsAdded:0,waterY:-1.6,quayX:75,quays:{east:75,west:-75},

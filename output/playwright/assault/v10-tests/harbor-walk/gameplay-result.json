@@ -1,0 +1,424 @@
+{
+  "documentSha256": "439315bbe983481a9c8670e477b29b8fc13d60298a7c969071ebcc87061ffaf4",
+  "state": {
+    "state": "playing",
+    "cut": 0,
+    "health": 100,
+    "invulnerable": false,
+    "pos": [
+      -44.05135092092315,
+      6.502399921417236,
+      -55.06122762042901
+    ],
+    "combat": {
+      "shots": 0,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": [],
+    "lighting": {
+      "directLights": 11,
+      "bakedDirectLights": 10,
+      "fixtures": 20,
+      "fixtureDrawCalls": 4,
+      "bouncePatches": 100,
+      "probes": 2245,
+      "visibilityRays": 69646,
+      "clippedProbes": 0,
+      "patchedMaterials": 44,
+      "bakeMs": 426,
+      "method": "static occluded diffuse and one-bounce volumes",
+      "rearBakedFixtures": 8,
+      "shadowLights": 3,
+      "shadowBakes": 1,
+      "shadowBakeMs": 1.4,
+      "shadowPassDrawCalls": 416,
+      "shadowMaps": [
+        1024,
+        1024,
+        1024
+      ],
+      "shadowFilter": "area PCF: 4 blocker + 4 contact / 12 penumbra taps",
+      "shadowMapRefreshes": 3,
+      "shadowIgnoredChanges": 0,
+      "shadowPerLight": [
+        {
+          "index": 0,
+          "position": [
+            6.9088,
+            10.163200000000002,
+            -62.179199999999994
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.6,
+          "lastDrawCalls": 118,
+          "occluders": [
+            "func_door_rotating_11"
+          ]
+        },
+        {
+          "index": 1,
+          "position": [
+            -6.9088,
+            10.163200000000002,
+            -62.179199999999994
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.3,
+          "lastDrawCalls": 130,
+          "occluders": []
+        },
+        {
+          "index": 2,
+          "position": [
+            -20.32,
+            12.1868,
+            -62.5856
+          ],
+          "refreshes": 1,
+          "invalidations": 0,
+          "lastMs": 0.4,
+          "lastDrawCalls": 168,
+          "occluders": [
+            "func_door_71",
+            "func_door_72",
+            "func_breakable_67"
+          ]
+        }
+      ],
+      "irradianceEncoding": "RGBA16F",
+      "relocatedProbes": 96,
+      "maxProbeIrradiance": 9.319
+    }
+  },
+  "routes": [
+    {
+      "harborRoad": {
+        "ok": true,
+        "result": [
+          {
+            "target": [
+              16.625,
+              0,
+              -7.875
+            ],
+            "state": {
+              "p": [
+                16.650756641647742,
+                0,
+                -7.809760415064841
+              ],
+              "yaw": -0.10499999999999998,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 915
+          },
+          {
+            "target": [
+              13.625,
+              0,
+              -10.875
+            ],
+            "state": {
+              "p": [
+                13.813762070130032,
+                0,
+                -10.74697029988411
+              ],
+              "yaw": 0.8049299998998641,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 1358
+          },
+          {
+            "target": [
+              7.625,
+              0,
+              -10.875
+            ],
+            "state": {
+              "p": [
+                7.779777836838056,
+                0,
+                -10.922630704600625
+              ],
+              "yaw": 1.6795799993991845,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 1514
+          },
+          {
+            "target": [
+              6.125,
+              0,
+              -13.125
+            ],
+            "state": {
+              "p": [
+                6.1840610470662325,
+                0,
+                -13.05262971012114
+              ],
+              "yaw": 0.5594399996995918,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 1198
+          },
+          {
+            "target": [
+              3.125,
+              0,
+              -24.375
+            ],
+            "state": {
+              "p": [
+                3.135867248746674,
+                0,
+                -24.195682054881345
+              ],
+              "yaw": 0.172619999098777,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 2217
+          },
+          {
+            "target": [
+              2.375,
+              0,
+              -21.375
+            ],
+            "state": {
+              "p": [
+                2.3626766723430626,
+                0,
+                -21.42644640591928
+              ],
+              "yaw": 2.9754899991989134,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 1961
+          },
+          {
+            "target": [
+              -4.375,
+              0,
+              -14.625
+            ],
+            "state": {
+              "p": [
+                -4.348497744480747,
+                0,
+                -14.657365942184137
+              ],
+              "yaw": 2.2411199990987782,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 2100
+          },
+          {
+            "target": [
+              -4.375,
+              0,
+              -11.625
+            ],
+            "state": {
+              "p": [
+                -4.3733742816945345,
+                0,
+                -11.762685200393546
+              ],
+              "yaw": 3.1865399991989136,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 1183
+          },
+          {
+            "target": [
+              -5.125,
+              0,
+              -10.875
+            ],
+            "state": {
+              "p": [
+                -4.817447483396847,
+                0,
+                -10.994125034561018
+              ],
+              "yaw": 1.9987799988985084,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 753
+          },
+          {
+            "target": [
+              -36.625,
+              0,
+              -10.875
+            ],
+            "state": {
+              "p": [
+                -36.51728184808797,
+                0,
+                -10.89319036077435
+              ],
+              "yaw": 1.6119599987983722,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 5371
+          },
+          {
+            "target": [
+              -37.375,
+              0.1229,
+              -11.625
+            ],
+            "state": {
+              "p": [
+                -37.34161268731376,
+                0.2535489033896363,
+                -11.566297788468725
+              ],
+              "yaw": 0.702029998898508,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 726
+          },
+          {
+            "target": [
+              -37.375,
+              6.5024,
+              -25.125
+            ],
+            "state": {
+              "p": [
+                -37.418496823930305,
+                6.502399921417236,
+                -25.071076493658094
+              ],
+              "yaw": -0.10122000110149205,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 2717
+          },
+          {
+            "target": [
+              -37.375,
+              6.5024,
+              -40.875
+            ],
+            "state": {
+              "p": [
+                -37.43230185862038,
+                6.502399921417236,
+                -40.75628106164039
+              ],
+              "yaw": -0.12873000140189944,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 2684
+          },
+          {
+            "target": [
+              -44.125,
+              6.5024,
+              -55.125
+            ],
+            "state": {
+              "p": [
+                -44.00017548753402,
+                6.502399921417236,
+                -54.97505876665049
+              ],
+              "yaw": 0.6058499979972859,
+              "pitch": 0,
+              "crouching": false,
+              "health": 100,
+              "state": "playing"
+            },
+            "ms": 2948
+          }
+        ],
+        "state": {
+          "p": [
+            -44.00017548753402,
+            6.502399921417236,
+            -54.97505876665049
+          ],
+          "yaw": 0.6058499979972859,
+          "pitch": 0,
+          "crouching": false,
+          "health": 100,
+          "state": "playing"
+        }
+      }
+    }
+  ],
+  "performance": {
+    "all": {
+      "samples": 2137,
+      "seconds": 35.615300000000005,
+      "meanFPS": 60.00230238127995,
+      "p50": 16.69999999999709,
+      "p95": 16.799999999995634,
+      "p99": 16.80000000000291,
+      "max": 16.80000000000291,
+      "over25ms": 0,
+      "over33_4ms": 0
+    },
+    "zones": {
+      "yard": {
+        "samples": 2137,
+        "seconds": 35.615300000000005,
+        "meanFPS": 60.00230238127995,
+        "p50": 16.69999999999709,
+        "p95": 16.799999999995634,
+        "p99": 16.80000000000291,
+        "max": 16.80000000000291,
+        "over25ms": 0,
+        "over33_4ms": 0
+      }
+    }
+  },
+  "normalInputOnly": true
+}

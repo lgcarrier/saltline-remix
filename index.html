@@ -5783,11 +5783,11 @@ function assaultDress(i, b, map) {
   const root = new THREE.Group();
   root.name = 'assault-detail';
   const before = new Set(b.staticRoot.children);
-  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
+  const stats = { placements: [], ladderMounts: [], fenceFrames: [], windowsOmittedForLadders: 0, props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
   const families = new Set(), lamps = [];
   const steel = b.M('steel_galv'), dark = b.M('steel_dark'), worn = b.M('steel_worn');
   const paint = b.M('paint_grey'), white = b.M('paint_white'), yellow = b.M('paint_yellow');
-  const rubber = b.M('rubber'), glass = b.M('glass');
+  const rubber = b.M('rubber'), glass = assaultMaterial(i,'glass',false,false,{vertexColors:false});
   const box = (mat, w, h, d, x, y, z, bevel = .008) => b.box(mat,w,h,d,x,y,z,{bevel});
   const rod = (mat,a,c,r=.024) => b.rod(mat,a,c,r,{seg:8});
   const label = (text,h,x,y,z,face='z+',opts={}) => b.label(text,h,x,y,z,face,{font:'sans',color:'white',distress:.24,...opts});
@@ -5823,7 +5823,7 @@ function assaultDress(i, b, map) {
     const size=Gi[name]||[1,1,1], c=Math.cos(yaw),s=Math.sin(yaw);
     const probe=options.floor??1.1, y=floorAt(x,z,probe);
     let reason=y===null?'no source floor':null;
-    if(!reason) for(const xx of [-.45,0,.45])for(const zz of [-.45,0,.45]) {
+    if(!reason) for(const xx of [-.5,0,.5])for(const zz of [-.5,0,.5]) {
       const u=xx*size[0],v=zz*size[2],xxw=x+u*c+v*s,zzw=z-u*s+v*c;
       const fy=floorAt(xxw,zzw,probe);
       if(fy===null||Math.abs(fy-y)>.16)reason='uneven source footprint';
@@ -5839,6 +5839,20 @@ function assaultDress(i, b, map) {
         if(hit&&hit.dist<dist+.06)reason='source obstruction';
       }
     }
+    // Some native chain-link brushes are intentionally non-colliding. They
+    // still occupy visual space: keep cargo clear of their finite segments.
+    if(!reason)for(const fence of stats.fenceFrames){
+      if(y+size[1]<=fence.start[1]||y>=fence.top)continue;
+      const local=p=>{const dx=p[0]-x,dz=p[2]-z;return [dx*c-dz*s,dx*s+dz*c];};
+      const a=local(fence.start),end=local(fence.end),half=[size[0]/2+.09,size[2]/2+.09];
+      let enter=0,leave=1;
+      for(let axis=0;axis<2;axis++){
+        const d=end[axis]-a[axis];
+        if(Math.abs(d)<1e-8){if(Math.abs(a[axis])>half[axis]){enter=1;leave=0;break;}}
+        else{const aa=(-half[axis]-a[axis])/d,bb=(half[axis]-a[axis])/d;enter=Math.max(enter,Math.min(aa,bb));leave=Math.min(leave,Math.max(aa,bb));}
+      }
+      if(enter<=leave){reason='decorative fence clearance';break;}
+    }
     if(reason){stats.rejected.push({name,x,z,reason});return null;}
     const prop=b.place(name,x,z,yaw,{seed:options.seed??(stats.props+197),...options},y);
     if(options.interior)prop.traverse(o=>{
@@ -5847,30 +5861,96 @@ function assaultDress(i, b, map) {
       if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
     });
     stats.props++;families.add(name);
+    stats.placements.push({name,pos:[x,y,z],yaw,footprint:size.slice(0,3),support:'nine source-floor samples including footprint corners',maxFloorVariation:.16});
     if(name.startsWith('container'))stats.containers.push({name,pos:[x,y,z],yaw,color:options.color,source:'original Saltline prop builder'});
     return prop;
   }
 
-  // The BSP stores ladders as masked textures. Replace the masks with actual
-  // galvanized rails, flattened grip rungs and stand-off wall brackets.
+  // Preserve all native climb planes. Mounts are measured against the real
+  // supporting surface, rather than sending every bracket in the same direction.
   for(const ladder of map.ladders||[]) {
     const mn=ladder.bounds.min,mx=ladder.bounds.max,alongX=mx[0]-mn[0]>mx[2]-mn[2];
     const cx=(mn[0]+mx[0])/2,cz=(mn[2]+mx[2])/2;
     const width=Math.min(1.05,(alongX?mx[0]-mn[0]:mx[2]-mn[2])-.12);
     const at=(u,y,off=0)=>alongX?[cx+u,y,cz+off]:[cx+off,y,cz+u];
+    const mount={id:ladder.id,climbPlane:alongX?cz:cx,axis:alongX?'z':'x',width,mounts:[]};
+    function plate(u,y,off){
+      box(dark,alongX?.14:.045,.18,alongX?.045:.14,...at(u,y,off),.005);
+      for(const dy of [-.055,.055])box(steel,alongX?.035:.055,.027,alongX?.055:.035,...at(u,y+dy,off),.003);
+    }
+    // Gallery-to-duct ladder: the original map leaves this span open. Two
+    // slim uprights stand on the actual gallery and attach to the duct lip.
+    if(ladder.id==='ladder_26'){
+      const back=-69.9808-cz;
+      for(const side of [-1,1]){
+        box(dark,.065,10.9728-mn[1],.065,...at(side*width*.5,(mn[1]+10.9728)/2,back),.006);
+        box(steel,.19,.035,.15,...at(side*width*.5,mn[1]+.0175,back),.006);
+        rod(dark,at(side*width*.5,10.98,back),at(side*width*.5,10.98,-69.89-cz),.027);
+      }
+      box(dark,1.42,.085,.065,...at(0,10.9303,back),.006);
+      mount.support='gallery floor to original duct lip support frame';
+    }
     for(const side of [-1,1]) {
       rod(steel,at(side*width*.5,mn[1]+.08),at(side*width*.5,mx[1]+.18),.033);
-      for(let y=mn[1]+.3;y<mx[1]-.2;y+=1.55) {
-        rod(dark,at(side*width*.5,y),at(side*width*.5,y,-.12),.027);
+      const count=Math.max(2,Math.ceil((mx[1]-mn[1]) / 1.55));
+      for(let j=0;j<count;j++){
+        // The roof/duct side wall ends below the handrails; do not anchor a
+        // top bracket to empty space above its actual end.
+        const ceiling=ladder.id==='ladder_28'||ladder.id==='ladder_78'?12.40:mx[1]-.20;
+        const y=mn[1]+.30+(ceiling-mn[1]-.30)*j/(count-1);
+        let off=0,u=side*width*.5,anchorU=u;
+        if(ladder.id==='ladder_65'){
+          // Native out_wall2c vertical jambs flank the opening. Attach sideways
+          // into their centers, preserving the clear climbing opening.
+          anchorU=side*.6604;off=11.3632-cx;mount.support='original vertical ladder jamb faces';
+        }else{
+          const surface={ladder_13:17.8816,ladder_26:-69.9808,ladder_28:-55.2704,
+            ladder_38:17.8816,ladder_45:-8.5344,ladder_69:-17.8816,ladder_78:-.7112}[ladder.id];
+          off=surface-(alongX?cz:cx);mount.support ||= 'original vertical source surface';
+        }
+        rod(dark,at(u,y),at(anchorU,y,off),.027);plate(anchorU,y,off);
+        mount.mounts.push({rail:at(u,y),anchor:at(anchorU,y,off),length:Math.hypot(anchorU-u,off)});
       }
     }
     const steps=Math.max(2,Math.round((mx[1]-mn[1])/.29));
     for(let j=0;j<=steps;j++) {
       const y=mn[1]+.12+(mx[1]-mn[1]-.2)*j/steps;
-      const a=at(-width*.5,y),d=at(width*.5,y);
-      rod(worn,a,d,.026);
+      rod(worn,at(-width*.5,y),at(width*.5,y),.026);
     }
-    stats.ladders++;
+    stats.ladders++;stats.ladderMounts.push(mount);
+  }
+
+  // The native chain-link sheets had no construction frame. Derive each
+  // panel's baseline from its actual long faces, including the angled west
+  // service fence; do not flatten a diagonal brush into its bounding box.
+  const fenceGroups=new Map();
+  for(const f of map.faces||[])if(/^\{fence/.test(f.texture)&&Math.abs(f.normal[1])<.01){
+    let group=fenceGroups.get(f.modelId);if(!group){group=[];fenceGroups.set(f.modelId,group);}group.push(f);
+  }
+  for(const [id,faces]of fenceGroups){
+    const main=faces.reduce((a,b)=>a.area>b.area?a:b),n=main.normal;
+    const tangent=[-n[2],0,n[0]],normal=[n[0],0,n[2]];
+    let lo=Infinity,hi=-Infinity,y0=Infinity,y1=-Infinity,planeMin=Infinity,planeMax=-Infinity;
+    for(const f of faces){
+      y0=Math.min(y0,f.bounds.min[1]);y1=Math.max(y1,f.bounds.max[1]);
+      for(const p of [f.bounds.min,f.bounds.max]){
+        const t=p[0]*tangent[0]+p[2]*tangent[2],d=p[0]*normal[0]+p[2]*normal[2];
+        lo=Math.min(lo,t);hi=Math.max(hi,t);planeMin=Math.min(planeMin,d);planeMax=Math.max(planeMax,d);
+      }
+    }
+    // The dominant side's plane is exact even when its axis-aligned bounds
+    // contain points outside a diagonal panel. Average opposing end centers.
+    const center=faces.reduce((a,f)=>{a[0]+=f.center[0]*f.area;a[1]+=f.area;a[2]+=f.center[2]*f.area;return a;},[0,0,0]);
+    const plane=(center[0]*normal[0]+center[2]*normal[2])/center[1];
+    const point=(t,y)=>[t*tangent[0]+plane*normal[0],y,t*tangent[2]+plane*normal[2]];
+    const length=hi-lo,count=Math.max(1,Math.ceil(length/2.3));
+    for(let j=0;j<=count;j++){
+      const t=lo+length*j/count,p=point(t,y0);
+      rod(steel,p,point(t,y1+.045),.038);
+      box(dark,.17,.035,.17,p[0],y0+.0175,p[2],.004);
+    }
+    for(const y of [y0+.08,y1-.035])rod(steel,point(lo,y),point(hi,y),.028);
+    stats.fenceFrames.push({modelId:id,start:point(lo,y0),end:point(hi,y0),top:y1,posts:count+1});
   }
 
   // Original balcony guards and open-web roof trusses retain their BSP spans.
@@ -5991,6 +6071,11 @@ function assaultDress(i, b, map) {
     const plane=onX?mn[0]:mn[2],norm=onX?normal[0]:normal[2];
     for(let u=Math.ceil((lo+.85)/3.2)*3.2;u<hi-.85;u+=3.2)for(let y=Math.ceil((Math.max(mn[1],2.5)+.86)/3.45)*3.45;y<mx[1]-.86;y+=3.45) {
       const key=`${onX?'x':'z'}:${plane.toFixed(2)}:${u.toFixed(2)}:${y.toFixed(2)}`;if(usedWindows.has(key))continue;usedWindows.add(key);
+      // Keep window apertures clear of ladder fixing plates.
+      if((map.ladders||[]).some(l=>{
+        const b=l.bounds,n=onX?0:2,t=onX?2:0;
+        return Math.abs((b.min[n]+b.max[n])/2-plane)<.65&&u+.90>b.min[t]-.10&&u-.90<b.max[t]+.10&&y+.99>b.min[1]&&y-.99<b.max[1];
+      })){stats.windowsOmittedForLadders++;continue;}
       const x=onX?plane+norm*.035:u,z=onX?u:plane+norm*.035;
       const width=1.45,height=1.78;
       const add=(mat,ww,hh,dd,du,dy,depth,bevel=.005)=>box(mat,onX?dd:ww,hh,onX?ww:dd,x+(onX?norm*depth:du),y+dy,z+(onX?du:norm*depth),bevel);
@@ -6015,8 +6100,8 @@ function assaultDress(i, b, map) {
     ['ibc_tote',15.9,-34.2],['barrel',16.1,-35.6,0,{color:'blue'}],['gas_cylinders',16.4,-37.0],
     ['forklift',-10.4,-37.2,.3],['pallet',-13.4,-36.8,-.1],['cardboard_boxes',-15.4,-37.3,.08],
     ['toolbox_cart',20.9,-51.6,Math.PI/2],['floodlight_stand',20.8,-48.3,.3],
-    ['pipe_stack',-28.8,-50.8,Math.PI/2],['sandbags',-28.7,-47.2,Math.PI/2],
-    ['tarp_cargo',-27.6,-55.0,.1],['barrel',-29,-53.2,.2,{color:'red'}],
+    ['pipe_stack',-27.1,-49.8,0],['sandbags',-28.7,-47.2,Math.PI/2],
+    ['tarp_cargo',-27.6,-55.0,.1],['barrel',-26.8,-51.1,.2,{color:'red'}],
     ['shelf_rack',-14.6,-49.8,Math.PI/2,{floor:3.5,interior:true}],
     ['crate_stack',-13.6,-54.2,.1,{floor:3.5,interior:true}],
     ['pallet_stack',-11.8,-55.0,.1,{floor:3.5,interior:true}],
@@ -6463,20 +6548,26 @@ function assaultTerminal(i){
   }
   for(const [row,x]of [39,44.5,51].entries()){
     for(const [bay,z]of [-103,-88,-73,-58].entries())stack('east',x,z,[3,4,3,4][bay],Math.PI/2,row+bay);
-    for(const [bay,z]of [-28,-13].entries())stack('east',x,z,[3,2][bay],Math.PI/2,row+bay+1);
+    // Five containers from the occluded third east row now occupy the visible
+    // west bay. Geometry count and source asset fidelity remain unchanged.
+    if(row<2)for(const [bay,z]of [-28,-13].entries())stack('east',x,z,[3,2][bay],Math.PI/2,row+bay+1);
   }
 
   // West berth follows the ship's native mooring convention after rotation:
   // ship centre X=-86, water west of X=-75, dry quay east of that boundary.
-  // The open Z[-63,-35] loading vista is deliberately left completely clear.
-  box('west','concrete_dirty',[6.7248,2.2,116],[-71.6376,-1.1,-33]);
-  box('west','steel_dark',[.075,.16,116],[-74.96,-.08,-33]);
-  for(const [bay,z]of [-78,-26,-11,4].entries()){
-    stack('west',-73.4,z,[4,5,4,3][bay],Math.PI/2,bay+1);
-    stack('west',-69.9,z,[3,4,3,2][bay],Math.PI/2,bay+2);
+  // The gangway lands at Z=-44.6. Preserve a 12.3m cargo-free service
+  // corridor between the visible -56m and -31.5m bays. Lower inner stacks
+  // expose the back row from the elevated road, instead of a solid cargo wall.
+  box('west','concrete_dirty',[6.7248,2.2,123],[-71.6376,-1.1,-36.5]);
+  box('west','steel_dark',[.075,.16,123],[-74.96,-.08,-36.5]);
+  for(const [bay,z]of [-91,-56,-31.5,-16,8].entries()){
+    stack('west',-73.4,z,[4,4,5,4,3][bay],Math.PI/2,bay+1);
+    stack('west',-69.9,z,[3,2,3,3,2][bay],Math.PI/2,bay+2);
   }
+  // The original ship mooring points at Z=-80.5,-70.5,-24.5,-.5
+  // remain clear. The outer northern bay moves past them, on the extended quay.
   // Original mooring assets stay on their own quay; they add no physical route.
-  for(const z of [-69,-37,-3.5])into('west',builder.place('bollard_mooring',-74.05,z,0,{seed:702},0,{noCol:true}));
+  for(const z of [-69,-43.5,17])into('west',builder.place('bollard_mooring',-74.05,z,0,{seed:702},0,{noCol:true}));
 
   // A low northern apron provides a second cargo layer around the map, wholly
   // beyond the original north wall. No artificially raised ground is used.
@@ -6504,8 +6595,70 @@ function assaultTerminal(i){
   }
   stats.labelsAtlased=atlas.count;
   stats.regionBounds={east:{min:[33.5,-2.2,-121],max:[75,10.36,80]},
-    west:{min:[-75,-2.2,-91],max:[-68.2752,12.95,25]},north:{min:[-70,-1.8,-95],max:[25,10.36,-82]}};
+    west:{min:[-75,-2.2,-98],max:[-68.2752,12.95,25]},north:{min:[-70,-1.8,-95],max:[25,10.36,-82]}};
   return {root,stats,update:dt=>atlas.update?.(dt)};
+}
+
+/* Ship-only finish over the original Saltline material maps. No new maps,
+ * geometry, lights or draw calls; authored decals and labels remain intact. */
+function assaultHarborMaterials(i,root){
+  const cache=new Map(),stats={version:2,materials:0,meshes:0,extraTextureReads:0};
+  function variant(source){
+    if(cache.has(source))return cache.get(source);
+    const name=source.name;
+    if(!['hull_paint','hull_red'].includes(name))return source;
+    const mat=source.clone(),uniforms={};
+    mat.defines={...source.defines};
+    for(const [key,entry]of Object.entries(source.userData.sl))uniforms[key]=key==='uSlWet'?entry:{value:entry.value?.clone?entry.value.clone():entry.value};
+    mat.userData={...source.userData,sl:uniforms,assaultShipFinish:true};
+    uniforms.uSlMacro.value.set(.025,.025,uniforms.uSlMacro.value.z,.035);
+    uniforms.uSlWetP.value.set(.12,.83,.18,0);
+    mat.normalScale.multiplyScalar(.25);
+    mat.metalness=0;mat.roughness=1;
+    const compile=source.onBeforeCompile,key=source.customProgramCacheKey.bind(source);
+    mat.onBeforeCompile=shader=>{
+      compile(shader);Object.assign(shader.uniforms,uniforms);
+      function patch(anchor,replacement){if(!shader.fragmentShader.includes(anchor))throw new Error('Ship finish anchor missing: '+anchor);shader.fragmentShader=shader.fragmentShader.replace(anchor,replacement);}
+      const sampling='slORM = texture2D(roughnessMap, slUv);';
+      // Gravity-aligned weathering is continuous over the hull instead of
+      // repeating a high-contrast orange island in every original 4 m tile.
+      patch(sampling,sampling+`
+        float portAge=slN3(vec3(vSlPos.x*.13,vSlPos.y*.16,vSlPos.z*.21)+vec3(7.2,2.8,9.1));
+        float portRun=slN3(vec3(vSlPos.x*1.7,vSlPos.y*.17,vSlPos.z*2.4)+vec3(3.8,7.1,2.2));
+        float portSourceRust=smoothstep(.025,.12,sampledDiffuseColor.r-sampledDiffuseColor.g);
+        float portDeckRun=smoothstep(6.0,13.0,vSlPos.y);
+        float portRust=portSourceRust*smoothstep(.43,.74,portAge)*.78;
+        portRust=max(portRust,smoothstep(.64,.84,portRun)*smoothstep(.45,.72,portAge)*(.08+.22*portDeckRun));
+        float portChalk=smoothstep(1.0,13.0,vSlPos.y)*(.45+.55*portAge);
+        float portSplash=(1.0-smoothstep(-.6,2.8,vSlPos.y))*(.45+.55*portRun);
+        vec3 portCoat=${name==='hull_red'?'vec3(.105,.027,.020)':'vec3(.038,.055,.065)'};
+        portCoat*=mix(.82,1.13,portAge);
+        float portMicro=clamp(dot(sampledDiffuseColor.rgb,vec3(.30,.59,.11))/.18,.65,1.35);
+        portCoat*=mix(1.0,portMicro,.24);
+        portCoat*=1.0-smoothstep(.50,.78,portRun)*smoothstep(.36,.70,portAge)*.17;
+        portCoat=mix(portCoat,portCoat*1.15,portChalk*.42);
+        portCoat*=1.0-portSplash*.26;
+        vec3 portFinish=mix(portCoat,vec3(.105,.047,.020),portRust);
+        slORM.g=mix(.49+.16*portAge+.055*portRun,.91,portRust);
+        slORM.b=0.0;
+      `);
+      // Apply after the source tint branch, before its original wet response.
+      const tint='#if SL_TINT == 1\n  diffuseColor.rgb = sampledDiffuseColor.rgb + diffuse * sampledDiffuseColor.a;';
+      patch(tint,'#if SL_TINT == 1\n  diffuseColor.rgb = portFinish;');
+      patch('roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);','roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);\nroughnessFactor=max(roughnessFactor,.48);');
+      // Original vertex colors encode plate age. Compress their extreme
+      // differences on hull plates without losing the painted cargo palette.
+      patch('#include <color_fragment>',
+        '#ifdef USE_COLOR\n diffuseColor.rgb *= mix(vec3(1.0),vColor,.38);\n#endif');
+    };
+    mat.customProgramCacheKey=()=>key()+'|assault-ship-finish-2|'+name;
+    cache.set(source,mat);stats.materials++;return mat;
+  }
+  root.traverse(o=>{if(!o.isMesh)return;const before=o.material;
+    o.material=Array.isArray(before)?before.map(variant):variant(before);
+    if(o.material!==before)stats.meshes++;
+  });
+  return stats;
 }
 
 // Original Saltline crane and KITTIWAKE cargo ship, outside the playable BSP.
@@ -6528,6 +6681,7 @@ function assaultHarbor(i) {
   // Separate lamp batches keep their authored coordinates attached to the
   // different asset transforms while both use the same animation clock.
   const craneLamps=pb(),shipLamps=pb(),crane=z1(i,craneLamps),ship=vb(i,shipLamps);
+  const materialFinish=assaultHarborMaterials(i,ship.root);
   craneGroup.add(crane.root);shipGroup.add(ship.root);
   const lampMeshes=[];
   for(const [name,builder,parent]of [['crane',craneLamps,craneGroup],['ship',shipLamps,shipGroup]]){
@@ -6559,7 +6713,7 @@ function assaultHarbor(i) {
     return {min:box.min.toArray(),max:box.max.toArray()};
   };
   const stats={
-    source:'original Saltline z1/vb/pb',craneId:'SALTLINE 04',shipName:'KITTIWAKE',
+    materialFinish,source:'original Saltline z1/vb/pb',craneId:'SALTLINE 04',shipName:'KITTIWAKE',
     placements:{crane:{scale:2.5,nativePivot:[23.5,0,0],worldPivot:[60,0,40],translation:[1.25,0,40]},
       ship:{scale:1,yaw:Math.PI,translation:[-45,0,-82.5]}},triangles,drawCalls,shadowMeshes,
     collidersRegistered:0,lightsAdded:0,waterY:-1.6,quayX:75,quays:{east:75,west:-75},
@@ -6959,15 +7113,18 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       value: entry.value?.clone ? entry.value.clone() : entry.value
     };
   }
-  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 10, source: name, vertexColors, grainAxis}};
-  mat.side = T.DoubleSide;
+  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 11, source: name, vertexColors, grainAxis}};
+  // Source chain-link brushes already have outward-facing front/back sheets.
+  // Drawing both sides doubles the diamonds and creates a moire pattern.
+  mat.side = name==='chainlink'?T.FrontSide:T.DoubleSide;
   const concrete = /^concrete/.test(name), brick = name === 'brick';
+  const facadeGlass = name === 'glass' && !inside;
   const masonry = concrete || brick, corrugated = name === 'corrugated_roof';
   const wood = name === 'wood_pallet' || name === 'wood_dark';
   const paintedSteel = name === 'hull_paint';
   const galvanized = name === 'steel_galv', wornSteel = name === 'steel_worn';
   const canvas = name === 'tarp', staticAsphalt = name === 'asphalt';
-  const architectural = masonry || corrugated || wood || paintedSteel || galvanized || wornSteel || canvas || staticAsphalt;
+  const architectural = facadeGlass || masonry || corrugated || wood || paintedSteel || galvanized || wornSteel || canvas || staticAsphalt;
   if (architectural) {
     // Dry masonry stays diffuse; wet masonry darkens slightly and retains a
     // broad lobe. The original droplet sparkle belongs on close props and water.
@@ -6976,7 +7133,8 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     uniforms.uSlMacro.value.w = .035;
     // Wet darkening, wet roughness multiplier, vertical exposure, texture AO,
     // normal strength: distinct responses for sheet metal, fabric and masonry.
-    const response = corrugated ? [.025,.85,.42,.40,.28]
+    const response = facadeGlass ? [.025,.94,.12,.10,.06]
+      : corrugated ? [.025,.85,.42,.40,.28]
       : paintedSteel ? [.035,.92,.32,.32,.10]
       : wood ? [.10,.94,.18,.25,.085]
       : galvanized ? [.025,.94,.30,.24,.18]
@@ -7014,6 +7172,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       mat.metalness=0;mat.roughness=1.3;
     }
     if(staticAsphalt)mat.metalness=0;
+    if(facadeGlass){mat.metalness=0;mat.roughness=.70;}
   }
   if (transparent) { mat.transparent = true; mat.opacity = .3; mat.depthWrite = false; }
   const sourceCompile = source.onBeforeCompile, sourceKey = source.customProgramCacheKey.bind(source);
@@ -7049,7 +7208,16 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       float assaultContact=1.0-smoothstep(.08,1.35,max(vSlPos.y,0.0));
       float assaultDetail=1.0-smoothstep(.012,.075,assaultWorldPixel);
     `;
-    if (galvanized) {
+    if(facadeGlass){
+      finish += `
+        vec3 portPaneNormal=abs(normalize(cross(dFdx(vSlPos),dFdy(vSlPos))));
+        float portPaneU=portPaneNormal.x>portPaneNormal.z?vSlPos.z:vSlPos.x;
+        float portPane=slH(vec3(floor((portPaneU+1.6)/3.2),floor((vSlPos.y+1.725)/3.45),11.8));
+        sampledDiffuseColor.rgb=mix(vec3(.14,.19,.22),sampledDiffuseColor.rgb,.10)*mix(.68,1.14,portPane);
+        sampledDiffuseColor.a=.62+.20*portPane;
+        slORM.g=.28+.22*portPane;slORM.b=0.0;
+      `;
+    } else if (galvanized) {
       finish += `
         sampledDiffuseColor.rgb=mix(vec3(.50,.525,.55),sampledDiffuseColor.rgb,.18);
         // Low-contrast zinc bloom and dull runoff are broad enough to remain
@@ -7123,6 +7291,12 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         float assaultBlend=slN3(vSlPos*.09+vec3(3.7,1.2,8.9));
         sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,
           mix(assaultBrickB,assaultBrickC,assaultBlend),.64);
+        // Kiln color and mortar stay in the original maps. A continuous broad
+        // exposure field breaks the facade into weathered and sheltered bays.
+        float portBrickAge=slN3(vSlPos*vec3(.13,.18,.13)+vec3(1.8,4.2,8.7));
+        sampledDiffuseColor.rgb*=mix(.88,1.08,portBrickAge);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,sampledDiffuseColor.rgb*vec3(.67,.71,.67),assaultContact*.24);
+        slORM.g=mix(slORM.g,.89,.18+assaultContact*.20);
       `;
     } else if (concrete) {
       finish += `
@@ -7135,6 +7309,17 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
           sampledDiffuseColor.rgb,mix(.20,.30,assaultSlab));
         sampledDiffuseColor.rgb*=1.0-.055*assaultWalk;
         slORM.g=mix(slORM.g,mix(.84,.64,assaultWalk),.65);
+        // Exterior coatings age in broad, gravity-aligned fields. Keep this
+        // off interior slabs so their existing lighting/material response stays.
+        ${inside?'':`
+        float portWallAge=slN3(vSlPos*vec3(.22,.09,.22)+vec3(8.4,1.7,3.2));
+        float portWallRun=slN3(vSlPos*vec3(2.3,.16,2.3)+vec3(3.4,8.2,1.9));
+        float portWallDirt=smoothstep(.43,.72,portWallAge)*smoothstep(.48,.79,portWallRun)*(1.0-assaultSlab);
+        sampledDiffuseColor.rgb*=mix(.94,1.06,portWallAge)*(1.0-portWallDirt*.15);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.105,.108,.092),assaultContact*.12*(1.0-assaultSlab));
+        slORM.g=mix(slORM.g,.92,portWallDirt*.45);
+        `}
+
       `;
       if (name === 'concrete_painted') {
         // A continuous paint film with local abrasion at the plinth. The
@@ -7182,7 +7367,9 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     patch('mapN.xy *= normalScale * (1.0 - 0.45 * slWetK * slUp);',
       'mapN.xy *= normalScale * mix(.12,1.0,assaultDetail) * (1.0 - 0.45 * slWetK * slUp);');
     const roughness = 'roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);';
-    patch(roughness, roughness + (galvanized
+    patch(roughness, roughness + (facadeGlass
+      ? '\nroughnessFactor=max(roughnessFactor,.18);'
+      : galvanized
       ? '\nroughnessFactor=max(roughnessFactor,.50);'
       : wornSteel
       ? '\nroughnessFactor=max(roughnessFactor,'+(inside?'.72':'.57')+');'
@@ -7202,7 +7389,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     if(concrete)patch('roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));',
       'roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));\nroughnessFactor=mix(max(roughnessFactor,.80),mix(.76,.61,assaultWalk),assaultSlab);');
   };
-  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-10|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
+  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-11|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
   cache.set(key, mat);
   return mat;
 }
@@ -7718,11 +7905,6 @@ function assaultArchitecture(i, map) {
   }
   stats.constructionFinish={triangles:stats.triangles-finishStart,roofLaps:2,repairSheets:3,gutters:1,receivingCanopies:1};
 
-  // A surrounding freight district closes the otherwise empty blue horizon.
-  // Everything is outside the native playable bounds, with a generous setback.
-  // The source buildings remain the foreground silhouette and occluders. These
-  // distant masses use only the original material library and three batches;
-  // no lights, collision, navigation, or shadow-map work is added.
   // The original Saltline harbor now owns the horizon and shoreline.
   // Remove the former generic land slabs/factories so they cannot fill the sea.
   stats.skyline={replacement:'original Saltline harbor and container terminal'};
@@ -7731,7 +7913,7 @@ function assaultArchitecture(i, map) {
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));
     g.setAttribute('normal',new T.Float32BufferAttribute(b.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(b.uv,2));
     g.computeBoundingSphere();g.computeBoundingBox();
-    let material=/^(wood_|concrete|brick$|steel_galv$|steel_worn$)/.test(b.material)
+    let material=/^(wood_|concrete|brick$|glass$|steel_galv$|steel_worn$)/.test(b.material)
       ?assaultMaterial(i,b.material,b.interior,false,{vertexColors:false})
       :i.mats.get(b.material,{interior:b.interior});
     if(b.region==='skyline'){

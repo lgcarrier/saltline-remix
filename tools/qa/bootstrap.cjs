@@ -4,7 +4,7 @@ globalThis.REPO=process.cwd();
 globalThis.ROOT=REPO+'/output/playwright/assault';
 globalThis.drive=(await import((await import('node:url')).pathToFileURL(REPO+'/tools/drive-route.cjs').href)).default;
 globalThis.routeEvidence=[];
-const response=await page.goto('http://127.0.0.1:8767/?q=high&dynres=0&seed=4207',{waitUntil:'domcontentloaded'});
+const response=await page.goto('http://127.0.0.1:8767/?q=high&dynres=0&seed=4207&qa='+Date.now(),{waitUntil:'domcontentloaded'});
 globalThis.testDocumentHash=(await import('node:crypto')).createHash('sha256').update(await response.body()).digest('hex');
 await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:90000});
 const bootFailure=await page.evaluate(()=>window.__fatal||null);

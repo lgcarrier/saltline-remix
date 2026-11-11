@@ -1,0 +1,22 @@
+{
+  "ready": true,
+  "fatal": null,
+  "errors": [],
+  "state": "playing",
+  "health": 100,
+  "invulnerable": false,
+  "cut": 0,
+  "quality": {
+    "name": "high",
+    "scale": 1,
+    "msaa": 4,
+    "shadow": 4096,
+    "tex": 1024,
+    "volSteps": 24,
+    "ao": true,
+    "planar": 0.5,
+    "bloom": true,
+    "motionBlur": true,
+    "rain": 1
+  }
+}

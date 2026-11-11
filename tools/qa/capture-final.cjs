@@ -1,6 +1,6 @@
 // Staged stills, isolated from the subsequent normal-input mission.
 if(!await page.evaluate(()=>!!window.__G?.params?.shot)){
- const response=await page.goto('http://127.0.0.1:8767/?shot=1&q=high&dynres=0&seed=4207&noaudio=1&noweapon=1',{waitUntil:'domcontentloaded'});
+ const response=await page.goto('http://127.0.0.1:8767/?shot=1&q=high&dynres=0&seed=4207&noaudio=1&noweapon=1&review='+Date.now(),{waitUntil:'domcontentloaded'});
  globalThis.testDocumentHash=(await import('node:crypto')).createHash('sha256').update(await response.body()).digest('hex');
  await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:90000});
  await page.waitForFunction(()=>document.querySelector('#boot')?.hidden,null,{timeout:90000});

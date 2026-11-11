@@ -23,15 +23,18 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       value: entry.value?.clone ? entry.value.clone() : entry.value
     };
   }
-  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 10, source: name, vertexColors, grainAxis}};
-  mat.side = T.DoubleSide;
+  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 11, source: name, vertexColors, grainAxis}};
+  // Source chain-link brushes already have outward-facing front/back sheets.
+  // Drawing both sides doubles the diamonds and creates a moire pattern.
+  mat.side = name==='chainlink'?T.FrontSide:T.DoubleSide;
   const concrete = /^concrete/.test(name), brick = name === 'brick';
+  const facadeGlass = name === 'glass' && !inside;
   const masonry = concrete || brick, corrugated = name === 'corrugated_roof';
   const wood = name === 'wood_pallet' || name === 'wood_dark';
   const paintedSteel = name === 'hull_paint';
   const galvanized = name === 'steel_galv', wornSteel = name === 'steel_worn';
   const canvas = name === 'tarp', staticAsphalt = name === 'asphalt';
-  const architectural = masonry || corrugated || wood || paintedSteel || galvanized || wornSteel || canvas || staticAsphalt;
+  const architectural = facadeGlass || masonry || corrugated || wood || paintedSteel || galvanized || wornSteel || canvas || staticAsphalt;
   if (architectural) {
     // Dry masonry stays diffuse; wet masonry darkens slightly and retains a
     // broad lobe. The original droplet sparkle belongs on close props and water.
@@ -40,7 +43,8 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     uniforms.uSlMacro.value.w = .035;
     // Wet darkening, wet roughness multiplier, vertical exposure, texture AO,
     // normal strength: distinct responses for sheet metal, fabric and masonry.
-    const response = corrugated ? [.025,.85,.42,.40,.28]
+    const response = facadeGlass ? [.025,.94,.12,.10,.06]
+      : corrugated ? [.025,.85,.42,.40,.28]
       : paintedSteel ? [.035,.92,.32,.32,.10]
       : wood ? [.10,.94,.18,.25,.085]
       : galvanized ? [.025,.94,.30,.24,.18]
@@ -78,6 +82,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       mat.metalness=0;mat.roughness=1.3;
     }
     if(staticAsphalt)mat.metalness=0;
+    if(facadeGlass){mat.metalness=0;mat.roughness=.70;}
   }
   if (transparent) { mat.transparent = true; mat.opacity = .3; mat.depthWrite = false; }
   const sourceCompile = source.onBeforeCompile, sourceKey = source.customProgramCacheKey.bind(source);
@@ -113,7 +118,16 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
       float assaultContact=1.0-smoothstep(.08,1.35,max(vSlPos.y,0.0));
       float assaultDetail=1.0-smoothstep(.012,.075,assaultWorldPixel);
     `;
-    if (galvanized) {
+    if(facadeGlass){
+      finish += `
+        vec3 portPaneNormal=abs(normalize(cross(dFdx(vSlPos),dFdy(vSlPos))));
+        float portPaneU=portPaneNormal.x>portPaneNormal.z?vSlPos.z:vSlPos.x;
+        float portPane=slH(vec3(floor((portPaneU+1.6)/3.2),floor((vSlPos.y+1.725)/3.45),11.8));
+        sampledDiffuseColor.rgb=mix(vec3(.14,.19,.22),sampledDiffuseColor.rgb,.10)*mix(.68,1.14,portPane);
+        sampledDiffuseColor.a=.62+.20*portPane;
+        slORM.g=.28+.22*portPane;slORM.b=0.0;
+      `;
+    } else if (galvanized) {
       finish += `
         sampledDiffuseColor.rgb=mix(vec3(.50,.525,.55),sampledDiffuseColor.rgb,.18);
         // Low-contrast zinc bloom and dull runoff are broad enough to remain
@@ -187,6 +201,12 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
         float assaultBlend=slN3(vSlPos*.09+vec3(3.7,1.2,8.9));
         sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,
           mix(assaultBrickB,assaultBrickC,assaultBlend),.64);
+        // Kiln color and mortar stay in the original maps. A continuous broad
+        // exposure field breaks the facade into weathered and sheltered bays.
+        float portBrickAge=slN3(vSlPos*vec3(.13,.18,.13)+vec3(1.8,4.2,8.7));
+        sampledDiffuseColor.rgb*=mix(.88,1.08,portBrickAge);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,sampledDiffuseColor.rgb*vec3(.67,.71,.67),assaultContact*.24);
+        slORM.g=mix(slORM.g,.89,.18+assaultContact*.20);
       `;
     } else if (concrete) {
       finish += `
@@ -199,6 +219,17 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
           sampledDiffuseColor.rgb,mix(.20,.30,assaultSlab));
         sampledDiffuseColor.rgb*=1.0-.055*assaultWalk;
         slORM.g=mix(slORM.g,mix(.84,.64,assaultWalk),.65);
+        // Exterior coatings age in broad, gravity-aligned fields. Keep this
+        // off interior slabs so their existing lighting/material response stays.
+        ${inside?'':`
+        float portWallAge=slN3(vSlPos*vec3(.22,.09,.22)+vec3(8.4,1.7,3.2));
+        float portWallRun=slN3(vSlPos*vec3(2.3,.16,2.3)+vec3(3.4,8.2,1.9));
+        float portWallDirt=smoothstep(.43,.72,portWallAge)*smoothstep(.48,.79,portWallRun)*(1.0-assaultSlab);
+        sampledDiffuseColor.rgb*=mix(.94,1.06,portWallAge)*(1.0-portWallDirt*.15);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.105,.108,.092),assaultContact*.12*(1.0-assaultSlab));
+        slORM.g=mix(slORM.g,.92,portWallDirt*.45);
+        `}
+
       `;
       if (name === 'concrete_painted') {
         // A continuous paint film with local abrasion at the plinth. The
@@ -246,7 +277,9 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     patch('mapN.xy *= normalScale * (1.0 - 0.45 * slWetK * slUp);',
       'mapN.xy *= normalScale * mix(.12,1.0,assaultDetail) * (1.0 - 0.45 * slWetK * slUp);');
     const roughness = 'roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);';
-    patch(roughness, roughness + (galvanized
+    patch(roughness, roughness + (facadeGlass
+      ? '\nroughnessFactor=max(roughnessFactor,.18);'
+      : galvanized
       ? '\nroughnessFactor=max(roughnessFactor,.50);'
       : wornSteel
       ? '\nroughnessFactor=max(roughnessFactor,'+(inside?'.72':'.57')+');'
@@ -266,7 +299,7 @@ function assaultMaterial(i, name, inside, transparent = false, options = {}) {
     if(concrete)patch('roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));',
       'roughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));\nroughnessFactor=mix(max(roughnessFactor,.80),mix(.76,.61,assaultWalk),assaultSlab);');
   };
-  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-10|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
+  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-11|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + ((staticAsphalt||corrugated||wornSteel)?':'+!!inside:'');
   cache.set(key, mat);
   return mat;
 }
