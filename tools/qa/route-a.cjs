@@ -1,5 +1,5 @@
-await page.screenshot({path:ROOT+'/v2-title.png'});
-await page.getByRole('button',{name:'Deploy',exact:true}).click();
+await page.screenshot({path:ROOT+'/qa-start.png'});
+if(await page.evaluate(()=>__G.game.state==='title'))await page.getByRole('button',{name:'Deploy',exact:true}).click();
 await page.waitForFunction(()=>__G.game.state==='playing');
 if(typeof runQA==='function')await runQA('performance');
 const r=await drive(page,[[16.625,0,-7.875],[13.625,0,-10.875],[7.625,0,-10.875],[6.125,0,-13.125],[6.125,0,-28.125],[18.875,0,-40.875],[18.875,0,-55.125],[17.375,0,-55.875],[15.875,0,-54.375],[15.875,0,-49.875],[4.625,0,-49.875],[0,0,-50.5]]);

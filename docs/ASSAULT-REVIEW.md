@@ -1,5 +1,7 @@
 # Assault remake — review record
 
+**Historical v1–v3 baseline.** The current architecture, container, material and lighting revision is recorded in [ASSAULT-V5-REVIEW.md](ASSAULT-V5-REVIEW.md), including corrected exposure metadata. Performance below describes the earlier build.
+
 Date: 2026-11-10. Scope: the supplied CS 1.6 Assault map reconstructed inside Saltline's desktop WebGL2 single-player FPS.
 
 ## Result and quality gate

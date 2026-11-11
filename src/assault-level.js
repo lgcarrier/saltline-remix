@@ -5,72 +5,31 @@ async function C1(i) {
   const root = new T.Group(); root.name = 'assault'; i.scene.add(root);
   const vehicle=assaultVehicle(i,map);root.add(vehicle.root);
   const sourceFaces=new Map(map.faces.map(f=>[f.id,f]));
+  // The west-yard container brush keeps its native collision and cover height;
+  // original Saltline maritime meshes supply its visible panels and hardware.
+  const cargoFaces=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   const V = a => new T.Vector3(...a);
   const b = ob(i), dynamic = [], broken = [];
   const interiorBoxes = [
-    {min:V([-17.4,.1,-73.3]),max:V([17.4,12.9,-41.3])},
-    {min:V([-29.1,8.5,-73.3]),max:V([-17.5,12.1,-56.8])},
+    {min:V([-17.75,.1,-73.3]),max:V([17.75,12.9,-40.85])},
+    {min:V([-29.1,8.5,-73.3]),max:V([-17.5,12.65,-56.8])},
     {min:V([-.8,10.7,-70.2]),max:V([.8,14.4,-54.8])}
   ];
   const indoors = (x,y,z) => interiorBoxes.some(q=>x>q.min.x&&x<q.max.x&&y>q.min.y&&y<q.max.y&&z>q.min.z&&z<q.max.z);
   const surfaceKind = m => /wood|crate/.test(m)?'wood':/steel|metal|paint|hull|chain/.test(m)?'metal':/tire/.test(m)?'rubber':/glass/.test(m)?'glass':'concrete';
-  const materialCache = new Map(), pavement=[];
-  function material(name, inside, transparent=false) {
-    const key = name+':'+inside+':'+transparent;
-    if (materialCache.has(key)) return materialCache.get(key);
-    const source = i.mats.get(name,{interior:inside,vertexColors:true});
-    if (!source) throw new Error('Missing Saltline material '+name);
-    // Level-owned architectural variants retain every original texture and
-    // shader feature without changing the same materials on Saltline props.
-    const masonry=/^concrete|^brick$/.test(name), m=masonry?source.clone():source;
-    if(masonry){
-      m.defines={...source.defines};
-      const sl=source.userData.sl;
-      const uniforms={...sl,uSlMacro:{value:sl.uSlMacro.value.clone()},uSlWetP:{value:sl.uSlWetP.value.clone()}};
-      uniforms.uSlMacro.value.x=.065;uniforms.uSlMacro.value.y=.055;uniforms.uSlMacro.value.w=.12;
-      uniforms.uSlWetP.value.x=.18;uniforms.uSlWetP.value.z=.32;
-      m.userData={...source.userData,sl:uniforms};m.aoMapIntensity=inside?.48:.65;
-      m.normalScale.multiplyScalar(name==='brick'?.65:.42);
-      const originalCompile=source.onBeforeCompile, originalKey=source.customProgramCacheKey.bind(source);
-      m.onBeforeCompile=shader=>{
-        originalCompile(shader);Object.assign(shader.uniforms,uniforms);
-        const anchor='vec4 sampledDiffuseColor = texture2D(map, slUv);';
-        let treatment='';
-        if(name==='concrete_painted'){
-          // Paint remains the substrate; the original chip mask contributes
-          // restrained wear instead of wall-sized camouflage islands.
-          treatment='sampledDiffuseColor.a = mix(0.84, 0.98, sampledDiffuseColor.a);';
-        }else if(name==='brick'){
-          // Integer brick/row phase shifts preserve mortar alignment while
-          // decorrelating the tile's baked efflorescence and stain pattern.
-          treatment=`vec3 assaultBrickB=texture2D(map,slUv+vec2(.375,.5)).rgb;
-            vec3 assaultBrickC=texture2D(map,slUv+vec2(.625,.25)).rgb;
-            float assaultBlend=slN3(vSlPos*.19+vec3(3.7,1.2,8.9));
-            sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,mix(assaultBrickB,assaultBrickC,assaultBlend),.48);`;
-        }else{
-          treatment='sampledDiffuseColor.rgb = mix(vec3(.225,.216,.197), sampledDiffuseColor.rgb, .58);';
-        }
-        if(!shader.fragmentShader.includes(anchor))throw new Error('Saltline masonry shader anchor missing');
-        shader.fragmentShader=shader.fragmentShader.replace(anchor,anchor+'\n'+treatment);
-      };
-      m.customProgramCacheKey=()=>originalKey()+'|assault-masonry-3|'+name;
-    }
-    m.side=T.DoubleSide;
-    if(name==='asphalt')m.normalScale.multiplyScalar(.55);
-    if (transparent) {m.transparent=true;m.opacity=.3;m.depthWrite=false;}
-    materialCache.set(key,m); return m;
-  }
+  const pavement=[];
+  const material=(name,inside,transparent=false)=>assaultMaterial(i,name,inside,transparent);
   function geometry(surfaces, parent, options={}) {
     const batches=new Map();
     for(const s of surfaces) {
       if(/^\{(ladder|rail|tension|razor)/i.test(s.texture))continue;
       if(vehicle.hideTextures.has(s.texture))continue;
-      const hiddenRanges=s.faceIds.filter(id=>vehicle.hideFaceIds.has(id)).map(id=>sourceFaces.get(id)).filter(Boolean);
+      const hiddenRanges=s.faceIds.filter(id=>vehicle.hideFaceIds.has(id)||cargoFaces.has(id)).map(id=>sourceFaces.get(id)).filter(Boolean);
       for(let v=0;v<s.positions.length;v+=9) {
         if(hiddenRanges.some(f=>v/3>=f.vertexStart&&v/3<f.vertexStart+f.vertexCount))continue;
         const p=s.positions, n=s.normals;
         const x=(p[v]+p[v+3]+p[v+6])/3+n[v]*.12, y=(p[v+1]+p[v+4]+p[v+7])/3+n[v+1]*.12, z=(p[v+2]+p[v+5]+p[v+8])/3+n[v+2]*.12;
-        const inside=indoors(x,y,z), region=Math.floor(x/24)+','+Math.floor(z/24);
+        const inside=!(s.material==='corrugated_roof'&&n[v+1]>.1)&&indoors(x,y,z), region=Math.floor(x/24)+','+Math.floor(z/24);
         if(s.material==='asphalt'&&n[v+1]>.99&&Math.abs(y-.12)<.16&&!inside){pavement.push(...p.slice(v,v+9));continue;}
         const key=s.material+':'+inside+':'+region;
         let a=batches.get(key);
@@ -135,6 +94,8 @@ async function C1(i) {
   }
   const dressing=assaultDress(i,b,map);
   if(dressing?.root)root.add(dressing.root);
+  const office=assaultOffice(i,map);root.add(office.root);
+  const architecture=assaultArchitecture(i,map);root.add(architecture.root);
   // Original relay assets use their original state/animation contract.
   const relayDefs=[
     {id:'relay_a',label:'A · Loading hall',zone:'warehouse',pos:[0,0,-52],yaw:0},
@@ -154,39 +115,10 @@ async function C1(i) {
   b.label('RESCUE  /  01',.33,-8.1,.045,-4.8,'y+',{color:'white',distress:.32});
   const enemySpawns=[
     [-13.4,3.2512,-64.6],[-4,3.2512,-64],[9,.8128,-59],[-10,0,-46],[-13.5,8.5344,-62.5],[-26,8.5344,-62],
-    [20,0,-48],[-23,0,-50],[-25,0,-28],[0,0,-17],[12,0,-21],[-10,0,-32]
+    [20,0,-48],[-23,0,-50],[-25,0,-28],[0,0,-17],[12,0,-21],[-10,0,-34.8]
   ].map(p=>({pos:V(p),zone:p[1]>3?'warehouse':'yard',type:'ground'}));
   const coverPoints=[[-12,3.25,-51],[5,3.25,-60],[-26,8.53,-68],[-8,0,-20],[16,0,-32]].map(V);
-  // Downward high-bay light comes from the six existing suspended BSP panels.
-  // The former ceiling-level point lights lit the roof but barely reached the
-  // ramp. Bounded cones put that energy on the actual routes without exterior fill.
-  const lamps=[];
-  function lamp(p,color,power,distance){const l=new T.PointLight(color,power,distance,2);l.position.copy(V(p));root.add(l);lamps.push(l);}
-  // BSP partitioning splits two diffusers into adjacent coplanar faces; collect
-  // each physical panel once so it does not receive duplicated lamps.
-  const panelBounds=new Map();
-  for(const f of map.faces.filter(f=>f.texture==='skkylite'&&f.normal[1]<-.99&&Math.abs(f.center[1]-10.3632)<.02)){
-    const key=Math.sign(f.center[0])+':'+f.center[2].toFixed(3), previous=panelBounds.get(key);
-    if(!previous)panelBounds.set(key,{min:[...f.bounds.min],max:[...f.bounds.max]});
-    else for(let k=0;k<3;k++){previous.min[k]=Math.min(previous.min[k],f.bounds.min[k]);previous.max[k]=Math.max(previous.max[k],f.bounds.max[k]);}
-  }
-  const panels=[...panelBounds.values()].map(p=>({center:p.min.map((v,k)=>(v+p.max[k])*.5)}));
-  const lensGeometry=new T.BoxGeometry(.14,.045,1.26), matrix=new T.Matrix4();
-  const lensMaterial=new T.MeshStandardMaterial({color:0xd4d6cc,emissive:0xe3dfcd,emissiveIntensity:1.6,roughness:.55,metalness:.05});
-  const lenses=new T.InstancedMesh(lensGeometry,lensMaterial,panels.length*2);
-  lenses.name='assault-high-bay-diffusers';let lensIndex=0;
-  for(const panel of panels){
-    const [x,y,z]=panel.center;
-    for(const dx of [-.37,.37]){matrix.makeTranslation(x+dx,y-.046,z);lenses.setMatrixAt(lensIndex++,matrix);}
-    const color=x<0?0xf1e0c3:0xdbe6ef;
-    const light=new T.SpotLight(color,180,17,.83,.76,2);
-    light.name='assault-high-bay';light.position.set(x,y-.13,z);light.target.position.set(x,2,z);
-    root.add(light,light.target);lamps.push(light);
-  }
-  root.add(lenses);
-  // Restrained local bounce keeps the balcony and truss silhouette readable.
-  lamp([-7,9.3,-58],0xe5ded0,18,13);lamp([7,9.3,-61],0xd9e3eb,18,13);
-  lamp([-25,11.1,-65],0xe5e8ed,28,10);
+  const lighting=assaultLighting(i,map,root),lamps=lighting.lamps;
   // Tune the existing Saltline render chain, preserving its sky, probes and HDR post.
   Object.assign(i.render.tune,{volSigma:.002,volInteriorDust:2.2,volFarHaze:.24,grain:.009,ca:.00045,bloom:.045,vignette:.22,lookSat:1.05,lookPower:1.09,aoRadius:.55,aoIntensity:.8,aoStrength:.72});
   if(i.params.wet===undefined)i.mats.uniforms.wet.value=.48;
@@ -283,7 +215,7 @@ async function C1(i) {
     activeLadder=L;p.vel.y=0;p.onGround=true;
   }
   function update(dt){
-    b.updaters.forEach(fn=>fn(dt));dressing?.update?.(dt);
+    b.updaters.forEach(fn=>fn(dt));dressing?.update?.(dt);office.update(dt);
     const p=i.player;
     if(!p?.pos||!p.alive)return;
     for(const a of dynamic){
@@ -304,9 +236,9 @@ async function C1(i) {
   const level={root,pavementGeometry,playerStart:start,objectives,extraction,enemySpawns,coverPoints,interiorBoxes,cinematicPath,
     zones:[{name:'yard',min:[-73,-84],max:[35,32]},{name:'warehouse',min:[-30,-74],max:[18,-41]}],
     skylights:[],shedLights:lamps,vantage:{stairsFoot:V([7.5,.8128,-60]),roof:V([10,13.0048,-49])},
-    placed:b.placed,stats:{tris:map.stats?.staticTriangles,meshes:worldMeshes,props:b.placed.length,doors:dynamic.length,breakables:broken.length,dressing:dressing?.stats,vehicle:vehicle.stats},
+    placed:b.placed,stats:{tris:map.stats?.staticTriangles,meshes:worldMeshes,props:b.placed.length,doors:dynamic.length,breakables:broken.length,dressing:dressing?.stats,vehicle:vehicle.stats,office:office.stats,architecture:architecture.stats,lighting:lighting.stats},
     groundSurfaceAt(x,z){return z< -41?'concrete':'concrete';},reset,update,
-    diagnostics(){return {map:map.source,doors:dynamic.map(a=>({id:a.data.id,open:a.t,collision:!!a.box})),breakables:broken.map(a=>({id:a.data.id,hp:a.hp,broken:a.dead})),ladder:activeLadder?true:false,nav:i.physics.nav?.stats};}
+    diagnostics(){return {map:map.source,lighting:lighting.stats,doors:dynamic.map(a=>({id:a.data.id,open:a.t,collision:!!a.box})),breakables:broken.map(a=>({id:a.data.id,hp:a.hp,broken:a.dead})),ladder:activeLadder?true:false,nav:i.physics.nav?.stats};}
   };
   window.__assault={version:1,shots:{approach:[-8,1.9,-26,0,6,-43],warehouse:[-11,1.8,-44,0,5,-65],roof:[18,15,-42,-5,11,-55],office:[-24,10.1,-63,-26,10,-66]},diagnostics:()=>level.diagnostics()};
   return level;

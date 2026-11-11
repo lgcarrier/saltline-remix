@@ -1,0 +1,58 @@
+{
+  "purpose": "Controlled local contact-shadow A/B and cache invalidation verification; not a sustained GPU benchmark",
+  "sourceModuleSHA256": "7832021ac5e1311158bbbc64cb3961e9b38dea3c52a7edeb35665a6e4f5f71a1",
+  "viewport": [
+    1600,
+    900
+  ],
+  "quality": "high",
+  "manualExposure": 1,
+  "autoExposure": false,
+  "frozenTime": 18,
+  "files": [
+    "v5-contact-hall-0.png",
+    "v5-contact-hall-1.png",
+    "v5-contact-office-wide-0.png",
+    "v5-contact-office-wide-1.png",
+    "v5-contact-hall-upper-0.png",
+    "v5-contact-hall-upper-1.png"
+  ],
+  "controlledDifference": "Only local shadow intensity changes from 0 to 0.9; sun, lights, camera, materials and exposure stay fixed",
+  "runtimeErrors": [],
+  "shadowLights": 3,
+  "totalLocalLights": 11,
+  "shadowMapSizes": [
+    1024,
+    1024,
+    512
+  ],
+  "idleTest": {
+    "seconds": 10,
+    "bakesBefore": 1,
+    "bakesAfter": 1
+  },
+  "singleDoorInvalidation": {
+    "door": "func_door_71",
+    "bakesBefore": 1,
+    "bakesAfter": 2,
+    "bakesAfterSettle": 2,
+    "CPU_ms": 0.8
+  },
+  "finalAnimatedDoorTest": {
+    "steps": 40,
+    "elapsedMs": 2384,
+    "bakesBefore": 1,
+    "bakesAfter": 7,
+    "bakesAfterSettle": 7,
+    "CPU_ms_last": 0.6,
+    "depthDrawsPerRefresh": 412,
+    "pass": true
+  },
+  "browserClosed": true,
+  "limits": [
+    "CPU submission timings do not measure asynchronous GPU completion.",
+    "Only environmental casters are cached; enemies retain the original sun shadow path.",
+    "Door/breakable invalidation is capped at 8 Hz with one subsequent-frame presentation delay.",
+    "Initial local-shadow submission cost in the final test was 5.6 ms CPU; stable frames do not redraw these maps."
+  ]
+}

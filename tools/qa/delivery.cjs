@@ -1,4 +1,4 @@
-await page.getByRole('button',{name:'Restart mission',exact:true}).click();
+await page.getByRole('button',{name:/^(Redeploy|Restart mission)$/}).click();
 await page.waitForFunction(()=>__G.game.state==='playing',null,{timeout:20000});
 const reset=await page.evaluate(()=>({state:__G.game.state,cut:__G.game.run.cut,health:__G.player.health,invulnerable:__G.player.invulnerable,broken:__assault.diagnostics().breakables.filter(b=>b.broken),ladder:__assault.diagnostics().ladder,errors:__errors}));
 await page.keyboard.press('p');
@@ -14,12 +14,13 @@ const boot=await motion.evaluate(()=>({ready:__ready,fatal:window.__fatal||null,
 await motion.getByRole('button',{name:'Deploy',exact:true}).click();
 await motion.waitForFunction(()=>__G.game.state==='playing');
 const movement=await drive(motion,[[16.625,0,-7.875],[13.625,0,-10.875],[7.625,0,-10.875],[6.125,0,-13.125],[6.125,0,-24]]);
+const cargoAisles=movement.ok?await drive(motion,[[-.5,0,-29.4],[-15.7,0,-29.4],[-16.2,0,-34.6],[-1.3,0,-34.6]]):null;
 await motion.keyboard.down('Enter');await motion.waitForTimeout(500);await motion.keyboard.up('Enter');
 await motion.keyboard.press('r');await motion.waitForTimeout(2600);
 await motion.keyboard.down('c');await motion.keyboard.down('d');await motion.waitForTimeout(700);await motion.keyboard.up('d');await motion.keyboard.up('c');
-await motion.keyboard.press('Space');await motion.waitForTimeout(900);await motion.keyboard.press('p');
+await motion.keyboard.press('Space');await motion.waitForTimeout(900);await motion.keyboard.press('p');await motion.waitForTimeout(150);
 const end=await motion.evaluate(()=>({state:__G.game.state,health:__G.player.health,combat:__G.combat.stats,ammo:__G.weapon.ammo,errors:__errors}));
 const video=motion.video();await videoContext.close();
 await fs.copyFile(await video.path(),ROOT+'/gameplay-motion.webm');
-const result={reset,standalone:{url:'file:// local index.html',boot,movement,end,motionErrors},video:{file:'gameplay-motion.webm',inputOnly:true,audioRecorded:false,performanceBenchmark:false}};
+const result={documentSha256:testDocumentHash,reset,standalone:{url:'file:// local index.html',boot,movement,cargoAisles,end,motionErrors},video:{file:'gameplay-motion.webm',inputOnly:true,audioRecorded:false,performanceBenchmark:false}};
 await fs.writeFile(ROOT+'/delivery-check.json',JSON.stringify(result,null,2));return result;

@@ -4,6 +4,8 @@ A remix of **Saltline**, the fully procedural browser FPS by [Felix Rieseberg](h
 
 The supplied Counter-Strike 1.6 `cs_assault.bsp` is rebuilt inside Saltline, preserving its procedural materials, props, weapon, security robots, effects, audio, and rendering pipeline. The warehouse, loading yard, office, upper ramps, roof, vents, ladders, and surrounding streets come from the actual BSP geometry.
 
+The current freight-yard revision replaces the enormous outdoor wooden stack with original Saltline maritime containers, adds local interior shadows, refines duct and surface materials, and extends the distant industrial skyline. See the [latest review](docs/ASSAULT-V5-REVIEW.md).
+
 ## Play
 
 Run `npm start` and open **http://127.0.0.1:8767/** in a desktop browser with WebGL2. `index.html` is the generated standalone game; `original.html` is the untouched Saltline original. No JavaScript dependencies are required to build or serve the game. Python 3 builds it; Node runs the physics checks.
@@ -48,7 +50,7 @@ The reusable [high-fidelity-game-dev skill](skills/high-fidelity-game-dev/SKILL.
 
 See [the production brief](docs/ASSAULT-BRIEF.md) and [the review record](docs/ASSAULT-REVIEW.md) for input-based traversal, measured rendering conditions, and remaining limitations. The target is photorealistic AAA presentation; the current result is a playable procedural remake and does **not** establish that target. The source map silhouettes and procedural asset fidelity still limit some views.
 
-![Saltline Assault](output/playwright/assault/final-title.png)
+![Saltline Assault freight yard](output/playwright/assault/v5-final-cargo-yard.png)
 
 Earlier screenshots and [gantry remix notes](docs/SALTLINE-GANTRY-README.md) are preserved. The source map archive and its attribution are unchanged. Game geometry, materials, models, and sound are embedded/generated locally; the UI has local fallback fonts when Google Fonts is unavailable.
 

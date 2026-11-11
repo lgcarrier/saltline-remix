@@ -42,11 +42,23 @@ async function assaultGround(i) {
   const compile=ground.apron.material.onBeforeCompile;
   ground.apron.material.onBeforeCompile=shader=>{
     compile(shader);
+    const patch=(anchor,replacement)=>{
+      if(!shader.fragmentShader.includes(anchor))throw new Error('Assault ground shader anchor missing: '+anchor.slice(0,65));
+      shader.fragmentShader=shader.fragmentShader.replace(anchor,replacement);
+    };
     // Asphalt in this map never turns into Saltline's old eastern concrete quay.
-    shader.fragmentShader=shader.fragmentShader.replace(
+    patch(
       'float conc = smoothstep(15.6, 16.6, gxz.x + (d1.g - 0.5) * 0.6);','float conc = 0.0;');
+    // Keep the original crack masks for depression depth and puddle behavior.
+    // Their visual repair seal is narrow and charcoal, not a repeating black
+    // network competing with the playable scene at eye height.
+    patch('alb = mix(alb, vec3(0.018, 0.018, 0.02), max(max(tar, seal * 0.4) * 0.94, crack * 0.9));',
+      'alb = mix(alb, vec3(0.043, 0.044, 0.046), max(tar * .52, max(seal * .10, crack * .22)));');
+    patch('(0.62 + 0.76 * grain)', '(0.87 + 0.26 * grain)');
+    patch('(n1.rg - 0.5) * mix(2.1, 0.7, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.3',
+      '(n1.rg - 0.5) * mix(1.25, 0.55, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.10');
   };
-  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-1';
+  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-2';
   ground.apron.material.needsUpdate=true;
 
   const size=ground.maskTexture.image.width, raw=ground.maskTexture.image.data;
@@ -81,6 +93,16 @@ async function assaultGround(i) {
       if(Math.max(a[1],b[1],c[1])<.28)continue;
       raster(a,b,c,(cell,y)=>{if(y>roof[cell])roof[cell]=y;});
     }
+  }
+  // The same shelter field includes the reused maritime assets: rain/splashes
+  // meet their roofs, and pavement underneath stays out of the puddle mask.
+  for(const container of i.level.stats.dressing.containers||[]){
+    const size=Gi[container.name],scale=container.scale||[1,1,1];
+    const w=size[0]*scale[0]/2,d=size[2]*scale[2]/2,h=size[1]*scale[1];
+    const [x,y,z]=container.pos,c=Math.cos(container.yaw),s=Math.sin(container.yaw);
+    const points=[[-w,-d],[w,-d],[w,d],[-w,d]].map(([a,b])=>[x+a*c+b*s,y+h,z-a*s+b*c]);
+    const write=(cell,height)=>{if(height>roof[cell])roof[cell]=height;};
+    raster(points[0],points[1],points[2],write);raster(points[0],points[2],points[3],write);
   }
   const field=new Uint8Array(size*size*4);
   let pavementPixels=0,puddlePixels=0,shelteredPixels=0;

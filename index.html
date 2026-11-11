@@ -5761,16 +5761,26 @@ function sAP(o, i) {
 /* Assault architectural finish. World metres / +Y up. Geometry comes from the
  * supplied BSP; these additions describe construction, without moving its walls.
  * Called after source collision is installed and before the navigation build. */
+function assaultCargoStacks(map){
+  const stacks=[
+    {id:'west-yard',layers:2,colors:['blue','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^bcontainer/.test(f.texture)&&f.center[2]>-40)},
+    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)}
+  ];
+  return stacks.filter(s=>s.faces.length).map(s=>({...s,
+    min:[0,1,2].map(k=>Math.min(...s.faces.map(f=>f.bounds.min[k]))),
+    max:[0,1,2].map(k=>Math.max(...s.faces.map(f=>f.bounds.max[k])))
+  }));
+}
 function assaultDress(i, b, map) {
   const THREE = b.THREE;
   const root = new THREE.Group();
   root.name = 'assault-detail';
   const before = new Set(b.staticRoot.children);
-  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, rejected: [], families: [], meshes: 0, triangles: 0 };
+  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
   const families = new Set(), lamps = [];
   const steel = b.M('steel_galv'), dark = b.M('steel_dark'), worn = b.M('steel_worn');
   const paint = b.M('paint_grey'), white = b.M('paint_white'), yellow = b.M('paint_yellow');
-  const rubber = b.M('rubber'), glass = b.M('glass_dirty');
+  const rubber = b.M('rubber'), glass = b.M('glass');
   const box = (mat, w, h, d, x, y, z, bevel = .008) => b.box(mat,w,h,d,x,y,z,{bevel});
   const rod = (mat,a,c,r=.024) => b.rod(mat,a,c,r,{seg:8});
   const label = (text,h,x,y,z,face='z+',opts={}) => b.label(text,h,x,y,z,face,{font:'sans',color:'white',distress:.24,...opts});
@@ -5829,7 +5839,9 @@ function assaultDress(i, b, map) {
       const m=o.material;
       if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
     });
-    stats.props++;families.add(name);return prop;
+    stats.props++;families.add(name);
+    if(name.startsWith('container'))stats.containers.push({name,pos:[x,y,z],yaw,color:options.color,source:'original Saltline prop builder'});
+    return prop;
   }
 
   // The BSP stores ladders as masked textures. Replace the masks with actual
@@ -6011,6 +6023,27 @@ function assaultDress(i, b, map) {
   ];
   for(const [name,x,z,yaw,options]of cargo)place(name,x,z,yaw||0,options||{});
 
+  // The original maritime assets establish the yard's freight use. Their real
+  // corrugation, corner castings, locking bars, serials and original colliders
+  // are retained. A two-metre cross aisle and the eastern approach stay open.
+  place('container40',-9.0,-31.7,0,{color:'teal',wear:.28,seed:221});
+  place('container20',-11.9,-27.1,0,{color:'red',wear:.36,seed:222});
+  place('container20',-4.5,-27.1,Math.PI,{color:'blue',wear:.22,seed:223});
+
+  // Replace the native west-yard block and enormous exterior timber stack.
+  // Fit the source envelope so the visible cover agrees with unchanged BSP
+  // collision; its historical proportions are larger than standard ISO units.
+  for(const [index,stack]of assaultCargoStacks(map).entries()){
+    const {min,max}=stack,h=(max[1]-min[1])/stack.layers,cx=(min[0]+max[0])/2,cz=(min[2]+max[2])/2;
+    for(let k=0;k<stack.layers;k++){
+      const color=stack.colors[k],y=min[1]+k*h;
+      const prop=b.place('container20',cx,cz,0,{color,wear:k?.30:.42,seed:224+index*10+k},y,{noCol:true});
+      prop.scale.set((max[0]-min[0])/6.06,h/2.59,(max[2]-min[2])/2.438);
+      prop.updateMatrixWorld(true);stats.props++;families.add('container20');
+      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw:0,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,scale:prop.scale.toArray()});
+    }
+  }
+
   // Small maintenance objects in the south-west freight recess are intentionally
   // separate from movement lanes and from the CS tower/ladder.
   place('container20',-42.1,5.4,Math.PI/2,{color:'teal'});
@@ -6100,11 +6133,23 @@ async function assaultGround(i) {
   const compile=ground.apron.material.onBeforeCompile;
   ground.apron.material.onBeforeCompile=shader=>{
     compile(shader);
+    const patch=(anchor,replacement)=>{
+      if(!shader.fragmentShader.includes(anchor))throw new Error('Assault ground shader anchor missing: '+anchor.slice(0,65));
+      shader.fragmentShader=shader.fragmentShader.replace(anchor,replacement);
+    };
     // Asphalt in this map never turns into Saltline's old eastern concrete quay.
-    shader.fragmentShader=shader.fragmentShader.replace(
+    patch(
       'float conc = smoothstep(15.6, 16.6, gxz.x + (d1.g - 0.5) * 0.6);','float conc = 0.0;');
+    // Keep the original crack masks for depression depth and puddle behavior.
+    // Their visual repair seal is narrow and charcoal, not a repeating black
+    // network competing with the playable scene at eye height.
+    patch('alb = mix(alb, vec3(0.018, 0.018, 0.02), max(max(tar, seal * 0.4) * 0.94, crack * 0.9));',
+      'alb = mix(alb, vec3(0.043, 0.044, 0.046), max(tar * .52, max(seal * .10, crack * .22)));');
+    patch('(0.62 + 0.76 * grain)', '(0.87 + 0.26 * grain)');
+    patch('(n1.rg - 0.5) * mix(2.1, 0.7, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.3',
+      '(n1.rg - 0.5) * mix(1.25, 0.55, max(film, soak * 0.6)) + (n0.ba - 0.5) * 0.10');
   };
-  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-1';
+  ground.apron.material.customProgramCacheKey=()=> 'saltline-assault-apron-2';
   ground.apron.material.needsUpdate=true;
 
   const size=ground.maskTexture.image.width, raw=ground.maskTexture.image.data;
@@ -6139,6 +6184,16 @@ async function assaultGround(i) {
       if(Math.max(a[1],b[1],c[1])<.28)continue;
       raster(a,b,c,(cell,y)=>{if(y>roof[cell])roof[cell]=y;});
     }
+  }
+  // The same shelter field includes the reused maritime assets: rain/splashes
+  // meet their roofs, and pavement underneath stays out of the puddle mask.
+  for(const container of i.level.stats.dressing.containers||[]){
+    const size=Gi[container.name],scale=container.scale||[1,1,1];
+    const w=size[0]*scale[0]/2,d=size[2]*scale[2]/2,h=size[1]*scale[1];
+    const [x,y,z]=container.pos,c=Math.cos(container.yaw),s=Math.sin(container.yaw);
+    const points=[[-w,-d],[w,-d],[w,d],[-w,d]].map(([a,b])=>[x+a*c+b*s,y+h,z-a*s+b*c]);
+    const write=(cell,height)=>{if(height>roof[cell])roof[cell]=height;};
+    raster(points[0],points[1],points[2],write);raster(points[0],points[2],points[3],write);
   }
   const field=new Uint8Array(size*size*4);
   let pavementPixels=0,puddlePixels=0,shelteredPixels=0;
@@ -6376,11 +6431,1016 @@ function assaultVehicle(i, map) {
   for(const [name,batch] of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(batch.p,3));
     g.setAttribute('normal',new T.Float32BufferAttribute(batch.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(batch.uv,2));g.computeBoundingSphere();
-    const mat=i.mats.get(name,{interior:false});mat.side=T.DoubleSide;
+    const mat=/^(tarp|steel_galv|steel_worn)$/.test(name)
+      ?assaultMaterial(i,name,false,false,{vertexColors:false})
+      :i.mats.get(name,{interior:false});mat.side=T.DoubleSide;
     const mesh=new T.Mesh(g,mat);mesh.name='truck-'+name;mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);
   }
   return {root,hideFaceIds,hideTextures,stats:{triangles,meshes:batches.size,wheels:wheels.length,
     sourceEnvelope:{min:[5.6896,0,-10.418318],max:[13.208,2.8448,-6.2992]}}};
+}
+
+/* Architectural material finish for Assault. Original Saltline texture objects,
+ * normal/ORM data, wetness control and shader hooks remain the source of truth.
+ * Props keep their original materials. This cache owns only map-surface variants.
+ * Input UVs are metres (including the level's existing concrete-wall .75 scale).
+ * Generated geometry can pass {vertexColors:false}; timber can additionally
+ * pass {grainAxis:'v'} when its longitudinal UV follows V rather than U.
+ */
+const assaultMaterialCaches = new WeakMap();
+function assaultMaterial(i, name, inside, transparent = false, options = {}) {
+  let cache = assaultMaterialCaches.get(i);
+  if (!cache) { cache = new Map(); assaultMaterialCaches.set(i, cache); }
+  const vertexColors=options.vertexColors!==false, grainAxis=options.grainAxis==='v'?'v':'u';
+  const key = name + ':' + !!inside + ':' + !!transparent + ':' + vertexColors + ':' + grainAxis;
+  if (cache.has(key)) return cache.get(key);
+  const T = i.THREE, source = i.mats.get(name, {interior: inside, vertexColors});
+  if (!source?.userData?.sl) throw new Error('Original Saltline material unavailable: ' + name);
+  const mat = source.clone();
+  // MeshStandardMaterial.copy does not preserve custom defines or callbacks.
+  mat.defines = {...source.defines};
+  const uniforms = {};
+  for (const [uniform, entry] of Object.entries(source.userData.sl)) {
+    uniforms[uniform] = uniform === 'uSlWet' ? entry : {
+      value: entry.value?.clone ? entry.value.clone() : entry.value
+    };
+  }
+  mat.userData = {...source.userData, sl: uniforms, assaultSurface: {version: 7, source: name, vertexColors, grainAxis}};
+  mat.side = T.DoubleSide;
+  const concrete = /^concrete/.test(name), brick = name === 'brick';
+  const masonry = concrete || brick, corrugated = name === 'corrugated_roof';
+  const wood = name === 'wood_pallet' || name === 'wood_dark';
+  const paintedSteel = name === 'hull_paint';
+  const galvanized = name === 'steel_galv', wornSteel = name === 'steel_worn';
+  const canvas = name === 'tarp', staticAsphalt = name === 'asphalt';
+  const architectural = masonry || corrugated || wood || paintedSteel || galvanized || wornSteel || canvas || staticAsphalt;
+  if (architectural) {
+    // Dry masonry stays diffuse; wet masonry darkens slightly and retains a
+    // broad lobe. The original droplet sparkle belongs on close props and water.
+    uniforms.uSlMacro.value.x = corrugated ? .035 : .025;
+    uniforms.uSlMacro.value.y = .025;
+    uniforms.uSlMacro.value.w = .035;
+    // Wet darkening, wet roughness multiplier, vertical exposure, texture AO,
+    // normal strength: distinct responses for sheet metal, fabric and masonry.
+    const response = corrugated ? [.025,.85,.42,.40,.28]
+      : paintedSteel ? [.035,.92,.32,.32,.10]
+      : wood ? [.10,.94,.18,.25,.085]
+      : galvanized ? [.025,.94,.30,.24,.18]
+      : wornSteel ? [.025,.93,.30,.28,.20]
+      : canvas ? [.16,.98,.20,.28,.055]
+      : staticAsphalt ? [.16,.86,.20,.28,.18]
+      : [.14,.74,.22,inside?.4:.55,brick?.52:.34];
+    uniforms.uSlWetP.value.x=response[0];uniforms.uSlWetP.value.y=response[1];uniforms.uSlWetP.value.z=response[2];
+    uniforms.uSlWetP.value.w = 0;
+    if (inside) uniforms.uSlX.value.x = 0;
+    mat.aoMapIntensity=response[3];mat.normalScale.multiplyScalar(response[4]);
+    if(wood){
+      // Original 44 growth rings per 1.2m tile read as corrugations on large
+      // shipping cases. Sawn timber has millimetre grain, not centimetre waves.
+      uniforms.uSlUv.value.x=.8;uniforms.uSlUv.value.y=8;
+      mat.metalness=0;mat.roughness=1.05;
+    }
+    if(paintedSteel){
+      // This original ship-hull set is also mapped onto the native truck.
+      // Scale its 4m plates to 1.6m truck panels and retain the supplied blue
+      // paint tint; coated steel and rust both have a dielectric surface.
+      uniforms.uSlUv.value.x=2.5;uniforms.uSlUv.value.y=2.5;
+      mat.metalness=0;mat.roughness=1.12;
+    }
+    if(galvanized){
+      // HVAC zinc spangle is millimetre-scale and nearly flat; construction
+      // panel joins are already supplied by actual geometry.
+      uniforms.uSlUv.value.x=6;uniforms.uSlUv.value.y=6;
+    }
+    if(wornSteel){uniforms.uSlUv.value.x=2;uniforms.uSlUv.value.y=2;}
+    if(canvas){
+      // The vehicle mesh provides drape and tension. This map contributes
+      // surface weave, not a second set of centimetre-deep liquid waves.
+      uniforms.uSlUv.value.x=3;uniforms.uSlUv.value.y=3;
+      mat.metalness=0;mat.roughness=1.3;
+    }
+    if(staticAsphalt)mat.metalness=0;
+  }
+  if (transparent) { mat.transparent = true; mat.opacity = .3; mat.depthWrite = false; }
+  const sourceCompile = source.onBeforeCompile, sourceKey = source.customProgramCacheKey.bind(source);
+  mat.onBeforeCompile = shader => {
+    sourceCompile(shader);
+    Object.assign(shader.uniforms, uniforms);
+    if (!architectural) return;
+    function patch(anchor, replacement) {
+      if (!shader.fragmentShader.includes(anchor)) throw new Error('Assault surface shader anchor missing: ' + name + ' / ' + anchor.slice(0, 65));
+      shader.fragmentShader = shader.fragmentShader.replace(anchor, replacement);
+    }
+    if(wood&&grainAxis==='v')patch('slUv = vMapUv * uSlUv.xy;', 'slUv = vMapUv.yx * uSlUv.xy;');
+    const sampling = 'slORM = texture2D(roughnessMap, slUv);';
+    let finish = `
+      float assaultWorldPixel=max(length(dFdx(vSlPos)),length(dFdy(vSlPos)));
+      float assaultContact=1.0-smoothstep(.08,1.35,max(vSlPos.y,0.0));
+      float assaultDetail=1.0-smoothstep(.012,.075,assaultWorldPixel);
+    `;
+    if (galvanized) {
+      finish += `
+        sampledDiffuseColor.rgb=mix(vec3(.50,.525,.55),sampledDiffuseColor.rgb,.18);
+        slORM.g=mix(.55,slORM.g,.22);
+        slORM.b=mix(.92,slORM.b,.18);
+      `;
+    } else if (wornSteel) {
+      finish += `
+        sampledDiffuseColor.rgb*=.12;
+        sampledDiffuseColor.a=mix(.80,.94,sampledDiffuseColor.a);
+        slORM.g=mix(.60,slORM.g,.28);
+      `;
+    } else if (canvas) {
+      finish += `
+        sampledDiffuseColor.rgb*=.18;
+        sampledDiffuseColor.a=mix(.82,.93,sampledDiffuseColor.a);
+      `;
+    } else if (staticAsphalt) {
+      // The original low-roughness seal mask identifies the conspicuous loop
+      // repairs. Retain their placement, with a shallow matte charcoal repair
+      // instead of a black, shiny cord drawn across every warehouse floor.
+      finish += `
+        float assaultSeal=1.0-smoothstep(.48,.68,slORM.g);
+        sampledDiffuseColor.rgb=mix(vec3(.045,.046,.048),sampledDiffuseColor.rgb,.44);
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,vec3(.034,.035,.037),assaultSeal*.88);
+      `;
+    } else if (paintedSteel) {
+      // The original seam corrosion remains visible as local discoloration,
+      // rather than large exposed ship-hull islands over the entire truck bed.
+      finish += `
+        sampledDiffuseColor.rgb*=mix(.12,.24,assaultContact);
+        sampledDiffuseColor.a=mix(.84,.96,sampledDiffuseColor.a);
+      `;
+    } else if (wood) {
+      // The supplied grain and knots remain, compressed around a weathered
+      // pale-timber substrate. Fine grain carries color; the face stays planar.
+      finish += `sampledDiffuseColor.rgb=mix(vec3(.245,.188,.130),sampledDiffuseColor.rgb,.38);`;
+    } else if (brick) {
+      // Offsets are whole bricks and even row counts. Mortar courses stay
+      // aligned while the source tile's broad stains lose their periodic motif.
+      finish += `
+        vec3 assaultBrickB=texture2D(map,slUv+vec2(.375,.5)).rgb;
+        vec3 assaultBrickC=texture2D(map,slUv+vec2(.625,.25)).rgb;
+        float assaultBlend=slN3(vSlPos*.09+vec3(3.7,1.2,8.9));
+        sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,
+          mix(assaultBrickB,assaultBrickC,assaultBlend),.64);
+      `;
+    } else if (concrete) {
+      finish += `
+        sampledDiffuseColor.rgb=mix(vec3(.225,.216,.197),sampledDiffuseColor.rgb,.40);
+      `;
+      if (name === 'concrete_painted') {
+        // A continuous paint film with local abrasion at the plinth. The
+        // original chip/aggregate mask is retained at a restrained contribution.
+        finish += `sampledDiffuseColor.a=1.0-(1.0-sampledDiffuseColor.a)*mix(.035,.13,assaultContact);`;
+      }
+    } else if (corrugated) {
+      finish += `
+        vec2 assaultRibUv=slUv*vec2(10.0,1.0);
+        float assaultRibPixel=max(length(dFdx(assaultRibUv)),length(dFdy(assaultRibUv)));
+        assaultDetail=1.0-smoothstep(.10,.45,assaultRibPixel);
+        // Steel ribs carry relief through normals. Their base color must not
+        // alternate white/black once the pitch approaches a screen pixel.
+        sampledDiffuseColor.rgb=mix(vec3(.39,.425,.46),sampledDiffuseColor.rgb,
+          mix(.16,.58,assaultDetail));
+      `;
+    }
+    patch(sampling, sampling + finish);
+    if (name === 'concrete_painted') {
+      patch('float slL = clamp(dot(sampledDiffuseColor.rgb, vec3(0.3333)) / 0.19, 0.55, 1.35);',
+        'float slL = clamp(dot(sampledDiffuseColor.rgb, vec3(0.3333)) / 0.215, 0.90, 1.075);');
+    }
+    // Rain exposure is directional. Wall moisture is primarily the splash
+    // band at ground contact; random tall wet columns no longer tile the facade.
+    patch('slWetK = slW * mix(uSlWetP.z * (0.55 + 0.9 * slStreak), 0.75 + 0.5 * slMac, slUp);',
+      `slWetK = slW * mix(uSlWetP.z * (.32 + .68 * assaultContact), .88, slUp);`);
+    patch('slWetK += slW * slLow * 0.6;', 'slWetK += slW * slLow * .24;');
+    // Geometric normal remains intact. Only unresolved texture relief is
+    // reduced, with its energy moved into roughness instead of specular aliasing.
+    patch('mapN.xy *= normalScale * (1.0 - 0.45 * slWetK * slUp);',
+      'mapN.xy *= normalScale * mix(.12,1.0,assaultDetail) * (1.0 - 0.45 * slWetK * slUp);');
+    const roughness = 'roughnessFactor = clamp(roughnessFactor, 0.045, 1.0);';
+    patch(roughness, roughness + (galvanized
+      ? '\nroughnessFactor=max(roughnessFactor,.50);'
+      : wornSteel
+      ? '\nroughnessFactor=max(roughnessFactor,.57);'
+      : canvas
+      ? '\nroughnessFactor=max(roughnessFactor,.84);'
+      : staticAsphalt
+      ? '\nroughnessFactor=max(roughnessFactor,'+(inside?'.84':'.68')+');'
+      : paintedSteel
+      ? '\nroughnessFactor=max(roughnessFactor,.64);'
+      : wood
+      ? '\nroughnessFactor=max(roughnessFactor,.86);'
+      : corrugated
+      ? '\nroughnessFactor=max(roughnessFactor,mix(.75,.57,assaultDetail));'
+      : '\nroughnessFactor=max(roughnessFactor,mix(.69,.60,slWetK));'));
+  };
+  mat.customProgramCacheKey = () => sourceKey() + '|assault-surface-7|' + (architectural ? name : 'original') + (wood?':'+grainAxis:'') + (staticAsphalt?':'+!!inside:'');
+  cache.set(key, mat);
+  return mat;
+}
+
+// Operations-room finish: freestanding equipment stays outside the tested route.
+// World metres, +Y up. Uses Saltline's original material and construction helpers.
+function assaultOffice(i,map) {
+  const T=i.THREE,b=ob(i),root=new T.Group();root.name='assault-operations';
+  const dark=b.MI('steel_dark'),steel=b.MI('steel_galv'),paint=b.MI('paint_grey'),plastic=b.MI('polymer_black'),wood=b.MI('wood_dark'),rubber=b.MI('rubber');
+  const floor=8.5344;
+  const box=(m,w,h,d,x,y,z,r=.008)=>b.box(m,w,h,d,x,y,z,{bevel:r});
+  const rod=(m,a,c,r=.018)=>b.rod(m,a,c,r,{seg:8});
+  const label=(s,h,x,y,z,o={})=>b.label(s,h,x,y,z,'z-',{font:'sans',color:'white',distress:.04,...o});
+  // Folded steel skirting and ceiling coving follow actual room wall spans.
+  const borders=new Set();
+  for(const f of map.faces){
+    if(f.texture!=='c1a0_labw5'||Math.abs(f.bounds.min[1]-floor)>.02||f.center[0]>-18||f.center[0]<-28)continue;
+    const n=f.normal,onX=Math.abs(n[0])>.99,onZ=Math.abs(n[2])>.99;if(!onX&&!onZ)continue;
+    const a=onX?2:0,len=f.bounds.max[a]-f.bounds.min[a];if(len<.1)continue;
+    const k=f.center[0]+':'+f.center[2]+':'+len;if(borders.has(k))continue;borders.add(k);
+    const x=f.center[0]+n[0]*.028,z=f.center[2]+n[2]*.028;
+    box(dark,onX?.036:len,.135,onX?len:.036,x,floor+.0675,z,.004);
+    box(paint,onX?.075:len,.065,onX?len:.075,x,f.bounds.max[1]-.04,z,.008);
+  }
+  // 2.8 m steel-framed desk against the southern wall, clear of the door/relay path.
+  const cx=-20.45,cz=-60.95,y=floor;
+  box(wood,2.80,.052,.82,cx,y+.765,cz,.016);
+  box(dark,2.73,.042,.79,cx,y+.725,cz,.006);
+  for(const x of [cx-1.24,cx+1.24])for(const z of [cz-.28,cz+.28]){
+    box(dark,.042,.70,.042,x,y+.365,z,.006);
+    box(rubber,.065,.023,.065,x,y+.0115,z,.009);
+  }
+  rod(steel,[cx-1.25,y+.20,cz+.28],[cx+1.25,y+.20,cz+.28],.017);
+  box(paint,.48,.60,.59,cx+.94,y+.41,cz+.025,.017);
+  for(const dy of [.22,.42,.62]){
+    box(dark,.44,.008,.008,cx+.94,y+dy,cz-.278,.001);
+    rod(steel,[cx+.84,y+dy+.08,cz-.29],[cx+1.04,y+dy+.08,cz-.29],.012);
+  }
+  b.col(cx-1.4,y,cz-.41,cx+1.4,y+.79,cz+.41,'wood');
+  // Compact CRT terminal with rounded shell, recessed glass and a real stand.
+  const sx=cx-.18,sy=y+1.13,sz=cz+.06;
+  box(plastic,.64,.49,.44,sx,sy,sz,.055);
+  box(dark,.60,.45,.055,sx,sy,sz-.235,.018);
+  box(plastic,.23,.075,.23,sx,y+.825,sz,.022);
+  rod(dark,[sx,y+.80,sz],[sx,y+.94,sz],.07);
+  const display=document.createElement('canvas');display.width=768;display.height=512;
+  const ctx=display.getContext('2d');
+  const tex=new T.CanvasTexture(display);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,i.renderer.capabilities.getMaxAnisotropy());
+  const screenMat=new T.MeshStandardMaterial({map:tex,emissiveMap:tex,emissive:0x88ad86,emissiveIntensity:.38,roughness:.24,metalness:.05});
+  b.quad(screenMat,.515,.339,sx,sy+.012,sz-.265,'z-');
+  box(steel,.06,.018,.016,sx+.23,sy-.196,sz-.272,.004);
+  const led=b.box(i.mats.emissive(0x9ac873,1.0),.009,.009,.008,sx+.15,sy-.195,sz-.275,{bevel:.002});led.castShadow=false;
+  // Keyboard deck and individually grouped keys catch light at contact distance.
+  box(plastic,.45,.029,.15,sx,y+.805,cz-.265,.012);
+  for(let row=0;row<4;row++)for(let col=0;col<13;col++)box(paint,.023,.008,.022,sx-.192+col*.032,y+.823,cz-.313+row*.029,.003);
+  box(paint,.145,.008,.021,sx,y+.823,cz-.20,.004);
+  box(rubber,.18,.004,.18,sx+.42,y+.795,cz-.255,.015);
+  box(plastic,.056,.028,.096,sx+.42,y+.812,cz-.255,.019);
+  b.tube(rubber,[[sx+.42,y+.795,cz-.22],[sx+.42,y+.80,cz],[sx+.32,y+.81,cz+.19],[sx+.25,y+.87,cz+.20]],.006,{radial:5});
+  b.tube(rubber,[[sx,y+1.12,sz+.22],[sx+.10,y+.83,sz+.24],[sx+.32,y+.64,sz+.22],[sx+.32,y+.12,sz+.23]],.011,{radial:6});
+  // Adjustable task lamp; small source geometry, no unmotivated global fill.
+  const lx=cx-.99,lz=cz+.06;
+  b.cyl(dark,.115,.025,lx,y+.807,lz,{seg:24});
+  rod(steel,[lx,y+.82,lz],[lx-.09,y+1.12,lz],.012);
+  rod(steel,[lx-.09,y+1.12,lz],[lx+.12,y+1.31,lz-.1],.012);
+  for(const p of [[lx,y+.83,lz],[lx-.09,y+1.12,lz],[lx+.12,y+1.31,lz-.1]])b.cyl(dark,.033,.035,...p,{axis:'z',seg:12});
+  const shade=box(paint,.25,.055,.12,lx+.12,y+1.305,lz-.1,.017);shade.rotation.z=-.15;
+  const lens=box(i.mats.emissive(0xffdb9f,1.0),.21,.012,.09,lx+.12,y+1.273,lz-.1,.004);lens.castShadow=false;
+  // Chair: a padded seat/back, five-star base, gas cylinder and separate castors.
+  const qx=cx-.26,qz=-61.85;
+  box(plastic,.46,.075,.43,qx,y+.445,qz,.045);
+  const back=box(plastic,.43,.43,.075,qx,y+.76,qz-.19,.04);back.rotation.x=-.10;
+  rod(dark,[qx,y+.43,qz-.17],[qx,y+.81,qz-.22],.021);
+  b.cyl(steel,.027,.30,qx,y+.265,qz,{seg:16});b.cyl(plastic,.051,.15,qx,y+.17,qz,{seg:16});
+  for(let k=0;k<5;k++){
+    const a=k*Math.PI*2/5,x=qx+Math.cos(a)*.29,z=qz+Math.sin(a)*.29;
+    rod(dark,[qx,y+.12,qz],[x,y+.075,z],.022);
+    b.cyl(rubber,.045,.045,x,y+.048,z,{axis:'x',seg:12});
+  }
+  b.col(qx-.25,y,qz-.26,qx+.25,y+.98,qz+.24,'metal');
+  // Filing cabinet sits in the alcove opposite the tested corner turn.
+  const fx=-27.17,fz=-60.56;
+  box(paint,.64,1.36,.62,fx,y+.68,fz,.025);
+  box(dark,.59,.04,.58,fx,y+.025,fz,.008);
+  for(let k=0;k<4;k++){
+    const yy=y+.20+k*.31;
+    box(dark,.575,.009,.008,fx,yy-.12,fz-.316,.001);
+    box(steel,.17,.052,.014,fx,yy+.025,fz-.323,.005);
+    box(dark,.075,.020,.006,fx,yy+.025,fz-.332,.002);
+    rod(dark,[fx-.08,yy-.055,fz-.345],[fx+.08,yy-.055,fz-.345],.01);
+  }
+  b.col(fx-.32,y,fz-.31,fx+.32,y+1.36,fz+.31,'metal');
+  // The source's wall-mounted wooden proxy is an electrical enclosure. Skin
+  // its exact footprint with folded sheet, door reveals and physical switches.
+  const ex=-20.32,ey=10.16,ez=-60.5536;
+  box(paint,1.64,1.64,.07,ex,ey,ez-.035,.018);
+  for(const dx of [-.83,.83])box(steel,.033,1.68,.086,ex+dx,ey,ez-.045,.006);
+  for(const dy of [-.83,.83])box(steel,1.68,.033,.086,ex,ey+dy,ez-.045,.006);
+  for(const dx of [-.40,.40]){
+    box(dark,.755,1.54,.017,ex+dx,ey,ez-.077,.006);
+    box(paint,.735,1.52,.017,ex+dx,ey,ez-.089,.009);
+    for(let j=0;j<9;j++)box(dark,.50,.013,.009,ex+dx,ey+.36+j*.032,ez-.102,.002);
+    rod(steel,[ex+dx+.25,ey-.1,ez-.12],[ex+dx+.25,ey+.1,ez-.12],.012);
+  }
+  label('BAY CONTROL',.075,ex,ey+.70,ez-.105,{color:'white'});
+  label('440 V',.058,ex-.4,ey-.49,ez-.105,{color:'yellow'});
+  label('SERVICE / 03',.046,ex+.4,ey-.49,ez-.105,{color:'white'});
+  // Small paper instruction sheet beside the source cabinet, on the real wall.
+  const paperMat=new T.MeshStandardMaterial({color:0xc1ba9d,roughness:.95});
+  box(paperMat,.39,.55,.003,-18.85,y+2.13,-60.16,.001);
+  label('SHIFT / 04',.045,-18.85,y+2.31,-60.165,{color:'black'});
+  for(let k=0;k<6;k++)box(dark,.28,.004,.001,-18.85,y+2.21-k*.055,-60.166,0);
+  // Relay alcove: a shared feed and high cable tray explain the equipment's power.
+  for(const x of [-27.48,-24.54]){
+    rod(steel,[x,y+.16,-66.51],[x,y+3.30,-66.51],.022);
+    for(const yy of [.4,1.4,2.4,3.2])box(dark,.074,.04,.04,x,y+yy,-66.52,.004);
+  }
+  for(const z of [-66.50,-63.55])rod(steel,[-27.5,y+3.25,z],[-24.50,y+3.25,z],.035);
+  box(paint,.30,.48,.16,-24.49,y+1.55,-65.55,.018);
+  b.label('UPLINK / B',.083,-24.58,y+1.62,-65.55,'x-',{font:'sans',distress:.07});
+  const staging=b.staticRoot;staging.updateMatrixWorld(true);const atlas=rb(staging);root.add(By(staging),b.dynRoot);
+  let meshes=0,triangles=0;root.traverse(o=>{if(o.isMesh){meshes++;triangles+=(o.geometry.index?.count||o.geometry.attributes.position.count)/3;}});
+  let previous=-1;
+  function update(){
+    const cut=i.game?.run?.cut||0;if(previous===cut)return;previous=cut;
+    ctx.fillStyle='#06120d';ctx.fillRect(0,0,768,512);
+    ctx.fillStyle='#86ab7c';ctx.font='26px monospace';ctx.fillText('ASSAULT  /  OPERATIONS',36,52);
+    ctx.fillStyle='#355741';ctx.fillRect(36,71,696,2);ctx.font='18px monospace';ctx.fillText('SECURITY NETWORK    03 CHANNELS',36,112);
+    const relays=i.game?.run?.relays||[];
+    for(let k=0;k<3;k++){const disabled=relays[k]?.cut||false;ctx.fillStyle=disabled?'#b18c52':'#83b88c';ctx.fillRect(40,155+k*68,10,10);ctx.fillText('UPLINK '+String.fromCharCode(65+k)+'     '+(disabled?'OFFLINE':'ENABLED'),68,169+k*68);}
+    ctx.fillStyle='#55735a';ctx.fillRect(36,373,696,1);ctx.font='16px monospace';ctx.fillText('RECEIVING 01      BAY SYSTEMS / LOCAL',36,411);
+    ctx.fillStyle='rgba(0,0,0,.14)';for(let y=0;y<512;y+=3)ctx.fillRect(0,y,768,1);tex.needsUpdate=true;
+  }
+  update();return {root,update,stats:{meshes,triangles,rooms:2,desks:1,chairs:1,terminals:1}};
+}
+
+/* Construction-scale finish for the supplied cs_assault brushwork.
+ * World metres / +Y up. Only source surfaces receive relief; collision, doors,
+ * ladders, cover silhouettes and navigation remain owned by the original map.
+ * Uses Saltline's original metre UV convention and material bank. */
+function assaultArchitecture(i, map) {
+  const T=i.THREE, root=new T.Group(), batches=new Map();
+  root.name='assault-construction';
+  const stats={triangles:0,meshes:0,pilasters:0,windows:0,cratePanels:0,structuralBays:0};
+  const unitY=new T.Vector3(0,1,0), temporary=new T.Vector3();
+  const regionAt=(p,interior)=>interior?'hall':p[0]<-29?'west':p[2]<-39?'warehouse':'street';
+  // A structural chamfer has 44 triangles, rather than the original rounded
+  // prop helper's 108. Flat faces, twelve bevels and eight corner cuts retain
+  // actual highlight-catching geometry without tessellating long flat panels.
+  function chamferBox(w,h,d,r){
+    const half=[w/2,h/2,d/2],p=[],n=[],uv=[];
+    r=Math.min(r,...half.map(v=>v*.45));
+    function polygon(vertices,normal){
+      const a=vertices[0],b=vertices[1],c=vertices[2],u=b.map((v,k)=>v-a[k]),v=c.map((v,k)=>v-a[k]);
+      const cross=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+      if(cross.reduce((sum,x,k)=>sum+x*normal[k],0)<0)vertices.reverse();
+      const len=Math.hypot(...normal),nn=normal.map(v=>v/len),abs=nn.map(Math.abs),axis=abs.indexOf(Math.max(...abs));
+      for(let k=1;k<vertices.length-1;k++)for(const point of [vertices[0],vertices[k],vertices[k+1]]){
+        p.push(...point);n.push(...nn);uv.push(axis===0?point[2]:point[0],axis===1?point[2]:point[1]);
+      }
+    }
+    for(let axis=0;axis<3;axis++)for(const sign of [-1,1]){
+      const other=[0,1,2].filter(v=>v!==axis),normal=[0,0,0];normal[axis]=sign;
+      const vertices=[];for(const [u,v]of[[-1,-1],[1,-1],[1,1],[-1,1]]){
+        const q=[0,0,0];q[axis]=sign*half[axis];q[other[0]]=u*(half[other[0]]-r);q[other[1]]=v*(half[other[1]]-r);vertices.push(q);
+      }polygon(vertices,normal);
+    }
+    for(let axis=0;axis<3;axis++)for(let second=axis+1;second<3;second++)for(const sa of [-1,1])for(const sb of [-1,1]){
+      const third=3-axis-second,vertices=[],normal=[0,0,0];normal[axis]=sa;normal[second]=sb;
+      for(const [end,face]of[[-1,axis],[-1,second],[1,second],[1,axis]]){
+        const q=[0,0,0];q[axis]=sa*(half[axis]-(face===axis?0:r));q[second]=sb*(half[second]-(face===second?0:r));q[third]=end*(half[third]-r);vertices.push(q);
+      }polygon(vertices,normal);
+    }
+    for(const sx of [-1,1])for(const sy of [-1,1])for(const sz of [-1,1]){
+      const signs=[sx,sy,sz],vertices=[];
+      for(let face=0;face<3;face++)vertices.push(half.map((v,axis)=>signs[axis]*(v-(axis===face?0:r))));
+      polygon(vertices,signs);
+    }
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));
+    g.setAttribute('normal',new T.Float32BufferAttribute(n,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));return g;
+  }
+  function add(geometry,material,interior=false,region=null) {
+    const g=geometry.index?geometry.toNonIndexed():geometry;
+    if(!g.attributes.normal)g.computeVertexNormals();
+    const p=g.attributes.position,n=g.attributes.normal,uv=g.attributes.uv;
+    if(!region){g.computeBoundingBox();g.boundingBox.getCenter(temporary);region=regionAt(temporary.toArray(),interior);}
+    const key=material+'|'+region;
+    let batch=batches.get(key);
+    if(!batch){batch={material,interior,region,p:[],n:[],uv:[]};batches.set(key,batch);}
+    for(let k=0;k<p.count;k++){
+      batch.p.push(p.getX(k),p.getY(k),p.getZ(k));
+      batch.n.push(n.getX(k),n.getY(k),n.getZ(k));
+      batch.uv.push(uv?uv.getX(k):p.getX(k),uv?uv.getY(k):p.getZ(k));
+    }
+    stats.triangles+=p.count/3;
+    if(g!==geometry)g.dispose();geometry.dispose();
+  }
+  function timberUV(g,longAxis){
+    const p=g.attributes.position,n=g.attributes.normal,uv=g.attributes.uv,other=[0,1,2].filter(a=>a!==longAxis);
+    const get=(attribute,k,a)=>a===0?attribute.getX(k):a===1?attribute.getY(k):attribute.getZ(k);
+    for(let k=0;k<p.count;k++){
+      if(Math.abs(get(n,k,longAxis))>.8)uv.setXY(k,get(p,k,other[0]),get(p,k,other[1]));
+      else {const cross=Math.abs(get(n,k,other[0]))>Math.abs(get(n,k,other[1]))?other[1]:other[0];uv.setXY(k,get(p,k,longAxis),get(p,k,cross));}
+    }
+  }
+  function box(material,p,size,bevel=.012,inside=false,region=null) {
+    const g=bevel>0?chamferBox(...size,bevel):$e(...size);
+    if(material.startsWith('wood_'))timberUV(g,size.indexOf(Math.max(...size)));
+    g.translate(...p);add(g,material,inside,region);
+  }
+  function beam(material,a,b,width,depth,bevel=.006,inside=false,region=null){
+    const from=new T.Vector3(...a),to=new T.Vector3(...b),direction=to.clone().sub(from);
+    const g=bevel>0?chamferBox(width,direction.length(),depth,bevel):$e(width,direction.length(),depth);
+    if(material.startsWith('wood_'))timberUV(g,1);
+    g.applyQuaternion(new T.Quaternion().setFromUnitVectors(unitY,direction.normalize()));
+    g.translate(...from.add(to).multiplyScalar(.5).toArray());add(g,material,inside,region);
+  }
+  function pipe(material,a,b,r=.025,inside=false,region=null){
+    const from=new T.Vector3(...a),to=new T.Vector3(...b),direction=to.clone().sub(from);
+    const g=ot(r,r,direction.length(),8);
+    g.applyQuaternion(new T.Quaternion().setFromUnitVectors(unitY,direction.normalize()));
+    g.translate(...from.add(to).multiplyScalar(.5).toArray());add(g,material,inside,region);
+  }
+
+  // A plane wrapper keeps authored details flush with the actual brush face.
+  function plane(axis,value,sign,region,inside=false){
+    return {axis,value,sign,region,inside,
+      at:(u,y,depth=0)=>axis===0?[value+sign*depth,y,u]:[u,y,value+sign*depth],
+      box(material,u,y,w,h,d,offset,bevel=.012){
+        box(material,this.at(u,y,offset),axis===0?[d,h,w]:[w,h,d],bevel,inside,region);
+      },
+      beam(material,u0,y0,u1,y1,w,d,offset,bevel=.006){
+        // The beam's depth follows the facade normal even on X-facing walls.
+        const a=this.at(u0,y0,offset),b=this.at(u1,y1,offset);
+        if(axis===2)beam(material,a,b,w,d,bevel,inside,region);
+        else {
+          const g=bevel>0?chamferBox(w,Math.hypot(u1-u0,y1-y0),d,bevel):$e(w,Math.hypot(u1-u0,y1-y0),d);
+          if(material.startsWith('wood_'))timberUV(g,1);
+          g.rotateZ(-Math.atan2(u1-u0,y1-y0));g.rotateY(-Math.PI/2);
+          g.translate(...this.at((u0+u1)/2,(y0+y1)/2,offset));add(g,material,inside,region);
+        }
+      }
+    };
+  }
+  const facades=new Map();
+  for(const f of map.faces||[]){
+    if(f.modelId!==0||!/^c_(bldg|stone1)/.test(f.texture)||Math.abs(f.normal[1])>.02)continue;
+    const axis=Math.abs(f.normal[0])>.99?0:Math.abs(f.normal[2])>.99?2:-1;if(axis<0)continue;
+    const uAxis=axis===0?2:0,mn=f.bounds.min,mx=f.bounds.max;
+    if(f.area<(mx[uAxis]-mn[uAxis])*(mx[1]-mn[1])*.97)continue;
+    const value=mn[axis],sign=f.normal[axis],key=axis+':'+value+':'+sign;
+    let group=facades.get(key);
+    if(!group){group={...plane(axis,value,sign,regionAt(f.center,false)),uAxis,faces:[],lo:Infinity,hi:-Infinity,bottom:Infinity,top:-Infinity};facades.set(key,group);}
+    group.faces.push(f);group.lo=Math.min(group.lo,mn[uAxis]);group.hi=Math.max(group.hi,mx[uAxis]);
+    group.bottom=Math.min(group.bottom,mn[1]);group.top=Math.max(group.top,mx[1]);
+  }
+  function covered(g,u,y){
+    return g.faces.some(f=>u>=f.bounds.min[g.uAxis]-.001&&u<=f.bounds.max[g.uAxis]+.001&&y>=f.bounds.min[1]-.001&&y<=f.bounds.max[1]+.001);
+  }
+  function rectangleCovered(g,u,y,w,h){
+    for(const dx of [-.5,0,.5])for(const dy of [-.5,0,.5])if(!covered(g,u+dx*w,y+dy*h))return false;
+    return true;
+  }
+  // Copings, base courses and masonry piers make the city blocks read as load
+  // bearing buildings. Segments are admitted only where the BSP really is solid.
+  for(const g of facades.values()){
+    if(g.hi-g.lo<4||g.top-g.bottom<5)continue;
+    const central=g.faces.some(f=>f.texture.startsWith('c_stone1'));
+    // Keep distant boundary detail subordinate to the playable foreground.
+    const important=central||(g.axis===0&&Math.abs(g.value-17.8816)<.01)||(g.axis===2&&Math.abs(g.value+56.896)<.01)
+      ||(g.axis===2&&Math.abs(g.value-1.6256)<.01)||(g.axis===0&&Math.abs(g.value+35.7632)<.01)
+      ||(g.axis===2&&Math.abs(g.value+11.3792)<.01)||(g.axis===0&&Math.abs(g.value-8.128)<.01);
+    if(!important)continue;
+    for(let u=Math.ceil((g.lo+.35-1.6)/6.4)*6.4+1.6;u<g.hi-.35;u+=6.4){
+      let start=null;
+      const finish=y1=>{
+        if(start!==null&&y1-start>2.4){
+          const y0=start+.06,h=y1-y0-.05;
+          g.box('concrete_dirty',u,y0+h/2,.39,h,.25,.06,.026);
+          if(h>4.5)g.box('concrete_dirty',u,y0+.3,.53,.6,.32,.07,.026);
+          g.box('concrete_dirty',u,y1-.15,.52,.30,.34,.08,.018);stats.pilasters++;
+        }start=null;
+      };
+      for(let y=g.bottom+.06;y<g.top-.12;y+=.25){
+        const next=Math.min(y+.25,g.top-.12);
+        if(rectangleCovered(g,u,(y+next)/2,.39,next-y)){if(start===null)start=y;}else finish(y);
+      }finish(g.top-.12);
+    }
+    for(const band of [{y:g.bottom+.22,h:.38,d:.27},{y:g.top-.13,h:.24,d:.40},
+      ...[5.18,8.63,12.08].filter(y=>y>g.bottom+.7&&y<g.top-.8).map(y=>({y,h:.13,d:.22}))]){
+      let start=null;
+      const step=.8,finish=u=>{if(start!==null&&u-start>.32)g.box('concrete_dirty',(start+u)/2,band.y,u-start-.025,band.h,band.d,.06,.012);start=null;};
+      for(let a=g.lo;a<g.hi-.01;a+=step){const b=Math.min(a+step,g.hi);
+        if(rectangleCovered(g,(a+b)/2,band.y,b-a-.012,band.h)){if(start===null)start=a;}else finish(a);
+      }finish(g.hi);
+    }
+    // The original brick tower uses window textures; these were lost when its
+    // material was remapped to Saltline brick. Restore their depth and rhythm.
+    if(central){
+      for(let u=Math.ceil((g.lo+1.05)/3.2)*3.2;u<g.hi-1.05;u+=3.2)for(let y=3.45;y<g.top-1.4;y+=3.45){
+        if(!rectangleCovered(g,u,y,1.83,2.15))continue;
+        g.box('steel_dark',u,y,1.61,1.94,.045,.024,0);
+        g.box('glass',u,y,1.42,1.72,.025,.055,0);
+        for(const dx of [-.79,.79])g.box('concrete_dirty',u+dx,y,.16,2.04,.23,.09,.012);
+        g.box('concrete_dirty',u,y+.98,1.89,.19,.27,.105,.015);
+        g.box('concrete_dirty',u,y-1.00,1.91,.15,.35,.14,.015);
+        g.box('steel_worn',u,y,.045,1.76,.06,.083,.004);
+        g.box('steel_worn',u,y+.03,1.45,.045,.06,.083,.004);
+        stats.windows++;
+      }
+    }
+  }
+
+  // Deep enough to cast a contact shadow, but shallower than the player's wall
+  // clearance. Existing sign and lamps remain in front of the load-bearing bays.
+  const front=plane(2,-40.64,1,'warehouse');
+  for(const x of [-17.73,-11.80,-5.90,0,5.90,11.80,17.73]){
+    front.box('concrete_dirty',x,1.64,.41,3.23,.29,.035,.025);
+    front.box('steel_dark',x,6.52,.21,6.48,.12,.025,.009);
+    for(const dx of [-.14,.14])front.box('steel_worn',x+dx,6.52,.048,6.48,.17,.025,.005);
+    for(const y of [3.42,9.51])front.box('steel_worn',x,y,.39,.22,.15,.025,.01);
+    stats.structuralBays++;
+  }
+  for(const y of [.22,3.23])front.box('concrete_dirty',0,y,35.79,y<1?.38:.16,.27,.045,.018);
+  front.box('steel_dark',0,9.64,35.90,.23,.17,.025,.012);
+  // End-bay wind bracing gives a useful diagonal at building scale; the sign
+  // occupies the middle bays and is deliberately kept free of added bracing.
+  for(const [u0,u1]of[[-17.5,-12.03],[12.03,17.5]]){
+    front.beam('steel_worn',u0,3.49,u1,9.44,.11,.075,.028,.006);
+    for(const [u,y]of[[u0,3.49],[u1,9.44]])front.box('steel_dark',u,y,.28,.30,.085,.025,.005);
+  }
+  // Side bay columns stop at source door openings instead of manufacturing a
+  // new obstacle in either of the two playable loading/service entrances.
+  for(const side of [-1,1]){
+    const wall=plane(0,side*17.8816,side,'warehouse');
+    for(const z of [-41.05,-46.70,-56.65]){
+      wall.box('steel_dark',z,6.52,.20,6.48,.14,.035,.009);
+      for(const dz of [-.13,.13])wall.box('steel_worn',z+dz,6.52,.05,6.48,.19,.025,.005);
+    }
+  }
+
+  // Closed source service doors receive real lintels and jambs, without adding
+  // an interactive door or altering the BSP opening dimensions.
+  for(const spec of [
+    {axis:0,p:-21.1328,n:-1,u:-17.8816,y:1.2192,w:3.2512,h:2.4384},
+    {axis:2,p:4.8768,n:-1,u:-24.384,y:2.4384,w:6.5024,h:2.4384}
+  ]){
+    const wall=plane(spec.axis,spec.p,spec.n,'street');
+    for(const sign of [-1,1])wall.box('concrete_dirty',spec.u+sign*(spec.w/2+.10),spec.y,.20,spec.h+.14,.29,.08,.018);
+    wall.box('concrete_dirty',spec.u,spec.y+spec.h/2+.12,spec.w+.40,.24,.36,.11,.02);
+    wall.box('steel_dark',spec.u,spec.y+spec.h/2+.015,spec.w,.065,.11,.10,.005);
+  }
+  // Connected electrical distribution on the existing alley wall. All parts
+  // remain flush to the wall rather than adding loose street obstacles.
+  const service=plane(0,17.8816,-1,'street');
+  service.box('steel_dark',-27.75,1.83,1.12,1.64,.16,.065,.018);
+  service.box('steel_worn',-27.75,1.83,1.02,1.53,.07,.17,.022);
+  service.box('steel_dark',-27.32,1.84,.05,.27,.055,.222,.006);
+  for(let j=0;j<6;j++)service.box('steel_dark',-27.75,1.29+j*.065,.70,.018,.02,.212,0);
+  for(const u of [-28.0,-27.77,-27.54]){
+    pipe('steel_worn',service.at(u,2.64,.11),service.at(u,5.56,.11),.025,false,'street');
+    pipe('steel_worn',service.at(u,5.56,.11),service.at(u+1.1,5.56,.11),.025,false,'street');
+  }
+  for(const y of [3.30,4.80])service.box('steel_dark',-27.77,y,.82,.07,.05,.13,0);
+  const ctWall=plane(2,-11.3792,1,'street');
+  ctWall.box('steel_dark',15.65,2.15,1.35,.85,.055,.04,.009);
+  for(let j=0;j<9;j++)ctWall.box('steel_worn',15.65,1.81+j*.085,1.23,.035,.14,.085,.005);
+  for(const x of [14.98,16.32])ctWall.box('steel_worn',x,2.15,.055,.88,.15,.085,.006);
+  ctWall.box('concrete_dirty',15.65,2.62,1.51,.14,.26,.11,.012);
+
+  // Hall structure is anchored to the native rear arcade and existing corner
+  // pier. Thin flanges articulate its mass while preserving every clear span.
+  const rear=plane(2,-69.9008,1,'hall',true);
+  for(const x of [-6.096,-.4064,5.2832,10.9728]){
+    for(const dx of [-.30,.30])rear.box('steel_worn',x+dx,4.93,.065,3.32,.115,.035,.008);
+    rear.box('steel_dark',x,3.34,.76,.15,.13,.035,.009);
+    rear.box('steel_worn',x,6.48,.77,.13,.14,.035,.009);
+    rear.beam('steel_worn',x-.70,7.31,x-.30,6.56,.10,.10,.035,.007);
+    rear.beam('steel_worn',x+.30,6.56,x+.70,7.31,.10,.10,.035,.007);
+  }
+  rear.box('steel_worn',0,8.16,22.75,.17,.13,.045,.011);
+  // Existing upper office wall's lower and upper flanges retain the exposed
+  // masonry infill and its original window/door openings.
+  for(const y of [8.20,12.87])box('steel_worn',[-11.32,y,-62.30],[.12,.13,12.85],.009,true,'hall');
+  // Exterior trim of the overhead duct: no metal is placed inside its crouch
+  // passage, around the ladder aperture, or at either exit lip.
+  for(const z of [-58.50,-61.20,-64.0,-66.5]){
+    box('steel_worn',[0,10.948,z],[1.69,.055,.065],.006,true,'hall');
+    for(const x of [-.835,.835])box('steel_worn',[x,11.77,z],[.05,1.64,.065],.006,true,'hall');
+  }
+  // Loading platform retaining wall. Follow its actual top, including the
+  // descending ramp, so bevelled caps never become new step obstacles.
+  const lipZ=-56.896,lipFront=-56.853;
+  beam('steel_worn',[-17.46,3.219,lipFront],[-2.4384,3.219,lipFront],.065,.13,.008,true,'hall');
+  beam('steel_worn',[-2.4384,3.219,lipFront],[4.8768,.7808,lipFront],.065,.13,.008,true,'hall');
+  beam('steel_worn',[4.8768,.7808,lipFront],[12.18,.7808,lipFront],.065,.13,.008,true,'hall');
+  for(const x of [-16,-12,-8,-4])box('steel_dark',[x,.18,lipZ+.035],[.22,.32,.11],.008,true,'hall');
+
+  // Each source crate face becomes timber construction, rather than a texture
+  // stretched over a box. Coplanar BSP splits are joined before laying battens.
+  const cratePlanes=new Map();
+  const replacedCargo=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
+  for(const f of map.faces||[]){
+    if(replacedCargo.has(f.id))continue;
+    if(!/(?:crate|xcrate)/.test(f.texture)||Math.abs(f.normal[1])>.02||f.area<.3)continue;
+    const axis=Math.abs(f.normal[0])>.99?0:Math.abs(f.normal[2])>.99?2:-1;if(axis<0)continue;
+    const ua=axis===0?2:0,lo=f.bounds.min,hi=f.bounds.max;
+    if(f.area<(hi[ua]-lo[ua])*(hi[1]-lo[1])*.98)continue;
+    const key=[axis,lo[axis],f.normal[axis],f.texture].join(':');
+    if(!cratePlanes.has(key))cratePlanes.set(key,{axis,p:lo[axis],n:f.normal[axis],ua,rects:[]});
+    cratePlanes.get(key).rects.push([lo[ua],hi[ua],lo[1],hi[1]]);
+  }
+  for(const group of cratePlanes.values()){
+    // Only merge exact neighbours; never bridge the gap between separate cargo.
+    let changed=true;
+    while(changed){changed=false;outer:for(let a=0;a<group.rects.length;a++)for(let b=a+1;b<group.rects.length;b++){
+      const x=group.rects[a],y=group.rects[b];
+      const horizontal=Math.abs(x[2]-y[2])<.002&&Math.abs(x[3]-y[3])<.002&&(Math.abs(x[0]-y[1])<.002||Math.abs(x[1]-y[0])<.002);
+      const vertical=Math.abs(x[0]-y[0])<.002&&Math.abs(x[1]-y[1])<.002&&(Math.abs(x[2]-y[3])<.002||Math.abs(x[3]-y[2])<.002);
+      if(horizontal||vertical){group.rects[a]=[Math.min(x[0],y[0]),Math.max(x[1],y[1]),Math.min(x[2],y[2]),Math.max(x[3],y[3])];group.rects.splice(b,1);changed=true;break outer;}
+    }}
+    for(const [lo,hi,y0,y1]of group.rects){
+      const center=group.axis===0?[group.p,(y0+y1)/2,(lo+hi)/2]:[(lo+hi)/2,(y0+y1)/2,group.p];
+      const interior=center[2]<-40.9&&center[0]>-17.6&&center[0]<17.6;
+      const wall=plane(group.axis,group.p,group.n,regionAt(center,interior),interior);
+      const nx=Math.max(1,Math.ceil((hi-lo)/3.4)),ny=Math.max(1,Math.ceil((y1-y0)/3.5));
+      for(let row=0;row<ny;row++)for(let col=0;col<nx;col++){
+        const a=lo+(hi-lo)*col/nx,b=lo+(hi-lo)*(col+1)/nx,c=y0+(y1-y0)*row/ny,d=y0+(y1-y0)*(row+1)/ny;
+        const w=b-a,h=d-c;if(w<.45||h<.45)continue;
+        const timber=.115;
+        for(const u of [a+timber/2,b-timber/2])wall.box('wood_pallet',u,(c+d)/2,timber,h-.025,.060,.024,.009);
+        for(const y of [c+timber/2,d-timber/2])wall.box('wood_pallet',(a+b)/2,y,w-.025,timber,.060,.027,.009);
+        if(w>1.5&&h>1.2){
+          wall.beam('wood_pallet',a+.16,c+.15,b-.16,d-.15,.105,.042,.063,.006);
+          // Small bolt heads catch highlights at real timber joints.
+          for(const [u,y]of[[a+.08,c+.08],[b-.08,c+.08],[a+.08,d-.08],[b-.08,d-.08]])wall.box('steel_dark',u,y,.030,.030,.014,.064,0);
+        }
+        // Two narrow flat straps make the large shipping cases mechanically
+        // plausible without turning their silhouette into a new obstacle.
+        if(w>2.3)for(const u of [a+w*.26,a+w*.74])wall.box('steel_dark',u,(c+d)/2,.028,h-.02,.012,.067,0);
+        stats.cratePanels++;
+      }
+    }
+  }
+
+  // A surrounding freight district closes the otherwise empty blue horizon.
+  // Everything is outside the native playable bounds, with a generous setback.
+  // The source buildings remain the foreground silhouette and occluders. These
+  // distant masses use only the original material library and three batches;
+  // no lights, collision, navigation, or shadow-map work is added.
+  const skylineStart=stats.triangles, districtGround=-1.3;
+  const skyline={warehouses:0,silos:0,utilityFrames:0,triangles:0,batches:3};
+  box('concrete_dirty',[-360,districtGround-.25,-38],[560,.5,310],0,false,'skyline');
+  box('concrete_dirty',[22,districtGround-.25,-370],[204,.5,560],0,false,'skyline');
+  function districtBox(material,p,size,bevel=0){box(material,p,size,bevel,false,'skyline');}
+  function districtCylinder(material,x,z,radius,height,y=districtGround,sides=20,topRadius=radius){
+    const g=ot(topRadius,radius,height,sides);g.translate(x,y+height/2,z);add(g,material,false,'skyline');
+  }
+  function pitchedRoof(x,z,width,depth,y,rise){
+    const x0=x-width/2,x1=x+width/2,z0=z-depth/2,z1=z+depth/2;
+    const vertices=[
+      [x0,y,z0],[x,y+rise,z0],[x,y+rise,z1],[x0,y,z1],
+      [x,y+rise,z0],[x1,y,z0],[x1,y,z1],[x,y+rise,z1],
+      [x0,y,z0],[x1,y,z0],[x,y+rise,z0],
+      [x0,y,z1],[x,y+rise,z1],[x1,y,z1]
+    ],indices=[0,2,1,0,3,2,4,6,5,4,7,6,8,10,9,11,13,12],p=[],uv=[];
+    for(const index of indices){const v=vertices[index];p.push(...v);uv.push(v[0],v[2]+v[1]);}
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
+    g.computeVertexNormals();add(g,'paint_grey',false,'skyline');
+  }
+  for(const building of [
+    [-108,-101,32,24,10,1.8],[-150,-66,42,27,12,2.4],[-106,-140,42,28,14,2.2],
+    [-169,-115,39,33,11,2.0],[-144,-19,34,26,13,2.0],[-165,31,48,28,10,1.7],
+    [-52,-151,38,29,13,2.2],[-7,-169,43,34,15,2.3],[43,-151,31,28,12,1.7],
+    [-218,-28,48,40,18,2.4],[-224,-86,36,32,14,2.0]
+  ]){
+    const [x,z,w,d,h,rise]=building,y=districtGround+h;
+    districtBox('concrete_dirty',[x,districtGround+h/2,z],[w,h,d]);
+    // A shallow base and parapet tie each building to its terrain and roof.
+    districtBox('steel_dark',[x,districtGround+.28,z],[w+.25,.56,d+.25]);
+    pitchedRoof(x,z,w+.55,d+.55,y,rise);
+    for(const side of [-1,1]){
+      districtBox('steel_dark',[x+side*w/2,y-.12,z],[.16,.24,d+.35]);
+      // A single clerestory band is visible at distance; no repeated emissive
+      // window grid competes with the mission or the original map landmarks.
+      districtBox('steel_dark',[x+side*(w/2+.018),y-2.3,z],[.035,1.14,d*.72]);
+    }
+    for(const dz of [-d/2,d/2]){
+      districtBox('paint_grey',[x,districtGround+h*.29,z+dz+Math.sign(dz)*.025],[w*.20,h*.58,.08]);
+      districtBox('steel_dark',[x,districtGround+h*.58+.07,z+dz+Math.sign(dz)*.06],[w*.21,.18,.12]);
+    }
+    // One connected rooftop ventilation box, readable as a manufactured form.
+    const ventY=y+rise*.54;
+    districtBox('steel_dark',[x+w*.23,ventY+.03,z-d*.18],[3.2,.36,2.2]);
+    districtBox('paint_grey',[x+w*.23,ventY+.65,z-d*.18],[2.9,1.05,1.9]);
+    skyline.warehouses++;
+  }
+  // Grounded silo clusters form a restrained port-industrial skyline. Rings,
+  // hoppers and shared service pipes provide scale without high-frequency noise.
+  for(const cluster of [
+    {x:-139,z:-144,r:2.9,h:20,count:3},
+    {x:-182,z:-43,r:3.1,h:17,count:2,alongZ:true},
+    {x:68,z:-170,r:3.4,h:19,count:2}
+  ]){
+    const spacing=cluster.r*2+.9;
+    for(let j=0;j<cluster.count;j++){
+      const offset=(j-(cluster.count-1)/2)*spacing;
+      const x=cluster.x+(cluster.alongZ?0:offset),z=cluster.z+(cluster.alongZ?offset:0),r=cluster.r,h=cluster.h;
+      districtCylinder('concrete_dirty',x,z,r+.5,.52);
+      districtCylinder('paint_grey',x,z,r,h,districtGround+.5);
+      districtCylinder('paint_grey',x,z,r,1.15,districtGround+h+.5,20,.18);
+      for(const yy of [3.8,h-2.0])districtCylinder('steel_dark',x,z,r+.045,.09,districtGround+yy);
+      districtCylinder('steel_dark',x,z,.21,.70,districtGround+h+1.65,8);
+      pipe('steel_dark',[x+r+.12,districtGround+.1,z],[x+r+.12,districtGround+h-.35,z],.10,false,'skyline');
+      skyline.silos++;
+    }
+    const half=(cluster.count-1)*spacing/2;
+    pipe('steel_dark',[cluster.x-(cluster.alongZ?0:half),cluster.h+districtGround-.6,cluster.z-(cluster.alongZ?half:0)],
+      [cluster.x+(cluster.alongZ?0:half),cluster.h+districtGround-.6,cluster.z+(cluster.alongZ?half:0)],.13,false,'skyline');
+  }
+  // A short service bridge belongs to the plant. Its four legs and diagonal
+  // bracing terminate on pads, so there are no floating distant fixtures.
+  const bridge={x:-147,z:-112,w:18,d:3.2,h:16};
+  for(const sx of [-1,1])for(const sz of [-1,1]){
+    const x=bridge.x+sx*bridge.w/2,z=bridge.z+sz*bridge.d/2;
+    districtBox('concrete_dirty',[x,districtGround+.20,z],[1.0,.4,1.0]);
+    districtBox('steel_dark',[x,districtGround+bridge.h/2,z],[.32,bridge.h,.32]);
+  }
+  for(const sz of [-1,1]){
+    const z=bridge.z+sz*bridge.d/2,y=districtGround+bridge.h;
+    districtBox('steel_dark',[bridge.x,y,z],[bridge.w+.35,.45,.25]);
+    beam('steel_dark',[bridge.x-bridge.w/2,districtGround+.5,z],[bridge.x+bridge.w/2,y-.35,z],.15,.15,0,false,'skyline');
+  }
+  for(const dx of [-bridge.w/2,0,bridge.w/2])districtBox('steel_dark',[bridge.x+dx,districtGround+bridge.h+.15,bridge.z],[.20,.20,bridge.d+.1]);
+  for(const dz of [-.65,.65])pipe('paint_grey',[bridge.x-bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],
+    [bridge.x+bridge.w/2,districtGround+bridge.h+.4,bridge.z+dz],.22,false,'skyline');
+  skyline.utilityFrames++;skyline.triangles=stats.triangles-skylineStart;stats.skyline=skyline;
+
+  for(const [key,b]of batches){
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(b.p,3));
+    g.setAttribute('normal',new T.Float32BufferAttribute(b.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(b.uv,2));
+    g.computeBoundingSphere();g.computeBoundingBox();
+    let material=/^(wood_|concrete|brick$|steel_galv$|steel_worn$)/.test(b.material)
+      ?assaultMaterial(i,b.material,b.interior,false,{vertexColors:false})
+      :i.mats.get(b.material,{interior:b.interior});
+    if(b.region==='skyline'){
+      // A separate material instance keeps the foreground bank untouched.
+      // Muted blue-grey albedo and shallow relief keep the remote district
+      // subordinate; the engine supplies atmospheric light and haze.
+      const source=material;material=source.clone();material.defines={...source.defines};material.onBeforeCompile=source.onBeforeCompile;
+      material.customProgramCacheKey=()=>source.customProgramCacheKey()+'|assault-distant-district';
+      material.color.set(0x516b80);material.emissive.set(0x000000);material.emissiveIntensity=0;
+      material.metalness=0;material.roughness=.96;material.normalScale.multiplyScalar(.18);
+    }
+    const mesh=new T.Mesh(g,material);
+    mesh.name='construction-'+key;mesh.castShadow=b.region!=='skyline';mesh.receiveShadow=b.region!=='skyline';root.add(mesh);
+  }
+  stats.meshes=root.children.length;
+  stats.regions=Object.fromEntries([...new Set([...batches.values()].map(b=>b.region))].map(r=>[r,[...batches.values()].filter(b=>b.region===r).length]));
+  return {root,stats};
+}
+
+/* Local warehouse lighting. Direct fixtures are backed by a static, visibility-
+ * tested diffuse irradiance volume. This is a diffuse GI approximation, not
+ * path tracing: dynamic doors/actors do not rebake the field during gameplay.
+ */
+function assaultLighting(i,map,root){
+  const T=i.THREE, V=a=>new T.Vector3(...a), lamps=[],fixtures=[],patches=[],fixtureParts=[],shadowLights=[];
+  const group=new T.Group();group.name='assault-lighting';root.add(group);
+  const started=performance.now();
+  const stats={directLights:0,bakedDirectLights:0,fixtures:0,fixtureDrawCalls:0,bouncePatches:0,probes:0,visibilityRays:0,clippedProbes:0,patchedMaterials:0,bakeMs:0,method:'static occluded diffuse and one-bounce volumes'};
+  const lit=new T.MeshStandardMaterial({color:0xe4e0cf,emissive:0xfff0d8,emissiveIntensity:.8,roughness:.52,metalness:.05});
+  const coolLit=new T.MeshStandardMaterial({color:0xe1e4dc,emissive:0xe5edf0,emissiveIntensity:.72,roughness:.52,metalness:.05});
+  const housing=new T.MeshStandardMaterial({color:0x414847,roughness:.54,metalness:.65});
+  const rim=new T.MeshStandardMaterial({color:0x858d88,roughness:.4,metalness:.75});
+  const tubeGeometry=new T.CylinderGeometry(.025,.025,1.32,10,1);
+  const capGeometry=new T.CylinderGeometry(.034,.034,.07,10,1);
+  const boxGeometry=new T.BoxGeometry(1,1,1);
+  function box(size,pos,mat){const mesh=new T.Mesh(boxGeometry,mat);mesh.scale.set(...size);mesh.position.set(...pos);fixtureParts.push(mesh);return mesh;}
+  function fixture(pos,color,w=1.1,d=.68,axis='x'){
+    // Recessed paired tubes, end caps and a metal lip give the emission a source.
+    box([w,.055,d],[pos[0],pos[1]+.015,pos[2]],housing);
+    for(const side of [-1,1]){
+      const tube=new T.Mesh(tubeGeometry,color===0?lit:coolLit);
+      const alongX=axis==='x';tube.rotation[alongX?'z':'x']=Math.PI/2;
+      tube.scale.y=(alongX?w:d)*.82/1.32;
+      tube.position.set(pos[0]+(alongX?0:side*w*.22),pos[1]-.03,pos[2]+(alongX?side*d*.22:0));
+      fixtureParts.push(tube);
+      for(const end of [-1,1]){
+        const cap=new T.Mesh(capGeometry,rim);cap.rotation.copy(tube.rotation);
+        cap.position.copy(tube.position);cap.position[alongX?'x':'z']+=end*(alongX?w:d)*.415;fixtureParts.push(cap);
+      }
+    }
+    fixtures.push(pos);stats.fixtures++;
+  }
+  function point(pos,color,intensity,distance){const light=new T.PointLight(color,intensity,distance,2);light.name='assault-local-fixture';light.position.copy(V(pos));group.add(light);lamps.push(light);return light;}
+  function spot(pos,target,color,intensity,distance,angle){const light=new T.SpotLight(color,intensity,distance,angle,.64,2);light.name='assault-high-bay';light.position.copy(V(pos));light.target.position.copy(V(target));group.add(light,light.target);lamps.push(light);return light;}
+  function contactShadow(light,size){
+    light.castShadow=true;light.shadow.mapSize.set(size,size);
+    light.shadow.camera.near=.12;light.shadow.camera.far=light.distance;
+    light.shadow.bias=-.00005;light.shadow.normalBias=.012;
+    // Negative radius selects our perspective-safe local kernel below. Saltline's
+    // positive-radius sun continues to use its original orthographic PCSS.
+    light.shadow.radius=-1;light.shadow.intensity=.9;
+    light.shadow.autoUpdate=false;light.shadow.needsUpdate=false;
+    shadowLights.push(light);return light;
+  }
+  // Partitioned BSP faces are grouped back into physical suspended panels.
+  const panels=new Map();
+  for(const face of map.faces.filter(f=>f.texture==='skkylite'&&f.normal[1]<-.99&&Math.abs(f.center[1]-10.3632)<.02)){
+    const key=Math.sign(face.center[0])+':'+face.center[2].toFixed(3),old=panels.get(key);
+    if(!old)panels.set(key,{min:[...face.bounds.min],max:[...face.bounds.max]});
+    else for(let axis=0;axis<3;axis++){old.min[axis]=Math.min(old.min[axis],face.bounds.min[axis]);old.max[axis]=Math.max(old.max[axis],face.bounds.max[axis]);}
+  }
+  const emitters=[];
+  for(const panel of panels.values()){
+    const pos=panel.min.map((v,k)=>(v+panel.max[k])*.5),warm=pos[0]<0,color=warm?0xf4dfbb:0xd8e7ef;
+    fixture([pos[0],pos[1]-.07,pos[2]],warm?0:1,1.7,1.43,'z');
+    const source=[pos[0],pos[1]-.20,pos[2]];
+    const lamp=spot(source,[pos[0],1.6,pos[2]],color,250,22,1.08);
+    if(pos[2]<-60)contactShadow(lamp,1024);
+    emitters.push({pos:V(source),color:new T.Color(color),intensity:250,area:28,reflectance:.34});
+  }
+  // Actual gallery ceiling panels light the upper route that bay cones miss.
+  const gallery=[[-14.6304,12.0904,-59.3344],[-14.6304,12.0904,-65.024]];
+  for(const pos of gallery){fixture([pos[0],pos[1]-.025,pos[2]],1);const source=[pos[0],pos[1]-.29,pos[2]];point(source,0xdce8e9,36,11);emitters.push({pos:V(source),color:new T.Color(0xdce8e9),intensity:36,area:8,reflectance:.45});}
+  // Two ceiling sources replace the old close-wall point hotspot in the office.
+  const office=[[-20.32,12.4968,-62.5856],[-27.2288,12.4968,-63.3984]];
+  for(const pos of office){fixture([pos[0],pos[1]-.025,pos[2]],0);const source=[pos[0],pos[1]-.31,pos[2]],intensity=pos[0]<-24?16:20;
+    if(pos[0]>-24)contactShadow(spot(source,[-20.45,8.5344,-61.90],0xffe6c4,intensity,9,1.18),1024);
+    else point(source,0xffe6c4,intensity,9);
+    emitters.push({pos:V(source),color:new T.Color(0xffe6c4),intensity,area:8,reflectance:.5});}
+  // The modeled desk lamp casts a contained pool across its keyboard and worktop.
+  // Its short reach cannot lift the adjoining warehouse or light through a wall.
+  spot([-21.32,9.7874,-60.99],[-20.92,9.2994,-61.10],0xffdfae,1.65,2.7,.95);
+  // Two remaining native ceiling panels use baked diffuse illumination. These
+  // static surfaces do not justify adding two global real-time light loops.
+  for(const [pos,color,intensity] of [[[-14.6304,12.0904,-71.5264],0xdce8e9,24],[[-20.32,12.0904,-67.4624],0xffe6c4,14]]){
+    fixture([pos[0],pos[1]-.025,pos[2]],color===0xdce8e9?1:0);
+    const source=V([pos[0],pos[1]-.29,pos[2]]),tint=new T.Color(color);
+    patches.push({pos:source,normal:V([0,-1,0]),color:tint,power:intensity,gain:1});
+    emitters.push({pos:source,color:tint,intensity,area:8,reflectance:.45});stats.bakedDirectLights++;
+  }
+  // Fixtures share four geometry/material batches instead of seventy draw calls.
+  const batches=new Map();
+  for(const part of fixtureParts){const key=part.geometry.uuid+':'+part.material.uuid;if(!batches.has(key))batches.set(key,[]);batches.get(key).push(part);}
+  for(const parts of batches.values()){
+    const mesh=new T.InstancedMesh(parts[0].geometry,parts[0].material,parts.length);mesh.name='assault-fixture-batch';mesh.receiveShadow=true;
+    parts.forEach((part,index)=>{part.updateMatrix();mesh.setMatrixAt(index,part.matrix);});mesh.computeBoundingSphere();group.add(mesh);stats.fixtureDrawCalls++;
+  }
+  stats.directLights=lamps.length;
+  stats.shadowLights=shadowLights.length;stats.shadowBakes=0;stats.shadowBakeMs=0;stats.shadowPassDrawCalls=0;
+  stats.shadowMaps=shadowLights.map(light=>light.shadow.mapSize.x);
+  // Four depth comparisons give a narrow local contact, not the sun's metre-wide
+  // search/filter kernel. This runs after Saltline installs its sun shader chunk.
+  const shadowChunk=T.ShaderChunk.shadowmap_pars_fragment;
+  if(!shadowChunk.includes('ASSAULT_LOCAL_CONTACT')){
+    const signature=/float getShadow\([^)]*\)\s*\{/;
+    if(!signature.test(shadowChunk))throw new Error('Local contact-shadow shader anchor is missing');
+    T.ShaderChunk.shadowmap_pars_fragment=shadowChunk.replace(signature,match=>match+`
+      // ASSAULT_LOCAL_CONTACT: reserved negative radius, four-tap local PCF.
+      if(shadowRadius<0.0){
+        vec3 q=shadowCoord.xyz/shadowCoord.w;
+        if(q.x<0.0||q.x>1.0||q.y<0.0||q.y>1.0||q.z>1.0)return 1.0;
+        vec2 texel=1.0/shadowMapSize;vec3 dx=dFdx(q),dy=dFdy(q);
+        float det=dx.x*dy.y-dx.y*dy.x;vec2 dz=vec2(0.0);
+        if(abs(det)>1e-12)dz=vec2(dy.y*dx.z-dx.y*dy.z,dx.x*dy.z-dy.x*dx.z)/det;
+        dz=clamp(dz,vec2(-.2),vec2(.2));
+        float z=q.z+shadowBias-dot(abs(dz),texel)*.35;
+        // Compare at the four texel centres, then interpolate their visibility
+        // by fractional texel position. Fixed equal weights quantize the edge.
+        vec2 p=q.xy*shadowMapSize-.5,f=fract(p),uv=(floor(p)+.5)*texel;
+        vec2 a=uv-q.xy,b=a+vec2(texel.x,0.0),c=a+vec2(0.0,texel.y),d=a+texel;
+        float aa=step(z+dot(a,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+a)));
+        float bb=step(z+dot(b,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+b)));
+        float cc=step(z+dot(c,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+c)));
+        float dd=step(z+dot(d,dz),unpackRGBAToDepth(texture2D(shadowMap,q.xy+d)));
+        float lit=mix(mix(aa,bb,f.x),mix(cc,dd,f.x),f.y);
+        return mix(1.0,lit,shadowIntensity);
+      }
+    `);
+  }
+  const environmentCasters=new Set();root.traverse(object=>{if(object.isMesh&&object.castShadow)environmentCasters.add(object);});
+  const movingOccluders=[...map.doors,...map.breakables].map(data=>root.getObjectByName(data.id)).filter(Boolean);
+  let shadowState=null,shadowUpdatedAt=-Infinity;
+  // Three keeps its render state alive through onAfterRender. Baking from a
+  // pre-pass outside renderer.render fails on later door invalidation. Update
+  // after the main-camera pass instead; the refreshed map is used next frame.
+  const previousAfterRender=i.scene.onAfterRender;
+  i.scene.onAfterRender=function(renderer,scene,camera){
+    previousAfterRender?.call(this,renderer,scene,camera);
+    if(camera!==i.camera)return;
+    const state=movingOccluders.map(o=>[o.visible,o.position.x,o.position.y,o.position.z,o.rotation.y].join(',')).join('|');
+    // A moving door may change every frame; refresh its cached occlusion at
+    // most 8 Hz instead of submitting all three depth maps at frame rate.
+    if(state===shadowState||performance.now()-shadowUpdatedAt<125)return;
+    const disabled=[],before=renderer.info.render.calls,begin=performance.now(),pending=renderer.shadowMap.needsUpdate;
+    // Cache environmental contacts only. Actors retain their normal sun shadows
+    // and never leave a frozen silhouette in a local map after they move away.
+    scene.traverse(o=>{if((o.isMesh||o.isLine||o.isPoints)&&o.castShadow&&!environmentCasters.has(o)){disabled.push(o);o.castShadow=false;}});
+    try{
+      scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
+      for(const light of shadowLights)light.shadow.needsUpdate=true;
+      renderer.shadowMap.needsUpdate=true;renderer.shadowMap.render(shadowLights,scene,camera);
+      shadowState=state;shadowUpdatedAt=performance.now();stats.shadowBakes++;stats.shadowBakeMs=Math.round((performance.now()-begin)*100)/100;
+      stats.shadowPassDrawCalls=renderer.info.render.calls-before;
+    }finally{for(const o of disabled)o.castShadow=true;renderer.shadowMap.needsUpdate=pending;}
+  };
+
+  // Sample receiving patches under real fixtures. Ray hits choose the actual
+  // loading ramps, crate tops and floor levels, rather than a guessed flat floor.
+  const ray=new T.Vector3(),offsets=[[0,0],[-3.3,-2.4],[3.3,-2.4],[-3.3,2.4],[3.3,2.4]];
+  for(const emitter of emitters){
+    for(const [dx,dz] of offsets){
+      const spread=emitter.intensity>100?1:.36;
+      ray.set(dx*spread,-8,dz*spread).normalize();
+      const hit=i.physics.raycast(emitter.pos,ray,22);stats.visibilityRays++;
+      if(!hit||hit.normal.y<.35)continue;
+      const distance=Math.max(hit.dist,1),cosine=Math.max(0,-ray.dot(hit.normal));
+      const power=emitter.intensity/(distance*distance+1)*cosine*emitter.reflectance*emitter.area/Math.PI;
+      patches.push({pos:hit.point.clone().addScaledVector(hit.normal,.12),normal:hit.normal.clone(),color:emitter.color.clone(),power});
+    }
+  }
+  // Broad sky/sun contribution arrives only through an unobstructed opening.
+  patches.push({pos:V([0,3.1,-39.5]),normal:V([0,0,-1]),color:new T.Color(0xffdab0),power:48});
+  stats.bouncePatches=patches.length;
+  const ENERGY_RANGE=6;
+  function volume(min,max,dimensions){
+    const [nx,ny,nz]=dimensions,energy=new Uint8Array(nx*ny*nz*4),direction=new Uint8Array(energy.length),p=new T.Vector3(),to=new T.Vector3(),sum=new T.Vector3();
+    for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
+      p.set(min[0]+(max[0]-min[0])*x/(nx-1),min[1]+(max[1]-min[1])*y/(ny-1),min[2]+(max[2]-min[2])*z/(nz-1));
+      let r=0,g=0,b=0;sum.set(0,0,0);
+      for(const patch of patches){
+        to.subVectors(p,patch.pos);const distance=to.length();if(distance<.01||distance>25)continue;to.multiplyScalar(1/distance);
+        const facing=Math.max(0,to.dot(patch.normal));if(facing<.025)continue;
+        const power=patch.power*facing/(distance*distance+2.25);if(power<.001)continue;
+        const start=patch.pos.clone().addScaledVector(to,.035),hit=i.physics.raycast(start,to,Math.max(.01,distance-.12));stats.visibilityRays++;
+        if(hit)continue;
+        // Account for the unsampled area represented by each diffuse patch.
+        const e=power*(patch.gain??2.1);r+=patch.color.r*e;g+=patch.color.g*e;b+=patch.color.b*e;
+        sum.addScaledVector(to,-e);
+      }
+      const index=((z*ny+y)*nx+x)*4,peak=Math.max(r,g,b);if(peak>ENERGY_RANGE)stats.clippedProbes++;
+      energy[index]=Math.min(255,Math.round(r/ENERGY_RANGE*255));energy[index+1]=Math.min(255,Math.round(g/ENERGY_RANGE*255));energy[index+2]=Math.min(255,Math.round(b/ENERGY_RANGE*255));energy[index+3]=255;
+      if(sum.lengthSq()>1e-8)sum.normalize();
+      direction[index]=Math.round((sum.x*.5+.5)*255);direction[index+1]=Math.round((sum.y*.5+.5)*255);direction[index+2]=Math.round((sum.z*.5+.5)*255);direction[index+3]=255;stats.probes++;
+    }
+    const texture=data=>{const t=new T.Data3DTexture(data,nx,ny,nz);t.format=T.RGBAFormat;t.type=T.UnsignedByteType;t.minFilter=t.magFilter=T.LinearFilter;t.wrapS=t.wrapT=t.wrapR=T.ClampToEdgeWrapping;t.unpackAlignment=1;t.needsUpdate=true;return t;};
+    return {min:V(min),max:V(max),energy:texture(energy),direction:texture(direction)};
+  }
+  const hall=volume([-17.35,.22,-73.1],[17.35,12.45,-41.15],[11,6,11]);
+  const officeVolume=volume([-29.0,8.68,-70.0],[-17.7,12.45,-59.85],[5,4,5]);
+  const uniforms={uAssaultHall:{value:hall.energy},uAssaultHallDirection:{value:hall.direction},uAssaultOffice:{value:officeVolume.energy},uAssaultOfficeDirection:{value:officeVolume.direction},uAssaultHallMin:{value:hall.min},uAssaultHallMax:{value:hall.max},uAssaultOfficeMin:{value:officeVolume.min},uAssaultOfficeMax:{value:officeVolume.max},uAssaultBounceStrength:{value:1}};
+  group.userData.bounceStrength=uniforms.uAssaultBounceStrength;
+  const vertexHeader='\nvarying vec3 vAssaultLightWorld;\n';
+  const vertexBody=`
+    vec4 assaultLightPosition=vec4(transformed,1.0);
+    #ifdef USE_INSTANCING
+      assaultLightPosition=instanceMatrix*assaultLightPosition;
+    #endif
+    vAssaultLightWorld=(modelMatrix*assaultLightPosition).xyz;
+  `;
+  const fragmentHeader=`
+    precision highp sampler3D;
+    varying vec3 vAssaultLightWorld;
+    uniform sampler3D uAssaultHall,uAssaultHallDirection,uAssaultOffice,uAssaultOfficeDirection;
+    uniform vec3 uAssaultHallMin,uAssaultHallMax,uAssaultOfficeMin,uAssaultOfficeMax;
+    uniform float uAssaultBounceStrength;
+    vec3 assaultIndirect(vec3 p,vec3 n){
+      vec3 uv=(p-uAssaultHallMin)/(uAssaultHallMax-uAssaultHallMin),e=vec3(0.0),d=vec3(0.0);
+      if(all(greaterThanEqual(uv,vec3(-.015)))&&all(lessThanEqual(uv,vec3(1.015)))){
+        e=texture(uAssaultHall,clamp(uv,0.0,1.0)).rgb;d=texture(uAssaultHallDirection,clamp(uv,0.0,1.0)).rgb*2.0-1.0;
+      }else{
+        uv=(p-uAssaultOfficeMin)/(uAssaultOfficeMax-uAssaultOfficeMin);
+        if(all(greaterThanEqual(uv,vec3(-.035)))&&all(lessThanEqual(uv,vec3(1.035)))){
+          e=texture(uAssaultOffice,clamp(uv,0.0,1.0)).rgb;d=texture(uAssaultOfficeDirection,clamp(uv,0.0,1.0)).rgb*2.0-1.0;
+        }
+      }
+      float directionality=.78+.35*dot(n,normalize(d+vec3(.0001)));
+      return e*${ENERGY_RANGE.toFixed(1)}*directionality*uAssaultBounceStrength;
+    }
+  `;
+  const seen=new Set();
+  root.traverse(object=>{
+    if(!object.isMesh||!object.material)return;
+    for(const material of Array.isArray(object.material)?object.material:[object.material]){
+      if(seen.has(material)||!material.isMeshStandardMaterial||!material.userData?.interior)continue;
+      seen.add(material);const previous=material.onBeforeCompile,cache=material.customProgramCacheKey;
+      material.onBeforeCompile=function(shader,renderer){
+        previous?.call(this,shader,renderer);Object.assign(shader.uniforms,uniforms);
+        shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>'+vertexHeader).replace('#include <project_vertex>','#include <project_vertex>'+vertexBody);
+        shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>'+fragmentHeader).replace('#include <lights_fragment_end>',`
+          #if defined(RE_IndirectDiffuse)
+            irradiance+=assaultIndirect(vAssaultLightWorld,inverseTransformDirection(geometryNormal,viewMatrix));
+          #endif
+          #include <lights_fragment_end>
+        `);
+      };
+      material.customProgramCacheKey=function(){return cache.call(this)+'|assault-indirect-volume-v1';};
+      material.needsUpdate=true;stats.patchedMaterials++;
+    }
+  });
+  stats.bakeMs=Math.round(performance.now()-started);
+  return {lamps,root:group,stats,uniforms,volumes:{hall,office:officeVolume}};
 }
 
 // Assault scene integration. All surfaces and coordinates come from the supplied BSP.
@@ -6390,72 +7450,31 @@ async function C1(i) {
   const root = new T.Group(); root.name = 'assault'; i.scene.add(root);
   const vehicle=assaultVehicle(i,map);root.add(vehicle.root);
   const sourceFaces=new Map(map.faces.map(f=>[f.id,f]));
+  // The west-yard container brush keeps its native collision and cover height;
+  // original Saltline maritime meshes supply its visible panels and hardware.
+  const cargoFaces=new Set(assaultCargoStacks(map).flatMap(s=>s.faces.map(f=>f.id)));
   const V = a => new T.Vector3(...a);
   const b = ob(i), dynamic = [], broken = [];
   const interiorBoxes = [
-    {min:V([-17.4,.1,-73.3]),max:V([17.4,12.9,-41.3])},
-    {min:V([-29.1,8.5,-73.3]),max:V([-17.5,12.1,-56.8])},
+    {min:V([-17.75,.1,-73.3]),max:V([17.75,12.9,-40.85])},
+    {min:V([-29.1,8.5,-73.3]),max:V([-17.5,12.65,-56.8])},
     {min:V([-.8,10.7,-70.2]),max:V([.8,14.4,-54.8])}
   ];
   const indoors = (x,y,z) => interiorBoxes.some(q=>x>q.min.x&&x<q.max.x&&y>q.min.y&&y<q.max.y&&z>q.min.z&&z<q.max.z);
   const surfaceKind = m => /wood|crate/.test(m)?'wood':/steel|metal|paint|hull|chain/.test(m)?'metal':/tire/.test(m)?'rubber':/glass/.test(m)?'glass':'concrete';
-  const materialCache = new Map(), pavement=[];
-  function material(name, inside, transparent=false) {
-    const key = name+':'+inside+':'+transparent;
-    if (materialCache.has(key)) return materialCache.get(key);
-    const source = i.mats.get(name,{interior:inside,vertexColors:true});
-    if (!source) throw new Error('Missing Saltline material '+name);
-    // Level-owned architectural variants retain every original texture and
-    // shader feature without changing the same materials on Saltline props.
-    const masonry=/^concrete|^brick$/.test(name), m=masonry?source.clone():source;
-    if(masonry){
-      m.defines={...source.defines};
-      const sl=source.userData.sl;
-      const uniforms={...sl,uSlMacro:{value:sl.uSlMacro.value.clone()},uSlWetP:{value:sl.uSlWetP.value.clone()}};
-      uniforms.uSlMacro.value.x=.065;uniforms.uSlMacro.value.y=.055;uniforms.uSlMacro.value.w=.12;
-      uniforms.uSlWetP.value.x=.18;uniforms.uSlWetP.value.z=.32;
-      m.userData={...source.userData,sl:uniforms};m.aoMapIntensity=inside?.48:.65;
-      m.normalScale.multiplyScalar(name==='brick'?.65:.42);
-      const originalCompile=source.onBeforeCompile, originalKey=source.customProgramCacheKey.bind(source);
-      m.onBeforeCompile=shader=>{
-        originalCompile(shader);Object.assign(shader.uniforms,uniforms);
-        const anchor='vec4 sampledDiffuseColor = texture2D(map, slUv);';
-        let treatment='';
-        if(name==='concrete_painted'){
-          // Paint remains the substrate; the original chip mask contributes
-          // restrained wear instead of wall-sized camouflage islands.
-          treatment='sampledDiffuseColor.a = mix(0.84, 0.98, sampledDiffuseColor.a);';
-        }else if(name==='brick'){
-          // Integer brick/row phase shifts preserve mortar alignment while
-          // decorrelating the tile's baked efflorescence and stain pattern.
-          treatment=`vec3 assaultBrickB=texture2D(map,slUv+vec2(.375,.5)).rgb;
-            vec3 assaultBrickC=texture2D(map,slUv+vec2(.625,.25)).rgb;
-            float assaultBlend=slN3(vSlPos*.19+vec3(3.7,1.2,8.9));
-            sampledDiffuseColor.rgb=mix(sampledDiffuseColor.rgb,mix(assaultBrickB,assaultBrickC,assaultBlend),.48);`;
-        }else{
-          treatment='sampledDiffuseColor.rgb = mix(vec3(.225,.216,.197), sampledDiffuseColor.rgb, .58);';
-        }
-        if(!shader.fragmentShader.includes(anchor))throw new Error('Saltline masonry shader anchor missing');
-        shader.fragmentShader=shader.fragmentShader.replace(anchor,anchor+'\n'+treatment);
-      };
-      m.customProgramCacheKey=()=>originalKey()+'|assault-masonry-3|'+name;
-    }
-    m.side=T.DoubleSide;
-    if(name==='asphalt')m.normalScale.multiplyScalar(.55);
-    if (transparent) {m.transparent=true;m.opacity=.3;m.depthWrite=false;}
-    materialCache.set(key,m); return m;
-  }
+  const pavement=[];
+  const material=(name,inside,transparent=false)=>assaultMaterial(i,name,inside,transparent);
   function geometry(surfaces, parent, options={}) {
     const batches=new Map();
     for(const s of surfaces) {
       if(/^\{(ladder|rail|tension|razor)/i.test(s.texture))continue;
       if(vehicle.hideTextures.has(s.texture))continue;
-      const hiddenRanges=s.faceIds.filter(id=>vehicle.hideFaceIds.has(id)).map(id=>sourceFaces.get(id)).filter(Boolean);
+      const hiddenRanges=s.faceIds.filter(id=>vehicle.hideFaceIds.has(id)||cargoFaces.has(id)).map(id=>sourceFaces.get(id)).filter(Boolean);
       for(let v=0;v<s.positions.length;v+=9) {
         if(hiddenRanges.some(f=>v/3>=f.vertexStart&&v/3<f.vertexStart+f.vertexCount))continue;
         const p=s.positions, n=s.normals;
         const x=(p[v]+p[v+3]+p[v+6])/3+n[v]*.12, y=(p[v+1]+p[v+4]+p[v+7])/3+n[v+1]*.12, z=(p[v+2]+p[v+5]+p[v+8])/3+n[v+2]*.12;
-        const inside=indoors(x,y,z), region=Math.floor(x/24)+','+Math.floor(z/24);
+        const inside=!(s.material==='corrugated_roof'&&n[v+1]>.1)&&indoors(x,y,z), region=Math.floor(x/24)+','+Math.floor(z/24);
         if(s.material==='asphalt'&&n[v+1]>.99&&Math.abs(y-.12)<.16&&!inside){pavement.push(...p.slice(v,v+9));continue;}
         const key=s.material+':'+inside+':'+region;
         let a=batches.get(key);
@@ -6520,6 +7539,8 @@ async function C1(i) {
   }
   const dressing=assaultDress(i,b,map);
   if(dressing?.root)root.add(dressing.root);
+  const office=assaultOffice(i,map);root.add(office.root);
+  const architecture=assaultArchitecture(i,map);root.add(architecture.root);
   // Original relay assets use their original state/animation contract.
   const relayDefs=[
     {id:'relay_a',label:'A · Loading hall',zone:'warehouse',pos:[0,0,-52],yaw:0},
@@ -6539,39 +7560,10 @@ async function C1(i) {
   b.label('RESCUE  /  01',.33,-8.1,.045,-4.8,'y+',{color:'white',distress:.32});
   const enemySpawns=[
     [-13.4,3.2512,-64.6],[-4,3.2512,-64],[9,.8128,-59],[-10,0,-46],[-13.5,8.5344,-62.5],[-26,8.5344,-62],
-    [20,0,-48],[-23,0,-50],[-25,0,-28],[0,0,-17],[12,0,-21],[-10,0,-32]
+    [20,0,-48],[-23,0,-50],[-25,0,-28],[0,0,-17],[12,0,-21],[-10,0,-34.8]
   ].map(p=>({pos:V(p),zone:p[1]>3?'warehouse':'yard',type:'ground'}));
   const coverPoints=[[-12,3.25,-51],[5,3.25,-60],[-26,8.53,-68],[-8,0,-20],[16,0,-32]].map(V);
-  // Downward high-bay light comes from the six existing suspended BSP panels.
-  // The former ceiling-level point lights lit the roof but barely reached the
-  // ramp. Bounded cones put that energy on the actual routes without exterior fill.
-  const lamps=[];
-  function lamp(p,color,power,distance){const l=new T.PointLight(color,power,distance,2);l.position.copy(V(p));root.add(l);lamps.push(l);}
-  // BSP partitioning splits two diffusers into adjacent coplanar faces; collect
-  // each physical panel once so it does not receive duplicated lamps.
-  const panelBounds=new Map();
-  for(const f of map.faces.filter(f=>f.texture==='skkylite'&&f.normal[1]<-.99&&Math.abs(f.center[1]-10.3632)<.02)){
-    const key=Math.sign(f.center[0])+':'+f.center[2].toFixed(3), previous=panelBounds.get(key);
-    if(!previous)panelBounds.set(key,{min:[...f.bounds.min],max:[...f.bounds.max]});
-    else for(let k=0;k<3;k++){previous.min[k]=Math.min(previous.min[k],f.bounds.min[k]);previous.max[k]=Math.max(previous.max[k],f.bounds.max[k]);}
-  }
-  const panels=[...panelBounds.values()].map(p=>({center:p.min.map((v,k)=>(v+p.max[k])*.5)}));
-  const lensGeometry=new T.BoxGeometry(.14,.045,1.26), matrix=new T.Matrix4();
-  const lensMaterial=new T.MeshStandardMaterial({color:0xd4d6cc,emissive:0xe3dfcd,emissiveIntensity:1.6,roughness:.55,metalness:.05});
-  const lenses=new T.InstancedMesh(lensGeometry,lensMaterial,panels.length*2);
-  lenses.name='assault-high-bay-diffusers';let lensIndex=0;
-  for(const panel of panels){
-    const [x,y,z]=panel.center;
-    for(const dx of [-.37,.37]){matrix.makeTranslation(x+dx,y-.046,z);lenses.setMatrixAt(lensIndex++,matrix);}
-    const color=x<0?0xf1e0c3:0xdbe6ef;
-    const light=new T.SpotLight(color,180,17,.83,.76,2);
-    light.name='assault-high-bay';light.position.set(x,y-.13,z);light.target.position.set(x,2,z);
-    root.add(light,light.target);lamps.push(light);
-  }
-  root.add(lenses);
-  // Restrained local bounce keeps the balcony and truss silhouette readable.
-  lamp([-7,9.3,-58],0xe5ded0,18,13);lamp([7,9.3,-61],0xd9e3eb,18,13);
-  lamp([-25,11.1,-65],0xe5e8ed,28,10);
+  const lighting=assaultLighting(i,map,root),lamps=lighting.lamps;
   // Tune the existing Saltline render chain, preserving its sky, probes and HDR post.
   Object.assign(i.render.tune,{volSigma:.002,volInteriorDust:2.2,volFarHaze:.24,grain:.009,ca:.00045,bloom:.045,vignette:.22,lookSat:1.05,lookPower:1.09,aoRadius:.55,aoIntensity:.8,aoStrength:.72});
   if(i.params.wet===undefined)i.mats.uniforms.wet.value=.48;
@@ -6668,7 +7660,7 @@ async function C1(i) {
     activeLadder=L;p.vel.y=0;p.onGround=true;
   }
   function update(dt){
-    b.updaters.forEach(fn=>fn(dt));dressing?.update?.(dt);
+    b.updaters.forEach(fn=>fn(dt));dressing?.update?.(dt);office.update(dt);
     const p=i.player;
     if(!p?.pos||!p.alive)return;
     for(const a of dynamic){
@@ -6689,9 +7681,9 @@ async function C1(i) {
   const level={root,pavementGeometry,playerStart:start,objectives,extraction,enemySpawns,coverPoints,interiorBoxes,cinematicPath,
     zones:[{name:'yard',min:[-73,-84],max:[35,32]},{name:'warehouse',min:[-30,-74],max:[18,-41]}],
     skylights:[],shedLights:lamps,vantage:{stairsFoot:V([7.5,.8128,-60]),roof:V([10,13.0048,-49])},
-    placed:b.placed,stats:{tris:map.stats?.staticTriangles,meshes:worldMeshes,props:b.placed.length,doors:dynamic.length,breakables:broken.length,dressing:dressing?.stats,vehicle:vehicle.stats},
+    placed:b.placed,stats:{tris:map.stats?.staticTriangles,meshes:worldMeshes,props:b.placed.length,doors:dynamic.length,breakables:broken.length,dressing:dressing?.stats,vehicle:vehicle.stats,office:office.stats,architecture:architecture.stats,lighting:lighting.stats},
     groundSurfaceAt(x,z){return z< -41?'concrete':'concrete';},reset,update,
-    diagnostics(){return {map:map.source,doors:dynamic.map(a=>({id:a.data.id,open:a.t,collision:!!a.box})),breakables:broken.map(a=>({id:a.data.id,hp:a.hp,broken:a.dead})),ladder:activeLadder?true:false,nav:i.physics.nav?.stats};}
+    diagnostics(){return {map:map.source,lighting:lighting.stats,doors:dynamic.map(a=>({id:a.data.id,open:a.t,collision:!!a.box})),breakables:broken.map(a=>({id:a.data.id,hp:a.hp,broken:a.dead})),ladder:activeLadder?true:false,nav:i.physics.nav?.stats};}
   };
   window.__assault={version:1,shots:{approach:[-8,1.9,-26,0,6,-43],warehouse:[-11,1.8,-44,0,5,-65],roof:[18,15,-42,-5,11,-55],office:[-24,10.1,-63,-26,10,-66]},diagnostics:()=>level.diagnostics()};
   return level;

@@ -1,0 +1,145 @@
+{
+  "purpose": "Lighting art review and controlled diffuse-volume A/B; not a performance benchmark",
+  "quality": "high",
+  "viewport": [
+    1600,
+    900
+  ],
+  "seed": 4207,
+  "fov": 74,
+  "frozenPresentationTime": 18,
+  "state": "paused; enemies, effects, HUD and weapon hidden",
+  "sourceModuleSHA256": "b266190eecefff7c47105c706b7d2d4a5fc4c858cd3f292d73c98d21f7b88b54",
+  "runtimeErrors": [],
+  "lighting": {
+    "directLights": 11,
+    "bakedDirectLights": 2,
+    "fixtures": 12,
+    "fixtureDrawCalls": 4,
+    "bouncePatches": 58,
+    "probes": 826,
+    "visibilityRays": 18517,
+    "clippedProbes": 1,
+    "patchedMaterials": 47,
+    "bakeMs": 121
+  },
+  "roomPreviews": [
+    {
+      "file": "v4lighting2-hall.png",
+      "camera": [
+        3,
+        1.7,
+        -52,
+        0,
+        4,
+        -65
+      ],
+      "manualExposure": 1,
+      "autoExposure": true,
+      "measuredAdapt": {
+        "lum": 0.0317,
+        "auto": 2
+      },
+      "drawCalls": 482
+    },
+    {
+      "file": "v4lighting2-hall-upper.png",
+      "camera": [
+        -12,
+        10.2144,
+        -71,
+        3,
+        7.5,
+        -59
+      ],
+      "manualExposure": 1,
+      "autoExposure": true,
+      "measuredAdapt": {
+        "lum": 0.0394,
+        "auto": 2
+      },
+      "drawCalls": 575
+    },
+    {
+      "file": "v4lighting2-office.png",
+      "camera": [
+        -26,
+        10.2,
+        -62.8,
+        -25.4,
+        9.7,
+        -65.8
+      ],
+      "manualExposure": 1,
+      "autoExposure": true,
+      "measuredAdapt": {
+        "lum": 0.0759,
+        "auto": 1.476
+      },
+      "drawCalls": 426
+    },
+    {
+      "file": "v4lighting2-office-wide.png",
+      "camera": [
+        -20,
+        10.2144,
+        -66,
+        -20.5,
+        10,
+        -60
+      ],
+      "manualExposure": 1,
+      "autoExposure": true,
+      "measuredAdapt": {
+        "lum": 0.1019,
+        "auto": 1.149
+      },
+      "drawCalls": 602
+    }
+  ],
+  "controlledComparison": {
+    "files": [
+      "v4lighting2-bounce-0.png",
+      "v4lighting2-bounce-1.png"
+    ],
+    "camera": [
+      3,
+      1.7,
+      -52,
+      0,
+      4,
+      -65
+    ],
+    "manualExposure": 1,
+    "autoExposure": false,
+    "changedOnly": "assault-lighting.userData.bounceStrength.value: 0 to 1",
+    "sRGBLuma0to255": {
+      "full": [
+        34.8,
+        37.59
+      ],
+      "backwall": [
+        27.74,
+        29.76
+      ],
+      "ramp": [
+        37.62,
+        38.32
+      ],
+      "ceiling": [
+        26.73,
+        27.6
+      ],
+      "leftUpperWall": [
+        28.65,
+        43.34
+      ]
+    }
+  },
+  "limits": [
+    "Static diffuse field approximates one-bounce indirect light and two static ceiling fixtures; moving doors and actors do not rebake it.",
+    "One of 826 probes exceeds the encoded range of six and is clamped.",
+    "Room previews retain gameplay auto exposure; only the named bounce pair is fixed exposure.",
+    "Concurrent browser sessions prevent interpreting the captured instantaneous FPS as a benchmark."
+  ]
+}

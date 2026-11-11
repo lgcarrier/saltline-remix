@@ -1,0 +1,132 @@
+{
+  "purpose": "Same-build skyline geometry comparison only",
+  "hash": "a042e4119e3e3c746e0e10bca96ac97e60d0edbf21fb949077c3922b558cd1f8",
+  "seed": 4207,
+  "time": 18,
+  "viewport": [
+    1600,
+    900
+  ],
+  "quality": "high",
+  "errors": [],
+  "captures": [
+    {
+      "file": "v5-skyline-final-before-roof.png",
+      "visible": false,
+      "ready": true,
+      "fatal": null,
+      "errors": [],
+      "architecture": {
+        "triangles": 42022,
+        "meshes": 16,
+        "pilasters": 39,
+        "windows": 34,
+        "cratePanels": 48,
+        "structuralBays": 7,
+        "skyline": {
+          "warehouses": 11,
+          "silos": 7,
+          "utilityFrames": 1,
+          "triangles": 5262,
+          "batches": 3
+        },
+        "regions": {
+          "warehouse": 4,
+          "street": 5,
+          "west": 1,
+          "hall": 3,
+          "skyline": 3
+        }
+      },
+      "camera": [
+        15,
+        14.7,
+        -45
+      ],
+      "far": 900,
+      "fov": 74,
+      "autoExposure": false,
+      "exposure": 1,
+      "stats": {
+        "calls": 838,
+        "tris": 1152643,
+        "geos": 391,
+        "tex": 161,
+        "programs": 217,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "adapt": {
+          "lum": 0.125,
+          "auto": 0.966,
+          "sunVis": 0
+        },
+        "fps": 24.8,
+        "state": "paused"
+      }
+    },
+    {
+      "file": "v5-skyline-final-after-roof.png",
+      "visible": true,
+      "ready": true,
+      "fatal": null,
+      "errors": [],
+      "architecture": {
+        "triangles": 42022,
+        "meshes": 16,
+        "pilasters": 39,
+        "windows": 34,
+        "cratePanels": 48,
+        "structuralBays": 7,
+        "skyline": {
+          "warehouses": 11,
+          "silos": 7,
+          "utilityFrames": 1,
+          "triangles": 5262,
+          "batches": 3
+        },
+        "regions": {
+          "warehouse": 4,
+          "street": 5,
+          "west": 1,
+          "hall": 3,
+          "skyline": 3
+        }
+      },
+      "camera": [
+        15,
+        14.7,
+        -45
+      ],
+      "far": 900,
+      "fov": 74,
+      "autoExposure": false,
+      "exposure": 1,
+      "stats": {
+        "calls": 844,
+        "tris": 1163167,
+        "geos": 391,
+        "tex": 161,
+        "programs": 217,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "adapt": {
+          "lum": 0.1263,
+          "auto": 0.957,
+          "sunVis": 0
+        },
+        "fps": 35.4,
+        "state": "paused"
+      }
+    }
+  ]
+}

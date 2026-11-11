@@ -7,11 +7,15 @@ const {createHash}=require('node:crypto');
 const ROOT=path.resolve(__dirname,'../..');
 const OUT=path.join(ROOT,'output/playwright/assault');
 const PREFIX=process.env.SALTLINE_CAPTURE_PREFIX||'v2';
+const FIXED_EXPOSURE=process.env.SALTLINE_FIXED_EXPOSURE==='1';
 const MANIFEST=PREFIX==='v2'?'capture-manifest.json':PREFIX+'-capture-manifest.json';
 const shots=[
   {name:'yard',cam:[0,1.7,-30,0,6,-44],sameAsV1:true},
+  {name:'cargo-yard',cam:[3,1.7,-22,-7,2.5,-32]},
   {name:'gate',cam:[-23,1.7,-44,-8,4,-51],sameAsV1:true},
   {name:'hall',cam:[3,1.7,-52,0,4,-65]},
+  {name:'office-wide',cam:[-20,10.2144,-66,-20.5,10,-60]},
+  {name:'hall-upper',cam:[-12,10.2144,-71,3,7.5,-59]},
   {name:'office',cam:[-26,10.2,-62.8,-25.4,9.7,-65.8],requestedCam:[-26,10.2,-65.8,-21,9.7,-65],correction:'Requested camera intersects relay B; shifted inside the same office'},
   {name:'roof',cam:[15,14.7,-45,-6,13.3,-54]},
   {name:'approach',cam:[16.256,1.7,-4.064,0,4,-22]},
@@ -23,7 +27,7 @@ const shots=[
  const context=await browser.newContext({viewport:{width:1600,height:900},deviceScaleFactor:1});
  const page=await context.newPage();
  const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text().slice(0,1500));});
- const manifest={purpose:'Fixed-camera art review, not a gameplay or performance test',browser:await browser.version(),viewport:[1600,900],dpr:1,quality:'high',seed:4207,fov:74,audio:'disabled for still captures',scene:'paused; enemies and effects cleared; HUD and weapon hidden',fixedPresentationTime:18,remainingNondeterminism:'unseeded cosmetic sources and automatic exposure may differ; one second exposure settling per camera',captures:[]};
+ const manifest={purpose:'Fixed-camera art review, not a gameplay or performance test',browser:await browser.version(),viewport:[1600,900],dpr:1,quality:'high',seed:4207,fov:74,exposureMode:FIXED_EXPOSURE?'fixed: auto exposure disabled':'gameplay automatic exposure; manual multiplier 1',audio:'disabled for still captures',scene:'paused; enemies and effects cleared; HUD and weapon hidden',fixedPresentationTime:18,remainingNondeterminism:'unseeded cosmetic sources remain; one second exposure settling per camera',captures:[]};
  let current=null,documentSha256=null;
  try{
   for(const shot of shots.filter(s=>!process.env.SALTLINE_SHOTS||process.env.SALTLINE_SHOTS.split(',').includes(s.name))){
@@ -50,14 +54,14 @@ const shots=[
       };
     });
    }
-   await page.evaluate(cam=>{__setShot({cam,fov:74,exposure:1});__G.render.post.fade=0;},shot.cam);
+   await page.evaluate(({cam,fixed})=>{__setShot({cam,fov:74,exposure:1});__G.render.autoExposure=!fixed;__G.render.post.fade=0;},{cam:shot.cam,fixed:FIXED_EXPOSURE});
    await page.waitForTimeout(1000);
    const filename=PREFIX+'-'+shot.name+'.png';
    await page.screenshot({path:path.join(OUT,filename)});
    const actual=await page.evaluate(()=>{
     const G=__G,gl=G.renderer.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');
     return {ready:__ready,fatal:window.__fatal||null,errors:__errors,stats:__stats(),quality:G.quality,
-      drawingBuffer:[gl.drawingBufferWidth,gl.drawingBufferHeight],camera:G.camera.position.toArray(),fov:G.camera.fov,exposure:G.render.exposure,
+      drawingBuffer:[gl.drawingBufferWidth,gl.drawingBufferHeight],camera:G.camera.position.toArray(),fov:G.camera.fov,manualExposure:G.render.exposure,autoExposure:G.render.autoExposure,
       gpu:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),ground:G.ground.diagnostics||null,
       stubs:Object.fromEntries(['mats','physics','props','level','ground','enemies','weapon','audio'].map(n=>[n,!!G[n]?.stub]))};
    });

@@ -1,16 +1,26 @@
 /* Assault architectural finish. World metres / +Y up. Geometry comes from the
  * supplied BSP; these additions describe construction, without moving its walls.
  * Called after source collision is installed and before the navigation build. */
+function assaultCargoStacks(map){
+  const stacks=[
+    {id:'west-yard',layers:2,colors:['blue','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^bcontainer/.test(f.texture)&&f.center[2]>-40)},
+    {id:'loading-stack',layers:3,colors:['grey','red','teal'],faces:map.faces.filter(f=>f.modelId===0&&/^c3a1_crate/.test(f.texture)&&f.center[0]<-17&&f.center[2]>-41&&f.center[2]<-36)}
+  ];
+  return stacks.filter(s=>s.faces.length).map(s=>({...s,
+    min:[0,1,2].map(k=>Math.min(...s.faces.map(f=>f.bounds.min[k]))),
+    max:[0,1,2].map(k=>Math.max(...s.faces.map(f=>f.bounds.max[k])))
+  }));
+}
 function assaultDress(i, b, map) {
   const THREE = b.THREE;
   const root = new THREE.Group();
   root.name = 'assault-detail';
   const before = new Set(b.staticRoot.children);
-  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, rejected: [], families: [], meshes: 0, triangles: 0 };
+  const stats = { props: 0, windows: 0, ladders: 0, trusses: 0, fixtures: 0, containers: [], rejected: [], families: [], meshes: 0, triangles: 0 };
   const families = new Set(), lamps = [];
   const steel = b.M('steel_galv'), dark = b.M('steel_dark'), worn = b.M('steel_worn');
   const paint = b.M('paint_grey'), white = b.M('paint_white'), yellow = b.M('paint_yellow');
-  const rubber = b.M('rubber'), glass = b.M('glass_dirty');
+  const rubber = b.M('rubber'), glass = b.M('glass');
   const box = (mat, w, h, d, x, y, z, bevel = .008) => b.box(mat,w,h,d,x,y,z,{bevel});
   const rod = (mat,a,c,r=.024) => b.rod(mat,a,c,r,{seg:8});
   const label = (text,h,x,y,z,face='z+',opts={}) => b.label(text,h,x,y,z,face,{font:'sans',color:'white',distress:.24,...opts});
@@ -69,7 +79,9 @@ function assaultDress(i, b, map) {
       const m=o.material;
       if(i.mats.names.includes(m.name))o.material=i.mats.get(m.name,{interior:true,vertexColors:!!m.vertexColors,doubleSide:m.side===2});
     });
-    stats.props++;families.add(name);return prop;
+    stats.props++;families.add(name);
+    if(name.startsWith('container'))stats.containers.push({name,pos:[x,y,z],yaw,color:options.color,source:'original Saltline prop builder'});
+    return prop;
   }
 
   // The BSP stores ladders as masked textures. Replace the masks with actual
@@ -250,6 +262,27 @@ function assaultDress(i, b, map) {
     ['bollard_post',-16.4,-39.4],['bollard_post',15.7,-39.4]
   ];
   for(const [name,x,z,yaw,options]of cargo)place(name,x,z,yaw||0,options||{});
+
+  // The original maritime assets establish the yard's freight use. Their real
+  // corrugation, corner castings, locking bars, serials and original colliders
+  // are retained. A two-metre cross aisle and the eastern approach stay open.
+  place('container40',-9.0,-31.7,0,{color:'teal',wear:.28,seed:221});
+  place('container20',-11.9,-27.1,0,{color:'red',wear:.36,seed:222});
+  place('container20',-4.5,-27.1,Math.PI,{color:'blue',wear:.22,seed:223});
+
+  // Replace the native west-yard block and enormous exterior timber stack.
+  // Fit the source envelope so the visible cover agrees with unchanged BSP
+  // collision; its historical proportions are larger than standard ISO units.
+  for(const [index,stack]of assaultCargoStacks(map).entries()){
+    const {min,max}=stack,h=(max[1]-min[1])/stack.layers,cx=(min[0]+max[0])/2,cz=(min[2]+max[2])/2;
+    for(let k=0;k<stack.layers;k++){
+      const color=stack.colors[k],y=min[1]+k*h;
+      const prop=b.place('container20',cx,cz,0,{color,wear:k?.30:.42,seed:224+index*10+k},y,{noCol:true});
+      prop.scale.set((max[0]-min[0])/6.06,h/2.59,(max[2]-min[2])/2.438);
+      prop.updateMatrixWorld(true);stats.props++;families.add('container20');
+      stats.containers.push({name:'container20',pos:[cx,y,cz],yaw:0,color,source:'original Saltline prop builder',fit:'native BSP cover envelope',stack:stack.id,scale:prop.scale.toArray()});
+    }
+  }
 
   // Small maintenance objects in the south-west freight recess are intentionally
   // separate from movement lanes and from the CS tower/ladder.

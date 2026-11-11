@@ -152,7 +152,9 @@ function assaultVehicle(i, map) {
   for(const [name,batch] of batches){
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(batch.p,3));
     g.setAttribute('normal',new T.Float32BufferAttribute(batch.n,3));g.setAttribute('uv',new T.Float32BufferAttribute(batch.uv,2));g.computeBoundingSphere();
-    const mat=i.mats.get(name,{interior:false});mat.side=T.DoubleSide;
+    const mat=/^(tarp|steel_galv|steel_worn)$/.test(name)
+      ?assaultMaterial(i,name,false,false,{vertexColors:false})
+      :i.mats.get(name,{interior:false});mat.side=T.DoubleSide;
     const mesh=new T.Mesh(g,mat);mesh.name='truck-'+name;mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);
   }
   return {root,hideFaceIds,hideTextures,stats:{triangles,meshes:batches.size,wheels:wheels.length,

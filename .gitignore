@@ -2,3 +2,7 @@
 node_modules/
 .DS_Store
 __pycache__/
+
+# Local inspection builds and raw recordings; named review artifacts are kept.
+/output/contact-shadow-test.html
+/output/playwright/**/video/
