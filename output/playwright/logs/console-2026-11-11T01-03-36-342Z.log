@@ -1,0 +1,3 @@
+[    2245ms] [LOG] [boot] render 2034ms @ http://127.0.0.1:8769/original.html?show=mats&tex=512:6180
+[    5035ms] [LOG] [mats] {"sets":29,"textureMB":34.4,"genMs":2645,"decalMB":10.2} @ http://127.0.0.1:8769/original.html?show=mats&tex=512:5440
+[    5580ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:8769/favicon.ico:1

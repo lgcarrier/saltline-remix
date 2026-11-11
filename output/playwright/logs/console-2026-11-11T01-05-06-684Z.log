@@ -1,0 +1,6 @@
+[     889ms] [LOG] [boot] level 727ms @ http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4:6180
+[    1541ms] [LOG] [boot] ground 526ms @ http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4:6180
+[    1968ms] [LOG] [boot] audio 203ms @ http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4:6180
+[    2044ms] [LOG] [weapon] PAC-9 Longshore: 53136 tris, 13 meshes (flash only while firing) @ http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4:6052
+[    6213ms] [LOG] [render] interior probe assigned to 16 material(s) @ http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4:4731
+[   10119ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:8769/favicon.ico:1

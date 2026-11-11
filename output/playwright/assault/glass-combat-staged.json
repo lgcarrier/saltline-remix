@@ -1,0 +1,47 @@
+{
+  "mode": "staged player position; actual fire/reload/aim keys; no enemy or health overrides",
+  "glass": {
+    "ammo": 26,
+    "combat": {
+      "shots": 10,
+      "hits": 0,
+      "kills": 0
+    },
+    "broken": [
+      {
+        "id": "func_breakable_56",
+        "hp": -13,
+        "broken": true
+      }
+    ]
+  },
+  "combat": {
+    "shots": 0,
+    "state": {
+      "alive": true,
+      "eye": [
+        4,
+        1.68,
+        -8.3
+      ],
+      "yaw": -1.5692616074058572,
+      "pitch": 0.00981756133935647,
+      "stats": {
+        "shots": 10,
+        "hits": 0,
+        "kills": 0
+      }
+    }
+  },
+  "reload": {
+    "ammo": 30,
+    "state": "idle",
+    "health": 100,
+    "combat": {
+      "shots": 10,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": []
+  }
+}

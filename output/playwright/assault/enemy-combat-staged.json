@@ -1,0 +1,19 @@
+{
+  "mode": "player position staged; aim/fire actual keyboard; no enemy/health overrides",
+  "shots": 1,
+  "state": {
+    "alive": true,
+    "eye": [
+      0,
+      1.68,
+      -25
+    ],
+    "yaw": 1.5347462640213683,
+    "pitch": -0.1566490426557991,
+    "stats": {
+      "shots": 13,
+      "hits": 3,
+      "kills": 1
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "date_local": "2026-11-10",
+  "captures": [
+    {
+      "file": "original-materials.png",
+      "url": "http://127.0.0.1:8769/original.html?show=mats&tex=512",
+      "viewport": [
+        1600,
+        900
+      ],
+      "internal_resolution": [
+        1600,
+        900
+      ],
+      "quality": "high with tex=512 override",
+      "dynamic_resolution": false,
+      "note": "Showcase: irrelevant gameplay modules intentionally stubbed; image inspected."
+    },
+    {
+      "file": "original-port.png",
+      "url": "http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4",
+      "viewport": [
+        1600,
+        900
+      ],
+      "internal_resolution": [
+        1600,
+        900
+      ],
+      "quality": "high",
+      "dynamic_resolution": false,
+      "note": "Captured after debug resume. Camera override; not a normal-input gameplay test. Simulation frame not pinned; rain/randomness can vary. Image inspected."
+    }
+  ]
+}

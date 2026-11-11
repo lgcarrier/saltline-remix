@@ -1,0 +1,40 @@
+{
+  "mode": "staged position diagnostics; not a full normal-input playthrough",
+  "before": {
+    "state": "playing",
+    "cut": 0,
+    "invulnerable": false,
+    "broken": []
+  },
+  "prematureExtraction": {
+    "state": "playing",
+    "cut": 0
+  },
+  "shots": {
+    "ammo": 24,
+    "stats": {
+      "shots": 6,
+      "hits": 0,
+      "kills": 0
+    },
+    "breakable": {
+      "id": "func_breakable_62",
+      "hp": 10,
+      "broken": false
+    }
+  },
+  "reload": {
+    "ammo": 30,
+    "magSize": 30,
+    "reserve": 144,
+    "state": "idle"
+  },
+  "occludedInteraction": {
+    "status": "no valid close obstructed pose found; source/raycast check only"
+  },
+  "end": {
+    "state": "paused",
+    "errors": [],
+    "breakables": []
+  }
+}

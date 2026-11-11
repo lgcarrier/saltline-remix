@@ -1,0 +1,12 @@
+{
+  "name": "saltline-assault",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CS Assault geometry remade with the original Saltline procedural FPS assets",
+  "scripts": {
+    "build": "python3 tools/extract-assault.py && python3 tools/build-assault.py",
+    "start": "python3 -m http.server 8767 --bind 127.0.0.1",
+    "test": "node tools/test-assault-physics.mjs && node tools/test-assault-ladders.mjs",
+    "map:inspect": "node tools/inspect-assault-map.mjs"
+  }
+}

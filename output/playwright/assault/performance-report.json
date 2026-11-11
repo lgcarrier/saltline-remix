@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "duration_requested_ms": 30000,
+    "mode": "normal keyboard traversal, live enemies and audio, fixed high quality",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+    "viewport": [
+      1600,
+      900
+    ],
+    "dpr": 1,
+    "drawingBuffer": [
+      1600,
+      900
+    ],
+    "quality": {
+      "name": "high",
+      "scale": 1,
+      "msaa": 4,
+      "shadow": 4096,
+      "tex": 1024,
+      "volSteps": 24,
+      "ao": true,
+      "planar": 0.5,
+      "bloom": true,
+      "motionBlur": true,
+      "rain": 1
+    },
+    "audio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1123,
+      "bootMs": 118,
+      "voices": 1,
+      "loops": 10,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.15,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "stubs": {
+      "mats": false,
+      "physics": false,
+      "props": false,
+      "level": false,
+      "ground": false,
+      "enemies": false,
+      "weapon": false,
+      "audio": false
+    },
+    "startPlayer": [
+      16.256,
+      0,
+      -4.064
+    ],
+    "startStats": {
+      "calls": 996,
+      "tris": 1067481,
+      "geos": 395,
+      "tex": 153,
+      "programs": 141,
+      "res": [
+        1600,
+        900
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 60,
+      "state": "playing"
+    },
+    "recording": false,
+    "endStats": {
+      "calls": 192,
+      "tris": 354909,
+      "geos": 397,
+      "tex": 156,
+      "programs": 143,
+      "res": [
+        1600,
+        900
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 60.1,
+      "state": "playing"
+    },
+    "endAudio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1123,
+      "bootMs": 118,
+      "voices": 7,
+      "loops": 10,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.83,
+      "interior": 1,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "completed": true,
+    "documentHash": "cde3bbb0c4756fda92945d98dc7953816d9158987b7d2665cd479a85d03a0d46",
+    "host": {
+      "cpu": "Apple M1 Max",
+      "ramGB": 64,
+      "os": "macOS Darwin 25.6.0 arm64"
+    },
+    "concurrentWork": "Final art captures overlapped part of this run; separate visible player window remained open."
+  },
+  "method": "wall-clock frame intervals; percentiles use linear interpolation",
+  "samples": 1680,
+  "discarded_samples": 121,
+  "discarded_ms": 2005.2,
+  "measured_ms": 27998.9,
+  "mean_ms": 16.666,
+  "p50_ms": 16.7,
+  "p95_ms": 16.8,
+  "p99_ms": 16.8,
+  "max_ms": 16.8,
+  "average_delivered_fps": 60.0,
+  "budget_ms": 16.67,
+  "over_budget_frames": 1031,
+  "over_budget_percent": 61.37,
+  "warnings": []
+}

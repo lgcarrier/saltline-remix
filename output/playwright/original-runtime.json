@@ -1,0 +1,151 @@
+{
+  "outdoor": {
+    "interior": false,
+    "renderMs": 1237,
+    "steps": 499,
+    "peak": 0.81,
+    "over": 0,
+    "nan": 0,
+    "rmsDb": [
+      -25.8,
+      -23.4,
+      -22.3,
+      -20.8,
+      -19.8,
+      -20.3,
+      -14.4,
+      -14.6,
+      -14.4,
+      -13.9,
+      -14.1,
+      -14.8,
+      -14,
+      -15.2,
+      -12.9,
+      -14.7,
+      -16.2,
+      -13.6,
+      -13.9,
+      -13.7
+    ]
+  },
+  "indoor": {
+    "interior": true,
+    "renderMs": 1227,
+    "steps": 499,
+    "peak": 0.789,
+    "over": 0,
+    "nan": 0,
+    "rmsDb": [
+      -26.6,
+      -22.4,
+      -19.9,
+      -19,
+      -19,
+      -19.5,
+      -13.7,
+      -13.5,
+      -13.5,
+      -12.9,
+      -13.5,
+      -13.6,
+      -13.1,
+      -13.8,
+      -12.6,
+      -14.2,
+      -15.9,
+      -13.1,
+      -13.3,
+      -13.3
+    ]
+  },
+  "resultKeys": [
+    "interior",
+    "renderMs",
+    "steps",
+    "peak",
+    "over",
+    "nan",
+    "rmsDb",
+    "inst"
+  ],
+  "ready": true,
+  "errors": [],
+  "fatal": null,
+  "stats": {
+    "calls": 493,
+    "tris": 2936940,
+    "geos": 203,
+    "tex": 147,
+    "programs": 116,
+    "res": [
+      1600,
+      900
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "adapt": {
+      "lum": 0.1273,
+      "auto": 0.951,
+      "sunVis": 0
+    },
+    "fps": 87.3,
+    "state": "paused"
+  },
+  "weapon": {
+    "tris": 53136,
+    "meshes": 13
+  },
+  "enemies": {
+    "gull": 13788,
+    "hound": 17344
+  },
+  "materialStats": {
+    "sets": 24,
+    "textureMB": 111.6,
+    "genMs": 114,
+    "decalMB": 45.8
+  },
+  "materialCount": 48,
+  "stubs": [],
+  "state": "paused",
+  "audioKeys": [
+    "autoIntensity",
+    "ctx",
+    "resume",
+    "play",
+    "loop",
+    "update",
+    "ready",
+    "selfTest",
+    "setIntensity",
+    "setInterior",
+    "setVolume",
+    "setPaused",
+    "names",
+    "intensity",
+    "interior",
+    "debug"
+  ],
+  "metadata": {
+    "date_local": "2026-11-10",
+    "source": "original.html",
+    "source_sha256": "f7081ef7b2fde5880e3c58184c720b2aa3b9115efe58ff71b48f6820d4f16f90",
+    "url": "http://127.0.0.1:8769/original.html?shot=1&q=high&seed=4207&cam=-25,1.7,6,10,3,4",
+    "viewport": [
+      1600,
+      900
+    ],
+    "browser": "Chrome 157.0.0.0",
+    "gpu": "ANGLE Metal Renderer: Apple M1 Max",
+    "quality": "high",
+    "scope": "startup, paused scene counters and offline audio tests; not a gameplay benchmark or listening test"
+  },
+  "audioInventory": {
+    "sound_and_music_types": 55,
+    "generated_buffers": 93,
+    "impulse_responses": 2,
+    "generation_queue_remaining": 0
+  }
+}

@@ -1,0 +1,5 @@
+/* Identity remains grounded in Saltline's original interface. */
+.assault-subtitle { margin: -4px 0 25px; font: 700 clamp(26px,5vw,58px)/1 var(--f-display); letter-spacing:.42em; color:var(--signal); }
+.m-title .m-premise { max-width:470px; }
+.m-title .m-note { max-width:500px; }
+.boot-mark {font-size:clamp(30px,7vw,86px)}

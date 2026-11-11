@@ -1,0 +1,641 @@
+{
+  "purpose": "Fixed-camera art review, not a gameplay or performance test",
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "dpr": 1,
+  "quality": "high",
+  "seed": 4207,
+  "fov": 74,
+  "audio": "disabled for still captures",
+  "scene": "paused; enemies and effects cleared; HUD and weapon hidden",
+  "fixedPresentationTime": 18,
+  "remainingNondeterminism": "unseeded cosmetic sources and automatic exposure may differ; one second exposure settling per camera",
+  "captures": [
+    {
+      "name": "gate",
+      "cam": [
+        -23,
+        1.7,
+        -44,
+        -8,
+        4,
+        -51
+      ],
+      "sameAsV1": true,
+      "file": "v2-gate.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 726,
+          "tris": 824869,
+          "geos": 375,
+          "tex": 152,
+          "programs": 120,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0304,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 60.3,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          -23,
+          1.7,
+          -44
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0.35,
+          "reflectionPasses": 161,
+          "reflectionSkipped": 0
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "approach",
+      "cam": [
+        16.256,
+        1.7,
+        -4.064,
+        0,
+        4,
+        -22
+      ],
+      "file": "v2-approach.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 989,
+          "tris": 856653,
+          "geos": 375,
+          "tex": 152,
+          "programs": 120,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0688,
+            "auto": 1.604,
+            "sunVis": 0
+          },
+          "fps": 60.5,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          16.256,
+          1.7,
+          -4.064
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0.35,
+          "reflectionPasses": 403,
+          "reflectionSkipped": 83
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "original-port",
+      "original": true,
+      "cam": [
+        -25,
+        1.7,
+        6,
+        10,
+        3,
+        4
+      ],
+      "file": "v2-original-port.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 422,
+          "tris": 2724396,
+          "geos": 187,
+          "tex": 143,
+          "programs": 109,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.1266,
+            "auto": 0.956,
+            "sunVis": 0
+          },
+          "fps": 55,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          -25,
+          1.7,
+          6
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": null,
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "yard",
+      "cam": [
+        0,
+        1.7,
+        -30,
+        0,
+        6,
+        -44
+      ],
+      "sameAsV1": true,
+      "file": "v2-yard.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 784,
+          "tris": 837056,
+          "geos": 376,
+          "tex": 152,
+          "programs": 122,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0803,
+            "auto": 1.408,
+            "sunVis": 0
+          },
+          "fps": 51.3,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          0,
+          1.7,
+          -30
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0.35,
+          "reflectionPasses": 81,
+          "reflectionSkipped": 0
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "hall",
+      "cam": [
+        3,
+        1.7,
+        -52,
+        0,
+        4,
+        -65
+      ],
+      "file": "v2-hall.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 447,
+          "tris": 545256,
+          "geos": 376,
+          "tex": 152,
+          "programs": 123,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.013,
+            "auto": 2,
+            "sunVis": 0
+          },
+          "fps": 52.9,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          3,
+          1.7,
+          -52
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0,
+          "reflectionPasses": 4,
+          "reflectionSkipped": 81
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "office",
+      "cam": [
+        -26,
+        10.2,
+        -62.8,
+        -25.4,
+        9.7,
+        -65.8
+      ],
+      "requestedCam": [
+        -26,
+        10.2,
+        -65.8,
+        -21,
+        9.7,
+        -65
+      ],
+      "correction": "Requested camera intersects relay B; shifted inside the same office",
+      "file": "v2-office.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 396,
+          "tris": 527549,
+          "geos": 376,
+          "tex": 152,
+          "programs": 123,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.2058,
+            "auto": 0.632,
+            "sunVis": 0
+          },
+          "fps": 59.8,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          -26,
+          10.2,
+          -62.8
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0,
+          "reflectionPasses": 4,
+          "reflectionSkipped": 162
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    },
+    {
+      "name": "roof",
+      "cam": [
+        15,
+        14.7,
+        -45,
+        -6,
+        13.3,
+        -54
+      ],
+      "file": "v2-roof.png",
+      "actual": {
+        "ready": true,
+        "fatal": null,
+        "errors": [],
+        "stats": {
+          "calls": 805,
+          "tris": 838041,
+          "geos": 376,
+          "tex": 152,
+          "programs": 123,
+          "res": [
+            1600,
+            900
+          ],
+          "scale": 1,
+          "advanced": true,
+          "softShadows": true,
+          "adapt": {
+            "lum": 0.0891,
+            "auto": 1.288,
+            "sunVis": 0
+          },
+          "fps": 58.8,
+          "state": "paused"
+        },
+        "quality": {
+          "name": "high",
+          "scale": 1,
+          "msaa": 4,
+          "shadow": 4096,
+          "tex": 1024,
+          "volSteps": 24,
+          "ao": true,
+          "planar": 0.5,
+          "bloom": true,
+          "motionBlur": true,
+          "rain": 1
+        },
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "camera": [
+          15,
+          14.7,
+          -45
+        ],
+        "fov": 74,
+        "exposure": 1,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+        "ground": {
+          "system": "original Saltline O1/Ib/Nb/zb",
+          "sea": false,
+          "maskResolution": 1024,
+          "maskRect": [
+            -71,
+            -77,
+            108
+          ],
+          "pavementSquareMetres": 3172.7,
+          "shelteredSquareMetres": 184.2,
+          "puddleSquareMetres": 251.5,
+          "planarScale": 0.35,
+          "reflectionPasses": 83,
+          "reflectionSkipped": 162
+        },
+        "stubs": {
+          "mats": false,
+          "physics": false,
+          "props": false,
+          "level": false,
+          "ground": false,
+          "enemies": false,
+          "weapon": false,
+          "audio": true
+        }
+      }
+    }
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ]
+}

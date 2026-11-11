@@ -1,0 +1,30 @@
+{
+  "documentHash": "cde3bbb0c4756fda92945d98dc7953816d9158987b7d2665cd479a85d03a0d46",
+  "inputOnly": true,
+  "teleports": 0,
+  "healthOverrides": 0,
+  "invulnerabilityOverrides": 0,
+  "state": "complete",
+  "cut": 3,
+  "health": 100,
+  "stats": {
+    "calls": 206,
+    "tris": 559939,
+    "geos": 403,
+    "tex": 168,
+    "programs": 143,
+    "res": [
+      1600,
+      900
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "fps": 60.3,
+    "state": "complete"
+  },
+  "errors": [],
+  "buttons": [
+    "Redeploy"
+  ]
+}

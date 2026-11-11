@@ -1,0 +1,183 @@
+{
+  "reset": {
+    "state": "playing",
+    "cut": 0,
+    "health": 100,
+    "invulnerable": false,
+    "broken": [],
+    "ladder": false,
+    "errors": []
+  },
+  "standalone": {
+    "url": "file:// local index.html",
+    "boot": {
+      "ready": true,
+      "fatal": null,
+      "errors": [],
+      "stats": {
+        "calls": 411,
+        "tris": 539883,
+        "geos": 377,
+        "tex": 155,
+        "programs": 157,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 40.3,
+        "state": "title"
+      },
+      "materials": 48,
+      "propBuilders": 36,
+      "vehicle": {
+        "triangles": 9764,
+        "meshes": 8,
+        "wheels": 4,
+        "sourceEnvelope": {
+          "min": [
+            5.6896,
+            0,
+            -10.418318
+          ],
+          "max": [
+            13.208,
+            2.8448,
+            -6.2992
+          ]
+        }
+      }
+    },
+    "movement": {
+      "ok": true,
+      "result": [
+        {
+          "target": [
+            16.625,
+            0,
+            -7.875
+          ],
+          "state": {
+            "p": [
+              16.613670923946458,
+              0,
+              -7.820625032492877
+            ],
+            "yaw": -0.18774000070095062,
+            "pitch": 0,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1104
+        },
+        {
+          "target": [
+            13.625,
+            0,
+            -10.875
+          ],
+          "state": {
+            "p": [
+              13.697864110985035,
+              0,
+              -10.716128716488207
+            ],
+            "yaw": 0.8351699990987779,
+            "pitch": 0,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1575
+        },
+        {
+          "target": [
+            7.625,
+            0,
+            -10.875
+          ],
+          "state": {
+            "p": [
+              7.801802070781768,
+              0,
+              -10.961593144878195
+            ],
+            "yaw": 1.8330899991989136,
+            "pitch": 0,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1936
+        },
+        {
+          "target": [
+            6.125,
+            0,
+            -13.125
+          ],
+          "state": {
+            "p": [
+              6.164330412872718,
+              0,
+              -13.00236302711397
+            ],
+            "yaw": 0.5787599992990493,
+            "pitch": 0,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 1307
+        },
+        {
+          "target": [
+            6.125,
+            0,
+            -24
+          ],
+          "state": {
+            "p": [
+              6.17070209179616,
+              0,
+              -23.84392673142289
+            ],
+            "yaw": -0.010710000300407495,
+            "pitch": 0,
+            "health": 100,
+            "state": "playing"
+          },
+          "ms": 3123
+        }
+      ],
+      "state": {
+        "p": [
+          6.17070209179616,
+          0,
+          -23.84392673142289
+        ],
+        "yaw": -0.010710000300407495,
+        "pitch": 0,
+        "health": 100,
+        "state": "playing"
+      }
+    },
+    "end": {
+      "state": "playing",
+      "health": 100,
+      "combat": {
+        "shots": 5,
+        "hits": 0,
+        "kills": 0
+      },
+      "ammo": 30,
+      "errors": []
+    },
+    "motionErrors": []
+  },
+  "video": {
+    "file": "gameplay-motion.webm",
+    "inputOnly": true,
+    "audioRecorded": false,
+    "performanceBenchmark": false
+  }
+}

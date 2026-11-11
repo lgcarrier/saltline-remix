@@ -1,0 +1,4 @@
+interface:
+  display_name: "High Fidelity Game Development"
+  short_description: "Build polished, measurable 3D game vertical slices"
+  default_prompt: "Use $high-fidelity-game-dev to build a small, visually ambitious game with a complete playable loop and verified quality."
