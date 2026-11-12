@@ -1,0 +1,14 @@
+{
+  "asset": "Qwantani Afternoon (Pure Sky)",
+  "sourcePage": "https://polyhaven.com/a/qwantani_afternoon_puresky",
+  "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/qwantani_afternoon_puresky_2k.hdr",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "authors": {
+    "photography": "Greg Zaal",
+    "processing": "Jarod Guest"
+  },
+  "bytes": 4225710,
+  "md5": "e6e21b36c07538bc73ae0ce56f0ecfea",
+  "sha256": "a8924a59217b2cdc775459b960d638451dc1452e874d49cbe88c32a520aa828c"
+}

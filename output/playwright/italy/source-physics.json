@@ -1,0 +1,6545 @@
+{
+  "kind": "source geometry + navigation + controller simulation; not browser normal-input play",
+  "source": {
+    "file": "cs_italy_cs16.zip",
+    "bspVersion": 30,
+    "bspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+    "map": "cs_italy",
+    "originalTitle": "cs_italy",
+    "attribution": "Counter-Strike / Valve source assets supplied by user; original map authorship not encoded in BSP"
+  },
+  "stats": {
+    "models": 102,
+    "staticGroups": 201,
+    "staticTriangles": 19278,
+    "staticCollisionTriangles": 20908,
+    "doors": 0,
+    "breakables": 5,
+    "ladders": 0,
+    "skippedFaces": {
+      "trigger_multiple": 12,
+      "{invisible": 32
+    },
+    "collisionByModel": {
+      "0": 19882,
+      "2": 12,
+      "3": 36,
+      "7": 12,
+      "8": 12,
+      "9": 12,
+      "10": 12,
+      "11": 12,
+      "12": 12,
+      "15": 12,
+      "16": 12,
+      "23": 86,
+      "24": 12,
+      "25": 12,
+      "26": 26,
+      "27": 12,
+      "28": 12,
+      "37": 20,
+      "38": 12,
+      "39": 12,
+      "40": 12,
+      "41": 12,
+      "42": 12,
+      "43": 12,
+      "44": 12,
+      "45": 12,
+      "46": 12,
+      "47": 12,
+      "48": 12,
+      "49": 12,
+      "50": 12,
+      "51": 12,
+      "52": 12,
+      "53": 12,
+      "54": 12,
+      "55": 12,
+      "56": 12,
+      "57": 12,
+      "58": 12,
+      "59": 12,
+      "60": 12,
+      "61": 12,
+      "63": 12,
+      "65": 20,
+      "66": 12,
+      "67": 12,
+      "68": 12,
+      "69": 12,
+      "70": 12,
+      "71": 12,
+      "72": 12,
+      "73": 12,
+      "74": 12,
+      "75": 12,
+      "76": 12,
+      "77": 12,
+      "78": 12,
+      "79": 12,
+      "80": 12,
+      "81": 12,
+      "82": 12,
+      "83": 12,
+      "84": 12,
+      "85": 12,
+      "86": 12,
+      "87": 12,
+      "88": 12,
+      "89": 12,
+      "90": 12,
+      "91": 12,
+      "92": 12,
+      "93": 12,
+      "94": 12,
+      "95": 30,
+      "96": 12,
+      "97": 12,
+      "98": 12,
+      "99": 12,
+      "100": 12,
+      "101": 12
+    },
+    "visibleStaticGroups": 201,
+    "hostages": 4,
+    "nativeSpawns": {
+      "info_player_start": 10,
+      "info_player_deathmatch": 10
+    }
+  },
+  "grid": {
+    "minX": -46,
+    "minZ": -70,
+    "w": 107,
+    "h": 187,
+    "cell": 0.75
+  },
+  "physics": {
+    "rays": 3,
+    "rayTriangles": 244,
+    "movements": 27645,
+    "substeps": 27855,
+    "navSearches": 31,
+    "navExpanded": 72008,
+    "navCacheHits": 5,
+    "navDisconnected": 0,
+    "triangles": 20976,
+    "bins": 1971,
+    "navNodes": 25539,
+    "navLayers": 11116,
+    "navTiming": {
+      "rasterMs": 212.304417,
+      "prewarmMs": 6274.124291,
+      "edges": 182669,
+      "components": 141,
+      "totalMs": 6486.428708
+    },
+    "cachedPaths": 31
+  },
+  "buildMs": 6486.623833,
+  "checks": [
+    "source metadata identifies cs_italy and the entire 102-model BSP",
+    "trigger and illusionary source models retain their correct solid-state semantics",
+    "all 80 native world finishes retain source and metre UVs with hard outward normals",
+    "all 20 native spawn locations retain standing clearance and routes from CT",
+    "four hostage locations on two floors and source rescue zone remain reachable",
+    "market, apartment and upper-house uplinks have source floors and terminal clearance",
+    "hostage-house upper and lower floors remain separate at the same XZ",
+    "actual capsule traverses full uplink circuit, both hostage floors and extraction",
+    "off-grid corner recovery includes the reachable start connector on fresh and cached paths",
+    "normal acceleration climbs the recorded diagonal stair contact across frame rates and headings",
+    "native hostage-house crate staircase is reachable with ordinary 1m jumps",
+    "native west-house window excludes a standing hull and admits a crouched hull",
+    "sprint duck-jump reaches the native upper window while a standing jump cannot",
+    "apartment radio perch requires jump-tuck and crouched headroom",
+    "crouch expansion never forces the head into a low opening or feet through its sill"
+  ],
+  "spawns": [
+    {
+      "id": 1,
+      "classname": "info_player_start",
+      "pos": [
+        -19.5072,
+        -6.0960001945495605,
+        47.1424
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 5,
+      "classname": "info_player_start",
+      "pos": [
+        -15.4432,
+        -6.0960001945495605,
+        48.768
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 6,
+      "classname": "info_player_start",
+      "pos": [
+        -14.8336,
+        -6.0960001945495605,
+        45.72
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 7,
+      "classname": "info_player_start",
+      "pos": [
+        -18.0848,
+        -6.0960001945495605,
+        49.9872
+      ],
+      "yaw": 0
+    },
+    {
+      "id": 8,
+      "classname": "info_player_start",
+      "pos": [
+        -20.5232,
+        -6.0960001945495605,
+        43.0784
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 9,
+      "classname": "info_player_start",
+      "pos": [
+        -16.8656,
+        -6.0960001945495605,
+        43.2816
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 10,
+      "classname": "info_player_start",
+      "pos": [
+        -13.208,
+        -6.0960001945495605,
+        42.672
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 11,
+      "classname": "info_player_start",
+      "pos": [
+        -26.8224,
+        -3.86080002784729,
+        47.1424
+      ],
+      "yaw": -0.663225
+    },
+    {
+      "id": 12,
+      "classname": "info_player_start",
+      "pos": [
+        -12.8016,
+        -5.8927998542785645,
+        50.3936
+      ],
+      "yaw": -0.017453
+    },
+    {
+      "id": 13,
+      "classname": "info_player_start",
+      "pos": [
+        -26.8224,
+        -3.86080002784729,
+        50.1904
+      ],
+      "yaw": -0.610865
+    },
+    {
+      "id": 14,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        6.9088,
+        0,
+        -55.0672
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 15,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        10.5664,
+        0,
+        -52.832
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 16,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        5.6896,
+        0,
+        -51.6128
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 17,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        9.9568,
+        0,
+        -49.9872
+      ],
+      "yaw": 1.623156
+    },
+    {
+      "id": 18,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        2.6416,
+        0,
+        -50.1904
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 19,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        9.7536,
+        0,
+        -61.7728
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 20,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        23.9776,
+        3.251199960708618,
+        -51.816
+      ],
+      "yaw": 1.570796
+    },
+    {
+      "id": 21,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        16.256,
+        0,
+        -50.5968
+      ],
+      "yaw": 3.595378
+    },
+    {
+      "id": 22,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        4.064,
+        0,
+        -58.5216
+      ],
+      "yaw": 2.513274
+    },
+    {
+      "id": 95,
+      "classname": "info_player_deathmatch",
+      "pos": [
+        3.2512,
+        0,
+        -56.0832
+      ],
+      "yaw": 2.513274
+    }
+  ],
+  "hostages": [
+    {
+      "id": 2,
+      "pos": [
+        24.7904,
+        0,
+        -61.7728
+      ]
+    },
+    {
+      "id": 23,
+      "pos": [
+        21.1328,
+        3.251199960708618,
+        -59.3344
+      ]
+    },
+    {
+      "id": 24,
+      "pos": [
+        24.384,
+        0,
+        -59.7408
+      ]
+    },
+    {
+      "id": 25,
+      "pos": [
+        23.368,
+        3.251199960708618,
+        -59.3344
+      ]
+    }
+  ],
+  "relays": {
+    "market": {
+      "x": 23.8,
+      "y": -3.8608,
+      "z": 3,
+      "isVector3": true
+    },
+    "apartments": {
+      "x": -26,
+      "y": 0.2032,
+      "z": -29,
+      "isVector3": true
+    },
+    "house": {
+      "x": 21.1328,
+      "y": 3.2512,
+      "z": -59.3344,
+      "isVector3": true
+    }
+  },
+  "rescue": {
+    "x": -17.4752,
+    "y": -6.0960001945495605,
+    "z": 50.8,
+    "isVector3": true
+  },
+  "simulated": [
+    {
+      "name": "ct-to-market",
+      "final": {
+        "x": 24.017125229223893,
+        "y": -3.86080002784729,
+        "z": 3.134462865877279,
+        "isVector3": true
+      },
+      "ticks": 2345,
+      "simulationSeconds": 19.541666666666668
+    },
+    {
+      "name": "market-to-apartments",
+      "final": {
+        "x": -26.125000000013458,
+        "y": 0.20319999754428864,
+        "z": -29.250193040887424,
+        "isVector3": true
+      },
+      "ticks": 3815,
+      "simulationSeconds": 31.791666666666668
+    },
+    {
+      "name": "apartments-to-upper-house",
+      "final": {
+        "x": 21.13399955922702,
+        "y": 3.251199960708618,
+        "z": -59.230080925951555,
+        "isVector3": true
+      },
+      "ticks": 4011,
+      "simulationSeconds": 33.425
+    },
+    {
+      "name": "upper-house-to-rescue",
+      "final": {
+        "x": -17.05572970503098,
+        "y": -6.0960001945495605,
+        "z": 51.04456243015591,
+        "isVector3": true
+      },
+      "ticks": 4836,
+      "simulationSeconds": 40.3
+    },
+    {
+      "name": "ct-to-t",
+      "final": {
+        "x": 6.978227322030659,
+        "y": 0,
+        "z": -55.36631089792805,
+        "isVector3": true
+      },
+      "ticks": 4126,
+      "simulationSeconds": 34.38333333333333
+    },
+    {
+      "name": "ct-to-lower-hostages",
+      "final": {
+        "x": 24.78500660547797,
+        "y": 0,
+        "z": -62.04537444454997,
+        "isVector3": true
+      },
+      "ticks": 4574,
+      "simulationSeconds": 38.11666666666667
+    },
+    {
+      "name": "recorded-corner-recovery-0",
+      "final": {
+        "x": -29.114815565518303,
+        "y": -3.86080002784729,
+        "z": -42.7372501885086,
+        "isVector3": true
+      },
+      "ticks": 157,
+      "simulationSeconds": 1.3083333333333333
+    },
+    {
+      "name": "recorded-corner-recovery-1",
+      "final": {
+        "x": -29.114815565518303,
+        "y": -3.86080002784729,
+        "z": -42.7372501885086,
+        "isVector3": true
+      },
+      "ticks": 157,
+      "simulationSeconds": 1.3083333333333333
+    }
+  ],
+  "stairTraversals": [
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.6595206296189,
+        "y": 0,
+        "z": -47.05849817574982,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": 0,
+      "final": {
+        "x": 16.64341131533081,
+        "y": 0,
+        "z": -47.057075608892596,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.628788725444515,
+        "y": 0,
+        "z": -47.05016810801946,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.663126145921787,
+        "y": 0,
+        "z": -47.06147001375399,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": 0,
+      "final": {
+        "x": 16.64302979241176,
+        "y": 0,
+        "z": -47.058483151564275,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.624175949156577,
+        "y": 0,
+        "z": -47.05091232831656,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.651347881459774,
+        "y": 0,
+        "z": -47.0902868296324,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": 0,
+      "final": {
+        "x": 16.634890636803956,
+        "y": 0,
+        "z": -47.08851072856543,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        19.12547225279238,
+        -1.2192000150680542,
+        -37.900072166214535
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.619789205453326,
+        "y": 0,
+        "z": -47.08173266041704,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.661333722962773,
+        "y": 0,
+        "z": -47.03187637992129,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": 0,
+      "final": {
+        "x": 16.64290782348812,
+        "y": 0,
+        "z": -47.031096377865545,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.008333333333333333,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.625488063974768,
+        "y": 0,
+        "z": -47.02504045901269,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8166666666666667
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.664783882349393,
+        "y": 0,
+        "z": -47.03440158592088,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": 0,
+      "final": {
+        "x": 16.642634636355698,
+        "y": 0,
+        "z": -47.03252889484733,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.016666666666666666,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.62135071289436,
+        "y": 0,
+        "z": -47.02611869422358,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": -0.025,
+      "final": {
+        "x": 16.655429156371085,
+        "y": 0,
+        "z": -47.06408648990184,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": 0,
+      "final": {
+        "x": 16.63680664419947,
+        "y": 0,
+        "z": -47.06308925711603,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    },
+    {
+      "start": [
+        18.420172244004505,
+        -1.2192000150680542,
+        -37.71161840289039
+      ],
+      "dt": 0.03333333333333333,
+      "headingError": 0.025,
+      "final": {
+        "x": 16.619124124843733,
+        "y": 0,
+        "z": -47.057162964679456,
+        "isVector3": true
+      },
+      "simulationSeconds": 1.8
+    }
+  ],
+  "movementScenarios": [
+    {
+      "name": "low crate",
+      "pos": {
+        "x": 10.7050957450219,
+        "y": 0.8381999731063843,
+        "z": -57.07101631204844,
+        "isVector3": true
+      },
+      "peak": 0.9999992153424214,
+      "onGround": true,
+      "crouching": false,
+      "tuck": null,
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            9.631666658926536,
+            0.0532770058200655,
+            -57.09997785935401
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            9.963592883214233,
+            0.5788510756608509,
+            -57.080490040410474
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            10.019913643883495,
+            0.8944251455016361,
+            -56.954668875403954
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            10.136461671888743,
+            0.9999992153424214,
+            -56.8707007271186
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            10.318488103406745,
+            0.8955732851832067,
+            -56.84800171401505
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            10.593548504395395,
+            0.8381999731063843,
+            -56.99062064606691
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            10.848191700169034,
+            0.8381999731063843,
+            -57.17415014618635
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            10.846163568521279,
+            0.8381999731063843,
+            -57.17268840680487
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            10.706222484826208,
+            0.8381999731063843,
+            -57.0718283894826
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            10.7050957450219,
+            0.8381999731063843,
+            -57.07101631204844
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        }
+      ]
+    },
+    {
+      "name": "middle crate",
+      "pos": {
+        "x": 11.950410389571708,
+        "y": 1.6510000228881836,
+        "z": -56.89434704108504,
+        "isVector3": true
+      },
+      "peak": 1.8381991884488056,
+      "onGround": true,
+      "crouching": false,
+      "tuck": null,
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            10.736477077901585,
+            0.8914769789264497,
+            -57.06677488251676
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            11.057824977978399,
+            1.4170510487672356,
+            -57.01587988192538
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            11.063443990582218,
+            1.732625118608021,
+            -56.96612782647332
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            11.142027635635426,
+            1.8381991884488056,
+            -56.921537210073744
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            11.309992562914738,
+            1.7337732582895915,
+            -56.88721908431258
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            11.623092176360586,
+            1.6510000228881836,
+            -56.88343661944882
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            12.000521447658741,
+            1.6510000228881836,
+            -56.89601738129315
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            12.167928472736182,
+            1.6510000228881836,
+            -56.901597520603296
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            12.009683026145563,
+            1.6510000228881836,
+            -56.89632276205142
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            11.950410389571708,
+            1.6510000228881836,
+            -56.89434704108504
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        }
+      ]
+    },
+    {
+      "name": "top crate",
+      "pos": {
+        "x": 11.999726738276758,
+        "y": 2.4637999534606934,
+        "z": -58.55096753695732,
+        "isVector3": true
+      },
+      "peak": 2.6509992382306056,
+      "onGround": true,
+      "crouching": false,
+      "tuck": null,
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            11.951330667280684,
+            1.7042770287082492,
+            -56.926000332647156
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            11.962373999788403,
+            2.2298510985490343,
+            -57.30583983139254
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            11.97335192526734,
+            2.5454251683898184,
+            -57.39992616608122
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            11.983681849417135,
+            2.6509992382306056,
+            -57.49367309532674
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            11.992456533268014,
+            2.546573308071392,
+            -57.677405663641416
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            11.996666237336058,
+            2.4637999534606934,
+            -58.00180939842916
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            11.998783973950566,
+            2.4637999534606934,
+            -58.381803497319666
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            12.00062538309015,
+            2.4637999534606934,
+            -58.71221503286811
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            12.000769352026662,
+            2.4637999534606934,
+            -58.73804796502952
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            11.999755377258753,
+            2.4637999534606934,
+            -58.5561063460432
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            11.999726738276758,
+            2.4637999534606934,
+            -58.55096753695732
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        }
+      ]
+    },
+    {
+      "name": "west window standing control",
+      "pos": {
+        "x": 12.682799842834473,
+        "y": 0,
+        "z": -63.18751732083755,
+        "isVector3": true
+      },
+      "peak": 3.46379921534242,
+      "onGround": true,
+      "crouching": false,
+      "tuck": null,
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            12.500611384754546,
+            2.5170770058200653,
+            -59.90320358865364
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            12.555464880709414,
+            3.042651075660849,
+            -60.53076372763934
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            12.682799842834473,
+            3.358225145501633,
+            -61.13527049694111
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            12.683975555396838,
+            3.46379921534242,
+            -61.43665447997
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            12.683958470567472,
+            3.3593732851832065,
+            -61.45276951891642
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            12.683958470567472,
+            3.044947355023992,
+            -61.45276951891642
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            12.683958470567472,
+            2.5205214248647767,
+            -61.45276951891642
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            12.683958470567472,
+            1.7860954947055605,
+            -61.45276951891642
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            12.682799842834473,
+            0.8416695645463435,
+            -61.48475597540072
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            12.684635288041035,
+            0,
+            -61.590059326872364
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            12.682799842834473,
+            0,
+            -61.85053393789781
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            12.682799842834473,
+            0,
+            -62.199149942252724
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            12.682799842834473,
+            0,
+            -62.545931667666096
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            12.682799842834473,
+            0,
+            -62.83645273799125
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            12.682799842834473,
+            0,
+            -63.04133315419736
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            12.682799842834473,
+            0,
+            -63.154067913362695
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": true
+        }
+      ]
+    },
+    {
+      "name": "west window sprint duck-jump",
+      "pos": {
+        "x": 13.894571813955677,
+        "y": 3.251199960708618,
+        "z": -62.99906870329845,
+        "isVector3": true
+      },
+      "peak": 4.113799215342417,
+      "onGround": true,
+      "crouching": true,
+      "tuck": {
+        "time": 0.08333333333333333,
+        "feetBefore": 2.930945058200653,
+        "feetAfter": 3.580945058200653,
+        "headBefore": 4.730945058200653,
+        "headAfter": 4.730945058200653
+      },
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            12.500611384754546,
+            2.5170770058200653,
+            -59.90320358865364
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            12.555407028303406,
+            3.692651075660849,
+            -60.530559825798186
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            12.682799842834473,
+            4.0082251455016324,
+            -61.129951408135405
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            12.682799842834473,
+            4.113799215342417,
+            -61.69823880687658
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": true
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            12.67233784779412,
+            4.009373285183201,
+            -62.22843660559764
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            12.728177585376809,
+            3.86080002784729,
+            -62.673331209342265
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            12.879678053271547,
+            3.86080002784729,
+            -62.824946592517705
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            13.066941968110484,
+            3.86080002784729,
+            -62.857074869769946
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            13.254205882949421,
+            3.86080002784729,
+            -62.88920314702219
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            13.441469797788358,
+            3.86080002784729,
+            -62.92133142427443
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            13.628733712627294,
+            3.86080002784729,
+            -62.95345970152667
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            13.815997627466231,
+            3.8345500278472913,
+            -62.98558797877889
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            13.969381557712602,
+            3.624550027847293,
+            -63.01190357429138
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            14.032966417685332,
+            3.251199960708618,
+            -63.02281262749581
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            13.906481141873066,
+            3.251199960708618,
+            -63.001111949000894
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            13.894571813955677,
+            3.251199960708618,
+            -62.99906870329845
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        }
+      ]
+    },
+    {
+      "name": "apartment radio jump-tuck",
+      "pos": {
+        "x": -7.313325246599673,
+        "y": 1.8287999629974365,
+        "z": -19.15194239710403,
+        "isVector3": true
+      },
+      "peak": 1.853199215342421,
+      "onGround": true,
+      "crouching": true,
+      "tuck": {
+        "time": 0.08333333333333333,
+        "feetBefore": 0.6703450582006545,
+        "feetAfter": 1.3203450582006546,
+        "headBefore": 2.4703450582006545,
+        "headAfter": 2.4703450582006545
+      },
+      "trace": [
+        {
+          "t": 0,
+          "pos": [
+            -8.968333333333334,
+            0.2564770058200655,
+            -19.1516
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.1,
+          "pos": [
+            -8.588333333333338,
+            1.432051075660851,
+            -19.1516
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.2,
+          "pos": [
+            -8.284434499164835,
+            1.7476251455016365,
+            -19.111807936092966
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.3,
+          "pos": [
+            -8.160332755201622,
+            1.853199215342421,
+            -19.012885764131795
+          ],
+          "onGround": false,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.4,
+          "pos": [
+            -7.981030654574566,
+            1.8287999629974365,
+            -19.029995479713413
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.5,
+          "pos": [
+            -7.7941223267436595,
+            1.8287999629974365,
+            -19.06413163338446
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.6,
+          "pos": [
+            -7.607213998912753,
+            1.8287999629974365,
+            -19.098267787055494
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.7,
+          "pos": [
+            -7.420305671081842,
+            1.8287999629974365,
+            -19.13240394072653
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.8,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 0.9,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.1,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.2,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.3,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.4,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        },
+        {
+          "t": 1.5,
+          "pos": [
+            -7.313325246599673,
+            1.8287999629974365,
+            -19.15194239710403
+          ],
+          "onGround": true,
+          "hitCeil": false,
+          "hitWall": false
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "ct-to-market",
+      "from": {
+        "x": -19.5072,
+        "y": -6.0960001945495605,
+        "z": 47.1424,
+        "isVector3": true
+      },
+      "to": {
+        "x": 23.8,
+        "y": -3.8608,
+        "z": 3,
+        "isVector3": true
+      },
+      "path": [
+        [
+          -18.625,
+          -6.0960001945495605,
+          46.625
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          45.875
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          45.125
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          44.375
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          43.625
+        ],
+        [
+          -17.875,
+          -6.0960001945495605,
+          42.875
+        ],
+        [
+          -17.125,
+          -6.0960001945495605,
+          42.125
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          41.375
+        ],
+        [
+          -15.625,
+          -6.0960001945495605,
+          40.625
+        ],
+        [
+          -14.875,
+          -6.0960001945495605,
+          39.875
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          39.125
+        ],
+        [
+          -13.375,
+          -6.0960001945495605,
+          38.375
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          37.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          36.875
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          36.125
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          35.375
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          34.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          33.875
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          33.125
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          32.375
+        ],
+        [
+          -11.875,
+          -6.0960001945495605,
+          31.625
+        ],
+        [
+          -11.875,
+          -6.013022627890613,
+          30.875
+        ],
+        [
+          -11.125,
+          -5.900522000873157,
+          30.125
+        ],
+        [
+          -11.125,
+          -5.788021373855701,
+          29.375
+        ],
+        [
+          -11.125,
+          -5.675520606984928,
+          28.625
+        ],
+        [
+          -10.375,
+          -5.5630198149940755,
+          27.875
+        ],
+        [
+          -10.375,
+          -5.450519023003223,
+          27.125
+        ],
+        [
+          -10.375,
+          -5.338018231012372,
+          26.375
+        ],
+        [
+          -10.375,
+          -5.2255174390215196,
+          25.625
+        ],
+        [
+          -9.625,
+          -5.113016647030667,
+          24.875
+        ],
+        [
+          -9.625,
+          -5.000515805632567,
+          24.125
+        ],
+        [
+          -9.625,
+          -4.888015093742937,
+          23.375
+        ],
+        [
+          -9.625,
+          -4.775514595218566,
+          22.625
+        ],
+        [
+          -9.625,
+          -4.663013895622237,
+          21.875
+        ],
+        [
+          -9.625,
+          -4.550513196025909,
+          21.125
+        ],
+        [
+          -9.625,
+          -4.438012496429581,
+          20.375
+        ],
+        [
+          -9.625,
+          -4.3255117968332515,
+          19.625
+        ],
+        [
+          -9.625,
+          -4.213011097236923,
+          18.875
+        ],
+        [
+          -8.875,
+          -4.100510429949326,
+          18.125
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          17.375
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          16.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          15.875
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          15.125
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          14.375
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          13.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          12.875
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -4.375,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -3.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -2.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -2.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -1.375,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -0.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          0.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          0.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          1.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          2.375,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          3.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          11.375
+        ],
+        [
+          4.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          5.375,
+          -3.86080002784729,
+          9.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          9.125
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          8.375
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          7.625
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          6.875
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          6.125
+        ],
+        [
+          9.875,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          10.625,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          11.375,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          12.125,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          12.875,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          13.625,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          14.375,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          15.125,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          15.875,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          16.625,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          17.375,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          18.125,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          19.625,
+          -4.064000129699707,
+          5.375
+        ],
+        [
+          20.375,
+          -4.064000129699707,
+          4.625
+        ],
+        [
+          21.125,
+          -4.064000129699707,
+          4.625
+        ],
+        [
+          21.875,
+          -3.86080002784729,
+          3.875
+        ],
+        [
+          22.625,
+          -3.86080002784729,
+          3.875
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          3.125
+        ],
+        [
+          24.125,
+          -3.86080002784729,
+          3.125
+        ]
+      ]
+    },
+    {
+      "name": "market-to-apartments",
+      "from": {
+        "x": 23.8,
+        "y": -3.8608,
+        "z": 3,
+        "isVector3": true
+      },
+      "to": {
+        "x": -26,
+        "y": 0.2032,
+        "z": -29,
+        "isVector3": true
+      },
+      "path": [
+        [
+          23.375,
+          -3.86080002784729,
+          2.375
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          1.625
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          0.875
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          0.125
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -0.625
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -1.375
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -2.125
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -2.875
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -3.625
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -4.375
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -5.125
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -5.875
+        ],
+        [
+          23.375,
+          -3.86080002784729,
+          -6.625
+        ],
+        [
+          22.625,
+          -3.86080002784729,
+          -7.375
+        ],
+        [
+          21.875,
+          -3.86080002784729,
+          -7.375
+        ],
+        [
+          21.125,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          20.375,
+          -4.064000129699707,
+          -8.125
+        ],
+        [
+          19.625,
+          -4.064000129699707,
+          -8.875
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -9.625
+        ],
+        [
+          18.125,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          17.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          16.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.125,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          14.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          13.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          12.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          12.125,
+          -4.064000129699707,
+          -11.125
+        ],
+        [
+          11.375,
+          -4.064000129699707,
+          -11.875
+        ],
+        [
+          10.625,
+          -4.064000129699707,
+          -12.625
+        ],
+        [
+          9.875,
+          -4.064000129699707,
+          -13.375
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          -14.125
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -14.875
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -15.625
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -16.375
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          -17.125
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          -17.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -17.875
+        ],
+        [
+          5.375,
+          -4.064000129699707,
+          -17.875
+        ],
+        [
+          4.625,
+          -4.064000129699707,
+          -17.875
+        ],
+        [
+          3.875,
+          -4.064000129699707,
+          -18.625
+        ],
+        [
+          3.125,
+          -4.064000129699707,
+          -19.375
+        ],
+        [
+          2.375,
+          -4.064000129699707,
+          -20.125
+        ],
+        [
+          1.625,
+          -4.064000129699707,
+          -20.875
+        ],
+        [
+          0.875,
+          -3.86080002784729,
+          -21.625
+        ],
+        [
+          0.125,
+          -3.86080002784729,
+          -21.625
+        ],
+        [
+          -0.625,
+          -4.064000129699707,
+          -22.375
+        ],
+        [
+          -1.375,
+          -4.064000129699707,
+          -23.125
+        ],
+        [
+          -2.125,
+          -4.064000129699707,
+          -23.875
+        ],
+        [
+          -2.875,
+          -4.064000129699707,
+          -24.625
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -25.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -26.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -26.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -27.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -28.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -29.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -29.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -30.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -31.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -32.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -32.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -33.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -34.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -35.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -35.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -36.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -37.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -38.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -38.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -39.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -40.375
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -41.125
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -41.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -42.625
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -43.375
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          -44.125
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          -44.875
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          -45.625
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -46.375
+        ],
+        [
+          -8.125,
+          -3.86080002784729,
+          -47.125
+        ],
+        [
+          -8.875,
+          -3.86080002784729,
+          -47.875
+        ],
+        [
+          -8.875,
+          -3.86080002784729,
+          -48.625
+        ],
+        [
+          -8.875,
+          -3.86080002784729,
+          -49.375
+        ],
+        [
+          -9.625,
+          -3.86080002784729,
+          -50.125
+        ],
+        [
+          -9.625,
+          -3.86080002784729,
+          -50.875
+        ],
+        [
+          -9.625,
+          -3.86080002784729,
+          -51.625
+        ],
+        [
+          -9.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -10.375,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -11.125,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -11.875,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -12.625,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -13.375,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -14.125,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -14.875,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -15.625,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -16.375,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -17.125,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -17.875,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -18.625,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -19.375,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -20.125,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -20.875,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -21.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -22.375,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -23.125,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -23.875,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -24.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -51.625
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -50.875
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -50.125
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -49.375
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -48.625
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -47.875
+        ],
+        [
+          -26.125,
+          -3.86080002784729,
+          -47.125
+        ],
+        [
+          -26.875,
+          -3.86080002784729,
+          -46.375
+        ],
+        [
+          -27.625,
+          -3.86080002784729,
+          -45.625
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -44.875
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -44.125
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -43.375
+        ],
+        [
+          -29.125,
+          -3.86080002784729,
+          -42.625
+        ],
+        [
+          -29.875,
+          -3.86080002784729,
+          -41.875
+        ],
+        [
+          -30.625,
+          -3.86080002784729,
+          -41.125
+        ],
+        [
+          -31.375,
+          -3.86080002784729,
+          -40.375
+        ],
+        [
+          -31.375,
+          -3.454400062561035,
+          -39.625
+        ],
+        [
+          -30.625,
+          -3.0480000972747803,
+          -38.875
+        ],
+        [
+          -29.875,
+          -2.8447999954223633,
+          -38.875
+        ],
+        [
+          -29.125,
+          -2.4384000301361084,
+          -38.875
+        ],
+        [
+          -28.375,
+          -2.0320000648498535,
+          -38.875
+        ],
+        [
+          -27.625,
+          -1.625599980354309,
+          -38.875
+        ],
+        [
+          -26.875,
+          -1.4223999977111816,
+          -38.125
+        ],
+        [
+          -26.125,
+          -1.2192000150680542,
+          -37.375
+        ],
+        [
+          -26.125,
+          -1.0160000324249268,
+          -36.625
+        ],
+        [
+          -26.125,
+          -0.6096000075340271,
+          -35.875
+        ],
+        [
+          -26.125,
+          -0.20319999754428864,
+          -35.125
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -34.375
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -33.625
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -32.875
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -32.125
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -31.375
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -30.625
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -29.875
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -29.125
+        ]
+      ]
+    },
+    {
+      "name": "apartments-to-upper-house",
+      "from": {
+        "x": -26,
+        "y": 0.2032,
+        "z": -29,
+        "isVector3": true
+      },
+      "to": {
+        "x": 21.1328,
+        "y": 3.2512,
+        "z": -59.3344,
+        "isVector3": true
+      },
+      "path": [
+        [
+          -26.125,
+          0.20319999754428864,
+          -29.875
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -30.625
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -31.375
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -32.125
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -32.875
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -33.625
+        ],
+        [
+          -26.125,
+          0.20319999754428864,
+          -34.375
+        ],
+        [
+          -26.125,
+          -0.20319999754428864,
+          -35.125
+        ],
+        [
+          -26.125,
+          -0.6096000075340271,
+          -35.875
+        ],
+        [
+          -26.125,
+          -1.0160000324249268,
+          -36.625
+        ],
+        [
+          -26.125,
+          -1.2192000150680542,
+          -37.375
+        ],
+        [
+          -26.875,
+          -1.4223999977111816,
+          -38.125
+        ],
+        [
+          -27.625,
+          -1.625599980354309,
+          -38.875
+        ],
+        [
+          -28.375,
+          -2.0320000648498535,
+          -38.875
+        ],
+        [
+          -29.125,
+          -2.4384000301361084,
+          -38.875
+        ],
+        [
+          -29.875,
+          -2.8447999954223633,
+          -38.875
+        ],
+        [
+          -30.625,
+          -3.0480000972747803,
+          -39.625
+        ],
+        [
+          -31.375,
+          -3.454400062561035,
+          -39.625
+        ],
+        [
+          -31.375,
+          -3.86080002784729,
+          -40.375
+        ],
+        [
+          -30.625,
+          -3.86080002784729,
+          -41.125
+        ],
+        [
+          -29.875,
+          -3.86080002784729,
+          -41.875
+        ],
+        [
+          -29.125,
+          -3.86080002784729,
+          -42.625
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -43.375
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -44.125
+        ],
+        [
+          -28.375,
+          -3.86080002784729,
+          -44.875
+        ],
+        [
+          -27.625,
+          -3.86080002784729,
+          -45.625
+        ],
+        [
+          -26.875,
+          -3.86080002784729,
+          -46.375
+        ],
+        [
+          -26.125,
+          -3.86080002784729,
+          -47.125
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -47.875
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -48.625
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -49.375
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -50.125
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -50.875
+        ],
+        [
+          -25.375,
+          -3.86080002784729,
+          -51.625
+        ],
+        [
+          -24.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -23.875,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -23.125,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -22.375,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -21.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -20.875,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -20.125,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -19.375,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -18.625,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -17.875,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -17.125,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -16.375,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -15.625,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -14.875,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -14.125,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -13.375,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -12.625,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -11.875,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -11.125,
+          -3.86080002784729,
+          -53.875
+        ],
+        [
+          -10.375,
+          -3.86080002784729,
+          -53.125
+        ],
+        [
+          -9.625,
+          -3.86080002784729,
+          -52.375
+        ],
+        [
+          -8.875,
+          -3.86080002784729,
+          -51.625
+        ],
+        [
+          -8.125,
+          -3.86080002784729,
+          -50.875
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -50.125
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -49.375
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -48.625
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -47.875
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -47.125
+        ],
+        [
+          -7.375,
+          -3.86080002784729,
+          -46.375
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          -45.625
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          -44.875
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          -44.875
+        ],
+        [
+          -4.375,
+          -4.064000129699707,
+          -45.625
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -46.375
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -47.125
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -47.875
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -48.625
+        ],
+        [
+          -3.625,
+          -4.064000129699707,
+          -49.375
+        ],
+        [
+          -2.875,
+          -4.064000129699707,
+          -50.125
+        ],
+        [
+          -2.125,
+          -4.064000129699707,
+          -50.875
+        ],
+        [
+          -1.375,
+          -4.064000129699707,
+          -51.625
+        ],
+        [
+          -1.375,
+          -4.064000129699707,
+          -52.375
+        ],
+        [
+          -1.375,
+          -3.657599925994873,
+          -53.125
+        ],
+        [
+          -1.375,
+          -3.657599925994873,
+          -53.875
+        ],
+        [
+          -1.375,
+          -3.251199960708618,
+          -54.625
+        ],
+        [
+          -1.375,
+          -3.251199960708618,
+          -55.375
+        ],
+        [
+          -1.375,
+          -2.8447999954223633,
+          -56.125
+        ],
+        [
+          -1.375,
+          -2.8447999954223633,
+          -56.875
+        ],
+        [
+          -1.375,
+          -2.4384000301361084,
+          -57.625
+        ],
+        [
+          -1.375,
+          -2.4384000301361084,
+          -58.375
+        ],
+        [
+          -1.375,
+          -2.0320000648498535,
+          -59.125
+        ],
+        [
+          -1.375,
+          -2.0320000648498535,
+          -59.875
+        ],
+        [
+          -1.375,
+          -1.625599980354309,
+          -60.625
+        ],
+        [
+          -0.625,
+          -1.625599980354309,
+          -61.375
+        ],
+        [
+          0.125,
+          -1.2192000150680542,
+          -61.375
+        ],
+        [
+          0.875,
+          -1.2192000150680542,
+          -61.375
+        ],
+        [
+          1.625,
+          -0.8127999901771545,
+          -61.375
+        ],
+        [
+          2.375,
+          -0.8127999901771545,
+          -61.375
+        ],
+        [
+          3.125,
+          -0.40639999508857727,
+          -61.375
+        ],
+        [
+          3.875,
+          -0.40639999508857727,
+          -61.375
+        ],
+        [
+          4.625,
+          0,
+          -61.375
+        ],
+        [
+          5.375,
+          0,
+          -60.625
+        ],
+        [
+          6.125,
+          0,
+          -59.875
+        ],
+        [
+          6.875,
+          0,
+          -59.125
+        ],
+        [
+          7.625,
+          0,
+          -58.375
+        ],
+        [
+          8.375,
+          0,
+          -57.625
+        ],
+        [
+          9.125,
+          0,
+          -56.875
+        ],
+        [
+          9.875,
+          0,
+          -56.125
+        ],
+        [
+          10.625,
+          0,
+          -55.375
+        ],
+        [
+          11.375,
+          0,
+          -54.625
+        ],
+        [
+          12.125,
+          0,
+          -53.875
+        ],
+        [
+          12.875,
+          0,
+          -53.125
+        ],
+        [
+          13.625,
+          0,
+          -53.125
+        ],
+        [
+          14.375,
+          0,
+          -53.125
+        ],
+        [
+          15.125,
+          0,
+          -53.125
+        ],
+        [
+          15.875,
+          0,
+          -53.125
+        ],
+        [
+          16.625,
+          0,
+          -53.125
+        ],
+        [
+          17.375,
+          0,
+          -53.125
+        ],
+        [
+          18.125,
+          0,
+          -53.125
+        ],
+        [
+          18.875,
+          0,
+          -53.125
+        ],
+        [
+          19.625,
+          0,
+          -53.125
+        ],
+        [
+          20.375,
+          0,
+          -53.125
+        ],
+        [
+          21.125,
+          0,
+          -53.125
+        ],
+        [
+          21.875,
+          0,
+          -53.125
+        ],
+        [
+          22.625,
+          0,
+          -53.125
+        ],
+        [
+          23.375,
+          0,
+          -53.125
+        ],
+        [
+          23.375,
+          0,
+          -53.875
+        ],
+        [
+          22.625,
+          0,
+          -54.625
+        ],
+        [
+          21.875,
+          0,
+          -55.375
+        ],
+        [
+          21.125,
+          0,
+          -56.125
+        ],
+        [
+          20.375,
+          0,
+          -56.875
+        ],
+        [
+          19.625,
+          0,
+          -56.875
+        ],
+        [
+          18.875,
+          0,
+          -56.875
+        ],
+        [
+          18.125,
+          0,
+          -56.875
+        ],
+        [
+          17.375,
+          0,
+          -56.875
+        ],
+        [
+          16.625,
+          0,
+          -56.875
+        ],
+        [
+          15.875,
+          0,
+          -57.625
+        ],
+        [
+          16.625,
+          0,
+          -58.375
+        ],
+        [
+          17.375,
+          0,
+          -59.125
+        ],
+        [
+          18.125,
+          0,
+          -59.875
+        ],
+        [
+          18.125,
+          0,
+          -60.625
+        ],
+        [
+          18.125,
+          0,
+          -61.375
+        ],
+        [
+          18.125,
+          0,
+          -62.125
+        ],
+        [
+          18.125,
+          0.20319999754428864,
+          -62.875
+        ],
+        [
+          18.875,
+          0.6096000075340271,
+          -62.875
+        ],
+        [
+          19.625,
+          1.0160000324249268,
+          -62.875
+        ],
+        [
+          20.375,
+          1.4223999977111816,
+          -63.625
+        ],
+        [
+          21.125,
+          1.625599980354309,
+          -63.625
+        ],
+        [
+          21.875,
+          2.0320000648498535,
+          -63.625
+        ],
+        [
+          22.625,
+          2.4384000301361084,
+          -63.625
+        ],
+        [
+          23.375,
+          2.8447999954223633,
+          -62.875
+        ],
+        [
+          22.625,
+          3.251199960708618,
+          -62.125
+        ],
+        [
+          21.875,
+          3.251199960708618,
+          -61.375
+        ],
+        [
+          21.875,
+          3.251199960708618,
+          -60.625
+        ],
+        [
+          21.125,
+          3.251199960708618,
+          -59.875
+        ],
+        [
+          21.125,
+          3.251199960708618,
+          -59.125
+        ]
+      ]
+    },
+    {
+      "name": "upper-house-to-rescue",
+      "from": {
+        "x": 21.1328,
+        "y": 3.2512,
+        "z": -59.3344,
+        "isVector3": true
+      },
+      "to": {
+        "x": -17.4752,
+        "y": -6.0960001945495605,
+        "z": 50.8,
+        "isVector3": true
+      },
+      "path": [
+        [
+          21.125,
+          3.251199960708618,
+          -59.875
+        ],
+        [
+          21.125,
+          3.251199960708618,
+          -60.625
+        ],
+        [
+          21.875,
+          3.251199960708618,
+          -61.375
+        ],
+        [
+          22.625,
+          3.251199960708618,
+          -62.125
+        ],
+        [
+          23.375,
+          2.8447999954223633,
+          -62.875
+        ],
+        [
+          22.625,
+          2.4384000301361084,
+          -63.625
+        ],
+        [
+          21.875,
+          2.0320000648498535,
+          -63.625
+        ],
+        [
+          21.125,
+          1.625599980354309,
+          -63.625
+        ],
+        [
+          20.375,
+          1.4223999977111816,
+          -63.625
+        ],
+        [
+          19.625,
+          1.0160000324249268,
+          -62.875
+        ],
+        [
+          18.875,
+          0.6096000075340271,
+          -62.875
+        ],
+        [
+          18.125,
+          0.20319999754428864,
+          -62.875
+        ],
+        [
+          17.375,
+          0,
+          -62.125
+        ],
+        [
+          16.625,
+          0,
+          -61.375
+        ],
+        [
+          15.875,
+          0,
+          -60.625
+        ],
+        [
+          15.875,
+          0,
+          -59.875
+        ],
+        [
+          15.875,
+          0,
+          -59.125
+        ],
+        [
+          15.875,
+          0,
+          -58.375
+        ],
+        [
+          15.875,
+          0,
+          -57.625
+        ],
+        [
+          16.625,
+          0,
+          -56.875
+        ],
+        [
+          17.375,
+          0,
+          -56.125
+        ],
+        [
+          18.125,
+          0,
+          -55.375
+        ],
+        [
+          18.875,
+          0,
+          -54.625
+        ],
+        [
+          19.625,
+          0,
+          -54.625
+        ],
+        [
+          20.375,
+          0,
+          -54.625
+        ],
+        [
+          21.125,
+          0,
+          -54.625
+        ],
+        [
+          21.875,
+          0,
+          -54.625
+        ],
+        [
+          22.625,
+          0,
+          -54.625
+        ],
+        [
+          23.375,
+          0,
+          -53.875
+        ],
+        [
+          23.375,
+          0,
+          -53.125
+        ],
+        [
+          23.375,
+          0,
+          -52.375
+        ],
+        [
+          23.375,
+          0,
+          -51.625
+        ],
+        [
+          22.625,
+          0,
+          -50.875
+        ],
+        [
+          21.875,
+          0,
+          -50.125
+        ],
+        [
+          21.125,
+          0,
+          -49.375
+        ],
+        [
+          20.375,
+          0,
+          -48.625
+        ],
+        [
+          19.625,
+          0,
+          -47.875
+        ],
+        [
+          18.875,
+          0,
+          -47.125
+        ],
+        [
+          18.875,
+          0,
+          -46.375
+        ],
+        [
+          18.875,
+          0,
+          -45.625
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -44.875
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -44.125
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -43.375
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -42.625
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -41.875
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -41.125
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -40.375
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -39.625
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -38.875
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -38.125
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -37.375
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -36.625
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -35.875
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -35.125
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -34.375
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -33.625
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -32.875
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -32.125
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -31.375
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -30.625
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -29.875
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -29.125
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -28.375
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -27.625
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.875
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.125
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -25.375
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -24.625
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.875
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.125
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -22.375
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -21.625
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.875
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.125
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -19.375
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -18.625
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.875
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.125
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -16.375
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -15.625
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -14.875
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -14.125
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -13.375
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -12.625
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -11.875
+        ],
+        [
+          18.125,
+          -4.064000129699707,
+          -11.125
+        ],
+        [
+          17.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          16.625,
+          -4.064000129699707,
+          -9.625
+        ],
+        [
+          15.875,
+          -4.064000129699707,
+          -8.875
+        ],
+        [
+          15.125,
+          -4.064000129699707,
+          -8.125
+        ],
+        [
+          14.375,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          13.625,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          12.875,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          12.125,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          11.375,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          10.625,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          9.875,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          -6.625
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          -5.875
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -5.125
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -4.375
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          -3.625
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          -2.875
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          -2.125
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          -1.375
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -0.625
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          1.625
+        ],
+        [
+          5.375,
+          -3.86080002784729,
+          2.375
+        ],
+        [
+          4.625,
+          -3.86080002784729,
+          3.125
+        ],
+        [
+          4.625,
+          -3.86080002784729,
+          3.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          4.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          5.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          7.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          8.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.875
+        ],
+        [
+          3.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          2.375,
+          -3.86080002784729,
+          11.375
+        ],
+        [
+          1.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          0.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          0.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -0.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -1.375,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -2.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -2.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -3.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -4.375,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          12.875
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          13.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          14.375
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          15.125
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          15.875
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          16.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          17.375
+        ],
+        [
+          -8.125,
+          -4.100510429949326,
+          18.125
+        ],
+        [
+          -8.125,
+          -4.213011089941758,
+          18.875
+        ],
+        [
+          -8.125,
+          -4.32551174993419,
+          19.625
+        ],
+        [
+          -8.125,
+          -4.438012409926622,
+          20.375
+        ],
+        [
+          -8.875,
+          -4.550513223814443,
+          21.125
+        ],
+        [
+          -8.875,
+          -4.663013923410771,
+          21.875
+        ],
+        [
+          -8.875,
+          -4.7755146230071,
+          22.625
+        ],
+        [
+          -9.625,
+          -4.888015093742937,
+          23.375
+        ],
+        [
+          -9.625,
+          -5.000515805632567,
+          24.125
+        ],
+        [
+          -9.625,
+          -5.113016647030667,
+          24.875
+        ],
+        [
+          -10.375,
+          -5.2255174390215196,
+          25.625
+        ],
+        [
+          -10.375,
+          -5.338018231012372,
+          26.375
+        ],
+        [
+          -10.375,
+          -5.450519023003223,
+          27.125
+        ],
+        [
+          -10.375,
+          -5.5630198149940755,
+          27.875
+        ],
+        [
+          -11.125,
+          -5.675520606984928,
+          28.625
+        ],
+        [
+          -11.125,
+          -5.788021373855701,
+          29.375
+        ],
+        [
+          -11.125,
+          -5.900522000873157,
+          30.125
+        ],
+        [
+          -11.875,
+          -6.013022627890613,
+          30.875
+        ],
+        [
+          -11.875,
+          -6.0960001945495605,
+          31.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          32.375
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          33.125
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          33.875
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          34.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          35.375
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          36.125
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          36.875
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          37.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          38.375
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          39.125
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          39.875
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          40.625
+        ],
+        [
+          -12.625,
+          -6.0960001945495605,
+          41.375
+        ],
+        [
+          -13.375,
+          -6.0960001945495605,
+          42.125
+        ],
+        [
+          -13.375,
+          -6.0960001945495605,
+          42.875
+        ],
+        [
+          -13.375,
+          -6.0960001945495605,
+          43.625
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          44.375
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          45.125
+        ],
+        [
+          -14.875,
+          -6.0960001945495605,
+          45.875
+        ],
+        [
+          -14.875,
+          -6.0960001945495605,
+          46.625
+        ],
+        [
+          -15.625,
+          -6.0960001945495605,
+          47.375
+        ],
+        [
+          -15.625,
+          -6.0960001945495605,
+          48.125
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          48.875
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          49.625
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          50.375
+        ],
+        [
+          -17.125,
+          -6.0960001945495605,
+          51.125
+        ]
+      ]
+    },
+    {
+      "name": "ct-to-t",
+      "from": {
+        "x": -19.5072,
+        "y": -6.0960001945495605,
+        "z": 47.1424,
+        "isVector3": true
+      },
+      "to": {
+        "x": 6.9088,
+        "y": 0,
+        "z": -55.0672,
+        "isVector3": true
+      },
+      "path": [
+        [
+          -19.375,
+          -6.0960001945495605,
+          46.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          45.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          45.125
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          44.375
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          43.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          42.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          42.125
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          41.375
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          40.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          39.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          39.125
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          38.375
+        ],
+        [
+          -17.875,
+          -6.0960001945495605,
+          37.625
+        ],
+        [
+          -17.125,
+          -6.0960001945495605,
+          36.875
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          36.125
+        ],
+        [
+          -15.625,
+          -6.0960001945495605,
+          35.375
+        ],
+        [
+          -14.875,
+          -6.0960001945495605,
+          34.625
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          33.875
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          33.125
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          32.375
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          31.625
+        ],
+        [
+          -14.125,
+          -6.013022627890613,
+          30.875
+        ],
+        [
+          -14.125,
+          -5.900522000873157,
+          30.125
+        ],
+        [
+          -13.375,
+          -5.788021373855701,
+          29.375
+        ],
+        [
+          -13.375,
+          -5.675520606984928,
+          28.625
+        ],
+        [
+          -13.375,
+          -5.563019567592191,
+          27.875
+        ],
+        [
+          -12.625,
+          -5.450518815200266,
+          27.125
+        ],
+        [
+          -12.625,
+          -5.338017754812141,
+          26.375
+        ],
+        [
+          -12.625,
+          -5.225517077556943,
+          25.625
+        ],
+        [
+          -12.625,
+          -5.113016417564511,
+          24.875
+        ],
+        [
+          -11.875,
+          -5.000515757572079,
+          24.125
+        ],
+        [
+          -11.875,
+          -4.888015093742937,
+          23.375
+        ],
+        [
+          -11.875,
+          -4.775514419084138,
+          22.625
+        ],
+        [
+          -11.125,
+          -4.6630137444253394,
+          21.875
+        ],
+        [
+          -11.125,
+          -4.550513097016422,
+          21.125
+        ],
+        [
+          -11.125,
+          -4.438012409926622,
+          20.375
+        ],
+        [
+          -10.375,
+          -4.32551174993419,
+          19.625
+        ],
+        [
+          -9.625,
+          -4.213011097236923,
+          18.875
+        ],
+        [
+          -8.875,
+          -4.100510429949326,
+          18.125
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          17.375
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          16.625
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          15.875
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          15.125
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          14.375
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          13.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          12.875
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          11.375
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -4.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -3.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -2.875,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -2.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -1.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -0.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          0.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          0.875,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          1.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          2.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          3.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          8.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          7.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          5.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          4.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          3.875
+        ],
+        [
+          4.625,
+          -3.86080002784729,
+          3.125
+        ],
+        [
+          5.375,
+          -3.86080002784729,
+          2.375
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          1.625
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -0.625
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -1.375
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -2.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -2.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -3.625
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          -4.375
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          -5.125
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -5.875
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          -6.625
+        ],
+        [
+          9.875,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          10.625,
+          -4.064000129699707,
+          -8.125
+        ],
+        [
+          11.375,
+          -4.064000129699707,
+          -8.875
+        ],
+        [
+          12.125,
+          -4.064000129699707,
+          -9.625
+        ],
+        [
+          12.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          13.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          14.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.125,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          16.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          17.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          18.125,
+          -4.064000129699707,
+          -11.125
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -11.875
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -12.625
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -13.375
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -14.125
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -14.875
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -15.625
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -16.375
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.125
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.875
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -18.625
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -19.375
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.125
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.875
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -21.625
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -22.375
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.125
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.875
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -24.625
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -25.375
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.125
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.875
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -27.625
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -28.375
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -29.125
+        ],
+        [
+          18.125,
+          -2.0320000648498535,
+          -29.875
+        ],
+        [
+          18.125,
+          -2.0320000648498535,
+          -30.625
+        ],
+        [
+          18.125,
+          -1.625599980354309,
+          -31.375
+        ],
+        [
+          18.125,
+          -1.625599980354309,
+          -32.125
+        ],
+        [
+          18.125,
+          -1.625599980354309,
+          -32.875
+        ],
+        [
+          18.125,
+          -1.625599980354309,
+          -33.625
+        ],
+        [
+          18.125,
+          -1.625599980354309,
+          -34.375
+        ],
+        [
+          18.125,
+          -1.2192000150680542,
+          -35.125
+        ],
+        [
+          17.375,
+          -1.2192000150680542,
+          -35.875
+        ],
+        [
+          17.375,
+          -1.2192000150680542,
+          -36.625
+        ],
+        [
+          17.375,
+          -1.2192000150680542,
+          -37.375
+        ],
+        [
+          17.375,
+          -0.8127999901771545,
+          -38.125
+        ],
+        [
+          16.625,
+          -0.8127999901771545,
+          -38.875
+        ],
+        [
+          16.625,
+          -0.8127999901771545,
+          -39.625
+        ],
+        [
+          16.625,
+          -0.8127999901771545,
+          -40.375
+        ],
+        [
+          16.625,
+          -0.40639999508857727,
+          -41.125
+        ],
+        [
+          16.625,
+          -0.40639999508857727,
+          -41.875
+        ],
+        [
+          16.625,
+          -0.40639999508857727,
+          -42.625
+        ],
+        [
+          16.625,
+          -0.40639999508857727,
+          -43.375
+        ],
+        [
+          16.625,
+          -0.40639999508857727,
+          -44.125
+        ],
+        [
+          16.625,
+          0,
+          -44.875
+        ],
+        [
+          16.625,
+          0,
+          -45.625
+        ],
+        [
+          16.625,
+          0,
+          -46.375
+        ],
+        [
+          16.625,
+          0,
+          -47.125
+        ],
+        [
+          15.875,
+          0,
+          -47.875
+        ],
+        [
+          15.125,
+          0,
+          -48.625
+        ],
+        [
+          14.375,
+          0,
+          -49.375
+        ],
+        [
+          13.625,
+          0,
+          -50.125
+        ],
+        [
+          12.875,
+          0,
+          -50.875
+        ],
+        [
+          12.125,
+          0,
+          -51.625
+        ],
+        [
+          11.375,
+          0,
+          -52.375
+        ],
+        [
+          10.625,
+          0,
+          -53.125
+        ],
+        [
+          9.875,
+          0,
+          -53.875
+        ],
+        [
+          9.125,
+          0,
+          -54.625
+        ],
+        [
+          8.375,
+          0,
+          -54.625
+        ],
+        [
+          7.625,
+          0,
+          -55.375
+        ],
+        [
+          6.875,
+          0,
+          -55.375
+        ]
+      ]
+    },
+    {
+      "name": "ct-to-lower-hostages",
+      "from": {
+        "x": -19.5072,
+        "y": -6.0960001945495605,
+        "z": 47.1424,
+        "isVector3": true
+      },
+      "to": {
+        "x": 24.7904,
+        "y": 0,
+        "z": -61.7728,
+        "isVector3": true
+      },
+      "path": [
+        [
+          -19.375,
+          -6.0960001945495605,
+          46.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          45.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          45.125
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          44.375
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          43.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          42.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          42.125
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          41.375
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          40.625
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          39.875
+        ],
+        [
+          -19.375,
+          -6.0960001945495605,
+          39.125
+        ],
+        [
+          -18.625,
+          -6.0960001945495605,
+          38.375
+        ],
+        [
+          -17.875,
+          -6.0960001945495605,
+          37.625
+        ],
+        [
+          -17.125,
+          -6.0960001945495605,
+          36.875
+        ],
+        [
+          -16.375,
+          -6.0960001945495605,
+          36.125
+        ],
+        [
+          -15.625,
+          -6.0960001945495605,
+          35.375
+        ],
+        [
+          -14.875,
+          -6.0960001945495605,
+          34.625
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          33.875
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          33.125
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          32.375
+        ],
+        [
+          -14.125,
+          -6.0960001945495605,
+          31.625
+        ],
+        [
+          -14.125,
+          -6.013022627890613,
+          30.875
+        ],
+        [
+          -14.125,
+          -5.900522000873157,
+          30.125
+        ],
+        [
+          -13.375,
+          -5.788021373855701,
+          29.375
+        ],
+        [
+          -13.375,
+          -5.675520606984928,
+          28.625
+        ],
+        [
+          -13.375,
+          -5.563019567592191,
+          27.875
+        ],
+        [
+          -12.625,
+          -5.450518815200266,
+          27.125
+        ],
+        [
+          -12.625,
+          -5.338017754812141,
+          26.375
+        ],
+        [
+          -12.625,
+          -5.225517077556943,
+          25.625
+        ],
+        [
+          -12.625,
+          -5.113016417564511,
+          24.875
+        ],
+        [
+          -11.875,
+          -5.000515757572079,
+          24.125
+        ],
+        [
+          -11.875,
+          -4.888015093742937,
+          23.375
+        ],
+        [
+          -11.875,
+          -4.775514419084138,
+          22.625
+        ],
+        [
+          -11.125,
+          -4.6630137444253394,
+          21.875
+        ],
+        [
+          -11.125,
+          -4.550513097016422,
+          21.125
+        ],
+        [
+          -11.125,
+          -4.438012409926622,
+          20.375
+        ],
+        [
+          -10.375,
+          -4.32551174993419,
+          19.625
+        ],
+        [
+          -9.625,
+          -4.213011097236923,
+          18.875
+        ],
+        [
+          -9.625,
+          -4.100510429949326,
+          18.125
+        ],
+        [
+          -9.625,
+          -4.064000129699707,
+          17.375
+        ],
+        [
+          -9.625,
+          -4.064000129699707,
+          16.625
+        ],
+        [
+          -9.625,
+          -4.064000129699707,
+          15.875
+        ],
+        [
+          -9.625,
+          -4.064000129699707,
+          15.125
+        ],
+        [
+          -8.875,
+          -4.064000129699707,
+          14.375
+        ],
+        [
+          -8.125,
+          -4.064000129699707,
+          13.625
+        ],
+        [
+          -7.375,
+          -4.064000129699707,
+          12.875
+        ],
+        [
+          -6.625,
+          -3.86080002784729,
+          12.125
+        ],
+        [
+          -5.875,
+          -3.86080002784729,
+          11.375
+        ],
+        [
+          -5.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -4.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -3.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -2.875,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -2.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -1.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          -0.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          0.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          0.875,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          1.625,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          2.375,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          3.125,
+          -3.86080002784729,
+          10.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          9.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          8.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          7.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.875
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          6.125
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          5.375
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          4.625
+        ],
+        [
+          3.875,
+          -3.86080002784729,
+          3.875
+        ],
+        [
+          4.625,
+          -3.86080002784729,
+          3.125
+        ],
+        [
+          5.375,
+          -3.86080002784729,
+          2.375
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          1.625
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          0.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -0.625
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -1.375
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -2.125
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -2.875
+        ],
+        [
+          6.125,
+          -4.064000129699707,
+          -3.625
+        ],
+        [
+          6.875,
+          -4.064000129699707,
+          -4.375
+        ],
+        [
+          7.625,
+          -4.064000129699707,
+          -5.125
+        ],
+        [
+          8.375,
+          -4.064000129699707,
+          -5.875
+        ],
+        [
+          9.125,
+          -4.064000129699707,
+          -6.625
+        ],
+        [
+          9.875,
+          -4.064000129699707,
+          -7.375
+        ],
+        [
+          10.625,
+          -4.064000129699707,
+          -8.125
+        ],
+        [
+          11.375,
+          -4.064000129699707,
+          -8.875
+        ],
+        [
+          12.125,
+          -4.064000129699707,
+          -9.625
+        ],
+        [
+          12.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          13.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          14.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.125,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          15.875,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          16.625,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          17.375,
+          -4.064000129699707,
+          -10.375
+        ],
+        [
+          18.125,
+          -4.064000129699707,
+          -11.125
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -11.875
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -12.625
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -13.375
+        ],
+        [
+          18.875,
+          -4.064000129699707,
+          -14.125
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -14.875
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -15.625
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -16.375
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.125
+        ],
+        [
+          18.875,
+          -3.657599925994873,
+          -17.875
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -18.625
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -19.375
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.125
+        ],
+        [
+          18.875,
+          -3.251199960708618,
+          -20.875
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -21.625
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -22.375
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.125
+        ],
+        [
+          18.875,
+          -2.8447999954223633,
+          -23.875
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -24.625
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -25.375
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.125
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -26.875
+        ],
+        [
+          18.875,
+          -2.4384000301361084,
+          -27.625
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -28.375
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -29.125
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -29.875
+        ],
+        [
+          18.875,
+          -2.0320000648498535,
+          -30.625
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -31.375
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -32.125
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -32.875
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -33.625
+        ],
+        [
+          18.875,
+          -1.625599980354309,
+          -34.375
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -35.125
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -35.875
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -36.625
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -37.375
+        ],
+        [
+          18.875,
+          -1.2192000150680542,
+          -38.125
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -38.875
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -39.625
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -40.375
+        ],
+        [
+          18.875,
+          -0.8127999901771545,
+          -41.125
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -41.875
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -42.625
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -43.375
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -44.125
+        ],
+        [
+          18.875,
+          -0.40639999508857727,
+          -44.875
+        ],
+        [
+          18.875,
+          0,
+          -45.625
+        ],
+        [
+          18.875,
+          0,
+          -46.375
+        ],
+        [
+          18.875,
+          0,
+          -47.125
+        ],
+        [
+          18.875,
+          0,
+          -47.875
+        ],
+        [
+          18.875,
+          0,
+          -48.625
+        ],
+        [
+          19.625,
+          0,
+          -49.375
+        ],
+        [
+          20.375,
+          0,
+          -50.125
+        ],
+        [
+          21.125,
+          0,
+          -50.875
+        ],
+        [
+          21.875,
+          0,
+          -51.625
+        ],
+        [
+          22.625,
+          0,
+          -52.375
+        ],
+        [
+          23.375,
+          0,
+          -53.125
+        ],
+        [
+          23.375,
+          0,
+          -53.875
+        ],
+        [
+          22.625,
+          0,
+          -54.625
+        ],
+        [
+          21.875,
+          0,
+          -55.375
+        ],
+        [
+          21.125,
+          0,
+          -56.125
+        ],
+        [
+          20.375,
+          0,
+          -56.875
+        ],
+        [
+          19.625,
+          0,
+          -56.875
+        ],
+        [
+          18.875,
+          0,
+          -56.875
+        ],
+        [
+          18.125,
+          0,
+          -56.875
+        ],
+        [
+          17.375,
+          0,
+          -56.875
+        ],
+        [
+          16.625,
+          0,
+          -56.875
+        ],
+        [
+          15.875,
+          0,
+          -57.625
+        ],
+        [
+          16.625,
+          0,
+          -58.375
+        ],
+        [
+          17.375,
+          0,
+          -58.375
+        ],
+        [
+          18.125,
+          0,
+          -59.125
+        ],
+        [
+          18.875,
+          0,
+          -59.125
+        ],
+        [
+          19.625,
+          0,
+          -59.875
+        ],
+        [
+          20.375,
+          0,
+          -59.875
+        ],
+        [
+          21.125,
+          0,
+          -60.625
+        ],
+        [
+          21.875,
+          0,
+          -60.625
+        ],
+        [
+          22.625,
+          0,
+          -61.375
+        ],
+        [
+          23.375,
+          0,
+          -61.375
+        ],
+        [
+          24.125,
+          0,
+          -61.375
+        ],
+        [
+          24.875,
+          0,
+          -62.125
+        ]
+      ]
+    }
+  ]
+}

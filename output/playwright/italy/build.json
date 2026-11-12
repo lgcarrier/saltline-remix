@@ -1,0 +1,36 @@
+{
+  "htmlSha256": "ea8b6f1f0aaf06e1fef494c3cf8cb4c8ec5cba2de3e0773973a0f867defa0e15",
+  "bytes": 54471285,
+  "sourceBspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+  "localUrl": "http://127.0.0.1:8767/italy.html",
+  "acceptance": {
+    "nativeMovement": true,
+    "fullMission": true,
+    "redeploy": true,
+    "standaloneDelivery": true,
+    "geometryAudits": true,
+    "runtimeErrors": 0,
+    "visualTargetMet": false
+  },
+  "performance": {
+    "normalProfile": 119.93,
+    "energySaver": 30.0,
+    "viewport": [
+      1600,
+      900
+    ],
+    "quality": "high",
+    "gpu": "Apple M1 Max"
+  },
+  "evidence": [
+    "native-movement.json",
+    "traversal-mission.json",
+    "delivery.json",
+    "frame-report.json",
+    "v10-capped-frame-report.json",
+    "power-profile.json",
+    "v10-captures.json",
+    "final-geometry-audit.json",
+    "final-interior-audit.json"
+  ]
+}

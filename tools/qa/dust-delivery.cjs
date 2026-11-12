@@ -52,7 +52,7 @@ await page.goto('http://127.0.0.1:8767/index.html?q=high&dynres=0',{waitUntil:'d
 await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:120000});
 await page.waitForFunction(()=>document.querySelector('#boot').hidden);
 record.checks.mapLinks=await page.locator('.map-select a').evaluateAll(a=>a.map(x=>({name:x.textContent.trim(),href:x.getAttribute('href')})));
-if(record.checks.mapLinks.length!==3)throw Error('Expected all three map links');
+if(record.checks.mapLinks.length!==4)throw Error('Expected all four map links');
 await page.getByRole('link',{name:'Dust',exact:true}).click();
 await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:120000});
 await page.waitForFunction(()=>document.querySelector('#boot').hidden);

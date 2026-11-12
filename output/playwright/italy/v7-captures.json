@@ -1,0 +1,726 @@
+{
+  "kind": "staged paused fixed-camera visual captures",
+  "seed": 4207,
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "documentSha256": "6a75527ce008abaf04055f3501fbf6df4b3771bbcb52a4ce12f1153e14dc0077",
+  "readyAfterMs": 23725,
+  "records": [
+    {
+      "name": "ct_approach",
+      "camera": [
+        -19.5,
+        -4.42,
+        44,
+        -19,
+        -3.5,
+        27
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 882,
+        "tris": 294557,
+        "geos": 953,
+        "tex": 200,
+        "programs": 206,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 63.3,
+        "state": "paused"
+      },
+      "simulationTime": 3.966500000238405
+    },
+    {
+      "name": "market",
+      "camera": [
+        17,
+        -2.384,
+        3,
+        13,
+        -2.8,
+        7.6
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 418,
+        "tris": 174995,
+        "geos": 953,
+        "tex": 200,
+        "programs": 206,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 56.3,
+        "state": "paused"
+      },
+      "simulationTime": 5.140299999952315
+    },
+    {
+      "name": "apartments",
+      "camera": [
+        -26,
+        1.8832,
+        -32,
+        -26,
+        1.2,
+        -28.5
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 1451,
+        "tris": 510470,
+        "geos": 953,
+        "tex": 200,
+        "programs": 206,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 58.8,
+        "state": "paused"
+      },
+      "simulationTime": 6.324000000238425
+    },
+    {
+      "name": "house_exterior",
+      "camera": [
+        6.9088,
+        1.68,
+        -55.0672,
+        20,
+        3,
+        -58
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 172,
+        "tris": 49618,
+        "geos": 953,
+        "tex": 200,
+        "programs": 206,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 65.5,
+        "state": "paused"
+      },
+      "simulationTime": 7.507200000047698
+    },
+    {
+      "name": "house_interior",
+      "camera": [
+        23.4,
+        4.9312,
+        -55,
+        21,
+        4.5,
+        -60
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 991,
+        "tris": 302627,
+        "geos": 953,
+        "tex": 200,
+        "programs": 206,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 56.7,
+        "state": "paused"
+      },
+      "simulationTime": 8.688800000190726
+    }
+  ],
+  "diagnostics": {
+    "map": {
+      "file": "cs_italy_cs16.zip",
+      "bspVersion": 30,
+      "bspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+      "map": "cs_italy",
+      "originalTitle": "cs_italy",
+      "attribution": "Counter-Strike / Valve source assets supplied by user; original map authorship not encoded in BSP"
+    },
+    "lighting": {
+      "sourceFixtures": 38,
+      "practicalFixtures": 3,
+      "activeLightBudget": 8,
+      "fixtureBatches": 4,
+      "weather": "dry",
+      "sky": "CC0 photographic afternoon",
+      "hdri": {
+        "version": 1,
+        "asset": "qwantani_afternoon_puresky",
+        "sha256": "a8924a59217b2cdc775459b960d638451dc1452e874d49cbe88c32a520aa828c",
+        "sourceSize": [
+          2048,
+          1024
+        ],
+        "encodedBytes": 4225710,
+        "textureBytes": 16777216,
+        "decodeMs": 145,
+        "radianceScale": 1,
+        "solarLimit": 0.6702893260779977,
+        "visibleSolarLimit": 64,
+        "solarRemovalConeDegrees": [
+          1,
+          2
+        ],
+        "sourceSunDegrees": {
+          "azimuth": 36.10743982888772,
+          "elevation": 40.82432180472301
+        },
+        "worldSunDegrees": {
+          "azimuth": 141.6325146151385,
+          "elevation": 40.82432180472301
+        },
+        "worldSunDirection": [
+          -0.5933012850067492,
+          0.6537418861578914,
+          0.469696850630343
+        ],
+        "yawDegrees": -105.52507478625076,
+        "peakLuminance": 152947.563503125,
+        "skyP95": 0.4965106119096279,
+        "upperMeanLuminance": 1.5679144396575186,
+        "skyMeanRGB": {
+          "upper": [
+            0.16383660758426535,
+            0.2288588391493969,
+            0.34279564000052104
+          ],
+          "horizon": [
+            0.3967658694884484,
+            0.44795422936076473,
+            0.5032631043858927
+          ],
+          "toward": [
+            0.676358903751889,
+            0.7776971362998777,
+            0.8687414674357841
+          ],
+          "away": [
+            0.266678453898546,
+            0.2959700727291971,
+            0.33822429452219804
+          ],
+          "zenith": [
+            0.06431815469096852,
+            0.10339692357775086,
+            0.1841342454437514
+          ]
+        },
+        "solarPixels": 13,
+        "halfFloatClampedComponents": 21,
+        "environmentIntensity": 1,
+        "pmremSize": 256,
+        "fallback": false,
+        "pmremReady": true,
+        "pmremDimensions": [
+          768,
+          1024
+        ]
+      },
+      "sunDirection": [
+        -0.5933012850067492,
+        0.6537418861578914,
+        0.469696850630343
+      ],
+      "sunIntensity": 4.6,
+      "shadow": {
+        "centerBlocker": true,
+        "filterTaps": 24,
+        "searchTaps": 12,
+        "sunHalfAngle": 0.00465
+      }
+    },
+    "materials": {
+      "version": 4,
+      "concreteFinish": "original concrete chart uses cast cement with trowel clouds, worn paste, 3–12 mm aggregate and sparse 1.4 mm pores; source diagnostic mode retains source pixels",
+      "sourceSupportedContactSegments": 3715,
+      "contactFieldSize": 512,
+      "contactHeightGated": true,
+      "microdetailDistanceFiltered": true,
+      "referenceMode": false,
+      "activeFallbacks": [],
+      "reusedMaterials": [
+        "steel_dark"
+      ],
+      "uniquePbrSets": 8,
+      "normalOrmSize": 512,
+      "sourceDetailAtlases": 62,
+      "recreatedTextures": [
+        "{ornateGate",
+        "{rustyrungs",
+        "{wineRack",
+        "{wineRack1",
+        "{wineRack2"
+      ],
+      "generatedAlbedos": 4,
+      "gpuUploadLimit": {
+        "hero": 1024,
+        "secondary": 768,
+        "physicalAlbedo": 1024
+      },
+      "remasteredAtlases": [
+        "64crate0",
+        "64crate1",
+        "64crateTop",
+        "bStuccoBrdr",
+        "bStuccoWnd",
+        "bigCrate0",
+        "bigCrate2",
+        "bigCrateTop",
+        "blueHangingRug",
+        "blueRug",
+        "crateBox",
+        "crateBoxLabel",
+        "floweredWindow",
+        "groutTiles",
+        "gryStuccoSpade",
+        "magHangingRug",
+        "oakDoor",
+        "oldDoor",
+        "oldWood",
+        "panelWood",
+        "redHangingRug",
+        "redRug",
+        "shutteredWindow",
+        "windowHalf",
+        "windowWhite",
+        "wlPaper",
+        "wlPaper1",
+        "wlStuccoBrdr",
+        "wlStuccoWnd",
+        "woodedWindow",
+        "{hangingIvy1",
+        "~blueRug"
+      ],
+      "missingTextures": [],
+      "retainedTextureBytes": 150936235,
+      "bakeMs": 877,
+      "heightData": "bounded luminance-derived micro-relief for generated albedo; deterministic procedural stone/wood; no measured height or displacement",
+      "channels": [
+        "sRGB albedo",
+        "linear normal",
+        "linear ORM"
+      ]
+    },
+    "windowRecesses": {
+      "version": 1,
+      "windows": 12,
+      "byTexture": {
+        "bStuccoWnd": 8,
+        "shutteredWindow": 2,
+        "floweredWindow": 1,
+        "windowWhite": 1
+      },
+      "renderOnly": true,
+      "collisionChanges": 0,
+      "sourceAreaRemoved": 32.22216764717114,
+      "backPanelArea": 32.22216764717114,
+      "inputTriangles": 151,
+      "outputTriangles": 265,
+      "rejectedIncomplete": 17,
+      "rejectedThinWall": 0
+    },
+    "sourceGeometry": {
+      "renderTriangles": 19307,
+      "meshes": 603,
+      "replacedCanopyFaces": 42
+    },
+    "objectiveChecks": [
+      {
+        "id": "relay_a",
+        "floor": -3.86080002784729,
+        "pathNodes": 88
+      },
+      {
+        "id": "relay_b",
+        "floor": 0.20319999754428864,
+        "pathNodes": 116
+      },
+      {
+        "id": "relay_c",
+        "floor": 3.251199960708618,
+        "pathNodes": 181
+      }
+    ],
+    "shotChecks": [
+      {
+        "index": 0,
+        "feet": [
+          -19.5,
+          -6.1,
+          44
+        ],
+        "floor": -6.0960001945495605,
+        "standing": true,
+        "pathNodes": 5
+      },
+      {
+        "index": 1,
+        "feet": [
+          17,
+          -4.064,
+          3
+        ],
+        "floor": -4.064000129699707,
+        "standing": true,
+        "pathNodes": 78
+      },
+      {
+        "index": 2,
+        "feet": [
+          -26,
+          0.20320000000000005,
+          -32
+        ],
+        "floor": 0.20319999754428864,
+        "standing": true,
+        "pathNodes": 115
+      },
+      {
+        "index": 3,
+        "feet": [
+          6.9088,
+          0,
+          -55.0672
+        ],
+        "floor": 0,
+        "standing": true,
+        "pathNodes": 156
+      },
+      {
+        "index": 4,
+        "feet": [
+          23.4,
+          3.2512,
+          -55
+        ],
+        "floor": 3.251199960708618,
+        "standing": true,
+        "pathNodes": 196
+      }
+    ],
+    "spawnCount": 14,
+    "groundSpawnCount": 11,
+    "airSpawnCount": 3,
+    "spawnRejections": [
+      [
+        8,
+        0,
+        -34
+      ]
+    ],
+    "airSpawnRejections": [
+      [
+        -12,
+        0.5,
+        -18
+      ]
+    ],
+    "nav": {
+      "rays": 245,
+      "rayTriangles": 22384,
+      "movements": 42,
+      "substeps": 42,
+      "navSearches": 19,
+      "navExpanded": 56253,
+      "navCacheHits": 0,
+      "navDisconnected": 0,
+      "triangles": 20908,
+      "bins": 1971,
+      "navNodes": 25548,
+      "navLayers": 11119,
+      "navTiming": {
+        "rasterMs": 46.700000047683716,
+        "prewarmMs": 1276.0999999046326,
+        "edges": 182771,
+        "components": 139,
+        "totalMs": 1322.7999999523163
+      },
+      "cachedPaths": 0
+    }
+  },
+  "dressing": {
+    "windows": 103,
+    "doors": 10,
+    "archedSurrounds": 1,
+    "facadeMouldings": 41,
+    "roofTiles": 2600,
+    "eaves": 137,
+    "drainpipes": 20,
+    "windowBoxes": 23,
+    "marketFruit": 309,
+    "fruitFinishVersion": 3,
+    "canopies": 1,
+    "replacedCanopyFaceIds": [
+      5257,
+      5258,
+      5259,
+      5260,
+      5261,
+      5262,
+      5263,
+      5264,
+      5265,
+      5266,
+      5267,
+      5271,
+      5280,
+      5288,
+      5289,
+      5399,
+      5400,
+      5401,
+      5418,
+      5419,
+      5814,
+      5815,
+      5816,
+      5817,
+      5818,
+      5819,
+      5820,
+      5821,
+      5822,
+      5823,
+      5824,
+      5828,
+      5829,
+      5830,
+      5831,
+      5838,
+      5839,
+      5841,
+      5870,
+      5961,
+      5964,
+      5965
+    ],
+    "crateFaces": 107,
+    "crateBraces": 76,
+    "crateSlats": 522,
+    "glazedPanes": 302,
+    "bottles": 2,
+    "chickens": 2,
+    "meshes": 190,
+    "triangles": 181490,
+    "collisionChanges": 0,
+    "sourceUVAligned": true,
+    "canopyFootprint": {
+      "min": [
+        9.9568,
+        6.2992
+      ],
+      "max": [
+        18.0848,
+        13.208
+      ],
+      "sourceTopMaximumDeviation": 0.05,
+      "collision": "retained source BSP"
+    },
+    "recessedWindows": 12,
+    "recessReveals": 48,
+    "recessBackPanels": 12,
+    "recessSashBoards": 189,
+    "archSurround": {
+      "sourceFaces": [
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270
+      ],
+      "triangles": 1020,
+      "segments": 100,
+      "maximumProjection": 0.046,
+      "nativeApertureRetained": true
+    }
+  },
+  "backdrop": {
+    "setting": "Italian hillside village",
+    "buildings": 24,
+    "cypresses": 34,
+    "terrainLayers": 3,
+    "tris": 36756,
+    "drawCalls": 41,
+    "collisionChanges": 0,
+    "clearanceMargin": 12,
+    "sourceXZ": {
+      "min": [
+        -42.2656,
+        -65.8368
+      ],
+      "max": [
+        29.6672,
+        65.024
+      ]
+    },
+    "bounds": {
+      "min": [
+        -436.556,
+        -15,
+        -472.374
+      ],
+      "max": [
+        348.065,
+        58.796,
+        316.603
+      ]
+    },
+    "extentRule": "Every backdrop vertex lies outside the source XZ bounding rectangle expanded by 12 metres."
+  },
+  "warmup": {
+    "complete": true,
+    "meshes": 966,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "45984fd7-4340-4f67-a198-d63292f1c5ed",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "299154f2-bb5a-4f64-a0ae-9f1cfe85429a",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "b2e47d35-cb37-4c2f-9189-753f413a39aa",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "9e4fc170-cdb6-44cf-894c-5335cf5f02d9",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "5f10029e-d321-4820-a6fe-3153a5d56a2c",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 915,
+      "textures": 167
+    },
+    "after": {
+      "geometries": 953,
+      "textures": 207
+    },
+    "restored": true,
+    "elapsedMs": 4409.4,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "errors": [],
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)"
+}

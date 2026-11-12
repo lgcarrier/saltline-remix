@@ -1,0 +1,671 @@
+{
+  "kind": "standalone file and normal keyboard controls",
+  "checks": {
+    "fileReady": {
+      "title": "Italy",
+      "ready": true,
+      "diagnostics": {
+        "map": {
+          "file": "cs_italy_cs16.zip",
+          "bspVersion": 30,
+          "bspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+          "map": "cs_italy",
+          "originalTitle": "cs_italy",
+          "attribution": "Counter-Strike / Valve source assets supplied by user; original map authorship not encoded in BSP"
+        },
+        "lighting": {
+          "sourceFixtures": 38,
+          "practicalFixtures": 3,
+          "activeLightBudget": 8,
+          "fixtureBatches": 4,
+          "weather": "dry",
+          "sky": "Mediterranean afternoon",
+          "sunDirection": [
+            -0.4802642179998424,
+            0.7904348587914073,
+            0.3802091725832086
+          ],
+          "sunIntensity": 4.6,
+          "shadow": {
+            "centerBlocker": true,
+            "filterTaps": 24,
+            "searchTaps": 12,
+            "sunHalfAngle": 0.00465
+          }
+        },
+        "materials": {
+          "version": 4,
+          "concreteFinish": "original concrete chart uses cast cement with trowel clouds, worn paste, 3–12 mm aggregate and sparse 1.4 mm pores; source diagnostic mode retains source pixels",
+          "sourceSupportedContactSegments": 3715,
+          "contactFieldSize": 512,
+          "contactHeightGated": true,
+          "microdetailDistanceFiltered": true,
+          "referenceMode": false,
+          "activeFallbacks": [],
+          "reusedMaterials": [
+            "steel_dark"
+          ],
+          "uniquePbrSets": 8,
+          "normalOrmSize": 512,
+          "sourceDetailAtlases": 62,
+          "recreatedTextures": [
+            "{ornateGate",
+            "{rustyrungs",
+            "{wineRack",
+            "{wineRack1",
+            "{wineRack2"
+          ],
+          "generatedAlbedos": 4,
+          "gpuUploadLimit": {
+            "hero": 1024,
+            "secondary": 768,
+            "physicalAlbedo": 1024
+          },
+          "remasteredAtlases": [
+            "64crate0",
+            "64crate1",
+            "64crateTop",
+            "bStuccoBrdr",
+            "bStuccoWnd",
+            "bigCrate0",
+            "bigCrate2",
+            "bigCrateTop",
+            "blueHangingRug",
+            "blueRug",
+            "crateBox",
+            "crateBoxLabel",
+            "floweredWindow",
+            "groutTiles",
+            "gryStuccoSpade",
+            "magHangingRug",
+            "oakDoor",
+            "oldDoor",
+            "oldWood",
+            "panelWood",
+            "redHangingRug",
+            "redRug",
+            "shutteredWindow",
+            "windowHalf",
+            "windowWhite",
+            "wlPaper",
+            "wlPaper1",
+            "wlStuccoBrdr",
+            "wlStuccoWnd",
+            "woodedWindow",
+            "{hangingIvy1",
+            "~blueRug"
+          ],
+          "missingTextures": [],
+          "retainedTextureBytes": 150936235,
+          "bakeMs": 867,
+          "heightData": "bounded luminance-derived micro-relief for generated albedo; deterministic procedural stone/wood; no measured height or displacement",
+          "channels": [
+            "sRGB albedo",
+            "linear normal",
+            "linear ORM"
+          ]
+        },
+        "sourceGeometry": {
+          "renderTriangles": 19193,
+          "meshes": 603,
+          "replacedCanopyFaces": 42
+        },
+        "objectiveChecks": [
+          {
+            "id": "relay_a",
+            "floor": -3.86080002784729,
+            "pathNodes": 88
+          },
+          {
+            "id": "relay_b",
+            "floor": 0.20319999754428864,
+            "pathNodes": 116
+          },
+          {
+            "id": "relay_c",
+            "floor": 3.251199960708618,
+            "pathNodes": 181
+          }
+        ],
+        "shotChecks": [
+          {
+            "index": 0,
+            "feet": [
+              -19.5,
+              -6.1,
+              44
+            ],
+            "floor": -6.0960001945495605,
+            "standing": true,
+            "pathNodes": 5
+          },
+          {
+            "index": 1,
+            "feet": [
+              17,
+              -4.064,
+              3
+            ],
+            "floor": -4.064000129699707,
+            "standing": true,
+            "pathNodes": 78
+          },
+          {
+            "index": 2,
+            "feet": [
+              -26,
+              0.20320000000000005,
+              -32
+            ],
+            "floor": 0.20319999754428864,
+            "standing": true,
+            "pathNodes": 115
+          },
+          {
+            "index": 3,
+            "feet": [
+              6.9088,
+              0,
+              -55.0672
+            ],
+            "floor": 0,
+            "standing": true,
+            "pathNodes": 156
+          },
+          {
+            "index": 4,
+            "feet": [
+              23.4,
+              3.2512,
+              -55
+            ],
+            "floor": 3.251199960708618,
+            "standing": true,
+            "pathNodes": 196
+          }
+        ],
+        "spawnCount": 14,
+        "groundSpawnCount": 11,
+        "airSpawnCount": 3,
+        "spawnRejections": [
+          [
+            8,
+            0,
+            -34
+          ]
+        ],
+        "airSpawnRejections": [
+          [
+            -12,
+            0.5,
+            -18
+          ]
+        ],
+        "nav": {
+          "rays": 0,
+          "rayTriangles": 0,
+          "movements": 0,
+          "substeps": 0,
+          "navSearches": 19,
+          "navExpanded": 56253,
+          "navCacheHits": 0,
+          "navDisconnected": 0,
+          "triangles": 20908,
+          "bins": 1971,
+          "navNodes": 25548,
+          "navLayers": 11119,
+          "navTiming": {
+            "rasterMs": 46.09999990463257,
+            "prewarmMs": 1281.9000000953674,
+            "edges": 182771,
+            "components": 139,
+            "totalMs": 1328
+          },
+          "cachedPaths": 0
+        }
+      },
+      "warmup": null
+    },
+    "initialInput": {
+      "state": "playing",
+      "locked": false,
+      "mode": "drag",
+      "focused": true
+    },
+    "earlyExtraction": {
+      "ok": true,
+      "target": [
+        -17.4752,
+        -6.096,
+        50.8
+      ],
+      "checkpoints": [
+        {
+          "target": [
+            -17.4752,
+            -6.096,
+            50.8
+          ],
+          "pos": [
+            -17.59158120947989,
+            -6.0960001945495605,
+            50.66150012496509
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            -17.4752,
+            -6.096,
+            50.8
+          ],
+          "pos": [
+            -17.59158120947989,
+            -6.0960001945495605,
+            50.66150012496509
+          ],
+          "health": 100
+        }
+      ],
+      "state": {
+        "state": "playing",
+        "pos": [
+          -17.578672039426166,
+          -6.0960001945495605,
+          50.68207915272395
+        ],
+        "eye": [
+          -17.587633445606357,
+          -4.4063619601222195,
+          50.68770061927991
+        ],
+        "yaw": -2.5813430002002713,
+        "pitch": 0,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 0,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 30,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 0,
+          "hits": 0,
+          "kills": 0
+        },
+        "errors": []
+      },
+      "elapsedMs": 2270,
+      "after": {
+        "state": "playing",
+        "pos": [
+          -17.45236845605838,
+          -6.0960001945495605,
+          50.88342478047175
+        ],
+        "eye": [
+          -17.45236889928407,
+          -4.416074704300451,
+          50.88342505850606
+        ],
+        "yaw": -2.5813430002002713,
+        "pitch": 0,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 0,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 30,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 0,
+          "hits": 0,
+          "kills": 0
+        },
+        "errors": []
+      }
+    },
+    "fired": {
+      "state": "playing",
+      "pos": [
+        -17.45236845605838,
+        -6.0960001945495605,
+        50.88342478047175
+      ],
+      "eye": [
+        -17.452368456814824,
+        -4.416002747284014,
+        50.88342478094616
+      ],
+      "yaw": -2.5814470495988027,
+      "pitch": 0.002200886878128629,
+      "health": 100,
+      "alive": true,
+      "invulnerable": false,
+      "cut": 0,
+      "relays": [
+        {
+          "id": "relay_a",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_b",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_c",
+          "cut": false,
+          "progress": 0
+        }
+      ],
+      "ammo": 29,
+      "reserve": 150,
+      "weaponState": "idle",
+      "lookScale": 1,
+      "sensitivity": 1,
+      "ads": 0,
+      "combat": {
+        "shots": 1,
+        "hits": 0,
+        "kills": 0
+      },
+      "errors": []
+    },
+    "reloaded": {
+      "state": "playing",
+      "pos": [
+        -17.45236845605838,
+        -6.0960001945495605,
+        50.88342478047175
+      ],
+      "eye": [
+        -17.45236845605838,
+        -4.416000194549561,
+        50.88342478047175
+      ],
+      "yaw": -2.5814470495988027,
+      "pitch": 0.002200886878128629,
+      "health": 100,
+      "alive": true,
+      "invulnerable": false,
+      "cut": 0,
+      "relays": [
+        {
+          "id": "relay_a",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_b",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_c",
+          "cut": false,
+          "progress": 0
+        }
+      ],
+      "ammo": 30,
+      "reserve": 149,
+      "weaponState": "idle",
+      "lookScale": 1,
+      "sensitivity": 1,
+      "ads": 0,
+      "combat": {
+        "shots": 1,
+        "hits": 0,
+        "kills": 0
+      },
+      "errors": []
+    },
+    "jump": {
+      "height": 0.9401367520257011,
+      "onGround": false
+    },
+    "crouch": {
+      "crouching": true,
+      "eyeHeight": 1.0714946295526326
+    },
+    "stand": {
+      "crouching": false,
+      "eyeHeight": 1.6726592976553567
+    },
+    "pause": {
+      "state": "paused",
+      "displacement": 0
+    },
+    "resume": "playing",
+    "audioNumerics": {
+      "kind": "offline mix checks, not an audible listening test",
+      "outdoor": {
+        "interior": false,
+        "renderMs": 965,
+        "steps": 499,
+        "peak": 0.818,
+        "over": 0,
+        "nan": 0,
+        "rmsDb": [
+          -26.8,
+          -24.5,
+          -22.5,
+          -22.1,
+          -22,
+          -22.6,
+          -14.1,
+          -14.5,
+          -14.8,
+          -13.9,
+          -14.4,
+          -14.6,
+          -14.1,
+          -15.4,
+          -12.6,
+          -14.9,
+          -16.2,
+          -13.6,
+          -14.1,
+          -13.5
+        ],
+        "inst": {
+          "state": "closed",
+          "sampleRate": 48000,
+          "buffers": 0,
+          "queued": 0,
+          "genMs": 0,
+          "bootMs": 0,
+          "voices": 1,
+          "loops": 6,
+          "tracked": 2,
+          "music": true,
+          "intensity": 0.89,
+          "interior": 0,
+          "gameState": "playing",
+          "reverb": [
+            true,
+            true
+          ]
+        }
+      },
+      "interior": {
+        "interior": true,
+        "renderMs": 943,
+        "steps": 499,
+        "peak": 0.803,
+        "over": 0,
+        "nan": 0,
+        "rmsDb": [
+          -26.6,
+          -21.7,
+          -19.9,
+          -20,
+          -19.7,
+          -19.6,
+          -13.5,
+          -13.7,
+          -13.6,
+          -13.1,
+          -13.6,
+          -13.6,
+          -12.9,
+          -13.4,
+          -12.3,
+          -14.1,
+          -15.4,
+          -13,
+          -13.6,
+          -13.4
+        ],
+        "inst": {
+          "state": "closed",
+          "sampleRate": 48000,
+          "buffers": 0,
+          "queued": 0,
+          "genMs": 0,
+          "bootMs": 0,
+          "voices": 1,
+          "loops": 6,
+          "tracked": 2,
+          "music": true,
+          "intensity": 0.89,
+          "interior": 1,
+          "gameState": "playing",
+          "reverb": [
+            true,
+            true
+          ]
+        }
+      }
+    },
+    "failureRetry": {
+      "tested": false,
+      "reason": "Opt-in via ITALY_TEST_FAILURE=1; normal mission QA records its own real-input death/retry evidence."
+    },
+    "mapLinks": [
+      {
+        "name": "Assault",
+        "href": "index.html"
+      },
+      {
+        "name": "Dust",
+        "href": "dust.html"
+      },
+      {
+        "name": "Italy",
+        "href": "italy.html"
+      },
+      {
+        "name": "Saltline original",
+        "href": "original.html"
+      }
+    ],
+    "italyLink": {
+      "url": "http://127.0.0.1:8767/italy.html",
+      "title": "Italy"
+    }
+  },
+  "documentSha256": "8739fe1f58efbaa4c86f0d30b0b2c8bd4a6670f1274b12fd7b104ec2a5bb0392",
+  "before": {
+    "state": "playing",
+    "pos": [
+      -19.5072,
+      -6.0960001945495605,
+      47.1424
+    ],
+    "eye": [
+      -19.5072,
+      -4.416000194549561,
+      47.1424
+    ],
+    "yaw": -0.017453,
+    "pitch": 0,
+    "health": 100,
+    "alive": true,
+    "invulnerable": false,
+    "cut": 0,
+    "relays": [
+      {
+        "id": "relay_a",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_b",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_c",
+        "cut": false,
+        "progress": 0
+      }
+    ],
+    "ammo": 30,
+    "reserve": 150,
+    "weaponState": "idle",
+    "lookScale": 1,
+    "sensitivity": 1,
+    "ads": 0,
+    "combat": {
+      "shots": 0,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": []
+  },
+  "standaloneRequests": [
+    "file:///Users/lgcarrier/Developer/saltline-remix/italy.html?q=high&dynres=0&seed=4207",
+    "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@400;500;600&display=swap",
+    "https://fonts.gstatic.com/s/bigshouldersdisplay/v24/fC1_PZJEZG-e9gHhdI4-NBbfd2ys3SjJCx1czNDuDJAM2w.woff2",
+    "https://fonts.gstatic.com/s/ibmplexmono/v23/-F63fjptAgt5VM-kVkqdyU8n1i8q131nj-o.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuYMBYro.woff2",
+    "https://fonts.gstatic.com/s/ibmplexmono/v23/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgsAXHNk.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4-Lwz3bWuYMBYro.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTx3L3I-JCGChYJ8VI-L6OO_au7B6xHT2lv0tKk.woff2"
+  ],
+  "standaloneErrors": [],
+  "errors": [],
+  "ok": true
+}

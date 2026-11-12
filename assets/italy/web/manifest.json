@@ -1,0 +1,290 @@
+{
+  "limestone-cobble-albedo.png": {
+    "sourceSha256": "22f6a64154e4a8ef87791ba2ed6589633cc34eb6afd02fca0036cf5753c8e8dc",
+    "encodedSha256": "77b6d5fb5471d2eed2b8325cb3a965f634cc176730558db067461094e8c29c64",
+    "path": "web/limestone-cobble-albedo.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3744962,
+    "encodedBytes": 891448
+  },
+  "limestone-wall-albedo.png": {
+    "sourceSha256": "9f5c4af5d4a2521c9907a2348e563b9f901737e8c8d7ad76a0e37dea69d211ec",
+    "encodedSha256": "9ccaadd8e833c30c246612a2c9740a785064137c271ba59f504fbfd8085ac0c7",
+    "path": "web/limestone-wall-albedo.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3908377,
+    "encodedBytes": 930435
+  },
+  "ochre-plaster-albedo.png": {
+    "sourceSha256": "1d45a5690f7959dabe898a76f4ea2961b64fbe2d25f2048e134ae23589298cb2",
+    "encodedSha256": "bed2bd204195c98b32ac50fef2aebe054092c623c679ce95b3c4d977d087f502",
+    "path": "web/ochre-plaster-albedo.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3599750,
+    "encodedBytes": 824926
+  },
+  "remaster/64crate0.png": {
+    "sourceSha256": "b7ea1572600a56b6431249c563a346d1b317a8d9624c427409197f1383bfdd54",
+    "encodedSha256": "bc60be5ef8fc56897226e4259b9fef93ee33871d088627ac8529a9d6e55c4f1d",
+    "path": "web/remaster/64crate0.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3401270,
+    "encodedBytes": 800933
+  },
+  "remaster/64crate1.png": {
+    "sourceSha256": "fc124e330fdbd628f8a3a5899efb41ab24aa88410aad38766ec264bf8e040904",
+    "encodedSha256": "388df427c935f29af2c6291adcf0b9bf49e4732e13bfe246af5d027b6d43f71f",
+    "path": "web/remaster/64crate1.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3178586,
+    "encodedBytes": 764047
+  },
+  "remaster/64crateTop.png": {
+    "sourceSha256": "2ca69deb0eb3c3f6dd81ab7959036cedf287bb0e8cb321bdae1b75445ee2a800",
+    "encodedSha256": "548bd74d3e7877d884a3fe0222bd6ffd5c29160a851eba5bb64e7bdf8f47e683",
+    "path": "web/remaster/64crateTop.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3129950,
+    "encodedBytes": 769053
+  },
+  "remaster/bStuccoBrdr.png": {
+    "sourceSha256": "5b5efc20df25f04568259f99c17e6651b79d6c26a6ef60c61c2ac2749f26fdc0",
+    "encodedSha256": "26780691b202edd7e57794c64918c936da3bbf757f531140379a48d2447c8cd7",
+    "path": "web/remaster/bStuccoBrdr.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3534487,
+    "encodedBytes": 781922
+  },
+  "remaster/bStuccoWnd.png": {
+    "sourceSha256": "b5c5dfcca73975b9d538d355760b35e8f9ebcbe1c54f92dd842c119a020504f5",
+    "encodedSha256": "a91285833433c4d8423011a23654e1d8d87f5e14b5818d688d6c7156f83004d1",
+    "path": "web/remaster/bStuccoWnd.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3955902,
+    "encodedBytes": 943975
+  },
+  "remaster/bigCrate0.png": {
+    "sourceSha256": "cb696c454ce42e3fb6e5172c0e0216098f0c76a6537083eb5ad777a8292c1617",
+    "encodedSha256": "a202d258c5d69964959f3e02abd8067e4c0eac7aefe3ca4401045a28046e0735",
+    "path": "web/remaster/bigCrate0.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3403365,
+    "encodedBytes": 799584
+  },
+  "remaster/bigCrate2.png": {
+    "sourceSha256": "9053394dcb91d4b500c55c69c147986f5ff7e3983b6b38a3479585b9d046af62",
+    "encodedSha256": "070ca97d3137c3b7984abf5e0524e1b3537d012c68ccd4661e0d80e222f30d04",
+    "path": "web/remaster/bigCrate2.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3564490,
+    "encodedBytes": 828570
+  },
+  "remaster/bigCrateTop.png": {
+    "sourceSha256": "e79640b2954147bdde57b659809a060687210ddc017a5af6c7ed8e0f50c62734",
+    "encodedSha256": "e1554b021b6fca270a7f519c1b2033d1969591f5da40f4328db0d44b297a624c",
+    "path": "web/remaster/bigCrateTop.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3451447,
+    "encodedBytes": 824651
+  },
+  "remaster/blueRug.png": {
+    "sourceSha256": "d65af34af6aff0de7311fa7e01cfa445cabf6aef409b596c7944eb01081a234d",
+    "encodedSha256": "6c77db1c434b597b4e1745fac2fe4f59c65c8540129d48f23ae326e3ced1bb34",
+    "path": "web/remaster/blueRug.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3627452,
+    "encodedBytes": 881873
+  },
+  "remaster/crateBox.png": {
+    "sourceSha256": "1800488ea9d28583b33a98b999ba63f84213178d0e567ccbbd7e016d983d93a7",
+    "encodedSha256": "83465a97be1c75ce34ce97843649260b1bf49686cb6b59697e422b6d892828b0",
+    "path": "web/remaster/crateBox.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3473478,
+    "encodedBytes": 819838
+  },
+  "remaster/crateBoxLabel.png": {
+    "sourceSha256": "b5f0b5d4bf4d7a5cc827f9782fa38b5561f321b721cb625a9a4f43982f908623",
+    "encodedSha256": "f3c86f478b37f9b1e73b93a3f02eef0a79376c8f06887bd4424295d3a6a84fdb",
+    "path": "web/remaster/crateBoxLabel.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3423282,
+    "encodedBytes": 802220
+  },
+  "remaster/floweredWindow.png": {
+    "sourceSha256": "bf24e479f0f3d1511aecedc0e9c55bc9d84fdbaaa77552a91bb6bde815588c13",
+    "encodedSha256": "c612056ac9204301617bd04a70abecee9a0b1c3df339b2838e140e55bcfd1ffc",
+    "path": "web/remaster/floweredWindow.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2998135,
+    "encodedBytes": 701287
+  },
+  "remaster/groutTiles.png": {
+    "sourceSha256": "0617f430774e8637d8d58e67edbcdf6657ca698f8fd6fe3ea607c54308e08e5c",
+    "encodedSha256": "bbeaab291e96261ad80998c6cefc5f795065b2e1edd07cc5fc6f539923d2a5a8",
+    "path": "web/remaster/groutTiles.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2684081,
+    "encodedBytes": 545230
+  },
+  "remaster/gryStuccoSpade.png": {
+    "sourceSha256": "8554dc3cc0cb957b63a38f2f8b5f0d37f4065efbf0173a2ea0634ae076547c24",
+    "encodedSha256": "6c1605cd97fffd04848aa1426e75daae15d48ce9a2af1d9b9892e3b96978c785",
+    "path": "web/remaster/gryStuccoSpade.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3152627,
+    "encodedBytes": 685762
+  },
+  "remaster/oakDoor.png": {
+    "sourceSha256": "e103cbba7b4baa82e1d8068a94be307d8a41707849eb200c2ef2a3a78f7d1ad7",
+    "encodedSha256": "53f5d6a22cf5a61f0a4eb94cf7a4f07673183667d61330f34f2ddd764d196a57",
+    "path": "web/remaster/oakDoor.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2893758,
+    "encodedBytes": 678883
+  },
+  "remaster/oldDoor.png": {
+    "sourceSha256": "58d0aa4428054ad8e164d771520c8bbd8ff2ce565ab841f2d2a7e0fa8004e12a",
+    "encodedSha256": "eb7c3ba8a95df2809cc6013a092d1124c82646a48df2ca09d9c189c9e2454da6",
+    "path": "web/remaster/oldDoor.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3480128,
+    "encodedBytes": 814388
+  },
+  "remaster/oldWood.png": {
+    "sourceSha256": "de98a2194914f4383c5781a35ebbcd8297649862c1f76e526b9a3cfbda46a928",
+    "encodedSha256": "5ff4fac55e30a2bc111ef186b13c5268acff99f0729ea4e4cb25b5edab64a861",
+    "path": "web/remaster/oldWood.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3315644,
+    "encodedBytes": 781255
+  },
+  "remaster/panelWood.png": {
+    "sourceSha256": "f9f7b6ad627f4b9d532875071658a44d2ed36d315349758bbfbb75068912b5f9",
+    "encodedSha256": "89c98c5f2e72710393ed5e722351008a15b601edfe6a656e5e992a6c6255c3eb",
+    "path": "web/remaster/panelWood.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3162459,
+    "encodedBytes": 758421
+  },
+  "remaster/redHangingRug.png": {
+    "sourceSha256": "744a22b51f0e697987159500b059b28a7ed64c79f82ee188c346792df61ca351",
+    "encodedSha256": "687a7ddb92016643e6cf8d33963f79f2431a0ee0ccecdaed876e523f2fa5fc0a",
+    "path": "web/remaster/redHangingRug.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3939502,
+    "encodedBytes": 1063188
+  },
+  "remaster/redRug.png": {
+    "sourceSha256": "1ff3bb3c6d8fc3db548d2ee62a5db5daa4d29c5d6ee80bda3e34c9b05681a0e7",
+    "encodedSha256": "ee8b91854e76732a74d247c143e10053f6043951e78045d3b5e36075e7c5703a",
+    "path": "web/remaster/redRug.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3739434,
+    "encodedBytes": 961552
+  },
+  "remaster/shutteredWindow.png": {
+    "sourceSha256": "61774d305170fb27e75847aec4421fe1d0477719489f04dde1602afc85005307",
+    "encodedSha256": "0425774a6710b9f04cc7f3d6a801f6a278717aa6f78c590d6b19eb78337d2f88",
+    "path": "web/remaster/shutteredWindow.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2852397,
+    "encodedBytes": 672243
+  },
+  "remaster/windowHalf.png": {
+    "sourceSha256": "04430595cd5e66480875aa3d65a59b5e954ed26387ff87b591f91b6036a82793",
+    "encodedSha256": "247f6f54b92acded69de896bb0688222bede884d4b2bfe91ebaf8e767be299e6",
+    "path": "web/remaster/windowHalf.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2566057,
+    "encodedBytes": 564315
+  },
+  "remaster/windowWhite.png": {
+    "sourceSha256": "014fad6a8892ae9986906fdb2f30197792a121e9c4cf1445402b8ef85b02e798",
+    "encodedSha256": "2855d9df373151a3a3e86252686dc263997a51dc64697921e8812f1d89accdd6",
+    "path": "web/remaster/windowWhite.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2710001,
+    "encodedBytes": 600701
+  },
+  "remaster/wlPaper.png": {
+    "sourceSha256": "bbd013c6c3866c4b04e3efe1d8cbf869e747053553070fdec41a311641109bdc",
+    "encodedSha256": "d78dff11084a5ad60dd0b6da301c458b062287feade1d4217eac4cfa72b12475",
+    "path": "web/remaster/wlPaper.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3200706,
+    "encodedBytes": 805170
+  },
+  "remaster/wlPaper1.png": {
+    "sourceSha256": "b93d6f6a87d60fb26f2af7349f63acdf9ad61f6349d46fa13a97a246d83319ae",
+    "encodedSha256": "b4ce3c5b3493b974250fcd092675c38c94e82a62bf60ef7f297ef1e2b6062612",
+    "path": "web/remaster/wlPaper1.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3066703,
+    "encodedBytes": 718863
+  },
+  "remaster/wlStuccoBrdr.png": {
+    "sourceSha256": "c5a389b7546339a2e5e0546e4f309420bc2cef40c9356da1a7a4eed745b4628f",
+    "encodedSha256": "a21f320907f3bad5912e622b057283018eca6de3bcda9077e9ab55188ba00ddf",
+    "path": "web/remaster/wlStuccoBrdr.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3425626,
+    "encodedBytes": 757329
+  },
+  "remaster/wlStuccoWnd.png": {
+    "sourceSha256": "1dfa5a12f9a0694a593a8c899c370891ee2ed87f93586a28806d980bb4f702db",
+    "encodedSha256": "d4ea6db1a8747adeac70551f71c09fca7ccda1346e61ebbb36d91cb1de8ca607",
+    "path": "web/remaster/wlStuccoWnd.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3971363,
+    "encodedBytes": 922543
+  },
+  "remaster/woodedWindow.png": {
+    "sourceSha256": "d1e1904c722fcaee31504393ec776af6dfc764384238026248a0956d52ee5cb8",
+    "encodedSha256": "e0e52d94bc83cae59049fb83a98acbb837b06aae3f498ffdcd9a9c1308b8b24f",
+    "path": "web/remaster/woodedWindow.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 2958370,
+    "encodedBytes": 677486
+  },
+  "terracotta-roof-albedo.png": {
+    "sourceSha256": "dd785544d5da4e59d3190afcf41ece6ca20370bf97279c418e761b426e6adf05",
+    "encodedSha256": "9a0289c8e8a82f6b74c2fabfadf8a3382c67d487e88baec922b113407a234a36",
+    "path": "web/terracotta-roof-albedo.jpg",
+    "mime": "image/jpeg",
+    "quality": 92,
+    "sourceBytes": 3117692,
+    "encodedBytes": 761570
+  }
+}

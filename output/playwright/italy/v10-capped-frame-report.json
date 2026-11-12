@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "duration_requested_ms": 60000,
+    "mode": "normal keyboard traversal, live enemies and audio, fixed high quality",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+    "viewport": [
+      1600,
+      900
+    ],
+    "dpr": 1,
+    "drawingBuffer": [
+      1600,
+      900
+    ],
+    "quality": {
+      "name": "high",
+      "scale": 1,
+      "msaa": 4,
+      "shadow": 4096,
+      "tex": 1024,
+      "volSteps": 24,
+      "ao": true,
+      "planar": 0.5,
+      "bloom": true,
+      "motionBlur": true,
+      "rain": 0
+    },
+    "audio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1173,
+      "bootMs": 95,
+      "voices": 2,
+      "loops": 10,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.15,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "stubs": {
+      "mats": false,
+      "physics": false,
+      "props": false,
+      "level": false,
+      "ground": false,
+      "enemies": false,
+      "weapon": false,
+      "audio": false
+    },
+    "startPlayer": [
+      -19.5072,
+      -6.0960001945495605,
+      47.1424
+    ],
+    "startStats": {
+      "calls": 1683,
+      "tris": 683724,
+      "geos": 928,
+      "tex": 197,
+      "programs": 212,
+      "res": [
+        1600,
+        900
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 30,
+      "state": "playing"
+    },
+    "recording": false,
+    "endStats": {
+      "calls": 223,
+      "tris": 129628,
+      "geos": 928,
+      "tex": 197,
+      "programs": 212,
+      "res": [
+        1600,
+        900
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 30,
+      "state": "playing"
+    },
+    "endAudio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1173,
+      "bootMs": 95,
+      "voices": 2,
+      "loops": 8,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.15,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "completed": true,
+    "documentSha256": "ea8b6f1f0aaf06e1fef494c3cf8cb4c8ec5cba2de3e0773973a0f867defa0e15",
+    "runtimeErrors": [],
+    "energySaverEnabled": true,
+    "powerProfileEvidence": "power-profile.json"
+  },
+  "method": "wall-clock frame intervals; percentiles use linear interpolation",
+  "samples": 1740,
+  "discarded_samples": 60,
+  "discarded_ms": 2000.4,
+  "measured_ms": 58000.1,
+  "mean_ms": 33.333,
+  "p50_ms": 33.3,
+  "p95_ms": 34.7,
+  "p99_ms": 35.0,
+  "max_ms": 35.3,
+  "average_delivered_fps": 30.0,
+  "budget_ms": 16.67,
+  "over_budget_frames": 1740,
+  "over_budget_percent": 100.0,
+  "warnings": []
+}

@@ -76,7 +76,7 @@ def classify(name):
     return "dust_plaster"
 
 
-def extract(blob, source_name):
+def extract(blob, source_name, surface_category=None):
     version = struct.unpack_from("<i", blob)[0]
     if version != 30:
         raise ValueError(f"Expected GoldSrc BSP v30, got {version}")
@@ -191,7 +191,8 @@ def extract(blob, source_name):
             model_textures.add(texture)
             tool = texture.lower() in {"sky", "aaatrigger", "origin", "clip", "{invisible", "null", "nodraw", "skip", "hint"}
             renderable = not tool
-            collidable = cls != "func_illusionary" and texture.lower() not in {"aaatrigger", "origin", "null", "nodraw", "skip", "hint"}
+            collidable = cls != "func_illusionary" and (texture.lower() not in {"aaatrigger", "origin", "null", "nodraw", "skip", "hint"}
+                         or cls == "func_breakable" and texture.lower() == "aaatrigger")
             if not renderable and not collidable:
                 skipped[texture] += 1
                 continue
@@ -245,7 +246,7 @@ def extract(blob, source_name):
                     collisions_by_model[model_id] += 1
             collision_count = len(own_collision) // 3 - collision_start
             if collision_count:
-                category = {"dust_sand": "dirt", "dust_door": "wood", "dust_crate": "wood", "dust_military": "metal"}.get(classify(texture), "concrete")
+                category = surface_category(texture) if surface_category else {"dust_sand": "dirt", "dust_door": "wood", "dust_crate": "wood", "dust_military": "metal"}.get(classify(texture), "concrete")
                 if own_ranges and own_ranges[-1]["surface"] == category:
                     own_ranges[-1]["count"] += collision_count
                 else:

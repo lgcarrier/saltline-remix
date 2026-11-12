@@ -1,0 +1,3445 @@
+{
+  "kind": "CT approach, native crate staircase and upper window through real browser keys/mouse; no gameplay state writes",
+  "startedAt": "2026-11-12T04:54:56.499Z",
+  "steps": [
+    {
+      "name": "mouse-turn-calibration",
+      "ok": true,
+      "calibration": [
+        {
+          "targetYaw": -0.17809293823119754,
+          "actualYaw": -0.177053,
+          "error": 0.0010399382311975514,
+          "cursor": {
+            "x": 676,
+            "y": 450
+          }
+        },
+        {
+          "targetYaw": -1.4711276743037347,
+          "actualYaw": -1.470653,
+          "error": 0.0004746743037347123,
+          "cursor": {
+            "x": 1292,
+            "y": 450
+          }
+        },
+        {
+          "targetYaw": 0,
+          "actualYaw": -0.0006530000000001257,
+          "error": -0.0006530000000001257,
+          "cursor": {
+            "x": 592,
+            "y": 450
+          }
+        }
+      ],
+      "after": {
+        "state": "playing",
+        "pos": [
+          -19.5072,
+          -6.0960001945495605,
+          47.1424
+        ],
+        "eye": [
+          -19.5072,
+          -4.416000194549561,
+          47.1424
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -0.0006530000000001257,
+        "pitch": 0,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": -6.0960001945495605,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      }
+    },
+    {
+      "name": "walk-to-crates",
+      "ok": true,
+      "target": [
+        9.6,
+        0,
+        -57.1
+      ],
+      "checkpoints": [
+        {
+          "target": [
+            -6.625,
+            -3.86080002784729,
+            12.125
+          ],
+          "pos": [
+            -6.653547764645455,
+            -3.86080002784729,
+            12.188628496595182
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            3.125,
+            -3.86080002784729,
+            10.625
+          ],
+          "pos": [
+            3.1327982803369623,
+            -3.86080002784729,
+            10.63504848282031
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            3.875,
+            -3.86080002784729,
+            9.875
+          ],
+          "pos": [
+            3.8399355889096687,
+            -3.86080002784729,
+            9.911140104267256
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            9.125,
+            -4.064000129699707,
+            -6.625
+          ],
+          "pos": [
+            9.150838708592955,
+            -3.86080002784729,
+            -6.699845911184063
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            18.125,
+            -4.064000129699707,
+            -11.125
+          ],
+          "pos": [
+            18.090392688291175,
+            -3.86080002784729,
+            -11.118648211353214
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            18.875,
+            -4.064000129699707,
+            -12.625
+          ],
+          "pos": [
+            18.872286703992845,
+            -4.064000129699707,
+            -12.594401167030504
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            18.125,
+            -0.8127999901771545,
+            -38.875
+          ],
+          "pos": [
+            18.097758044347366,
+            -0.8127999901771545,
+            -38.79641251225491
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            16.625,
+            0,
+            -47.125
+          ],
+          "pos": [
+            16.635005270174307,
+            0,
+            -47.0373687573211
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            9.6,
+            0,
+            -57.1
+          ],
+          "pos": [
+            9.604638255993782,
+            0,
+            -57.09249152216912
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            9.6,
+            0,
+            -57.1
+          ],
+          "pos": [
+            9.604638255993782,
+            0,
+            -57.09249152216912
+          ],
+          "health": 100
+        }
+      ],
+      "state": {
+        "state": "playing",
+        "pos": [
+          9.604638255993782,
+          0,
+          -57.09249152216912
+        ],
+        "eye": [
+          9.612529897480215,
+          1.6828624814164552,
+          -57.09839265270862
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 0,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 26,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 4,
+          "hits": 4,
+          "kills": 2
+        },
+        "errors": []
+      },
+      "elapsedMs": 36387
+    },
+    {
+      "name": "crouch-bindings",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.46577514098335,
+          1.6799164444876131,
+          -57.27819556351413
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "withC": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.465774685002202,
+          1.1337744728228087,
+          -57.278195222545236
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "afterC": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.465774664824034,
+          1.607270654828243,
+          -57.27819520745661
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "withCtrl": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.46577466392954,
+          1.1241988453518692,
+          -57.27819520678774
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.46577466388964,
+          1.6052069675724565,
+          -57.27819520675791
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      }
+    },
+    {
+      "name": "low-crate",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          9.465774663888048,
+          0,
+          -57.27819520675671
+        ],
+        "eye": [
+          9.465774663888089,
+          1.6730424632699754,
+          -57.27819520675674
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": 0.642072200450766,
+        "pitch": 0.002606121919690431,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          10.79636716154768,
+          0.8381999731063843,
+          -57.11829120659802
+        ],
+        "eye": [
+          10.796320826242516,
+          2.516755469572357,
+          -57.11790564145039
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.6903977996493695,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0.8381999731063843,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "peak": 0.9999949530182461,
+      "elapsedMs": 832,
+      "trace": [
+        {
+          "elapsedMs": 6,
+          "pos": [
+            9.465774663888048,
+            0,
+            -57.27819520675671
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 84,
+          "pos": [
+            9.512493019168799,
+            0.43335277005589756,
+            -57.27258082676932
+          ],
+          "velocity": [
+            0.9151156219224628,
+            4.878440699409218,
+            0.10997405201851301
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 166,
+          "pos": [
+            9.62247854889541,
+            0.7662422876250318,
+            -57.259363311869905
+          ],
+          "velocity": [
+            1.6576728242250143,
+            3.1333406964051465,
+            0.1992108898961003
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 242,
+          "pos": [
+            9.774728271895611,
+            0.9421803398554179,
+            -57.241066696058816
+          ],
+          "velocity": [
+            2.327850803488812,
+            1.5583406964051467,
+            0.2797495521018512
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 317,
+          "pos": [
+            9.976990150267223,
+            0.9999949530182461,
+            -57.21675986771873
+          ],
+          "velocity": [
+            2.9971352108353284,
+            -0.014559300590779423,
+            0.3601808292710458
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 397,
+          "pos": [
+            10.253017218806741,
+            0.9257473271805602,
+            -57.18358830505837
+          ],
+          "velocity": [
+            3.275929248504717,
+            -1.7659593025934952,
+            0.39368491254381766
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 474,
+          "pos": [
+            10.480972033133744,
+            0.8381999731063843,
+            -57.15619382723708
+          ],
+          "velocity": [
+            3.460302656596092,
+            0,
+            0.4158419933394391
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 557,
+          "pos": [
+            10.676984913866667,
+            0.8381999731063843,
+            -57.13263797240778
+          ],
+          "velocity": [
+            2.522252055743656,
+            0,
+            0.30311172942216114
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 639,
+          "pos": [
+            10.758100496199194,
+            0.8381999731063843,
+            -57.12288990445084
+          ],
+          "velocity": [
+            -0.2863397499273898,
+            0,
+            -0.03441088950850726
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 722,
+          "pos": [
+            10.769475788784487,
+            0.8381999731063843,
+            -57.12152287826471
+          ],
+          "velocity": [
+            0.6654122557435984,
+            0,
+            0.07996594121425993
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 806,
+          "pos": [
+            10.79636716154768,
+            0.8381999731063843,
+            -57.11829120659802
+          ],
+          "velocity": [
+            0.047259961460746736,
+            0,
+            0.005679467529095941
+          ],
+          "onGround": true,
+          "crouching": false
+        }
+      ]
+    },
+    {
+      "name": "middle-crate",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          10.79636716154768,
+          0.8381999731063843,
+          -57.11829120659802
+        ],
+        "eye": [
+          10.79636598624211,
+          2.5180610826262337,
+          -57.11828142665022
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.6903977996493695,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 0.8381999731063843,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          11.94499993713875,
+          1.6510000228881836,
+          -56.89944453445746
+        ],
+        "eye": [
+          11.944877129498126,
+          3.3269752616829047,
+          -56.898799969567655
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.7590677992488264,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 1.6510000228881836,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "peak": 1.838198985426757,
+      "elapsedMs": 752,
+      "trace": [
+        {
+          "elapsedMs": 2,
+          "pos": [
+            10.79636716154768,
+            0.8381999731063843,
+            -57.11829120659802
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 78,
+          "pos": [
+            10.839109356904848,
+            1.265193025486974,
+            -57.11014762284117
+          ],
+          "velocity": [
+            0.8644497110200839,
+            4.905740698407863,
+            0.16470184945949065
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 159,
+          "pos": [
+            10.94487007396293,
+            1.6009828812663922,
+            -57.08999724801014
+          ],
+          "velocity": [
+            1.6009019257448154,
+            3.1564406944024297,
+            0.3050165956586286
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 235,
+          "pos": [
+            11.092570943754504,
+            1.7786534333465747,
+            -57.061856100975994
+          ],
+          "velocity": [
+            2.263974146367671,
+            1.5814406944024315,
+            0.43135040047062234
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 310,
+          "pos": [
+            11.290005854886795,
+            1.838198985426757,
+            -57.02423922795629
+          ],
+          "velocity": [
+            2.9270463669905267,
+            0.006440694402431613,
+            0.5576842052826163
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 391,
+          "pos": [
+            11.545355552530745,
+            1.7658771503535855,
+            -56.97558796817248
+          ],
+          "velocity": [
+            2.8992857424263296,
+            -1.7428593045962106,
+            0.5523950298111149
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 469,
+          "pos": [
+            11.753780971078761,
+            1.6510000228881836,
+            -56.93587709607477
+          ],
+          "velocity": [
+            3.298013173529945,
+            0,
+            0.62836375823547
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 550,
+          "pos": [
+            11.936882009500696,
+            1.6510000228881836,
+            -56.90099122673894
+          ],
+          "velocity": [
+            0.960069640074543,
+            0,
+            0.18292012052799556
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 627,
+          "pos": [
+            11.931818328653504,
+            1.6510000228881836,
+            -56.90195599957647
+          ],
+          "velocity": [
+            0.07499101669499778,
+            0,
+            0.014287886253023102
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 702,
+          "pos": [
+            11.949138315300294,
+            1.6510000228881836,
+            -56.89865605766317
+          ],
+          "velocity": [
+            -0.7032101943826911,
+            0,
+            -0.13398121151191672
+          ],
+          "onGround": true,
+          "crouching": false
+        }
+      ]
+    },
+    {
+      "name": "top-crate",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          11.94499993713875,
+          1.6510000228881836,
+          -56.89944453445746
+        ],
+        "eye": [
+          11.944996762951632,
+          3.3313349527260705,
+          -56.899427874504056
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.7590677992488264,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 1.6510000228881836,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          12.016552327364003,
+          2.4637999534606934,
+          -58.57264303560924
+        ],
+        "eye": [
+          12.01665750149107,
+          4.1419503986731145,
+          -58.57263853795987
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -0.04273779884828431,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 2.4637999534606934,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "peak": 2.65099903520702,
+      "elapsedMs": 942,
+      "trace": [
+        {
+          "elapsedMs": 2,
+          "pos": [
+            11.94499993713875,
+            1.6510000228881836,
+            -56.89944453445746
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 78,
+          "pos": [
+            11.94686224791122,
+            2.0765204082934754,
+            -56.94299326264626
+          ],
+          "velocity": [
+            0.03769608190572204,
+            4.912040697406505,
+            -0.8814943504388101
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 158,
+          "pos": [
+            11.951384565208755,
+            2.4090246442465233,
+            -57.04874423057554
+          ],
+          "velocity": [
+            0.0692654290519715,
+            3.1879406994092205,
+            -1.6197196446765203
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 234,
+          "pos": [
+            11.957944265372555,
+            2.591611521670652,
+            -57.20213785512839
+          ],
+          "velocity": [
+            0.09871989910314104,
+            1.5793407014119376,
+            -2.308490138390189
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 310,
+          "pos": [
+            11.96653710970104,
+            2.65099903520702,
+            -57.403075017475985
+          ],
+          "velocity": [
+            0.1275206799437187,
+            0.0064406994092215675,
+            -2.9819746045660187
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 387,
+          "pos": [
+            11.97733479030359,
+            2.592105455727599,
+            -57.6555706076753
+          ],
+          "velocity": [
+            0.15643681769841983,
+            -1.5727593015921366,
+            -3.6581566048871257
+          ],
+          "onGround": false,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 468,
+          "pos": [
+            11.990401997212713,
+            2.4637999534606934,
+            -57.96113735318523
+          ],
+          "velocity": [
+            0.13376704452208554,
+            0,
+            -3.12804111355712
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 546,
+          "pos": [
+            12.001704590397127,
+            2.4637999534606934,
+            -58.225439942040055
+          ],
+          "velocity": [
+            0.16235420123845942,
+            0,
+            -3.7965301412395265
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 628,
+          "pos": [
+            12.013486138312976,
+            2.4637999534606934,
+            -58.50094252486072
+          ],
+          "velocity": [
+            0.1277813014018949,
+            0,
+            -2.988069040151128
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 728,
+          "pos": [
+            12.018355844917984,
+            2.4637999534606934,
+            -58.614816928872926
+          ],
+          "velocity": [
+            -0.01922615540981758,
+            0,
+            0.4495890956731027
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 810,
+          "pos": [
+            12.017973601623979,
+            2.4637999534606934,
+            -58.60587845868915
+          ],
+          "velocity": [
+            0.00837405914705757,
+            0,
+            -0.19582103643644683
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 888,
+          "pos": [
+            12.017126317811396,
+            2.4637999534606934,
+            -58.58606536787834
+          ],
+          "velocity": [
+            -0.026925161769763027,
+            0,
+            0.6296245335007726
+          ],
+          "onGround": true,
+          "crouching": false
+        }
+      ]
+    },
+    {
+      "name": "window-lineup",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          12.016552327364003,
+          2.4637999534606934,
+          -58.57264303560924
+        ],
+        "eye": [
+          12.016555012498635,
+          4.143374125514172,
+          -58.57264292078258
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -0.04273779884828431,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 2.4637999534606934,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          12.45873806795726,
+          2.4637999534606934,
+          -58.558753186627314
+        ],
+        "eye": [
+          12.458747724710738,
+          4.141302961718513,
+          -58.559060611041666
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.6021977991486924,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 2.4637999534606934,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "peak": 2.4637999534606934,
+      "elapsedMs": 475,
+      "trace": [
+        {
+          "elapsedMs": 2,
+          "pos": [
+            12.016552327364003,
+            2.4637999534606934,
+            -58.57264303560924
+          ],
+          "velocity": [
+            0,
+            0,
+            0
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 77,
+          "pos": [
+            12.123414999761675,
+            2.4637999534606934,
+            -58.56928628697367
+          ],
+          "velocity": [
+            2.5555395357268282,
+            0,
+            0.08027409063645126
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 153,
+          "pos": [
+            12.375646931446333,
+            2.4637999534606934,
+            -58.561363228589165
+          ],
+          "velocity": [
+            2.9519440127282026,
+            0,
+            0.09272586783286749
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 228,
+          "pos": [
+            12.490796396154519,
+            2.4637999534606934,
+            -58.55774617691083
+          ],
+          "velocity": [
+            0.399802805711261,
+            0,
+            0.012558524810004718
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 310,
+          "pos": [
+            12.470893652508892,
+            2.4637999534606934,
+            -58.55837135786576
+          ],
+          "velocity": [
+            -0.6332876474875319,
+            0,
+            -0.019892703400849768
+          ],
+          "onGround": true,
+          "crouching": false
+        },
+        {
+          "elapsedMs": 393,
+          "pos": [
+            12.443507020348875,
+            2.4637999534606934,
+            -58.559231621211914
+          ],
+          "velocity": [
+            -0.08275918240267799,
+            0,
+            -0.002599614686572124
+          ],
+          "onGround": true,
+          "crouching": false
+        }
+      ]
+    },
+    {
+      "name": "duck-jump-window",
+      "ok": true,
+      "launch": {
+        "state": "playing",
+        "pos": [
+          12.490866242071204,
+          2.4637999534606934,
+          -59.84940726651416
+        ],
+        "eye": [
+          12.471284780342497,
+          4.170555321044905,
+          -59.84989470665915
+        ],
+        "velocity": [
+          0.15926547627498608,
+          0,
+          -6.398018014046765
+        ],
+        "yaw": -0.024887799849642584,
+        "pitch": 0.024950122340260818,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 2.4637999534606934,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "turnPose": {
+        "state": "playing",
+        "pos": [
+          12.68897785086432,
+          4.0556891409509035,
+          -62.249391744413046
+        ],
+        "eye": [
+          12.688364039211594,
+          5.105803395697853,
+          -62.24950229062529
+        ],
+        "velocity": [
+          0.2973555098611381,
+          -1.562259301592139,
+          -6.139720830291192
+        ],
+        "yaw": -0.1781877998496426,
+        "pitch": -0.00024987765973918247,
+        "onGround": false,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": false,
+        "floor": 3.86080002784729,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "sill": {
+        "state": "playing",
+        "pos": [
+          13.11805642812337,
+          3.86080002784729,
+          -63.20523159536592
+        ],
+        "eye": [
+          13.117990254237391,
+          4.892218048430683,
+          -63.20589777553492
+        ],
+        "velocity": [
+          1.8906950508659655,
+          0,
+          -0.18780901104831046
+        ],
+        "yaw": -1.4717877998496425,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": false,
+        "floor": 3.86080002784729,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          13.179446460538975,
+          3.86080002784729,
+          -63.211329670923334
+        ],
+        "eye": [
+          13.179441587665545,
+          4.910700562371816,
+          -63.21137872670412
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.4717877998496425,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": false,
+        "floor": 3.86080002784729,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "runTrace": [
+        {
+          "elapsedMs": 5,
+          "state": "playing",
+          "pos": [
+            12.458796355636974,
+            2.4637999534606934,
+            -58.561094721236906
+          ],
+          "eye": [
+            12.458796354980915,
+            4.1436716303776375,
+            -58.561094721253234
+          ],
+          "velocity": [
+            0.007022612054155077,
+            0,
+            -0.28211260518613024
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 22,
+          "state": "playing",
+          "pos": [
+            12.45909061154539,
+            2.4637999534606934,
+            -58.57291557938405
+          ],
+          "eye": [
+            12.459081016248511,
+            4.143061658014465,
+            -58.572915818239196
+          ],
+          "velocity": [
+            0.021152446067771585,
+            0,
+            -0.8497367674905858
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 39,
+          "state": "playing",
+          "pos": [
+            12.459620835682486,
+            2.4637999534606934,
+            -58.594215761067936
+          ],
+          "eye": [
+            12.459556688894649,
+            4.142050685100071,
+            -58.59421735787006
+          ],
+          "velocity": [
+            0.0352822800813881,
+            0,
+            -1.4173609297950414
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 55,
+          "state": "playing",
+          "pos": [
+            12.460404567654155,
+            2.4637999534606934,
+            -58.62569986792021
+          ],
+          "eye": [
+            12.460179641352472,
+            4.14072841378511,
+            -58.62570546699706
+          ],
+          "velocity": [
+            0.049665943407472775,
+            0,
+            -1.9951819316886399
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 80,
+          "state": "playing",
+          "pos": [
+            12.461421788782932,
+            2.4637999534606934,
+            -58.66656370896349
+          ],
+          "eye": [
+            12.460859189338063,
+            4.139345167897281,
+            -58.666577713717516
+          ],
+          "velocity": [
+            0.06388038712467019,
+            0,
+            -2.5662050378215695
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 99,
+          "state": "playing",
+          "pos": [
+            12.463334706003856,
+            2.4637999534606934,
+            -58.74340948323358
+          ],
+          "eye": [
+            12.461340492050287,
+            4.134774954213231,
+            -58.743459125081166
+          ],
+          "velocity": [
+            0.08469439397466726,
+            0,
+            -3.4023460137908175
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 122,
+          "state": "playing",
+          "pos": [
+            12.46493688533328,
+            2.4637999534606934,
+            -58.8077722845835
+          ],
+          "eye": [
+            12.461339869905574,
+            4.133174759262495,
+            -58.807861824871445
+          ],
+          "velocity": [
+            0.09890883769186466,
+            0,
+            -3.973369119923747
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 140,
+          "state": "playing",
+          "pos": [
+            12.467749466869131,
+            2.4637999534606934,
+            -58.92075940365812
+          ],
+          "eye": [
+            12.461071627572757,
+            4.135582407710234,
+            -58.92092563470869
+          ],
+          "velocity": [
+            0.11997667405605535,
+            0,
+            -4.819706943585859
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 156,
+          "state": "playing",
+          "pos": [
+            12.469887894569629,
+            2.4637999534606934,
+            -59.006664392419744
+          ],
+          "eye": [
+            12.460839508737678,
+            4.140645120816033,
+            -59.00688963334215
+          ],
+          "velocity": [
+            0.1338526787572037,
+            0,
+            -5.377134266301172
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 173,
+          "state": "playing",
+          "pos": [
+            12.472331298203118,
+            2.4637999534606934,
+            -59.104820884512556
+          ],
+          "eye": [
+            12.46069147328426,
+            4.148519303442674,
+            -59.10511063397175
+          ],
+          "velocity": [
+            0.14815173217798203,
+            0,
+            -5.951556316262575
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 189,
+          "state": "playing",
+          "pos": [
+            12.474875988238006,
+            2.4637999534606934,
+            -59.207046257293705
+          ],
+          "eye": [
+            12.460779418104353,
+            4.157736040038596,
+            -59.20739716236325
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 206,
+          "state": "playing",
+          "pos": [
+            12.47759942786712,
+            2.4637999534606934,
+            -59.316452364723744
+          ],
+          "eye": [
+            12.461207416380201,
+            4.167269547912879,
+            -59.31686041007636
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 222,
+          "state": "playing",
+          "pos": [
+            12.480259161328506,
+            2.4637999534606934,
+            -59.423299265863406
+          ],
+          "eye": [
+            12.462066787057937,
+            4.174844691677636,
+            -59.42375212753813
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 238,
+          "state": "playing",
+          "pos": [
+            12.482902968257454,
+            2.4637999534606934,
+            -59.52950636581183
+          ],
+          "eye": [
+            12.463447089926284,
+            4.179497660588321,
+            -59.529990679816876
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 255,
+          "state": "playing",
+          "pos": [
+            12.48556270168087,
+            2.4637999534606934,
+            -59.63635326542608
+          ],
+          "eye": [
+            12.465429840264056,
+            4.180483538700678,
+            -59.636854431530224
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 271,
+          "state": "playing",
+          "pos": [
+            12.488222435142257,
+            2.4637999534606934,
+            -59.74320016656574
+          ],
+          "eye": [
+            12.468045844930023,
+            4.177428956207785,
+            -59.74370242120815
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 289,
+          "state": "playing",
+          "pos": [
+            12.490866242071204,
+            2.4637999534606934,
+            -59.84940726651416
+          ],
+          "eye": [
+            12.471284780342497,
+            4.170555321044905,
+            -59.84989470665915
+          ],
+          "velocity": [
+            0.15926547627498608,
+            0,
+            -6.398018014046765
+          ],
+          "yaw": -0.024887799849642584,
+          "pitch": 0.024950122340260818,
+          "onGround": true,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 2.4637999534606934,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        }
+      ],
+      "flightTrace": [
+        {
+          "elapsedMs": 1,
+          "state": "playing",
+          "pos": [
+            12.555362772438535,
+            2.9293669314285453,
+            -60.375218190238364
+          ],
+          "eye": [
+            12.546229419716367,
+            4.622043244133326,
+            -60.376863088219764
+          ],
+          "velocity": [
+            1.1113364107399422,
+            4.73774069840786,
+            -6.301013226010154
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": false,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 16,
+          "state": "playing",
+          "pos": [
+            12.574641958108833,
+            3.6568740233014787,
+            -60.4822665330015
+          ],
+          "eye": [
+            12.566804356678153,
+            4.701163069268717,
+            -60.48367806884868
+          ],
+          "velocity": [
+            1.1340697453116384,
+            4.380740698407859,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 33,
+          "state": "playing",
+          "pos": [
+            12.59358092263923,
+            3.727104047196221,
+            -60.58742578616188
+          ],
+          "eye": [
+            12.586837060022512,
+            4.7726589321838055,
+            -60.58864034190526
+          ],
+          "velocity": [
+            1.1340697453116384,
+            4.030040702413292,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 49,
+          "state": "playing",
+          "pos": [
+            12.612406480573632,
+            3.791109343382916,
+            -60.6919553452902
+          ],
+          "eye": [
+            12.606598500492161,
+            4.837669342884616,
+            -60.693001350519886
+          ],
+          "velocity": [
+            1.1340697453116384,
+            3.681440699409218,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 66,
+          "state": "playing",
+          "pos": [
+            12.631345445374413,
+            3.849661058221872,
+            -60.79711459995189
+          ],
+          "eye": [
+            12.62634797006102,
+            4.897026178559503,
+            -60.798014634945076
+          ],
+          "velocity": [
+            1.1340697453116384,
+            3.33074069840786,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 82,
+          "state": "playing",
+          "pos": [
+            12.65028440990481,
+            3.902356082316886,
+            -60.90227385311227
+          ],
+          "eye": [
+            12.645984333249721,
+            4.950359417546696,
+            -60.903048288045966
+          ],
+          "velocity": [
+            1.1340697453116384,
+            2.9800407024132927,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 99,
+          "state": "playing",
+          "pos": [
+            12.669109967839212,
+            3.9489313783533775,
+            -61.006803412240586
+          ],
+          "eye": [
+            12.665406636235208,
+            4.997435797600527,
+            -61.00747037462178
+          ],
+          "velocity": [
+            1.1340697453116384,
+            2.631440699409219,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 115,
+          "state": "playing",
+          "pos": [
+            12.682799842834473,
+            3.9899480931422655,
+            -61.11196266690228
+          ],
+          "eye": [
+            12.67961331188762,
+            5.0388487689499515,
+            -61.11253655455138
+          ],
+          "velocity": [
+            -2.220446049250313e-15,
+            2.280740698407861,
+            -6.296961339007889
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 132,
+          "state": "playing",
+          "pos": [
+            12.68469705715562,
+            4.025301016783586,
+            -61.21757832226137
+          ],
+          "eye": [
+            12.681957673784552,
+            5.074512806859976,
+            -61.21807167955462
+          ],
+          "velocity": [
+            0.15055869611955658,
+            1.9279406994092192,
+            -6.283057592935724
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 148,
+          "state": "playing",
+          "pos": [
+            12.683264552353148,
+            4.052661472624428,
+            -61.314807374130346
+          ],
+          "eye": [
+            12.68088185580911,
+            5.102097763694736,
+            -61.31523649286196
+          ],
+          "velocity": [
+            0.06454298827722743,
+            1.6024406994092193,
+            -6.269754643502683
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 165,
+          "state": "playing",
+          "pos": [
+            12.682799842834473,
+            4.077858097015326,
+            -61.42620331495759
+          ],
+          "eye": [
+            12.680769848812016,
+            5.127493165835636,
+            -61.426568912692765
+          ],
+          "velocity": [
+            0,
+            1.2286407004105773,
+            -6.254172224158924
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 182,
+          "state": "playing",
+          "pos": [
+            12.68465224180958,
+            4.095360152558215,
+            -61.52985334725031
+          ],
+          "eye": [
+            12.682903961107062,
+            5.1451353639201685,
+            -61.53016820899779
+          ],
+          "velocity": [
+            0.14876657110625138,
+            0.8800407024132935,
+            -6.240436358814432
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 199,
+          "state": "playing",
+          "pos": [
+            12.683432364093857,
+            4.107128487313759,
+            -61.63388633507497
+          ],
+          "eye": [
+            12.681928056308852,
+            5.1570100039928075,
+            -61.63415725780337
+          ],
+          "velocity": [
+            0.07530015120905094,
+            0.5293407014119356,
+            -6.22617705491186
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 215,
+          "state": "playing",
+          "pos": [
+            12.682799842834473,
+            4.113022162983052,
+            -61.73706043304238
+          ],
+          "eye": [
+            12.681504296031658,
+            5.162982171466582,
+            -61.737293758348606
+          ],
+          "velocity": [
+            0,
+            0.18074069840786144,
+            -6.211539730250911
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 0,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 232,
+          "state": "playing",
+          "pos": [
+            12.6846745601413,
+            4.1131121876788805,
+            -61.8406218992139
+          ],
+          "eye": [
+            12.683559807148438,
+            5.163129729736031,
+            -61.840822663927966
+          ],
+          "velocity": [
+            0.14966217525047681,
+            -0.16995929758670641,
+            -6.197715299898817
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 247,
+          "state": "playing",
+          "pos": [
+            12.683214352239517,
+            4.1081028863322375,
+            -61.934674090637316
+          ],
+          "eye": [
+            12.682242126394941,
+            5.158158130938172,
+            -61.934849186506035
+          ],
+          "velocity": [
+            0.06095726587511514,
+            -0.48915929858806445,
+            -6.184634888507891
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 266,
+          "state": "playing",
+          "pos": [
+            12.682799842834473,
+            4.095982629805012,
+            -62.04517089529772
+          ],
+          "eye": [
+            12.681972277443048,
+            5.146068392883197,
+            -62.045319938117295
+          ],
+          "velocity": [
+            -2.7755575615628914e-16,
+            -0.8650593005907806,
+            -6.1689980904258865
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 282,
+          "state": "playing",
+          "pos": [
+            12.684481183638608,
+            4.079693472912748,
+            -62.14248789314285
+          ],
+          "eye": [
+            12.683763313901872,
+            5.129796545922602,
+            -62.14261718000133
+          ],
+          "velocity": [
+            0.14159861046885364,
+            -1.1968592995894227,
+            -6.155941241889287
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": true,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 299,
+          "state": "playing",
+          "pos": [
+            12.68897785086432,
+            4.0556891409509035,
+            -62.249391744413046
+          ],
+          "eye": [
+            12.688364039211594,
+            5.105803395697853,
+            -62.24950229062529
+          ],
+          "velocity": [
+            0.2973555098611381,
+            -1.562259301592139,
+            -6.139720830291192
+          ],
+          "yaw": -0.1781877998496426,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 2,
+          "state": "playing",
+          "pos": [
+            12.708942487006949,
+            3.973258086910999,
+            -62.49806589065222
+          ],
+          "eye": [
+            12.708899975929672,
+            5.023377199739313,
+            -62.498493854587316
+          ],
+          "velocity": [
+            0.5907602010152058,
+            -2.429559300590782,
+            -5.920711190937229
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 18,
+          "state": "playing",
+          "pos": [
+            12.719694688428481,
+            3.9314204774354318,
+            -62.592144421936666
+          ],
+          "eye": [
+            12.719657911721413,
+            4.981536361407406,
+            -62.59251465730318
+          ],
+          "velocity": [
+            0.6929566880912105,
+            -2.7676592985880655,
+            -5.817989519682481
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 35,
+          "state": "playing",
+          "pos": [
+            12.734046976921936,
+            3.8769406660406167,
+            -62.697555365960426
+          ],
+          "eye": [
+            12.734015812887614,
+            4.927050876158655,
+            -62.697869097900806
+          ],
+          "velocity": [
+            0.8085780724354805,
+            -3.154059300590781,
+            -5.699436218072896
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": false,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 51,
+          "state": "playing",
+          "pos": [
+            12.747720791891815,
+            3.86080002784729,
+            -62.78258645793202
+          ],
+          "eye": [
+            12.74786417740368,
+            4.89852367791112,
+            -62.781142979388925
+          ],
+          "velocity": [
+            0.9062760156608375,
+            0,
+            -5.359300708323454
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 68,
+          "state": "playing",
+          "pos": [
+            12.763556268171865,
+            3.86080002784729,
+            -62.86233376691272
+          ],
+          "eye": [
+            12.763804421173129,
+            4.88999701257771,
+            -62.859835581928266
+          ],
+          "velocity": [
+            1.0086382676176127,
+            0,
+            -4.8215566001972405
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 84,
+          "state": "playing",
+          "pos": [
+            12.781737403747814,
+            3.86080002784729,
+            -62.93583069062626
+          ],
+          "eye": [
+            12.78206547195479,
+            4.883698036106434,
+            -62.93252799001668
+          ],
+          "velocity": [
+            1.114815262815438,
+            0,
+            -4.263772334076505
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 102,
+          "state": "playing",
+          "pos": [
+            12.803226187071703,
+            3.86080002784729,
+            -63.00409574012869
+          ],
+          "eye": [
+            12.8036028126637,
+            4.8786718170088115,
+            -63.00030420670415
+          ],
+          "velocity": [
+            1.2286217429795208,
+            0,
+            -3.665907759929964
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 119,
+          "state": "playing",
+          "pos": [
+            12.825361739252601,
+            3.86080002784729,
+            -63.05884280775902
+          ],
+          "eye": [
+            12.825744263008543,
+            4.875071250781227,
+            -63.05499189683541
+          ],
+          "velocity": [
+            1.3360703177418534,
+            0,
+            -3.101443449107628
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 135,
+          "state": "playing",
+          "pos": [
+            12.847959645461787,
+            3.86080002784729,
+            -63.102052719911924
+          ],
+          "eye": [
+            12.848318765572886,
+            4.872877721991963,
+            -63.09843741618963
+          ],
+          "velocity": [
+            1.4377967799163747,
+            0,
+            -2.5670393633322144
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 151,
+          "state": "playing",
+          "pos": [
+            12.872988506418508,
+            3.86080002784729,
+            -63.1375521309872
+          ],
+          "eye": [
+            12.873306519709532,
+            4.872067550161103,
+            -63.13435065438025
+          ],
+          "velocity": [
+            1.5427021940338497,
+            0,
+            -2.015935149876319
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 167,
+          "state": "playing",
+          "pos": [
+            12.899064722398997,
+            3.86080002784729,
+            -63.163501315322264
+          ],
+          "eye": [
+            12.899335511581176,
+            4.8726028572295785,
+            -63.16077524928467
+          ],
+          "velocity": [
+            1.6450644475064673,
+            0,
+            -1.4781910337868642
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 185,
+          "state": "playing",
+          "pos": [
+            12.929865391242519,
+            3.86080002784729,
+            -63.18183579870354
+          ],
+          "eye": [
+            12.930082684224972,
+            4.874445925955104,
+            -63.179648285100114
+          ],
+          "velocity": [
+            1.7582351363724538,
+            0,
+            -0.8836664899543647
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 201,
+          "state": "playing",
+          "pos": [
+            12.960750599801166,
+            3.86080002784729,
+            -63.18960588563774
+          ],
+          "eye": [
+            12.960918391639797,
+            4.876904805578136,
+            -63.18791670577835
+          ],
+          "velocity": [
+            1.8650479213525328,
+            0,
+            -0.3225422014828286
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 218,
+          "state": "playing",
+          "pos": [
+            12.99213613746523,
+            3.86080002784729,
+            -63.192723515203234
+          ],
+          "eye": [
+            12.992255638709505,
+            4.879703444365222,
+            -63.19152048234628
+          ],
+          "velocity": [
+            1.8906950508659655,
+            0,
+            -0.18780901104831046
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 235,
+          "state": "playing",
+          "pos": [
+            13.02465609243028,
+            3.86080002784729,
+            -63.19595383020222
+          ],
+          "eye": [
+            13.024726268722794,
+            4.882830392681534,
+            -63.195247357343426
+          ],
+          "velocity": [
+            1.8906950508659655,
+            0,
+            -0.18780901104831046
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 251,
+          "state": "playing",
+          "pos": [
+            13.055096283019688,
+            3.86080002784729,
+            -63.19897755530696
+          ],
+          "eye": [
+            13.055121054155363,
+            4.885873517025161,
+            -63.19872818141716
+          ],
+          "velocity": [
+            1.8906950508659655,
+            0,
+            -0.18780901104831046
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 268,
+          "state": "playing",
+          "pos": [
+            13.086670890008529,
+            3.86080002784729,
+            -63.20211396575565
+          ],
+          "eye": [
+            13.086649493062747,
+            4.889064026897081,
+            -63.202329371285266
+          ],
+          "velocity": [
+            1.8906950508659655,
+            0,
+            -0.18780901104831046
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        },
+        {
+          "elapsedMs": 285,
+          "state": "playing",
+          "pos": [
+            13.11805642812337,
+            3.86080002784729,
+            -63.20523159536592
+          ],
+          "eye": [
+            13.117990254237391,
+            4.892218048430683,
+            -63.20589777553492
+          ],
+          "velocity": [
+            1.8906950508659655,
+            0,
+            -0.18780901104831046
+          ],
+          "yaw": -1.4717877998496425,
+          "pitch": -0.00024987765973918247,
+          "onGround": true,
+          "crouching": true,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "lookScale": 1,
+          "sensitivity": 1,
+          "canStand": false,
+          "floor": 3.86080002784729,
+          "inputMode": "drag",
+          "locked": false,
+          "focused": true
+        }
+      ],
+      "targetTuckDelayMs": 80
+    },
+    {
+      "name": "window-blocked-stand",
+      "ok": true,
+      "before": {
+        "state": "playing",
+        "pos": [
+          13.179446460538975,
+          3.86080002784729,
+          -63.211329670923334
+        ],
+        "eye": [
+          13.179441587665545,
+          4.910700562371816,
+          -63.21137872670412
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.4717877998496425,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": false,
+        "floor": 3.86080002784729,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          13.179446460538975,
+          3.86080002784729,
+          -63.211329670923334
+        ],
+        "eye": [
+          13.179446368144617,
+          4.910615264340906,
+          -63.21133060106801
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.4717877998496425,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": false,
+        "floor": 3.86080002784729,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      }
+    },
+    {
+      "name": "upper-house-entry",
+      "ok": true,
+      "inside": {
+        "state": "playing",
+        "pos": [
+          14.208271766444721,
+          3.251199960708618,
+          -63.20451723242369
+        ],
+        "eye": [
+          14.208263625746556,
+          4.2710801106670715,
+          -63.20328781122875
+        ],
+        "velocity": [
+          1.8999583484432965,
+          0,
+          0.012580706682073122
+        ],
+        "yaw": -1.577417799749507,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": true,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 3.251199960708618,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      },
+      "after": {
+        "state": "playing",
+        "pos": [
+          14.28792424026959,
+          3.251199960708618,
+          -63.20398980801434
+        ],
+        "eye": [
+          14.287924239995107,
+          4.890860746472062,
+          -63.20398976656144
+        ],
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "yaw": -1.577417799749507,
+        "pitch": -0.00024987765973918247,
+        "onGround": true,
+        "crouching": false,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "lookScale": 1,
+        "sensitivity": 1,
+        "canStand": true,
+        "floor": 3.251199960708618,
+        "inputMode": "drag",
+        "locked": false,
+        "focused": true
+      }
+    }
+  ],
+  "before": {
+    "state": "playing",
+    "pos": [
+      -19.5072,
+      -6.0960001945495605,
+      47.1424
+    ],
+    "eye": [
+      -19.5072,
+      -4.416000194549561,
+      47.1424
+    ],
+    "yaw": -0.017453,
+    "pitch": 0,
+    "health": 100,
+    "alive": true,
+    "invulnerable": false,
+    "cut": 0,
+    "relays": [
+      {
+        "id": "relay_a",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_b",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_c",
+        "cut": false,
+        "progress": 0
+      }
+    ],
+    "ammo": 30,
+    "reserve": 150,
+    "weaponState": "idle",
+    "lookScale": 1,
+    "sensitivity": 1,
+    "ads": 0,
+    "combat": {
+      "shots": 0,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": []
+  },
+  "errors": [],
+  "documentSha256": "8739fe1f58efbaa4c86f0d30b0b2c8bd4a6670f1274b12fd7b104ec2a5bb0392",
+  "servedLength": 48782398,
+  "inputMode": {
+    "mode": "drag",
+    "locked": false,
+    "touch": false,
+    "pointerLock": null,
+    "focused": true
+  },
+  "ok": true,
+  "after": {
+    "state": "playing",
+    "pos": [
+      14.28792424026959,
+      3.251199960708618,
+      -63.20398980801434
+    ],
+    "eye": [
+      14.287924239995107,
+      4.890860746472062,
+      -63.20398976656144
+    ],
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "yaw": -1.577417799749507,
+    "pitch": -0.00024987765973918247,
+    "onGround": true,
+    "crouching": false,
+    "health": 100,
+    "alive": true,
+    "invulnerable": false,
+    "lookScale": 1,
+    "sensitivity": 1,
+    "canStand": true,
+    "floor": 3.251199960708618,
+    "inputMode": "drag",
+    "locked": false,
+    "focused": true
+  },
+  "finishedAt": "2026-11-12T04:55:47.797Z"
+}

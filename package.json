@@ -2,12 +2,13 @@
   "name": "saltline-assault",
   "version": "0.1.0",
   "private": true,
-  "description": "CS Assault and Dust geometry remade with the original Saltline FPS assets",
+  "description": "CS Assault, Dust and Italy geometry remade with the original Saltline FPS assets",
   "scripts": {
-    "build": "python3 tools/extract-assault.py && python3 tools/extract-dust.py && python3 tools/build-assault.py && python3 tools/build-dust.py",
+    "build": "python3 tools/extract-assault.py && python3 tools/extract-dust.py && python3 tools/extract-italy.py && python3 tools/build-assault.py && python3 tools/build-dust.py && python3 tools/build-italy.py",
     "build:dust": "python3 tools/extract-dust.py && python3 tools/build-dust.py",
+    "build:italy": "python3 tools/extract-italy.py && python3 tools/build-italy.py",
     "start": "python3 -m http.server 8767 --bind 127.0.0.1",
-    "test": "node tools/test-assault-physics.mjs && node tools/test-assault-ladders.mjs && node tools/test-assault-prewarm.cjs && node tools/test-dust-physics.mjs",
+    "test": "node tools/test-assault-physics.mjs && node tools/test-assault-ladders.mjs && node tools/test-assault-prewarm.cjs && node tools/test-dust-physics.mjs && node tools/test-italy-physics.mjs",
     "map:inspect": "node tools/inspect-assault-map.mjs"
   }
 }

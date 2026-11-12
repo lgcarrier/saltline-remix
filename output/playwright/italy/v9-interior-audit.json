@@ -1,0 +1,4010 @@
+{
+  "ok": true,
+  "audit": "independent interior boundary/support/closed-profile audit",
+  "mapSha256": "80de78e4e4de32b0f9de0e06ce6343049f1df76949b6cc389f941cad738d3e2b",
+  "moduleSha256": {
+    "src/italy-interior.js": "4ccb7f30afe02986dd66161ab1b9c1bd9d0b857b3573bf35071eb11f0a1d7b1a",
+    "src/italy-level.js": "12ea08da00657cc9afdd887d23818fc2e81cd46c65a651558aa896ba750e8baf",
+    "src/assault-physics.js": "6a5fe66e7737371efaac7874ec8eaaaa1fd7751fe77b4cdc92006aaf569a12aa"
+  },
+  "actualThreeRevision": "180",
+  "sourceUnchanged": true,
+  "collisionSha256": "6d889fdb44e729fc3988067fa8ffd1c3f0207fa0e6c3406a9f26316f84634ee5",
+  "sourceFaces": 202,
+  "segments": 437,
+  "baseSegments": 217,
+  "crownSegments": 220,
+  "vertices": 39312,
+  "triangles": 13104,
+  "meshes": 26,
+  "closedSegments": 437,
+  "maxProjection": 0.02400095214843745,
+  "minProjection": 0.0009973754882821595,
+  "maxWallDistance": 7.993605777301127e-15,
+  "maxUnsupportedLength": 0.0000010160000005914868,
+  "minSignedVolume": 0.00014346554118504923,
+  "apertureResult": {
+    "name": "native upper-house crouch window",
+    "depthRange": [
+      12.98,
+      13.65
+    ],
+    "polygon": [
+      [
+        -64.008,
+        3.8608
+      ],
+      [
+        -61.976,
+        3.8608
+      ],
+      [
+        -61.976,
+        4.8768
+      ],
+      [
+        -62.1792,
+        5.2832
+      ],
+      [
+        -62.5856,
+        5.4864
+      ],
+      [
+        -63.3984,
+        5.4864
+      ],
+      [
+        -63.8048,
+        5.2832
+      ],
+      [
+        -64.008,
+        4.8768
+      ]
+    ],
+    "projectedOverlap": 0,
+    "maxTriangleOverlap": 0
+  },
+  "referenceModeEmpty": true,
+  "records": [
+    {
+      "faceId": 1,
+      "type": "base",
+      "length": 3.6536000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.0531133177191805e-16,
+      "signedVolume": 0.007489966170826556,
+      "closed": true
+    },
+    {
+      "faceId": 1,
+      "type": "crown",
+      "length": 2.6376000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003877336383267138,
+      "closed": true
+    },
+    {
+      "faceId": 1,
+      "type": "crown",
+      "length": 3.044000000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0044747541303451505,
+      "closed": true
+    },
+    {
+      "faceId": 1,
+      "type": "base",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0041574478774132504,
+      "closed": true
+    },
+    {
+      "faceId": 78,
+      "type": "crown",
+      "length": 4.059999999999995,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005968294209405906,
+      "closed": true
+    },
+    {
+      "faceId": 78,
+      "type": "base",
+      "length": 4.059999999999995,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.008322907082420665,
+      "closed": true
+    },
+    {
+      "faceId": 79,
+      "type": "crown",
+      "length": 0.8088000000000051,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889539886279397,
+      "closed": true
+    },
+    {
+      "faceId": 79,
+      "type": "base",
+      "length": 0.8088000000000051,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016580204033890616,
+      "closed": true
+    },
+    {
+      "faceId": 80,
+      "type": "crown",
+      "length": 5.685600000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.008357955908257489,
+      "closed": true
+    },
+    {
+      "faceId": 80,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.001658020403389061,
+      "closed": true
+    },
+    {
+      "faceId": 80,
+      "type": "base",
+      "length": 3.2471999999999923,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.006656683457652906,
+      "closed": true
+    },
+    {
+      "faceId": 80,
+      "type": "base",
+      "length": 1.621600000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0033242362081173787,
+      "closed": true
+    },
+    {
+      "faceId": 91,
+      "type": "crown",
+      "length": 2.4344000000000108,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0035785876313031324,
+      "closed": true
+    },
+    {
+      "faceId": 92,
+      "type": "base",
+      "length": 0.8088000000000051,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.001658067840150939,
+      "closed": true
+    },
+    {
+      "faceId": 92,
+      "type": "crown",
+      "length": 0.8088000000000051,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889428042117023,
+      "closed": true
+    },
+    {
+      "faceId": 101,
+      "type": "base",
+      "length": 2.0279999999999916,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 7.105427357601002e-15,
+      "signedVolume": 0.004157470874360979,
+      "closed": true
+    },
+    {
+      "faceId": 101,
+      "type": "crown",
+      "length": 2.0279999999999916,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0029811778264399874,
+      "closed": true
+    },
+    {
+      "faceId": 102,
+      "type": "base",
+      "length": 5.685599999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.011655679976991101,
+      "closed": true
+    },
+    {
+      "faceId": 102,
+      "type": "crown",
+      "length": 4.059999999999995,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005968238066033412,
+      "closed": true
+    },
+    {
+      "faceId": 102,
+      "type": "crown",
+      "length": 0.402399999999993,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915329993485575,
+      "closed": true
+    },
+    {
+      "faceId": 102,
+      "type": "crown",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889428042117026,
+      "closed": true
+    },
+    {
+      "faceId": 102,
+      "type": "crown",
+      "length": 0.402399999999993,
+      "unsupportedLength": 2.680522470654931e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915329993485575,
+      "closed": true
+    },
+    {
+      "faceId": 103,
+      "type": "base",
+      "length": 1.621600000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0033243313161155116,
+      "closed": true
+    },
+    {
+      "faceId": 103,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 1.7958967646336487e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016580678401509393,
+      "closed": true
+    },
+    {
+      "faceId": 118,
+      "type": "crown",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.004176608453987061,
+      "closed": true
+    },
+    {
+      "faceId": 118,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 3.1539215683551464e-16,
+      "maxWallProjectionDistance": 1.831026719408895e-15,
+      "signedVolume": 0.005824536121968428,
+      "closed": true
+    },
+    {
+      "faceId": 119,
+      "type": "crown",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005916163490076939,
+      "closed": true
+    },
+    {
+      "faceId": 119,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.000825043913140047,
+      "closed": true
+    },
+    {
+      "faceId": 120,
+      "type": "base",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0008250493115161925,
+      "closed": true
+    },
+    {
+      "faceId": 120,
+      "type": "crown",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023841152057251652,
+      "closed": true
+    },
+    {
+      "faceId": 121,
+      "type": "crown",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004176611258214849,
+      "closed": true
+    },
+    {
+      "faceId": 121,
+      "type": "crown",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0041766084539870615,
+      "closed": true
+    },
+    {
+      "faceId": 122,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 1.3491430195244896e-16,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0017866155868193412,
+      "closed": true
+    },
+    {
+      "faceId": 122,
+      "type": "base",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004158040454559572,
+      "closed": true
+    },
+    {
+      "faceId": 122,
+      "type": "crown",
+      "length": 0.8088000000000051,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.001189115967913518,
+      "closed": true
+    },
+    {
+      "faceId": 125,
+      "type": "crown",
+      "length": 2.2312000000000047,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00327959295519964,
+      "closed": true
+    },
+    {
+      "faceId": 125,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00029279917203668687,
+      "closed": true
+    },
+    {
+      "faceId": 126,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005823555389971175,
+      "closed": true
+    },
+    {
+      "faceId": 129,
+      "type": "crown",
+      "length": 2.6376000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0038769494689767795,
+      "closed": true
+    },
+    {
+      "faceId": 129,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0002927991720366868,
+      "closed": true
+    },
+    {
+      "faceId": 140,
+      "type": "base",
+      "length": 3.0440000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.006240108178428908,
+      "closed": true
+    },
+    {
+      "faceId": 140,
+      "type": "crown",
+      "length": 3.0440000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.004474305982753918,
+      "closed": true
+    },
+    {
+      "faceId": 141,
+      "type": "base",
+      "length": 3.247200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.006656664876895448,
+      "closed": true
+    },
+    {
+      "faceId": 141,
+      "type": "crown",
+      "length": 3.247200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0047729870432118016,
+      "closed": true
+    },
+    {
+      "faceId": 142,
+      "type": "base",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.0020745724738339792,
+      "closed": true
+    },
+    {
+      "faceId": 142,
+      "type": "crown",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0014875178067295938,
+      "closed": true
+    },
+    {
+      "faceId": 152,
+      "type": "base",
+      "length": 6.092000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.012490143161686175,
+      "closed": true
+    },
+    {
+      "faceId": 152,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 1.3491430195244896e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.001786654990063863,
+      "closed": true
+    },
+    {
+      "faceId": 152,
+      "type": "crown",
+      "length": 4.872800000000005,
+      "unsupportedLength": 5.409894754393468e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.007164261746341939,
+      "closed": true
+    },
+    {
+      "faceId": 153,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 1.3491430195244896e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002491468298304548,
+      "closed": true
+    },
+    {
+      "faceId": 153,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 2.698286039048979e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.001786654990063863,
+      "closed": true
+    },
+    {
+      "faceId": 154,
+      "type": "crown",
+      "length": 0.8088000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.0011891421934919764,
+      "closed": true
+    },
+    {
+      "faceId": 154,
+      "type": "crown",
+      "length": 1.215200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.001786654990063863,
+      "closed": true
+    },
+    {
+      "faceId": 154,
+      "type": "base",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00415791062889534,
+      "closed": true
+    },
+    {
+      "faceId": 165,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0017863745342769004,
+      "closed": true
+    },
+    {
+      "faceId": 165,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0024911577120549995,
+      "closed": true
+    },
+    {
+      "faceId": 165,
+      "type": "base",
+      "length": 2.4344000000000037,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004990514819387427,
+      "closed": true
+    },
+    {
+      "faceId": 165,
+      "type": "crown",
+      "length": 2.4344000000000037,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0035786287408239234,
+      "closed": true
+    },
+    {
+      "faceId": 166,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 6.312284028808791e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.01165546580225399,
+      "closed": true
+    },
+    {
+      "faceId": 166,
+      "type": "crown",
+      "length": 2.4344,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003578628740823924,
+      "closed": true
+    },
+    {
+      "faceId": 166,
+      "type": "crown",
+      "length": 3.247200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004773463943905459,
+      "closed": true
+    },
+    {
+      "faceId": 167,
+      "type": "base",
+      "length": 0.402399999999993,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008249082796107072,
+      "closed": true
+    },
+    {
+      "faceId": 167,
+      "type": "crown",
+      "length": 0.402399999999993,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.000591538563915044,
+      "closed": true
+    },
+    {
+      "faceId": 1340,
+      "type": "base",
+      "length": 0.6055999999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.001241548463645776,
+      "closed": true
+    },
+    {
+      "faceId": 1340,
+      "type": "crown",
+      "length": 0.6055999999999999,
+      "unsupportedLength": 6.723510637129947e-17,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0008902728433669954,
+      "closed": true
+    },
+    {
+      "faceId": 1341,
+      "type": "base",
+      "length": 3.6536000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.007489964705786742,
+      "closed": true
+    },
+    {
+      "faceId": 1341,
+      "type": "crown",
+      "length": 3.6536000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0053708479152664145,
+      "closed": true
+    },
+    {
+      "faceId": 1343,
+      "type": "base",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016580212723585823,
+      "closed": true
+    },
+    {
+      "faceId": 1343,
+      "type": "crown",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 8.979483823168273e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889532432168427,
+      "closed": true
+    },
+    {
+      "faceId": 1345,
+      "type": "base",
+      "length": 3.8568000000000033,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.007906395599807155,
+      "closed": true
+    },
+    {
+      "faceId": 1345,
+      "type": "crown",
+      "length": 3.8568000000000033,
+      "unsupportedLength": 8.563816322748615e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005669410361119253,
+      "closed": true
+    },
+    {
+      "faceId": 1464,
+      "type": "base",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0033243170552551297,
+      "closed": true
+    },
+    {
+      "faceId": 1464,
+      "type": "crown",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.002383776429828474,
+      "closed": true
+    },
+    {
+      "faceId": 1724,
+      "type": "base",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 9.159339953157541e-16,
+      "signedVolume": 0.0016580453764763162,
+      "closed": true
+    },
+    {
+      "faceId": 1724,
+      "type": "crown",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889374309765482,
+      "closed": true
+    },
+    {
+      "faceId": 1728,
+      "type": "base",
+      "length": 2.231200000000001,
+      "unsupportedLength": 2.4771296125436506e-16,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.004573932712202429,
+      "closed": true
+    },
+    {
+      "faceId": 1728,
+      "type": "crown",
+      "length": 2.2311999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0032798133083873533,
+      "closed": true
+    },
+    {
+      "faceId": 1729,
+      "type": "base",
+      "length": 5.685599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.828670879282072e-16,
+      "signedVolume": 0.011655414882096475,
+      "closed": true
+    },
+    {
+      "faceId": 1729,
+      "type": "crown",
+      "length": 3.4503999999999984,
+      "unsupportedLength": 3.8307135241666383e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005072011798876298,
+      "closed": true
+    },
+    {
+      "faceId": 1729,
+      "type": "crown",
+      "length": 2.231200000000001,
+      "unsupportedLength": 2.4771296125436506e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003279814710267394,
+      "closed": true
+    },
+    {
+      "faceId": 1730,
+      "type": "crown",
+      "length": 2.2312000000000007,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0032798147102673946,
+      "closed": true
+    },
+    {
+      "faceId": 1730,
+      "type": "base",
+      "length": 2.2312000000000007,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.004573934667223759,
+      "closed": true
+    },
+    {
+      "faceId": 1730,
+      "type": "base",
+      "length": 2.840799999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.005823607761320199,
+      "closed": true
+    },
+    {
+      "faceId": 1730,
+      "type": "base",
+      "length": 0.605599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0012414737346403597,
+      "closed": true
+    },
+    {
+      "faceId": 1730,
+      "type": "crown",
+      "length": 3.4503999999999992,
+      "unsupportedLength": 7.661427048333279e-16,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0050720117988763,
+      "closed": true
+    },
+    {
+      "faceId": 3621,
+      "type": "base",
+      "length": 0.6056000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0012415474860762712,
+      "closed": true
+    },
+    {
+      "faceId": 3621,
+      "type": "crown",
+      "length": 0.6056000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0008902721423846268,
+      "closed": true
+    },
+    {
+      "faceId": 3634,
+      "type": "base",
+      "length": 0.8087999999999997,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016581299324372205,
+      "closed": true
+    },
+    {
+      "faceId": 3634,
+      "type": "crown",
+      "length": 0.8087999999999997,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011889894698818434,
+      "closed": true
+    },
+    {
+      "faceId": 3635,
+      "type": "crown",
+      "length": 0.5040000000000049,
+      "unsupportedLength": 5.595524044110843e-17,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0007408544886622832,
+      "closed": true
+    },
+    {
+      "faceId": 3635,
+      "type": "base",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.00020007147417258132,
+      "closed": true
+    },
+    {
+      "faceId": 3635,
+      "type": "base",
+      "length": 3.044000000000004,
+      "unsupportedLength": 3.379518886958981e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00623999742018117,
+      "closed": true
+    },
+    {
+      "faceId": 3635,
+      "type": "crown",
+      "length": 2.6376000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0038771406401750756,
+      "closed": true
+    },
+    {
+      "faceId": 3648,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005823959880328557,
+      "closed": true
+    },
+    {
+      "faceId": 3648,
+      "type": "base",
+      "length": 0.5040000000000049,
+      "unsupportedLength": 5.595524044110843e-17,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0010332557064920847,
+      "closed": true
+    },
+    {
+      "faceId": 3648,
+      "type": "crown",
+      "length": 3.348800000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004922953930360092,
+      "closed": true
+    },
+    {
+      "faceId": 3656,
+      "type": "base",
+      "length": 1.4184,
+      "unsupportedLength": 1.5747403381283222e-16,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.0029076869541204194,
+      "closed": true
+    },
+    {
+      "faceId": 3656,
+      "type": "crown",
+      "length": 1.4184,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00208507809398787,
+      "closed": true
+    },
+    {
+      "faceId": 3657,
+      "type": "base",
+      "length": 5.685599999999999,
+      "unsupportedLength": 6.312284028808789e-16,
+      "maxWallProjectionDistance": 5.828670879282072e-16,
+      "signedVolume": 0.01165534477144355,
+      "closed": true
+    },
+    {
+      "faceId": 3657,
+      "type": "crown",
+      "length": 5.685599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.008357950647463867,
+      "closed": true
+    },
+    {
+      "faceId": 3658,
+      "type": "base",
+      "length": 1.4184000000000019,
+      "unsupportedLength": 3.1494806762566483e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0029076859766155533,
+      "closed": true
+    },
+    {
+      "faceId": 3658,
+      "type": "base",
+      "length": 2.8407999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0058235712640533534,
+      "closed": true
+    },
+    {
+      "faceId": 3658,
+      "type": "base",
+      "length": 1.4184,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.002907685976615553,
+      "closed": true
+    },
+    {
+      "faceId": 3658,
+      "type": "crown",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.008357951348424464,
+      "closed": true
+    },
+    {
+      "faceId": 3659,
+      "type": "base",
+      "length": 1.8247999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.003740797734463267,
+      "closed": true
+    },
+    {
+      "faceId": 3659,
+      "type": "crown",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915371433432225,
+      "closed": true
+    },
+    {
+      "faceId": 3659,
+      "type": "crown",
+      "length": 1.4184,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0020850780939878706,
+      "closed": true
+    },
+    {
+      "faceId": 3660,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.0824674490095276e-15,
+      "signedVolume": 0.011655345748948415,
+      "closed": true
+    },
+    {
+      "faceId": 3660,
+      "type": "crown",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915364423826254,
+      "closed": true
+    },
+    {
+      "faceId": 3660,
+      "type": "crown",
+      "length": 5.279199999999998,
+      "unsupportedLength": 5.861089391601124e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00776053384662965,
+      "closed": true
+    },
+    {
+      "faceId": 3661,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.011655343793938684,
+      "closed": true
+    },
+    {
+      "faceId": 3661,
+      "type": "crown",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915350404614303,
+      "closed": true
+    },
+    {
+      "faceId": 3661,
+      "type": "crown",
+      "length": 5.2791999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0077605352485508455,
+      "closed": true
+    },
+    {
+      "faceId": 3662,
+      "type": "base",
+      "length": 0.3008000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0006166511722868417,
+      "closed": true
+    },
+    {
+      "faceId": 3662,
+      "type": "crown",
+      "length": 0.3008000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0004421786083720521,
+      "closed": true
+    },
+    {
+      "faceId": 3663,
+      "type": "crown",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0001434712654584981,
+      "closed": true
+    },
+    {
+      "faceId": 3663,
+      "type": "base",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 1.0835776720341518e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0002000815847414762,
+      "closed": true
+    },
+    {
+      "faceId": 3664,
+      "type": "crown",
+      "length": 0.1484000000000023,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00021814810118688663,
+      "closed": true
+    },
+    {
+      "faceId": 3665,
+      "type": "crown",
+      "length": 0.1484000000000023,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00021815090500290098,
+      "closed": true
+    },
+    {
+      "faceId": 3666,
+      "type": "crown",
+      "length": 0.0996010159999976,
+      "unsupportedLength": 0.0000010159999988000653,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0001464154978698994,
+      "closed": true
+    },
+    {
+      "faceId": 3666,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.0008249360482292625,
+      "closed": true
+    },
+    {
+      "faceId": 3667,
+      "type": "crown",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 1.8003376567321587e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00238376231823008,
+      "closed": true
+    },
+    {
+      "faceId": 3670,
+      "type": "base",
+      "length": 2.3328000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.004782295179619182,
+      "closed": true
+    },
+    {
+      "faceId": 3670,
+      "type": "crown",
+      "length": 2.3328000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003429274124402423,
+      "closed": true
+    },
+    {
+      "faceId": 3671,
+      "type": "base",
+      "length": 2.4343999999999983,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004990436900829907,
+      "closed": true
+    },
+    {
+      "faceId": 3671,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 1.3491430195244896e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862824254380742,
+      "closed": true
+    },
+    {
+      "faceId": 3671,
+      "type": "crown",
+      "length": 1.2152000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862831263645656,
+      "closed": true
+    },
+    {
+      "faceId": 3681,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 9.444001136671427e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862831263645656,
+      "closed": true
+    },
+    {
+      "faceId": 3681,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0024911155565404876,
+      "closed": true
+    },
+    {
+      "faceId": 3683,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.0024911193047330916,
+      "closed": true
+    },
+    {
+      "faceId": 3683,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862845024995606,
+      "closed": true
+    },
+    {
+      "faceId": 3686,
+      "type": "base",
+      "length": 2.0280000000000005,
+      "unsupportedLength": 2.251532293939818e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.004157330383797727,
+      "closed": true
+    },
+    {
+      "faceId": 3686,
+      "type": "base",
+      "length": 1.2151999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.498001805406602e-16,
+      "signedVolume": 0.0024911173497333627,
+      "closed": true
+    },
+    {
+      "faceId": 3686,
+      "type": "crown",
+      "length": 3.2471999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004773219688087125,
+      "closed": true
+    },
+    {
+      "faceId": 3704,
+      "type": "base",
+      "length": 0.3008000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0006166220554350775,
+      "closed": true
+    },
+    {
+      "faceId": 3704,
+      "type": "crown",
+      "length": 0.3008000000000024,
+      "unsupportedLength": 1.335820343228999e-16,
+      "maxWallProjectionDistance": 1.3322676295501878e-15,
+      "signedVolume": 0.0004421609661545705,
+      "closed": true
+    },
+    {
+      "faceId": 3705,
+      "type": "crown",
+      "length": 0.0996010159999976,
+      "unsupportedLength": 0.0000010159999988000653,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.000146406852415509,
+      "closed": true
+    },
+    {
+      "faceId": 3705,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 2.2337687255458155e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008248970966441356,
+      "closed": true
+    },
+    {
+      "faceId": 3706,
+      "type": "crown",
+      "length": 0.1484000000000023,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0002181393974274295,
+      "closed": true
+    },
+    {
+      "faceId": 3707,
+      "type": "crown",
+      "length": 0.1484000000000023,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00021814220113157616,
+      "closed": true
+    },
+    {
+      "faceId": 3708,
+      "type": "crown",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 2.1671553440683035e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014346554118504923,
+      "closed": true
+    },
+    {
+      "faceId": 3708,
+      "type": "base",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 1.0835776720341518e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00020007213735297093,
+      "closed": true
+    },
+    {
+      "faceId": 3709,
+      "type": "crown",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023836672099357254,
+      "closed": true
+    },
+    {
+      "faceId": 3714,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.00582354146286236,
+      "closed": true
+    },
+    {
+      "faceId": 3714,
+      "type": "base",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00020007467226982936,
+      "closed": true
+    },
+    {
+      "faceId": 3714,
+      "type": "crown",
+      "length": 2.942400000000001,
+      "unsupportedLength": 3.2667202276570617e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004325179063643443,
+      "closed": true
+    },
+    {
+      "faceId": 3735,
+      "type": "crown",
+      "length": 1.215200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862831263645651,
+      "closed": true
+    },
+    {
+      "faceId": 3735,
+      "type": "base",
+      "length": 1.215200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0024911155565404876,
+      "closed": true
+    },
+    {
+      "faceId": 3737,
+      "type": "base",
+      "length": 1.215200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0024911193047330916,
+      "closed": true
+    },
+    {
+      "faceId": 3737,
+      "type": "crown",
+      "length": 1.215200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862845024995602,
+      "closed": true
+    },
+    {
+      "faceId": 3738,
+      "type": "base",
+      "length": 2.3328000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00478250041108875,
+      "closed": true
+    },
+    {
+      "faceId": 3738,
+      "type": "crown",
+      "length": 2.3328000000000024,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0034293670068349016,
+      "closed": true
+    },
+    {
+      "faceId": 3739,
+      "type": "base",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-16,
+      "signedVolume": 0.0022828414536002167,
+      "closed": true
+    },
+    {
+      "faceId": 3739,
+      "type": "crown",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0016369353169813493,
+      "closed": true
+    },
+    {
+      "faceId": 3740,
+      "type": "base",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0041571969342402496,
+      "closed": true
+    },
+    {
+      "faceId": 3740,
+      "type": "crown",
+      "length": 2.536000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.003727604404212236,
+      "closed": true
+    },
+    {
+      "faceId": 3740,
+      "type": "base",
+      "length": 0.5040000000000049,
+      "unsupportedLength": 5.595524044110843e-17,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0010331490018401757,
+      "closed": true
+    },
+    {
+      "faceId": 3741,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005823545372861819,
+      "closed": true
+    },
+    {
+      "faceId": 3741,
+      "type": "base",
+      "length": 0.5040000000000049,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0010331821668018756,
+      "closed": true
+    },
+    {
+      "faceId": 3741,
+      "type": "crown",
+      "length": 3.348800000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004922704825018234,
+      "closed": true
+    },
+    {
+      "faceId": 3743,
+      "type": "crown",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023837875458458746,
+      "closed": true
+    },
+    {
+      "faceId": 3744,
+      "type": "base",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040835461309187803,
+      "closed": true
+    },
+    {
+      "faceId": 3744,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00029282769148521794,
+      "closed": true
+    },
+    {
+      "faceId": 3745,
+      "type": "base",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.828670879282072e-16,
+      "signedVolume": 0.00040835461309187814,
+      "closed": true
+    },
+    {
+      "faceId": 3745,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.1086244689504383e-15,
+      "signedVolume": 0.0002928276914852179,
+      "closed": true
+    },
+    {
+      "faceId": 3749,
+      "type": "base",
+      "length": 3.348800000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 6.661338147750939e-16,
+      "signedVolume": 0.0068654154392905975,
+      "closed": true
+    },
+    {
+      "faceId": 3749,
+      "type": "crown",
+      "length": 3.348800000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004922953930360092,
+      "closed": true
+    },
+    {
+      "faceId": 3751,
+      "type": "base",
+      "length": 1.8248000000000033,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.003740797734463268,
+      "closed": true
+    },
+    {
+      "faceId": 3751,
+      "type": "crown",
+      "length": 1.8248000000000033,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002682494894822087,
+      "closed": true
+    },
+    {
+      "faceId": 3752,
+      "type": "base",
+      "length": 3.348800000000004,
+      "unsupportedLength": 3.717914864864729e-16,
+      "maxWallProjectionDistance": 6.661338147750939e-16,
+      "signedVolume": 0.006864926808527283,
+      "closed": true
+    },
+    {
+      "faceId": 3752,
+      "type": "crown",
+      "length": 3.348800000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004922807021749655,
+      "closed": true
+    },
+    {
+      "faceId": 3891,
+      "type": "base",
+      "length": 2.1296,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00436553845278615,
+      "closed": true
+    },
+    {
+      "faceId": 3891,
+      "type": "crown",
+      "length": 2.1296,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0031304067767650243,
+      "closed": true
+    },
+    {
+      "faceId": 3988,
+      "type": "crown",
+      "length": 1.6216000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.002383551079650918,
+      "closed": true
+    },
+    {
+      "faceId": 3989,
+      "type": "base",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.00040834137029713464,
+      "closed": true
+    },
+    {
+      "faceId": 3989,
+      "type": "crown",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 1.326938559031971e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0002928002176373536,
+      "closed": true
+    },
+    {
+      "faceId": 3990,
+      "type": "crown",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0011888353000839157,
+      "closed": true
+    },
+    {
+      "faceId": 3990,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016579585883201903,
+      "closed": true
+    },
+    {
+      "faceId": 3991,
+      "type": "crown",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0016368535421986722,
+      "closed": true
+    },
+    {
+      "faceId": 3991,
+      "type": "base",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.0022827681748002052,
+      "closed": true
+    },
+    {
+      "faceId": 3992,
+      "type": "base",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 1.1057821325266623e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040833941536016084,
+      "closed": true
+    },
+    {
+      "faceId": 3992,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0002927988158544018,
+      "closed": true
+    },
+    {
+      "faceId": 4056,
+      "type": "base",
+      "length": 2.332799999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0047822548911357655,
+      "closed": true
+    },
+    {
+      "faceId": 4056,
+      "type": "crown",
+      "length": 2.332799999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0034292190623802735,
+      "closed": true
+    },
+    {
+      "faceId": 4057,
+      "type": "base",
+      "length": 2.0788000000000046,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004261553069916107,
+      "closed": true
+    },
+    {
+      "faceId": 4057,
+      "type": "crown",
+      "length": 2.0788000000000046,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003055839140955291,
+      "closed": true
+    },
+    {
+      "faceId": 4058,
+      "type": "base",
+      "length": 2.8915999999999986,
+      "unsupportedLength": 6.420641796012202e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.005927798853934362,
+      "closed": true
+    },
+    {
+      "faceId": 4058,
+      "type": "crown",
+      "length": 1.6215999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00238375444124879,
+      "closed": true
+    },
+    {
+      "faceId": 4058,
+      "type": "crown",
+      "length": 1.266,
+      "unsupportedLength": 4.2166270475263446e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0018610228316343236,
+      "closed": true
+    },
+    {
+      "faceId": 4059,
+      "type": "base",
+      "length": 4.8728,
+      "unsupportedLength": 5.409894754393463e-16,
+      "maxWallProjectionDistance": 7.216449660063518e-16,
+      "signedVolume": 0.0099892694089722,
+      "closed": true
+    },
+    {
+      "faceId": 4059,
+      "type": "crown",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 1.123545700920659e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00148764150830679,
+      "closed": true
+    },
+    {
+      "faceId": 4059,
+      "type": "crown",
+      "length": 3.8568,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005669500693784,
+      "closed": true
+    },
+    {
+      "faceId": 4060,
+      "type": "base",
+      "length": 2.8407999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7772239894833365e-15,
+      "signedVolume": 0.005823607761320199,
+      "closed": true
+    },
+    {
+      "faceId": 4060,
+      "type": "base",
+      "length": 2.8407999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.005823607761320199,
+      "closed": true
+    },
+    {
+      "faceId": 4060,
+      "type": "crown",
+      "length": 5.685599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00835770599403261,
+      "closed": true
+    },
+    {
+      "faceId": 4061,
+      "type": "base",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.002074608987793575,
+      "closed": true
+    },
+    {
+      "faceId": 4061,
+      "type": "crown",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.001487647299029455,
+      "closed": true
+    },
+    {
+      "faceId": 4062,
+      "type": "crown",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0011889420589779114,
+      "closed": true
+    },
+    {
+      "faceId": 4062,
+      "type": "base",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.885780586188048e-16,
+      "signedVolume": 0.0016580474976364244,
+      "closed": true
+    },
+    {
+      "faceId": 4063,
+      "type": "base",
+      "length": 2.9423999999999992,
+      "unsupportedLength": 6.53344045531412e-16,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.006031991739086026,
+      "closed": true
+    },
+    {
+      "faceId": 4063,
+      "type": "crown",
+      "length": 2.9423999999999992,
+      "unsupportedLength": 3.26672022765706e-16,
+      "maxWallProjectionDistance": 1.831026719408895e-15,
+      "signedVolume": 0.004325402847907033,
+      "closed": true
+    },
+    {
+      "faceId": 4066,
+      "type": "crown",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0023837630191840846,
+      "closed": true
+    },
+    {
+      "faceId": 4067,
+      "type": "base",
+      "length": 0.19920000000000027,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040836204964464756,
+      "closed": true
+    },
+    {
+      "faceId": 4067,
+      "type": "crown",
+      "length": 0.19920000000000027,
+      "unsupportedLength": 1.1057821325266574e-16,
+      "maxWallProjectionDistance": 7.993605777301127e-15,
+      "signedVolume": 0.0002928256378692787,
+      "closed": true
+    },
+    {
+      "faceId": 4071,
+      "type": "crown",
+      "length": 0.14840000000000053,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0002181488021408902,
+      "closed": true
+    },
+    {
+      "faceId": 4072,
+      "type": "crown",
+      "length": 0.14839999999999964,
+      "unsupportedLength": 4.942712905631185e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00021814950309489382,
+      "closed": true
+    },
+    {
+      "faceId": 4073,
+      "type": "crown",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014347266736650536,
+      "closed": true
+    },
+    {
+      "faceId": 4073,
+      "type": "base",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00020008098014421747,
+      "closed": true
+    },
+    {
+      "faceId": 4085,
+      "type": "crown",
+      "length": 0.09960101600000026,
+      "unsupportedLength": 0.0000010159999996847272,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00014641409595973214,
+      "closed": true
+    },
+    {
+      "faceId": 4085,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 8.935074902183262e-17,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0008249235398017971,
+      "closed": true
+    },
+    {
+      "faceId": 4087,
+      "type": "crown",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023837630191840846,
+      "closed": true
+    },
+    {
+      "faceId": 4088,
+      "type": "base",
+      "length": 3.653599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 6.106226635438361e-16,
+      "signedVolume": 0.007489832236431133,
+      "closed": true
+    },
+    {
+      "faceId": 4088,
+      "type": "crown",
+      "length": 3.653599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005370711780937794,
+      "closed": true
+    },
+    {
+      "faceId": 4089,
+      "type": "base",
+      "length": 0.5039999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0010332189691060166,
+      "closed": true
+    },
+    {
+      "faceId": 4089,
+      "type": "crown",
+      "length": 0.5039999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0007408845493775988,
+      "closed": true
+    },
+    {
+      "faceId": 4090,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0008249360482292626,
+      "closed": true
+    },
+    {
+      "faceId": 4090,
+      "type": "crown",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0005915322798288292,
+      "closed": true
+    },
+    {
+      "faceId": 4091,
+      "type": "crown",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002981174200241173,
+      "closed": true
+    },
+    {
+      "faceId": 4091,
+      "type": "base",
+      "length": 2.0280000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.004157469182188662,
+      "closed": true
+    },
+    {
+      "faceId": 4092,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 1.123545700920657e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002074635528555453,
+      "closed": true
+    },
+    {
+      "faceId": 4092,
+      "type": "crown",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 1.123545700920657e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0014876472990294543,
+      "closed": true
+    },
+    {
+      "faceId": 4093,
+      "type": "base",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 4.4231285301065704e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0004083662963444204,
+      "closed": true
+    },
+    {
+      "faceId": 4093,
+      "type": "crown",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0002928249369152751,
+      "closed": true
+    },
+    {
+      "faceId": 4094,
+      "type": "base",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040836107212431936,
+      "closed": true
+    },
+    {
+      "faceId": 4094,
+      "type": "crown",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00029282493691527514,
+      "closed": true
+    },
+    {
+      "faceId": 4095,
+      "type": "base",
+      "length": 3.6535999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.007489911292397505,
+      "closed": true
+    },
+    {
+      "faceId": 4095,
+      "type": "crown",
+      "length": 3.6535999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005370817522561526,
+      "closed": true
+    },
+    {
+      "faceId": 4098,
+      "type": "crown",
+      "length": 0.14839999999999698,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.3322676295501878e-15,
+      "signedVolume": 0.00021814810118688663,
+      "closed": true
+    },
+    {
+      "faceId": 4099,
+      "type": "crown",
+      "length": 3.8059999999999974,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0055948466278386835,
+      "closed": true
+    },
+    {
+      "faceId": 4100,
+      "type": "crown",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0001434726673665053,
+      "closed": true
+    },
+    {
+      "faceId": 4100,
+      "type": "base",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 1.0835776720341518e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00020008098014421744,
+      "closed": true
+    },
+    {
+      "faceId": 4134,
+      "type": "crown",
+      "length": 0.09960101600000115,
+      "unsupportedLength": 0.0000010160000005914868,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00014641409595973212,
+      "closed": true
+    },
+    {
+      "faceId": 4134,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 8.979483823168244e-17,
+      "maxWallProjectionDistance": 1.7772239894833365e-15,
+      "signedVolume": 0.0016580465201160967,
+      "closed": true
+    },
+    {
+      "faceId": 4134,
+      "type": "base",
+      "length": 2.840799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.005823665331768908,
+      "closed": true
+    },
+    {
+      "faceId": 4134,
+      "type": "base",
+      "length": 0.4023999999999983,
+      "unsupportedLength": 4.467537451091611e-17,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0008249235398017973,
+      "closed": true
+    },
+    {
+      "faceId": 4135,
+      "type": "crown",
+      "length": 1.621599999999999,
+      "unsupportedLength": 3.6006753134643056e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00238376231823008,
+      "closed": true
+    },
+    {
+      "faceId": 4135,
+      "type": "base",
+      "length": 1.621599999999999,
+      "unsupportedLength": 3.6006753134643056e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00332434119479268,
+      "closed": true
+    },
+    {
+      "faceId": 4136,
+      "type": "base",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 2.2115642650532852e-17,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040836901130031144,
+      "closed": true
+    },
+    {
+      "faceId": 4136,
+      "type": "crown",
+      "length": 0.1991999999999976,
+      "unsupportedLength": 2.2115642650532852e-17,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.00029282633882328236,
+      "closed": true
+    },
+    {
+      "faceId": 4137,
+      "type": "crown",
+      "length": 1.621599999999999,
+      "unsupportedLength": 3.6006753134643056e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0023837281511315802,
+      "closed": true
+    },
+    {
+      "faceId": 4137,
+      "type": "base",
+      "length": 1.621599999999999,
+      "unsupportedLength": 5.401012970196458e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0033242944357853525,
+      "closed": true
+    },
+    {
+      "faceId": 4138,
+      "type": "base",
+      "length": 3.2471999999999976,
+      "unsupportedLength": 7.210232411125611e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.006656885860390746,
+      "closed": true
+    },
+    {
+      "faceId": 4138,
+      "type": "crown",
+      "length": 1.6215999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023838217129311867,
+      "closed": true
+    },
+    {
+      "faceId": 4138,
+      "type": "crown",
+      "length": 1.621599999999999,
+      "unsupportedLength": 3.6006753134643056e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002383820310989074,
+      "closed": true
+    },
+    {
+      "faceId": 4139,
+      "type": "base",
+      "length": 1.6215999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.003324343149861987,
+      "closed": true
+    },
+    {
+      "faceId": 4139,
+      "type": "base",
+      "length": 1.8247999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0037409097667597652,
+      "closed": true
+    },
+    {
+      "faceId": 4139,
+      "type": "crown",
+      "length": 3.4503999999999984,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00507223637908258,
+      "closed": true
+    },
+    {
+      "faceId": 4140,
+      "type": "base",
+      "length": 1.4183999999999983,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0029077319681078736,
+      "closed": true
+    },
+    {
+      "faceId": 4140,
+      "type": "crown",
+      "length": 1.4183999999999983,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002085057779132541,
+      "closed": true
+    },
+    {
+      "faceId": 4141,
+      "type": "base",
+      "length": 2.0279999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004157274296308819,
+      "closed": true
+    },
+    {
+      "faceId": 4141,
+      "type": "crown",
+      "length": 0.4023999999999983,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0005915072767872577,
+      "closed": true
+    },
+    {
+      "faceId": 4141,
+      "type": "crown",
+      "length": 1.6215999999999973,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023836686117877986,
+      "closed": true
+    },
+    {
+      "faceId": 4142,
+      "type": "base",
+      "length": 2.2311999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.004574036444273499,
+      "closed": true
+    },
+    {
+      "faceId": 4142,
+      "type": "crown",
+      "length": 2.2311999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0032798787393387126,
+      "closed": true
+    },
+    {
+      "faceId": 4145,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002074532260876463,
+      "closed": true
+    },
+    {
+      "faceId": 4145,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0016579871542289695,
+      "closed": true
+    },
+    {
+      "faceId": 4145,
+      "type": "crown",
+      "length": 1.824799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002682362634905246,
+      "closed": true
+    },
+    {
+      "faceId": 4150,
+      "type": "base",
+      "length": 5.279200000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.010822543621232788,
+      "closed": true
+    },
+    {
+      "faceId": 4150,
+      "type": "crown",
+      "length": 5.279200000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.007760460844881878,
+      "closed": true
+    },
+    {
+      "faceId": 4153,
+      "type": "base",
+      "length": 1.3167999999999989,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0026993568277388284,
+      "closed": true
+    },
+    {
+      "faceId": 4153,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.005823464851114516,
+      "closed": true
+    },
+    {
+      "faceId": 4153,
+      "type": "crown",
+      "length": 4.1616,
+      "unsupportedLength": 4.620304139280051e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.006117337592421568,
+      "closed": true
+    },
+    {
+      "faceId": 4197,
+      "type": "base",
+      "length": 1.5199999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0031161707346939313,
+      "closed": true
+    },
+    {
+      "faceId": 4197,
+      "type": "crown",
+      "length": 1.5199999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0022344991503703885,
+      "closed": true
+    },
+    {
+      "faceId": 4205,
+      "type": "crown",
+      "length": 1.6216000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002383857281937694,
+      "closed": true
+    },
+    {
+      "faceId": 4211,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0020747132205930084,
+      "closed": true
+    },
+    {
+      "faceId": 4211,
+      "type": "crown",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0014877056886077934,
+      "closed": true
+    },
+    {
+      "faceId": 4212,
+      "type": "crown",
+      "length": 2.0279999999999987,
+      "unsupportedLength": 2.251532293939816e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002981055256170621,
+      "closed": true
+    },
+    {
+      "faceId": 4212,
+      "type": "base",
+      "length": 2.0279999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00415727287602072,
+      "closed": true
+    },
+    {
+      "faceId": 4213,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 8.935074902183262e-17,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0008248951416707817,
+      "closed": true
+    },
+    {
+      "faceId": 4213,
+      "type": "crown",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0005915072767872578,
+      "closed": true
+    },
+    {
+      "faceId": 4214,
+      "type": "base",
+      "length": 0.30079999999999885,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.6653345369377348e-16,
+      "signedVolume": 0.0006166201004617236,
+      "closed": true
+    },
+    {
+      "faceId": 4214,
+      "type": "crown",
+      "length": 0.30079999999999885,
+      "unsupportedLength": 1.0018652574217374e-16,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.00044215956430249717,
+      "closed": true
+    },
+    {
+      "faceId": 4215,
+      "type": "base",
+      "length": 0.7072000000000038,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-16,
+      "signedVolume": 0.0014497144003778946,
+      "closed": true
+    },
+    {
+      "faceId": 4215,
+      "type": "crown",
+      "length": 0.7072000000000038,
+      "unsupportedLength": 4.71089833808949e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0010395462086853196,
+      "closed": true
+    },
+    {
+      "faceId": 4216,
+      "type": "crown",
+      "length": 1.8248000000000033,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0026823598312011,
+      "closed": true
+    },
+    {
+      "faceId": 4216,
+      "type": "base",
+      "length": 1.8248000000000033,
+      "unsupportedLength": 2.0259349753359893e-16,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00374072391479162,
+      "closed": true
+    },
+    {
+      "faceId": 4217,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0058234818605207486,
+      "closed": true
+    },
+    {
+      "faceId": 4217,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00582348577048019,
+      "closed": true
+    },
+    {
+      "faceId": 4217,
+      "type": "crown",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.831026719408895e-15,
+      "signedVolume": 0.008357748016030524,
+      "closed": true
+    },
+    {
+      "faceId": 4218,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.011655679214871135,
+      "closed": true
+    },
+    {
+      "faceId": 4218,
+      "type": "crown",
+      "length": 5.685600000000001,
+      "unsupportedLength": 1.2624568057617582e-15,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.008357872726892972,
+      "closed": true
+    },
+    {
+      "faceId": 4235,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 8.979483823168244e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0016579713419103905,
+      "closed": true
+    },
+    {
+      "faceId": 4235,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002074512475943313,
+      "closed": true
+    },
+    {
+      "faceId": 4235,
+      "type": "crown",
+      "length": 1.824799999999998,
+      "unsupportedLength": 2.0259349753359834e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0026823643752519307,
+      "closed": true
+    },
+    {
+      "faceId": 4237,
+      "type": "base",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00020008081580590864,
+      "closed": true
+    },
+    {
+      "faceId": 4238,
+      "type": "base",
+      "length": 5.279200000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.326672684688674e-16,
+      "signedVolume": 0.010822565714853674,
+      "closed": true
+    },
+    {
+      "faceId": 4238,
+      "type": "crown",
+      "length": 5.2792,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0077604622467898855,
+      "closed": true
+    },
+    {
+      "faceId": 4239,
+      "type": "base",
+      "length": 0.19919999999999938,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00040836901130031155,
+      "closed": true
+    },
+    {
+      "faceId": 4239,
+      "type": "crown",
+      "length": 0.19919999999999938,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0002928263388232823,
+      "closed": true
+    },
+    {
+      "faceId": 4240,
+      "type": "crown",
+      "length": 1.621599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002383763720138088,
+      "closed": true
+    },
+    {
+      "faceId": 4241,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002074608987793575,
+      "closed": true
+    },
+    {
+      "faceId": 4241,
+      "type": "crown",
+      "length": 3.8568,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005669522762613069,
+      "closed": true
+    },
+    {
+      "faceId": 4241,
+      "type": "base",
+      "length": 2.8407999999999998,
+      "unsupportedLength": 3.1539215683551444e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005823664354248579,
+      "closed": true
+    },
+    {
+      "faceId": 4242,
+      "type": "base",
+      "length": 1.8247999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-16,
+      "signedVolume": 0.0037408164423019478,
+      "closed": true
+    },
+    {
+      "faceId": 4242,
+      "type": "crown",
+      "length": 1.8247999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0026824161480244403,
+      "closed": true
+    },
+    {
+      "faceId": 4243,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0016580465201160967,
+      "closed": true
+    },
+    {
+      "faceId": 4243,
+      "type": "base",
+      "length": 2.8408000000000007,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005823665331768907,
+      "closed": true
+    },
+    {
+      "faceId": 4243,
+      "type": "crown",
+      "length": 3.6536,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005370817522561525,
+      "closed": true
+    },
+    {
+      "faceId": 4252,
+      "type": "crown",
+      "length": 1.621599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0023836686117877986,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "crown",
+      "length": 3.4504000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0050719099133625725,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.00020007341605768605,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 1.2152000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.0024910783450081326,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 1.0835776720341616e-17,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.00020007341605768607,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 2.0280000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0041572636590189865,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0002000734160576861,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 1.1136,
+      "unsupportedLength": 1.2363443602225742e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002282805791684386,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "base",
+      "length": 1.0119999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.7755575615628914e-16,
+      "signedVolume": 0.0020745322608764633,
+      "closed": true
+    },
+    {
+      "faceId": 4255,
+      "type": "crown",
+      "length": 2.2311999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0032797492792880686,
+      "closed": true
+    },
+    {
+      "faceId": 4307,
+      "type": "base",
+      "length": 0.605599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0012414282529277613,
+      "closed": true
+    },
+    {
+      "faceId": 4307,
+      "type": "crown",
+      "length": 0.605599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008902018774772009,
+      "closed": true
+    },
+    {
+      "faceId": 4310,
+      "type": "crown",
+      "length": 0.5547999999999984,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0008155279727855927,
+      "closed": true
+    },
+    {
+      "faceId": 4310,
+      "type": "base",
+      "length": 0.5547999999999984,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011372902806749442,
+      "closed": true
+    },
+    {
+      "faceId": 4311,
+      "type": "crown",
+      "length": 0.5547999999999984,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008155279727855927,
+      "closed": true
+    },
+    {
+      "faceId": 4311,
+      "type": "base",
+      "length": 0.5547999999999984,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011372902806749442,
+      "closed": true
+    },
+    {
+      "faceId": 4313,
+      "type": "crown",
+      "length": 0.09759999999999991,
+      "unsupportedLength": 4.334310688136607e-17,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.00014346703612006935,
+      "closed": true
+    },
+    {
+      "faceId": 4327,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 1.3491430195244896e-16,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.002491055564925941,
+      "closed": true
+    },
+    {
+      "faceId": 4327,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862845024995606,
+      "closed": true
+    },
+    {
+      "faceId": 4330,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0016579693869606838,
+      "closed": true
+    },
+    {
+      "faceId": 4330,
+      "type": "crown",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011888946925376668,
+      "closed": true
+    },
+    {
+      "faceId": 4333,
+      "type": "crown",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014346703612006938,
+      "closed": true
+    },
+    {
+      "faceId": 4335,
+      "type": "crown",
+      "length": 0.5547999999999993,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0008155286737120843,
+      "closed": true
+    },
+    {
+      "faceId": 4335,
+      "type": "base",
+      "length": 0.5547999999999993,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0011372912581483266,
+      "closed": true
+    },
+    {
+      "faceId": 4336,
+      "type": "crown",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.000815527972785593,
+      "closed": true
+    },
+    {
+      "faceId": 4336,
+      "type": "base",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011372902806749447,
+      "closed": true
+    },
+    {
+      "faceId": 4350,
+      "type": "base",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.0024910555649259414,
+      "closed": true
+    },
+    {
+      "faceId": 4350,
+      "type": "crown",
+      "length": 1.2151999999999994,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862845024995606,
+      "closed": true
+    },
+    {
+      "faceId": 4351,
+      "type": "base",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00020007662726955833,
+      "closed": true
+    },
+    {
+      "faceId": 4368,
+      "type": "base",
+      "length": 0.14839999999999698,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0003042215322906787,
+      "closed": true
+    },
+    {
+      "faceId": 4369,
+      "type": "base",
+      "length": 0.1484000000000023,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.7755575615628914e-16,
+      "signedVolume": 0.00030421957725252355,
+      "closed": true
+    },
+    {
+      "faceId": 4370,
+      "type": "crown",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00014347277789765025,
+      "closed": true
+    },
+    {
+      "faceId": 4371,
+      "type": "crown",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00014347840914963415,
+      "closed": true
+    },
+    {
+      "faceId": 4375,
+      "type": "base",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0016579693869606838,
+      "closed": true
+    },
+    {
+      "faceId": 4375,
+      "type": "crown",
+      "length": 0.8088000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011888946925376672,
+      "closed": true
+    },
+    {
+      "faceId": 4378,
+      "type": "crown",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0008155279727855929,
+      "closed": true
+    },
+    {
+      "faceId": 4378,
+      "type": "base",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011372902806749444,
+      "closed": true
+    },
+    {
+      "faceId": 4379,
+      "type": "crown",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 4.3116621384342594e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0008155279727855929,
+      "closed": true
+    },
+    {
+      "faceId": 4379,
+      "type": "base",
+      "length": 0.5548000000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0011372902806749442,
+      "closed": true
+    },
+    {
+      "faceId": 4381,
+      "type": "crown",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014346703612006932,
+      "closed": true
+    },
+    {
+      "faceId": 4395,
+      "type": "base",
+      "length": 1.2152000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.002491054587451088,
+      "closed": true
+    },
+    {
+      "faceId": 4395,
+      "type": "crown",
+      "length": 1.2152000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0017862838015725291,
+      "closed": true
+    },
+    {
+      "faceId": 4396,
+      "type": "base",
+      "length": 1.3168000000000006,
+      "unsupportedLength": 1.4619416788264068e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0026993261319424016,
+      "closed": true
+    },
+    {
+      "faceId": 4396,
+      "type": "base",
+      "length": 0.09760000000000035,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0002000715079460425,
+      "closed": true
+    },
+    {
+      "faceId": 4396,
+      "type": "crown",
+      "length": 1.4184,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0020849766423515228,
+      "closed": true
+    },
+    {
+      "faceId": 4463,
+      "type": "base",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0033243350088816423,
+      "closed": true
+    },
+    {
+      "faceId": 4463,
+      "type": "crown",
+      "length": 1.6216000000000044,
+      "unsupportedLength": 1.8003376567321587e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0023837623182300805,
+      "closed": true
+    },
+    {
+      "faceId": 4471,
+      "type": "base",
+      "length": 0.7071999999999985,
+      "unsupportedLength": 1.570299446029818e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0014497339590681699,
+      "closed": true
+    },
+    {
+      "faceId": 4471,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.005823543417862088,
+      "closed": true
+    },
+    {
+      "faceId": 4471,
+      "type": "crown",
+      "length": 3.5519999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.0052215143707258676,
+      "closed": true
+    },
+    {
+      "faceId": 4472,
+      "type": "base",
+      "length": 2.6376000000000026,
+      "unsupportedLength": 5.856648499502632e-16,
+      "maxWallProjectionDistance": 7.216449660063518e-16,
+      "signedVolume": 0.005406902888898173,
+      "closed": true
+    },
+    {
+      "faceId": 4472,
+      "type": "crown",
+      "length": 0.6056000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0008902012999047056,
+      "closed": true
+    },
+    {
+      "faceId": 4472,
+      "type": "crown",
+      "length": 2.0280000000000022,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.002981055256170621,
+      "closed": true
+    },
+    {
+      "faceId": 4473,
+      "type": "base",
+      "length": 1.3168000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.002699589293164668,
+      "closed": true
+    },
+    {
+      "faceId": 4473,
+      "type": "crown",
+      "length": 1.3168000000000006,
+      "unsupportedLength": 1.4619416788264068e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.001935782887235775,
+      "closed": true
+    },
+    {
+      "faceId": 4474,
+      "type": "base",
+      "length": 0.6056000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0012414201672914964,
+      "closed": true
+    },
+    {
+      "faceId": 4474,
+      "type": "crown",
+      "length": 0.6056000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008901574065293787,
+      "closed": true
+    },
+    {
+      "faceId": 4475,
+      "type": "base",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008249630305885709,
+      "closed": true
+    },
+    {
+      "faceId": 4475,
+      "type": "crown",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0005915526933148605,
+      "closed": true
+    },
+    {
+      "faceId": 4476,
+      "type": "base",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 7.771561172376096e-16,
+      "signedVolume": 0.0022830039413576394,
+      "closed": true
+    },
+    {
+      "faceId": 4476,
+      "type": "crown",
+      "length": 1.1136000000000017,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0016370638201750995,
+      "closed": true
+    },
+    {
+      "faceId": 4477,
+      "type": "base",
+      "length": 3.348799999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.006864926808527281,
+      "closed": true
+    },
+    {
+      "faceId": 4477,
+      "type": "crown",
+      "length": 3.3488000000000007,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004922704825018234,
+      "closed": true
+    },
+    {
+      "faceId": 4478,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.0058237487164565765,
+      "closed": true
+    },
+    {
+      "faceId": 4478,
+      "type": "crown",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004175995160447346,
+      "closed": true
+    },
+    {
+      "faceId": 4479,
+      "type": "base",
+      "length": 3.0440000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.006240219816247899,
+      "closed": true
+    },
+    {
+      "faceId": 4479,
+      "type": "crown",
+      "length": 3.0440000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.004474685085414307,
+      "closed": true
+    },
+    {
+      "faceId": 4484,
+      "type": "base",
+      "length": 2.8407999999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005823571264053353,
+      "closed": true
+    },
+    {
+      "faceId": 4484,
+      "type": "crown",
+      "length": 3.653600000000001,
+      "unsupportedLength": 4.056310842770473e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005370868045213974,
+      "closed": true
+    },
+    {
+      "faceId": 4484,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0016580202948537155,
+      "closed": true
+    },
+    {
+      "faceId": 4485,
+      "type": "crown",
+      "length": 5.685600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.008357951348424462,
+      "closed": true
+    },
+    {
+      "faceId": 4485,
+      "type": "base",
+      "length": 0.8087999999999997,
+      "unsupportedLength": 1.7958967646336526e-16,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.0016580212723585823,
+      "closed": true
+    },
+    {
+      "faceId": 4485,
+      "type": "base",
+      "length": 2.8408000000000007,
+      "unsupportedLength": 3.1539215683551454e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005823573219063087,
+      "closed": true
+    },
+    {
+      "faceId": 4485,
+      "type": "base",
+      "length": 2.0279999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004157352635882256,
+      "closed": true
+    },
+    {
+      "faceId": 4493,
+      "type": "base",
+      "length": 2.4343999999999997,
+      "unsupportedLength": 2.7027269311474807e-16,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.004990615702213893,
+      "closed": true
+    },
+    {
+      "faceId": 4493,
+      "type": "crown",
+      "length": 2.4343999999999992,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003578588138235503,
+      "closed": true
+    },
+    {
+      "faceId": 4494,
+      "type": "base",
+      "length": 2.4343999999999992,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 6.661338147750939e-16,
+      "signedVolume": 0.004990774733543232,
+      "closed": true
+    },
+    {
+      "faceId": 4494,
+      "type": "crown",
+      "length": 2.4343999999999997,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.965068306494546e-16,
+      "signedVolume": 0.0035787285964593435,
+      "closed": true
+    },
+    {
+      "faceId": 4748,
+      "type": "base",
+      "length": 4.466400000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.498001805406602e-16,
+      "signedVolume": 0.009156014385424743,
+      "closed": true
+    },
+    {
+      "faceId": 4748,
+      "type": "crown",
+      "length": 4.466400000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.006565701646882409,
+      "closed": true
+    },
+    {
+      "faceId": 4751,
+      "type": "base",
+      "length": 2.8408000000000015,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 5.551115123125783e-17,
+      "signedVolume": 0.005823358438102919,
+      "closed": true
+    },
+    {
+      "faceId": 4751,
+      "type": "base",
+      "length": 0.6056000000000026,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0012414201672914964,
+      "closed": true
+    },
+    {
+      "faceId": 4751,
+      "type": "crown",
+      "length": 3.450400000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005071661934122408,
+      "closed": true
+    },
+    {
+      "faceId": 4878,
+      "type": "base",
+      "length": 4.466400000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.608224830031759e-16,
+      "signedVolume": 0.009156147494482148,
+      "closed": true
+    },
+    {
+      "faceId": 4878,
+      "type": "crown",
+      "length": 4.466400000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.006565614327677276,
+      "closed": true
+    },
+    {
+      "faceId": 4889,
+      "type": "base",
+      "length": 2.637600000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.005406816107200279,
+      "closed": true
+    },
+    {
+      "faceId": 4889,
+      "type": "crown",
+      "length": 2.6376000000000026,
+      "unsupportedLength": 2.928324249751316e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003876944752772455,
+      "closed": true
+    },
+    {
+      "faceId": 4890,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 6.312284028808791e-16,
+      "maxWallProjectionDistance": 4.996003610813204e-16,
+      "signedVolume": 0.011654911972000425,
+      "closed": true
+    },
+    {
+      "faceId": 4890,
+      "type": "crown",
+      "length": 2.637599999999999,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.003876944752772456,
+      "closed": true
+    },
+    {
+      "faceId": 4890,
+      "type": "crown",
+      "length": 3.0439999999999987,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004474303343447432,
+      "closed": true
+    },
+    {
+      "faceId": 4891,
+      "type": "base",
+      "length": 5.685600000000001,
+      "unsupportedLength": 1.2624568057617582e-15,
+      "maxWallProjectionDistance": 8.326672684688674e-16,
+      "signedVolume": 0.011654911972000423,
+      "closed": true
+    },
+    {
+      "faceId": 4891,
+      "type": "crown",
+      "length": 2.6376000000000004,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0038769447527724557,
+      "closed": true
+    },
+    {
+      "faceId": 4891,
+      "type": "crown",
+      "length": 3.0439999999999996,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004474302642555956,
+      "closed": true
+    },
+    {
+      "faceId": 6450,
+      "type": "base",
+      "length": 0.1992000000000007,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0004083465560777296,
+      "closed": true
+    },
+    {
+      "faceId": 6450,
+      "type": "crown",
+      "length": 0.19920000000000027,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0002928138297137023,
+      "closed": true
+    },
+    {
+      "faceId": 6451,
+      "type": "crown",
+      "length": 1.8248000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0026823636499825787,
+      "closed": true
+    },
+    {
+      "faceId": 6452,
+      "type": "base",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 2.6538771180639896e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0004083460673355246,
+      "closed": true
+    },
+    {
+      "faceId": 6472,
+      "type": "base",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.003324275214660825,
+      "closed": true
+    },
+    {
+      "faceId": 6472,
+      "type": "base",
+      "length": 2.840799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 6.661338147750939e-16,
+      "signedVolume": 0.0058236314166708845,
+      "closed": true
+    },
+    {
+      "faceId": 6472,
+      "type": "crown",
+      "length": 4.4664,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 9.155133597044475e-16,
+      "signedVolume": 0.006565597919881894,
+      "closed": true
+    },
+    {
+      "faceId": 6494,
+      "type": "base",
+      "length": 0.6056000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0012414703115838895,
+      "closed": true
+    },
+    {
+      "faceId": 6494,
+      "type": "base",
+      "length": 1.6216,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.0033242545359940968,
+      "closed": true
+    },
+    {
+      "faceId": 6494,
+      "type": "base",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 7.771561172376096e-16,
+      "signedVolume": 0.0020745839035970987,
+      "closed": true
+    },
+    {
+      "faceId": 6494,
+      "type": "crown",
+      "length": 3.2472000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004773315494148707,
+      "closed": true
+    },
+    {
+      "faceId": 6495,
+      "type": "base",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 2.247091401841318e-16,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.002074639397901701,
+      "closed": true
+    },
+    {
+      "faceId": 6495,
+      "type": "crown",
+      "length": 1.0120000000000005,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0014876480946336087,
+      "closed": true
+    },
+    {
+      "faceId": 6496,
+      "type": "crown",
+      "length": 2.2312000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0032798823175845837,
+      "closed": true
+    },
+    {
+      "faceId": 6497,
+      "type": "base",
+      "length": 0.6056000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 1.1102230246251565e-16,
+      "signedVolume": 0.0012415035204271206,
+      "closed": true
+    },
+    {
+      "faceId": 6498,
+      "type": "base",
+      "length": 2.840799999999998,
+      "unsupportedLength": 3.1539215683551425e-16,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.005823616685398044,
+      "closed": true
+    },
+    {
+      "faceId": 6498,
+      "type": "base",
+      "length": 1.6216000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.0033242668056799544,
+      "closed": true
+    },
+    {
+      "faceId": 6499,
+      "type": "crown",
+      "length": 4.4664,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.006565595257734511,
+      "closed": true
+    },
+    {
+      "faceId": 6582,
+      "type": "base",
+      "length": 2.7392000000000003,
+      "unsupportedLength": 6.082245818106458e-16,
+      "maxWallProjectionDistance": 3.552713678800501e-15,
+      "signedVolume": 0.005615316547464645,
+      "closed": true
+    },
+    {
+      "faceId": 6582,
+      "type": "base",
+      "length": 2.4343999999999983,
+      "unsupportedLength": 2.702726931147479e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.004990483186283624,
+      "closed": true
+    },
+    {
+      "faceId": 6582,
+      "type": "crown",
+      "length": 5.177600000000002,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.007610962603259272,
+      "closed": true
+    },
+    {
+      "faceId": 6583,
+      "type": "base",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00020008039877344858,
+      "closed": true
+    },
+    {
+      "faceId": 6583,
+      "type": "crown",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 1.0835776720341912e-17,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00014347146886424988,
+      "closed": true
+    },
+    {
+      "faceId": 6584,
+      "type": "base",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 1.0835776720341912e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00020008043949555526,
+      "closed": true
+    },
+    {
+      "faceId": 6584,
+      "type": "crown",
+      "length": 0.09760000000000346,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014347131761130517,
+      "closed": true
+    },
+    {
+      "faceId": 6585,
+      "type": "base",
+      "length": 1.9264000000000001,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.003949055434894397,
+      "closed": true
+    },
+    {
+      "faceId": 6585,
+      "type": "crown",
+      "length": 1.9264000000000006,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.965068306494546e-16,
+      "signedVolume": 0.002831850751051404,
+      "closed": true
+    },
+    {
+      "faceId": 6586,
+      "type": "base",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00020007667526042504,
+      "closed": true
+    },
+    {
+      "faceId": 6586,
+      "type": "crown",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.886579864025407e-15,
+      "signedVolume": 0.0001434742787922061,
+      "closed": true
+    },
+    {
+      "faceId": 6587,
+      "type": "crown",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 7.585043704239131e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00014347412753380444,
+      "closed": true
+    },
+    {
+      "faceId": 6587,
+      "type": "base",
+      "length": 0.0976000000000008,
+      "unsupportedLength": 1.0835776720341616e-17,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.00020007671598213384,
+      "closed": true
+    },
+    {
+      "faceId": 6588,
+      "type": "base",
+      "length": 0.19919999999999938,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.000408360980107826,
+      "closed": true
+    },
+    {
+      "faceId": 6588,
+      "type": "crown",
+      "length": 0.19919999999999938,
+      "unsupportedLength": 2.211564265053305e-17,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0002928247113233478,
+      "closed": true
+    },
+    {
+      "faceId": 6589,
+      "type": "base",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 4.423128530106649e-17,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.00040836098010782603,
+      "closed": true
+    },
+    {
+      "faceId": 6589,
+      "type": "crown",
+      "length": 0.19920000000000115,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 3.3306690738754696e-15,
+      "signedVolume": 0.0002928247113233478,
+      "closed": true
+    },
+    {
+      "faceId": 6591,
+      "type": "base",
+      "length": 0.4024000000000001,
+      "unsupportedLength": 4.467537451091631e-17,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0008249358260735527,
+      "closed": true
+    },
+    {
+      "faceId": 6591,
+      "type": "base",
+      "length": 2.8408,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 8.881784197001252e-16,
+      "signedVolume": 0.005823751457496614,
+      "closed": true
+    },
+    {
+      "faceId": 6591,
+      "type": "crown",
+      "length": 3.2472000000000003,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 4.965068306494546e-16,
+      "signedVolume": 0.0047734106322653205,
+      "closed": true
+    },
+    {
+      "faceId": 6592,
+      "type": "base",
+      "length": 3.2472000000000003,
+      "unsupportedLength": 3.6051162055628087e-16,
+      "maxWallProjectionDistance": 4.440892098500626e-16,
+      "signedVolume": 0.0066570994638357065,
+      "closed": true
+    },
+    {
+      "faceId": 6592,
+      "type": "crown",
+      "length": 3.2472,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 0,
+      "signedVolume": 0.004773597986817777,
+      "closed": true
+    },
+    {
+      "faceId": 6596,
+      "type": "base",
+      "length": 2.4343999999999983,
+      "unsupportedLength": 5.405453862294958e-16,
+      "maxWallProjectionDistance": 1.7763568394002505e-15,
+      "signedVolume": 0.004990492762985724,
+      "closed": true
+    },
+    {
+      "faceId": 6596,
+      "type": "base",
+      "length": 0.808799999999998,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0016580300449551865,
+      "closed": true
+    },
+    {
+      "faceId": 6596,
+      "type": "crown",
+      "length": 3.2471999999999976,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.004773361945719332,
+      "closed": true
+    },
+    {
+      "faceId": 6597,
+      "type": "base",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0008249172979793974,
+      "closed": true
+    },
+    {
+      "faceId": 6597,
+      "type": "crown",
+      "length": 0.40240000000000364,
+      "unsupportedLength": 0,
+      "maxWallProjectionDistance": 2.220446049250313e-16,
+      "signedVolume": 0.0005915266913305802,
+      "closed": true
+    }
+  ],
+  "limits": [
+    "CPU geometry audit using a material stand-in; no shader or visual-quality claim.",
+    "Wall containment tolerance0.2mm; support coverage tolerance0.5mm; native aperture projection tolerance1e-5m² per triangle.",
+    "Source collision remains authoritative; no normal-input gameplay is established by this audit."
+  ]
+}

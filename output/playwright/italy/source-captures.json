@@ -1,0 +1,542 @@
+{
+  "kind": "staged paused fixed-camera visual captures",
+  "seed": 4207,
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "documentSha256": "6af32fe727cf605b5cc61390c569d8e5d5c3fc86cd4fb6b7eb572bed9e876fde",
+  "readyAfterMs": 8033,
+  "records": [
+    {
+      "name": "ct_approach",
+      "camera": [
+        -19.5,
+        -4.42,
+        44,
+        -19,
+        -3.5,
+        27
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 927,
+        "tris": 281451,
+        "geos": 1009,
+        "tex": 213,
+        "programs": 192,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 62.3,
+        "state": "paused"
+      },
+      "simulationTime": 4.036799999952313
+    },
+    {
+      "name": "market",
+      "camera": [
+        17,
+        -2.384,
+        3,
+        13,
+        -2.8,
+        7.6
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 1333,
+        "tris": 417936,
+        "geos": 1009,
+        "tex": 213,
+        "programs": 192,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 60.1,
+        "state": "paused"
+      },
+      "simulationTime": 5.219700000047688
+    },
+    {
+      "name": "apartments",
+      "camera": [
+        -26,
+        1.8832,
+        -32,
+        -26,
+        1.2,
+        -28.5
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 649,
+        "tris": 235827,
+        "geos": 1009,
+        "tex": 213,
+        "programs": 192,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 49.3,
+        "state": "paused"
+      },
+      "simulationTime": 6.386100000143065
+    },
+    {
+      "name": "house_exterior",
+      "camera": [
+        6.9088,
+        1.68,
+        -55.0672,
+        20,
+        3,
+        -58
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 1068,
+        "tris": 300225,
+        "geos": 1009,
+        "tex": 213,
+        "programs": 192,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 62.1,
+        "state": "paused"
+      },
+      "simulationTime": 7.57070000028612
+    },
+    {
+      "name": "house_interior",
+      "camera": [
+        23.4,
+        4.9312,
+        -55,
+        21,
+        4.5,
+        -60
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 1055,
+        "tris": 290961,
+        "geos": 1009,
+        "tex": 213,
+        "programs": 192,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 50.9,
+        "state": "paused"
+      },
+      "simulationTime": 8.728600000143055
+    }
+  ],
+  "diagnostics": {
+    "map": {
+      "file": "cs_italy_cs16.zip",
+      "bspVersion": 30,
+      "bspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+      "map": "cs_italy",
+      "originalTitle": "cs_italy",
+      "attribution": "Counter-Strike / Valve source assets supplied by user; original map authorship not encoded in BSP"
+    },
+    "lighting": {
+      "sourceFixtures": 38,
+      "practicalFixtures": 3,
+      "activeLightBudget": 8,
+      "fixtureBatches": 4,
+      "weather": "dry",
+      "sky": "Mediterranean afternoon",
+      "sunDirection": [
+        -0.4802642179998424,
+        0.7904348587914073,
+        0.3802091725832086
+      ],
+      "sunIntensity": 4.6,
+      "shadow": {
+        "centerBlocker": true,
+        "filterTaps": 24,
+        "searchTaps": 12,
+        "sunHalfAngle": 0.00465
+      }
+    },
+    "materials": {
+      "version": 4,
+      "concreteFinish": "original concrete chart uses cast cement with trowel clouds, worn paste, 3–12 mm aggregate and sparse 1.4 mm pores; source diagnostic mode retains source pixels",
+      "sourceSupportedContactSegments": 3715,
+      "contactFieldSize": 512,
+      "contactHeightGated": true,
+      "microdetailDistanceFiltered": true,
+      "referenceMode": true,
+      "activeFallbacks": [],
+      "reusedMaterials": [],
+      "uniquePbrSets": 8,
+      "normalOrmSize": 512,
+      "sourceDetailAtlases": 86,
+      "recreatedTextures": [
+        "{hangingIvy1",
+        "{ornateGate",
+        "{rustyrungs",
+        "{wineRack",
+        "{wineRack1",
+        "{wineRack2"
+      ],
+      "generatedAlbedos": 4,
+      "gpuUploadLimit": {
+        "hero": 1024,
+        "secondary": 768,
+        "physicalAlbedo": 1024
+      },
+      "remasteredAtlases": [],
+      "missingTextures": [],
+      "retainedTextureBytes": 62238720,
+      "bakeMs": 472,
+      "heightData": "bounded luminance-derived micro-relief for generated albedo; deterministic procedural stone/wood; no measured height or displacement",
+      "channels": [
+        "sRGB albedo",
+        "linear normal",
+        "linear ORM"
+      ]
+    },
+    "sourceGeometry": {
+      "renderTriangles": 19298,
+      "meshes": 662,
+      "replacedCanopyFaces": 0
+    },
+    "objectiveChecks": [
+      {
+        "id": "relay_a",
+        "floor": -3.86080002784729,
+        "pathNodes": 88
+      },
+      {
+        "id": "relay_b",
+        "floor": 0.20319999754428864,
+        "pathNodes": 116
+      },
+      {
+        "id": "relay_c",
+        "floor": 3.251199960708618,
+        "pathNodes": 181
+      }
+    ],
+    "shotChecks": [
+      {
+        "index": 0,
+        "feet": [
+          -19.5,
+          -6.1,
+          44
+        ],
+        "floor": -6.0960001945495605,
+        "standing": true,
+        "pathNodes": 5
+      },
+      {
+        "index": 1,
+        "feet": [
+          17,
+          -4.064,
+          3
+        ],
+        "floor": -4.064000129699707,
+        "standing": true,
+        "pathNodes": 78
+      },
+      {
+        "index": 2,
+        "feet": [
+          -26,
+          0.20320000000000005,
+          -32
+        ],
+        "floor": 0.20319999754428864,
+        "standing": true,
+        "pathNodes": 115
+      },
+      {
+        "index": 3,
+        "feet": [
+          6.9088,
+          0,
+          -55.0672
+        ],
+        "floor": 0,
+        "standing": true,
+        "pathNodes": 156
+      },
+      {
+        "index": 4,
+        "feet": [
+          23.4,
+          3.2512,
+          -55
+        ],
+        "floor": 3.251199960708618,
+        "standing": true,
+        "pathNodes": 196
+      }
+    ],
+    "spawnCount": 14,
+    "groundSpawnCount": 11,
+    "airSpawnCount": 3,
+    "spawnRejections": [
+      [
+        8,
+        0,
+        -34
+      ]
+    ],
+    "airSpawnRejections": [
+      [
+        -12,
+        0.5,
+        -18
+      ]
+    ],
+    "nav": {
+      "rays": 245,
+      "rayTriangles": 22409,
+      "movements": 42,
+      "substeps": 42,
+      "navSearches": 19,
+      "navExpanded": 56253,
+      "navCacheHits": 0,
+      "navDisconnected": 0,
+      "triangles": 20908,
+      "bins": 1971,
+      "navNodes": 25548,
+      "navLayers": 11119,
+      "navTiming": {
+        "rasterMs": 45.40000009536743,
+        "prewarmMs": 1317.5,
+        "edges": 182771,
+        "components": 139,
+        "totalMs": 1362.9000000953674
+      },
+      "cachedPaths": 0
+    }
+  },
+  "dressing": {
+    "windows": 103,
+    "doors": 10,
+    "archedSurrounds": 1,
+    "facadeMouldings": 41,
+    "roofTiles": 2600,
+    "eaves": 137,
+    "drainpipes": 20,
+    "windowBoxes": 26,
+    "marketFruit": 309,
+    "fruitFinishVersion": 3,
+    "canopies": 0,
+    "replacedCanopyFaceIds": [],
+    "crateFaces": 107,
+    "crateBraces": 76,
+    "crateSlats": 522,
+    "glazedPanes": 172,
+    "bottles": 2,
+    "chickens": 2,
+    "meshes": 187,
+    "triangles": 169844,
+    "collisionChanges": 0,
+    "sourceUVAligned": true,
+    "archSurround": {
+      "sourceFaces": [
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270
+      ],
+      "triangles": 1020,
+      "segments": 100,
+      "maximumProjection": 0.046,
+      "nativeApertureRetained": true
+    }
+  },
+  "backdrop": {
+    "setting": "Italian hillside village",
+    "buildings": 24,
+    "cypresses": 34,
+    "terrainLayers": 3,
+    "tris": 36756,
+    "drawCalls": 41,
+    "collisionChanges": 0,
+    "clearanceMargin": 12,
+    "sourceXZ": {
+      "min": [
+        -42.2656,
+        -65.8368
+      ],
+      "max": [
+        29.6672,
+        65.024
+      ]
+    },
+    "bounds": {
+      "min": [
+        -436.556,
+        -15,
+        -472.374
+      ],
+      "max": [
+        348.065,
+        58.796,
+        316.603
+      ]
+    },
+    "extentRule": "Every backdrop vertex lies outside the source XZ bounding rectangle expanded by 12 metres."
+  },
+  "warmup": {
+    "complete": true,
+    "meshes": 1022,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "948a385b-5067-40c0-8820-6d1a09c7ab82",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "36766590-200d-4caa-af28-99c7626dbc0d",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "69fb24be-05b0-424e-af9d-893d98c094ef",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "a0f3c0ef-03f1-4552-8e02-bb138303de3f",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "f96bc8ac-cb3c-4b0e-bb22-467c686ccb58",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 971,
+      "textures": 180
+    },
+    "after": {
+      "geometries": 1009,
+      "textures": 220
+    },
+    "restored": true,
+    "elapsedMs": 598.3,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "errors": [],
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)"
+}

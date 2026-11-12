@@ -1,0 +1,187 @@
+{
+  "kind": "real pointer-locked mouse calibration outside viewport coordinate range",
+  "ok": false,
+  "records": [
+    {
+      "target": -2,
+      "before": {
+        "yaw": -0.017453,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 1544,
+        "y": 450
+      },
+      "after": {
+        "yaw": -2.0846830001621246,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": 0.0846830001621246
+    },
+    {
+      "target": 2,
+      "before": {
+        "yaw": -2.097773000243187,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 2585,
+        "y": 450
+      },
+      "after": {
+        "yaw": -2.097773000243187,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": -2.1854123069363993
+    },
+    {
+      "target": 0,
+      "before": {
+        "yaw": -2.097773000243187,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 1586,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": 1.6856780001370908
+    },
+    {
+      "target": -2,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 1736,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": -0.3143219998629092
+    },
+    {
+      "target": 2,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 2973,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": -2.597507307042496
+    },
+    {
+      "target": 0,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 2170,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": 1.6856780001370908
+    },
+    {
+      "target": -2,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 2320,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": -0.3143219998629092
+    },
+    {
+      "target": 2,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 3557,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": -2.597507307042496
+    },
+    {
+      "target": 0,
+      "before": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "scale": 1,
+        "sensitivity": 1,
+        "state": "playing"
+      },
+      "cursor": {
+        "x": 2754,
+        "y": 450
+      },
+      "after": {
+        "yaw": -1.6856780001370908,
+        "locked": false,
+        "state": "playing"
+      },
+      "error": 1.6856780001370908
+    }
+  ],
+  "errors": []
+}

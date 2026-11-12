@@ -1,0 +1,1525 @@
+{
+  "audit": "independent v8 render-only recess/plaster partition",
+  "mapSha256": "80de78e4e4de32b0f9de0e06ce6343049f1df76949b6cc389f941cad738d3e2b",
+  "moduleSha256": {
+    "src/italy-dressing.js": "9f2f37869fc52ebab349c83b228d06d4b990b25e386be3c8952892dabe88644f",
+    "src/italy-level.js": "f7cfbd9dfb7e66e4673b272cc5783698c21bf0c04cd0e753ba69a46c9fd41a35",
+    "src/assault-physics.js": "6a5fe66e7737371efaac7874ec8eaaaa1fd7751fe77b4cdc92006aaf569a12aa"
+  },
+  "sourceSha256": "9f2f37869fc52ebab349c83b228d06d4b990b25e386be3c8952892dabe88644f",
+  "stats": {
+    "version": 1,
+    "windows": 101,
+    "byTexture": {
+      "bStuccoWnd": 24,
+      "wlStuccoWnd": 63,
+      "shutteredWindow": 12,
+      "floweredWindow": 1,
+      "windowWhite": 1
+    },
+    "renderOnly": true,
+    "collisionChanges": 0,
+    "sourceAreaRemoved": 262.56005804552456,
+    "backPanelArea": 262.56005804552456,
+    "inputTriangles": 377,
+    "outputTriangles": 1509,
+    "rejectedIncomplete": 210,
+    "rejectedThinWall": 0,
+    "plainFacadeTriangles": 1408,
+    "atlasWindowTriangles": 31,
+    "plainFacadeArea": 1016.5384806538086,
+    "scope": "all complete source-painted closed windows in five original chart families"
+  },
+  "sourceUnchanged": true,
+  "collisionHash": "6d889fdb44e729fc3988067fa8ffd1c3f0207fa0e6c3406a9f26316f84634ee5",
+  "beforeArea": 22362.023307089847,
+  "afterArea": 22099.46328031095,
+  "removedArea": 262.56002677889774,
+  "removedAreaError": -0.00003126662682007009,
+  "plainArea": 1016.5384806538091,
+  "verticesChecked": 4767,
+  "maxAttrError": 3.801403636316536e-13,
+  "minWinding": 0.00002224649330982353,
+  "partitions": [
+    {
+      "key": "0:bStuccoWnd",
+      "sourceArea": 388.6429388416002,
+      "outputArea": 328.0864014465795,
+      "removed": 60.55650282983643,
+      "plainArea": 325.54851982612087,
+      "nativeWindowArea": 63.09441901547927,
+      "retainedWindowArea": 2.537881620458607,
+      "plainWindowArea": 1.7603106170512242e-15
+    },
+    {
+      "key": "0:wlStuccoWnd",
+      "sourceArea": 849.6277717087992,
+      "outputArea": 694.3952404633571,
+      "removed": 155.23259927691754,
+      "plainArea": 690.9899608276882,
+      "nativeWindowArea": 158.637810881113,
+      "retainedWindowArea": 3.405279635668985,
+      "plainWindowArea": 3.30057827925919e-15
+    }
+  ],
+  "windows": [
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        22.7584,
+        2.2108160000000003,
+        -0.0024363113350358567
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        22.7584,
+        2.2108160000000003,
+        -4.879239098079486
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        6.098450102359931,
+        2.210816,
+        -6.5024
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        10.975246200923046,
+        2.210816,
+        -6.5024
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        15.852042299486165,
+        2.210816,
+        -6.5024
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        20.72883839804928,
+        2.210816,
+        -6.5024
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -40.68826530347741,
+        4.496815999999991,
+        -34.1376
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -35.811504317565365,
+        4.496815999999995,
+        -34.1376
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -9.649560189322028,
+        1.8044159999999998,
+        32.512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -4.772762242710634,
+        1.8044159999999998,
+        32.512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        6.098433704771475,
+        2.2108117760301496,
+        1.6256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        10.975234603330742,
+        2.2108117760301496,
+        1.6256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        15.852035501890011,
+        2.2108117760301496,
+        1.6256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        20.728836400449282,
+        2.2108117760301496,
+        1.6256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -10.05597378811806,
+        1.8044159999999998,
+        43.0784
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -5.179165985225575,
+        1.8044159999999998,
+        43.0784
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -24.279963225600003,
+        -0.2021849012755368,
+        32.512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -30.55376533136534,
+        3.0744160000000003,
+        1.6256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -30.096576873128313,
+        3.0744159999999994,
+        11.3792
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -26.8224,
+        3.0744159999999994,
+        9.979750037199699
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -26.8224,
+        3.0744159999999994,
+        3.1217632255999996
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -11.7856,
+        1.8044159999999998,
+        40.485163225600004
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -11.7856,
+        1.8044159999999998,
+        35.60836322560001
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "bStuccoWnd",
+      "center": [
+        -24.27994455084358,
+        -0.20218460198478105,
+        37.3888
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -11.896746328362937,
+        5.362854399999999,
+        -21.1328
+      ],
+      "depth": 0.18,
+      "thickness": 0.5080000000000002
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.239149254440598,
+        5.362854399999999,
+        -21.1328
+      ],
+      "depth": 0.18,
+      "thickness": 0.5080000000000002
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -5.2832,
+        5.362854399999998,
+        -18.15144970826497
+      ],
+      "depth": 0.18,
+      "thickness": 0.40640000000000076
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -5.2832,
+        6.074054399999999,
+        -9.083644053244068
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -5.2832,
+        6.074054399999999,
+        -12.741247710847716
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -27.49243598574393,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -23.83482135528541,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -20.177206724826892,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -16.519592094368374,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -12.86197746390985,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -9.20436283345133,
+        6.074054399999999,
+        -15.4432
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -5.2832,
+        5.362854399999999,
+        2.9051485410257296
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -5.2832,
+        5.362854399999999,
+        -0.7524496301751851
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -2.9051023687810513,
+        5.3628544,
+        -7.3152
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        0.7524683706530342,
+        5.3628544,
+        -7.3152
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -26.476372405972402,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -22.818768748368747,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -19.16116509076509,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -15.503561433161433,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -11.845957775557771,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.188354117954116,
+        6.074054399999999,
+        -3.2512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -1.8891532321086877,
+        0.2828544000000006,
+        -16.256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        1.7684478933070436,
+        0.2828544000000006,
+        -16.256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        5.426049018722775,
+        0.2828544000000006,
+        -16.256
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -17.8816,
+        8.5632544,
+        -33.239036509436595
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -17.8816,
+        8.5632544,
+        -36.896640167040225
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -17.8816,
+        8.5632544,
+        -40.554243824643855
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -17.8816,
+        8.5632544,
+        -44.21184748224749
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.9408,
+        8.5632544,
+        -33.239036509436595
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.9408,
+        8.5632544,
+        -36.896640167040225
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.9408,
+        8.5632544,
+        -40.554243824643855
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -8.9408,
+        8.5632544,
+        -44.21184748224749
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -15.071748820831404,
+        8.563254399999998,
+        -46.3296
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -11.41414927803134,
+        8.563254399999998,
+        -46.3296
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -37.19514685578662,
+        8.410854400000002,
+        -38.2016
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -33.5375479008149,
+        8.410854400000002,
+        -38.2016
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -29.879948945843164,
+        8.410854400000002,
+        -38.2016
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -27.6352,
+        8.410854400000002,
+        -39.38585990527512
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -27.6352,
+        8.410854400000002,
+        -43.04345533328083
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -27.6352,
+        8.410854400000002,
+        -46.701050761286545
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -37.19515300146894,
+        8.4108544,
+        -47.9552
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -33.537551695182756,
+        8.4108544,
+        -47.9552
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -29.879950388896575,
+        8.4108544,
+        -47.9552
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -14.6304,
+        5.362854399999999,
+        -18.15144926774829
+      ],
+      "depth": 0.18,
+      "thickness": 0.406399999999999
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -28.448,
+        6.074054400000002,
+        -5.426040395640419
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -28.448,
+        6.074054400000002,
+        -9.083644053244068
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -28.448,
+        6.074054400000002,
+        -12.741247710847716
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        13.8176,
+        2.4164544,
+        21.72654992619998
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        16.348050807693646,
+        2.4164544,
+        19.1008
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        20.005650350493706,
+        2.4164544,
+        19.1008
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        3.2512,
+        0.3844544000000001,
+        18.297541440117122
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        3.2512,
+        0.3844544000000001,
+        14.639948755302488
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -3.133751619200001,
+        0.3844543999999992,
+        13.0048
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        0.5238483807999996,
+        0.3844543999999992,
+        13.0048
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -6.5024,
+        0.3336543999999999,
+        19.03415480375481
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -6.5024,
+        0.3336543999999999,
+        15.37655114615115
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -27.6352,
+        1.1718560256,
+        15.401953203553205
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -32.419951021106115,
+        1.1718560256,
+        13.0048
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -28.762351478306066,
+        1.1718560256,
+        13.0048
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -21.802759604359583,
+        3.127654399999999,
+        60.5536
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -14.487552289152283,
+        3.127654399999999,
+        60.5536
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -12.192,
+        3.127654399999999,
+        62.671350785045604
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "wlStuccoWnd",
+      "center": [
+        -24.384,
+        3.127654399999999,
+        62.671350785045604
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -6.5024,
+        2.0827999999999998,
+        -55.7330836568
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -20.4669136,
+        2.3876,
+        -52.0192
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -23.7744,
+        4.7752,
+        -38.41211519999999
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -23.7744,
+        4.7752,
+        -45.72731519999999
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        23.5712,
+        -2.4384,
+        7.9321152
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        20.3126848,
+        -2.4384,
+        19.304
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        6.509715764958697,
+        1.8288,
+        20.1168
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -26.8224,
+        3.048,
+        6.495083342813326
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -27.0256,
+        -1.8288000000000002,
+        21.7350848
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -27.0256,
+        -1.8288000000000002,
+        27.8310848
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -11.7856,
+        -1.8288000000000002,
+        35.55268480000001
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "shutteredWindow",
+      "center": [
+        -11.7856,
+        -1.8288000000000002,
+        40.2262848
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "floweredWindow",
+      "center": [
+        -16.662399999999998,
+        -1.4224,
+        31.9024
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    },
+    {
+      "texture": "windowWhite",
+      "center": [
+        -21.6408,
+        -0.20320000000000005,
+        34.9504
+      ],
+      "depth": 0.18,
+      "thickness": 0.9
+    }
+  ],
+  "closedRecesses": {
+    "backPanels": 101,
+    "reveals": 404,
+    "uniqueLegacySuppressions": 101
+  },
+  "construction": {
+    "stats": {
+      "windows": 103,
+      "doors": 10,
+      "archedSurrounds": 1,
+      "facadeMouldings": 41,
+      "roofTiles": 2600,
+      "eaves": 137,
+      "drainpipes": 20,
+      "windowBoxes": 0,
+      "marketFruit": 309,
+      "fruitFinishVersion": 3,
+      "canopies": 1,
+      "replacedCanopyFaceIds": [
+        5257,
+        5258,
+        5259,
+        5260,
+        5261,
+        5262,
+        5263,
+        5264,
+        5265,
+        5266,
+        5267,
+        5271,
+        5280,
+        5288,
+        5289,
+        5399,
+        5400,
+        5401,
+        5418,
+        5419,
+        5814,
+        5815,
+        5816,
+        5817,
+        5818,
+        5819,
+        5820,
+        5821,
+        5822,
+        5823,
+        5824,
+        5828,
+        5829,
+        5830,
+        5831,
+        5838,
+        5839,
+        5841,
+        5870,
+        5961,
+        5964,
+        5965
+      ],
+      "crateFaces": 107,
+      "crateBraces": 76,
+      "crateSlats": 522,
+      "glazedPanes": 1314,
+      "bottles": 2,
+      "chickens": 2,
+      "meshes": 205,
+      "triangles": 201452,
+      "collisionChanges": 0,
+      "sourceUVAligned": true,
+      "canopyFootprint": {
+        "min": [
+          9.9568,
+          6.2992
+        ],
+        "max": [
+          18.0848,
+          13.208
+        ],
+        "sourceTopMaximumDeviation": 0.05,
+        "collision": "retained source BSP"
+      },
+      "recessedWindows": 101,
+      "recessReveals": 404,
+      "recessBackPanels": 101,
+      "recessSashBoards": 3082,
+      "archSurround": {
+        "sourceFaces": [
+          264,
+          265,
+          266,
+          267,
+          268,
+          269,
+          270
+        ],
+        "triangles": 1020,
+        "segments": 100,
+        "maximumProjection": 0.046,
+        "nativeApertureRetained": true
+      },
+      "houseArchitecture": {
+        "capBlocks": 31,
+        "cornerReturns": 20,
+        "framedPlaques": 22,
+        "passageVoussoirs": 18,
+        "passageJambBlocks": 12,
+        "maximumProjection": 0.055,
+        "collisionChanges": 0,
+        "sourceFaces": [
+          38,
+          39,
+          40,
+          41,
+          42,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          254,
+          255,
+          256,
+          257,
+          261,
+          262,
+          263,
+          271,
+          272,
+          273,
+          274,
+          275,
+          276,
+          277,
+          278,
+          279,
+          280,
+          281,
+          282,
+          283
+        ],
+        "plaqueCenters": [
+          [
+            13.511306615466665,
+            6.4917046637389095,
+            -53.644799999999975
+          ],
+          [
+            14.595039948800007,
+            6.491704663738908,
+            -53.64480000000003
+          ],
+          [
+            15.678773282133356,
+            6.491704663738912,
+            -53.644800000000004
+          ],
+          [
+            16.762506615466684,
+            6.491704663738909,
+            -53.644799999999975
+          ],
+          [
+            17.84623994880002,
+            6.4917046637389095,
+            -53.64479999999999
+          ],
+          [
+            18.929973282133346,
+            6.4917046637389095,
+            -53.644799999999975
+          ],
+          [
+            20.013706615466667,
+            6.491704663738911,
+            -53.64480000000002
+          ],
+          [
+            21.097439948800012,
+            6.491704663738911,
+            -53.64480000000002
+          ],
+          [
+            22.181173282133333,
+            6.491704663738911,
+            -53.6448
+          ],
+          [
+            23.26490661546667,
+            6.49170466373891,
+            -53.64479999999998
+          ],
+          [
+            24.3486399488,
+            6.49170466373891,
+            -53.6448
+          ],
+          [
+            25.432373282133334,
+            6.49170466373891,
+            -53.6448
+          ],
+          [
+            13.004799999999975,
+            6.4917048764360645,
+            -54.28677328213361
+          ],
+          [
+            13.004799999999975,
+            6.4917048764360645,
+            -55.37050661546688
+          ],
+          [
+            13.004800000000001,
+            6.491704876436055,
+            -56.45423994880015
+          ],
+          [
+            13.004799999999996,
+            6.4917048764360645,
+            -57.53797328213348
+          ],
+          [
+            13.004799999999994,
+            6.4917048764360725,
+            -58.62170661546686
+          ],
+          [
+            13.004799999999985,
+            6.491704876436062,
+            -59.70543994880019
+          ],
+          [
+            13.004799999999985,
+            6.491704876436067,
+            -60.78917328213346
+          ],
+          [
+            13.004799999999998,
+            6.491704876436068,
+            -61.87290661546673
+          ],
+          [
+            13.00480000000001,
+            6.49170487643607,
+            -62.95663994880006
+          ],
+          [
+            13.0048,
+            6.491704876436068,
+            -64.04037328213334
+          ]
+        ],
+        "finish": "restrained coping-joint/sill runoff and base lime repair on existing house facade only",
+        "passage": {
+          "sourceFaces": [
+            343,
+            344,
+            345,
+            346,
+            347,
+            348,
+            349,
+            350,
+            352
+          ],
+          "planeZ": -47.1424,
+          "originalAperture": [
+            [
+              19.9136,
+              2.032,
+              -47.1424
+            ],
+            [
+              19.507199999999997,
+              2.8448,
+              -47.1424
+            ],
+            [
+              19.1008,
+              3.2512,
+              -47.1424
+            ],
+            [
+              18.288,
+              3.6576,
+              -47.1424
+            ],
+            [
+              17.475199999999997,
+              3.6576,
+              -47.1424
+            ],
+            [
+              16.662399999999998,
+              3.2512,
+              -47.1424
+            ],
+            [
+              16.256,
+              2.8448,
+              -47.1424
+            ],
+            [
+              15.849599999999999,
+              2.032,
+              -47.1424
+            ]
+          ],
+          "nativeInnerBoundaryRetained": true,
+          "maximumProjection": 0.053
+        }
+      }
+    },
+    "meshes": 205,
+    "triangles": 201452,
+    "finiteGeometry": true
+  },
+  "apertureChecks": [
+    {
+      "name": "native crouch window",
+      "planeAxis": 0,
+      "plane": 13.0048,
+      "depthRange": [
+        12.7,
+        13.045
+      ],
+      "projectAxes": [
+        2,
+        1
+      ],
+      "polygon": [
+        [
+          -64.008,
+          3.8608
+        ],
+        [
+          -61.976,
+          3.8608
+        ],
+        [
+          -61.976,
+          4.8768
+        ],
+        [
+          -62.1792,
+          5.2832
+        ],
+        [
+          -62.5856,
+          5.4864
+        ],
+        [
+          -63.3984,
+          5.4864
+        ],
+        [
+          -63.8048,
+          5.2832
+        ],
+        [
+          -64.008,
+          4.8768
+        ]
+      ],
+      "trianglesInspected": 7387,
+      "overlapArea": 0.0000022157906300890318,
+      "maxTriangleOverlap": 0.0000017672197287765812,
+      "overlaps": [],
+      "apertureArea": 3.0554777600000023,
+      "sourcePlaneCoverage": 0,
+      "outputPlaneCoverage": 0
+    },
+    {
+      "name": "native ground passage",
+      "planeAxis": 2,
+      "plane": -47.1424,
+      "depthRange": [
+        -47.46,
+        -47.1
+      ],
+      "projectAxes": [
+        0,
+        1
+      ],
+      "polygon": [
+        [
+          15.8496,
+          0
+        ],
+        [
+          19.9136,
+          0
+        ],
+        [
+          19.9136,
+          2.032
+        ],
+        [
+          19.5072,
+          2.8448
+        ],
+        [
+          19.1008,
+          3.2512
+        ],
+        [
+          18.288,
+          3.6576
+        ],
+        [
+          17.4752,
+          3.6576
+        ],
+        [
+          16.6624,
+          3.2512
+        ],
+        [
+          16.256,
+          2.8448
+        ],
+        [
+          15.8496,
+          2.032
+        ]
+      ],
+      "trianglesInspected": 3822,
+      "overlapArea": 0,
+      "maxTriangleOverlap": 0,
+      "overlaps": [],
+      "apertureArea": 13.047715839999992,
+      "sourcePlaneCoverage": 1.7763568394002505e-15,
+      "outputPlaneCoverage": 1.7763568394002505e-15
+    }
+  ],
+  "limits": [
+    "Material stand-ins construct the geometry; mesh/material counts are not GPU runtime measurements.",
+    "Geometry-only CPU audit; no rendered appearance, normal-input play or GPU performance claim.",
+    "Original collision owns bullet impacts; visual recess back panels may sit up to 18 cm behind impact planes.",
+    "Aperture audit measures projected triangle intrusion within explicit facade depth slabs, with 1e-5 square metre (Float32 boundary precision) per-triangle tolerance."
+  ],
+  "actualThreeRevision": "180",
+  "ok": true
+}

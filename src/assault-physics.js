@@ -154,16 +154,37 @@ function sAP(o, i) {
     }
     return false;
   }
+  // Support probes must reach diagonal curbs and stair risers before the
+  // cylinder's wall contact stops its acceleration. Flat floors retain five
+  // probes; slopes use a cached ring, and nearby climbable risers add probes
+  // along their exact horizontal normals (a finite ring can still miss a lip).
+  const radialSupport=new Map();
+  function slopeFootprint(rad){
+    let samples=radialSupport.get(rad);
+    if(!samples){samples=[[0,0],...Array.from({length:16},(_,n)=>[Math.cos(n*Math.PI/8)*rad,Math.sin(n*Math.PI/8)*rad])];radialSupport.set(rad,samples);}
+    return samples;
+  }
   o.moveCapsule=function(pos,vel,dt,rad=.32,height=1.8,stepUp=true){
     counters.movements++;
     const out={onGround:false,hitWall:false,hitCeil:false,surface:'concrete'};
     if(!(dt>0))return out;
     // Include vertical travel: falling and jumping must not tunnel through slabs.
     const count=Math.min(256,Math.max(1,Math.ceil(Math.hypot(vel.x,vel.y,vel.z)*dt/Math.max(.04,rad*.4))));
-    const tick=dt/count, samples=[[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad]];
+    const tick=dt/count, baseSamples=[[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad]];
     for(let sub=0;sub<count;sub++){
       counters.substeps++;
       const oldY=pos.y,oldX=pos.x,oldZ=pos.z,wasRising=vel.y>0;
+      const supportIds=local(oldX+vel.x*tick,oldZ+vel.z*tick,rad+.03);
+      const onSlope=supportIds.some(id=>{const t=tris[id];return t.ny>.65&&t.ny<.999&&t.miny<=oldY+STEP&&t.maxy>=oldY-STEP;});
+      let samples=onSlope?slopeFootprint(rad):baseSamples;
+      let stepSamples;
+      for(const id of supportIds){const t=tris[id];if(Math.abs(t.ny)>=.65||t.maxy<=oldY+EPS||t.maxy>oldY+STEP+EPS||t.miny>oldY+.025)continue;
+        const m=Math.hypot(t.nx,t.nz),dx=t.nx/m*rad,dz=t.nz/m*rad;
+        stepSamples??=[];
+        if(stepSamples.some(s=>Math.abs(s[0]-dx)<.0001&&Math.abs(s[1]-dz)<.0001))continue;
+        stepSamples.push([dx,dz],[-dx,-dz]);
+      }
+      if(stepSamples)samples=samples.concat(stepSamples);
       let support=-Infinity;
       for(const [dx,dz] of samples) support=Math.max(support,floorAt(oldX+dx,oldZ+dz,oldY+.025).y);
       const grounded=!wasRising&&oldY-support<.06;
@@ -259,6 +280,16 @@ function sAP(o, i) {
     navTiming.totalMs=clock()-started;navTiming.prewarmMs=navTiming.totalMs-navTiming.rasterMs;
   };
   const ensure=()=>{if(!navGrid)o.build();};
+  function materializePath(ids,from,start){
+    if(ids===null)return null;
+    const points=ids.map(id=>{const n=navNodes[id];return vec(n.x,n.y,n.z);});
+    // A caller may stand away from the snapped graph node (for example after
+    // sliding against a corner). Do not skip the connector and send it through
+    // that corner toward the next node. Recheck per call, including cache hits:
+    // the cached graph route is shared by different positions in the same cell.
+    if(points.length&&Math.hypot(from.x-start.x,from.z-start.z)>.05&&!walkSegment(from,points[0])&&walkSegment(from,start))points.unshift(vec(start.x,start.y,start.z));
+    return points;
+  }
   o.nav={
     cell:o.nav.cell,
     isWalkable(x,z,y){ensure();const c=cellIndex(x,z);if(c<0)return false;return (navCells[c]||[]).some(id=>y===undefined||Math.abs(navNodes[id].y-y)<.8);},
@@ -268,7 +299,7 @@ function sAP(o, i) {
       const cacheKey=start.id+':'+goal.id;
       if(pathCache.has(cacheKey)){
         const ids=pathCache.get(cacheKey);pathCache.delete(cacheKey);pathCache.set(cacheKey,ids);counters.navCacheHits++;
-        return ids===null?null:ids.map(id=>{const n=navNodes[id];return vec(n.x,n.y,n.z);});
+        return materializePath(ids,from,start);
       }
       const remember=ids=>{pathCache.set(cacheKey,ids);if(pathCache.size>128)pathCache.delete(pathCache.keys().next().value);};
       counters.navSearches++;
@@ -284,7 +315,7 @@ function sAP(o, i) {
       if(!Number.isFinite(costs[goal.id])){remember(null);return null;}
       const path=[];for(let id=goal.id;id!==start.id&&id>=0;id=prev[id])path.push(id);path.reverse();
       if(!path.length)path.push(goal.id);remember(path);
-      return path.map(id=>{const n=navNodes[id];return vec(n.x,n.y,n.z);});
+      return materializePath(path,from,start);
     },
     randomPoint(from,radius){ensure();const start=nearest(from.x,from.y,from.z);if(!start)return null;for(let k=0;k<30;k++){const a=Math.random()*Math.PI*2,r=Math.sqrt(Math.random())*radius,n=nearest(from.x+Math.cos(a)*r,from.y,from.z+Math.sin(a)*r,.8);if(n&&n.component===start.component&&Math.abs(n.y-from.y)<.8)return vec(n.x,n.y,n.z);}return vec(start.x,start.y,start.z);},
     clearLine(from,to){ensure();return walkSegment(from,to);},
@@ -295,6 +326,22 @@ function sAP(o, i) {
     if(blockedAt(pos.x,pos.y+.015,pos.z,rad,height-.03,ids))return false;
     for(const [dx,dz] of [[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad]]) if(ceilingAt(pos.x+dx,pos.z+dz,pos.y+.015,ids)-pos.y<height-.01)return false;
     return true;
+  };
+  // Head-preserving airborne hull resize, opt-in for map controllers. A duck
+  // tucks the feet into the existing standing hull; expanding lowers them only
+  // as far as source support permits and never forces the head into a ceiling.
+  // No accumulated offset is stored, so landing and reset need no compensation.
+  o.resizeCapsule=(pos,fromHeight,toHeight,airborne=false,rad=.32)=>{
+    if(!(fromHeight>0&&toHeight>0))return false;
+    if(fromHeight===toHeight)return true;
+    const next=vec(pos.x,pos.y+(airborne?fromHeight-toHeight:0),pos.z);
+    if(airborne&&toHeight>fromHeight){
+      let support=-Infinity;
+      for(const [dx,dz] of slopeFootprint(rad))support=Math.max(support,floorAt(pos.x+dx,pos.z+dz,pos.y+.025).y);
+      next.y=Math.max(next.y,support);
+    }
+    if(!o.canStand(next,toHeight,rad))return false;
+    pos.y=next.y;return true;
   };
   o.assaultDebug={
     stats:()=>({...counters,triangles:tris.length,bins:bins.size,navNodes:navNodes.length,navLayers:navCells.filter(a=>a.length>1).length,navTiming:{...navTiming},cachedPaths:pathCache.size}),

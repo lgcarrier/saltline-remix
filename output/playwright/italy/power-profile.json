@@ -1,0 +1,12 @@
+{
+  "browser": "isolated Playwright Chrome profile on127.0.0.1:9224",
+  "observedAt": "2026-11-12T05:51:00.615Z",
+  "energySaverBefore": "true",
+  "energySaverDuringBenchmark": "false",
+  "activationSetting": "Turn on only when your battery is at20% or lower",
+  "systemBatteryPercent": 16,
+  "sourceForRefreshBehaviour": "https://developer.chrome.com/blog/memory-and-energy-saver-mode",
+  "restorePending": false,
+  "energySaverRestored": "true",
+  "restoredAt": "2026-11-12T05:55:04.454Z"
+}

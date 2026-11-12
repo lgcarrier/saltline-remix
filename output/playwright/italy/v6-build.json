@@ -1,0 +1,23 @@
+{
+  "htmlSha256": "8739fe1f58efbaa4c86f0d30b0b2c8bd4a6670f1274b12fd7b104ec2a5bb0392",
+  "bytes": 48782398,
+  "sourceBspSha256": "2a5a16044d69481a9fb3c623407fb0ba9d6b8863f30db35451992d2879c1ca9d",
+  "visualEvidence": "v5-captures.json; rendering sources unchanged, physics stair-support correction only",
+  "localUrl": "http://127.0.0.1:8767/italy.html",
+  "acceptance": {
+    "nativeMovement": true,
+    "fullMission": true,
+    "redeploy": true,
+    "standaloneDelivery": true,
+    "runtimeErrors": 0,
+    "visualTargetMet": false
+  },
+  "evidence": [
+    "native-movement.json",
+    "traversal-mission.json",
+    "delivery.json",
+    "frame-report.json",
+    "v5-captures.json",
+    "source-captures.json"
+  ]
+}
