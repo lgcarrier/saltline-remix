@@ -1,0 +1,14 @@
+{
+  "name": "saltline-remix-playthrough",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Deterministic scripted playthrough of Saltline Remix (fixed-timestep, works without a GPU)",
+  "type": "module",
+  "scripts": {
+    "playthrough": "node run.mjs",
+    "playthrough:god": "node run.mjs --god"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}

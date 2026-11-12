@@ -1,0 +1,32 @@
+# Ready-to-use GitHub Actions workflow. Copy to .github/workflows/playthrough.yml to enable it
+# (pushing workflow files needs a token with the `workflow` scope: `gh auth refresh -s workflow`).
+name: Scripted playthrough
+
+on:
+  pull_request:
+    paths: ['index.html', 'scripts/playthrough/**', '.github/workflows/playthrough.yml']
+  workflow_dispatch:
+
+jobs:
+  playthrough:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: scripts/playthrough
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # No GPU on the runner: Chromium falls back to SwiftShader. The game is stepped at a
+      # fixed 1/60 s timestep, so render speed does not affect the result.
+      - name: Run the bot through the whole mission (no god-mode)
+        run: node run.mjs --shot-every 4
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playthrough
+          path: scripts/playthrough/out/
