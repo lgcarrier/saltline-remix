@@ -1,0 +1,62 @@
+[
+  {
+    "ok": false,
+    "id": "relay_c",
+    "reason": "paused",
+    "travel": {
+      "ok": false,
+      "reason": "paused",
+      "target": [
+        -25.6,
+        -4.876800060272217,
+        -36.44115427318801
+      ],
+      "checkpoints": [],
+      "state": {
+        "state": "paused",
+        "pos": [
+          5.585580335595715,
+          0,
+          6.008836682090546
+        ],
+        "eye": [
+          5.585580335748345,
+          1.6798396380552931,
+          6.0088366820257395
+        ],
+        "yaw": 0.4015310989016446,
+        "pitch": -0.0097526376503569,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 1,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": true,
+            "progress": 1
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 26,
+        "reserve": 94,
+        "weaponState": "idle",
+        "combat": {
+          "shots": 60,
+          "hits": 14,
+          "kills": 3
+        },
+        "errors": []
+      }
+    }
+  }
+]

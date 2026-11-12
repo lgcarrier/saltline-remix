@@ -1,0 +1,24 @@
+{
+  "ready": true,
+  "fatal": null,
+  "title": "Saltline · Dust",
+  "stats": {
+    "calls": 444,
+    "tris": 582815,
+    "geos": 385,
+    "tex": 153,
+    "programs": 156,
+    "res": [
+      1920,
+      1080
+    ],
+    "scale": 1,
+    "advanced": true,
+    "softShadows": true,
+    "fps": 66.1,
+    "state": "title"
+  },
+  "warmup": true,
+  "documentSha256": "51771948991e36bbffad514db2405da1d62c245581021bc28f50abcc88800cc7",
+  "errors": []
+}

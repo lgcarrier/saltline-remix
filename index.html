@@ -344,6 +344,7 @@ kbd { display: inline-block; font: 500 10px/1 var(--f-mono); color: var(--bone);
 .m-title .m-note { max-width:500px; }
 .boot-mark {font-size:clamp(30px,7vw,86px)}
 
+.map-select{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}.map-select a{color:var(--bone-dim);font:12px var(--f-mono);text-decoration:none;padding:8px 12px;border:1px solid var(--line);background:rgba(11,13,15,.45)}.map-select a:hover,.map-select a:focus-visible{color:var(--bone);border-color:var(--signal)}.map-select a[aria-current]{color:var(--signal);border-color:var(--signal)}
 </style>
 <div id="app">
   <canvas id="view" tabindex="0"></canvas>
@@ -9451,6 +9452,7 @@ vObjP = position; vONrm = normal; vWNrm = normalize(mat3(modelMatrix) * normal);
         <div class="m-eyebrow"><span class="m-tag">B4</span><span>Port Authority Breach Unit</span><span class="m-dim">Saltline Terminal \xB7 Assault</span></div>
         <h1 class="m-word">SALTLINE</h1>
         <p class="assault-subtitle">ASSAULT</p>
+<nav class="map-select" aria-label="Choose a map"><a href="index.html" aria-current="page">Assault</a><a href="dust.html">Dust</a><a href="original.html">Saltline original</a></nav>
         <p class="m-premise">Breach the freight depot. Disable its security uplinks. Return to the rescue perimeter.</p>
         <div class="m-actions">
           <button class="btn primary" data-act="deploy">Deploy</button>

@@ -1,0 +1,411 @@
+{
+  "kind": "standalone file and normal keyboard controls",
+  "checks": {
+    "fileReady": {
+      "title": "Saltline · Dust",
+      "ready": true,
+      "diagnostics": {
+        "map": {
+          "file": "de_dust_cs16.zip",
+          "bspVersion": 30,
+          "bspSha256": "ac94fbda94e4a170b971f05936fe8706cb9aa895e55f7797916dc160171cab11",
+          "map": "de_dust",
+          "author": "Dave Johnston",
+          "originalTitle": "DUST by Dave Johnston - for CounterStrike"
+        },
+        "lighting": {
+          "sourceLights": 7,
+          "fixtureBatches": 2,
+          "weather": "dry",
+          "sky": "clear",
+          "sunDirection": [
+            0.479186074921886,
+            0.7287621556103683,
+            0.48916911814942526
+          ],
+          "sunIntensity": 5.2
+        },
+        "materials": {
+          "version": 4,
+          "sets": 9,
+          "size": 1024,
+          "channels": [
+            "sRGB albedo",
+            "linear normal",
+            "linear ORM"
+          ],
+          "generated": true,
+          "seeded": true,
+          "sourceImagesUsed": false,
+          "authoredPlaster": true,
+          "authoredSize": [
+            1254,
+            1254
+          ],
+          "authoredRoad": true,
+          "roadSize": [
+            1254,
+            1254
+          ],
+          "sourceJunctionSegments": 150,
+          "supportedWallContacts": 288,
+          "roadRelief": "inferred albedo micro-height, bounded 3 mm, no geometry changes",
+          "retainedTextureBytes": 164972245.33333334,
+          "bakeMs": 1533
+        },
+        "sourceGeometry": {
+          "renderTriangles": 10404,
+          "meshes": 253
+        },
+        "objectiveChecks": [
+          {
+            "id": "relay_a",
+            "floor": 1.625599980354309,
+            "pathNodes": 201
+          },
+          {
+            "id": "relay_b",
+            "floor": 0,
+            "pathNodes": 150
+          },
+          {
+            "id": "relay_c",
+            "floor": -4.876800060272217,
+            "pathNodes": 142
+          }
+        ],
+        "spawnCount": 16,
+        "groundSpawnCount": 11,
+        "airSpawnCount": 5,
+        "spawnRejections": []
+      },
+      "warmup": null
+    },
+    "earlyExtraction": {
+      "ok": true,
+      "target": [
+        41.1,
+        -3.2512,
+        -85.6
+      ],
+      "checkpoints": [
+        {
+          "target": [
+            41.1,
+            -3.2512,
+            -85.6
+          ],
+          "pos": [
+            40.909532988766934,
+            -3.251199960708618,
+            -85.62738203553533
+          ],
+          "health": 100
+        },
+        {
+          "target": [
+            41.1,
+            -3.2512,
+            -85.6
+          ],
+          "pos": [
+            40.909532988766934,
+            -3.251199960708618,
+            -85.62738203553533
+          ],
+          "health": 100
+        }
+      ],
+      "state": {
+        "state": "playing",
+        "pos": [
+          40.909532988766934,
+          -3.251199960708618,
+          -85.62738203553533
+        ],
+        "eye": [
+          40.90695259258,
+          -1.5602816986080015,
+          -85.61655347765912
+        ],
+        "yaw": 4.478456327095302,
+        "pitch": 0,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 0,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 30,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 0,
+          "hits": 0,
+          "kills": 0
+        },
+        "errors": []
+      },
+      "elapsedMs": 2385,
+      "after": {
+        "state": "playing",
+        "pos": [
+          41.149503840129796,
+          -3.251199960708618,
+          -85.57019807097504
+        ],
+        "eye": [
+          41.14950372613093,
+          -1.5712729744523233,
+          -85.57019759258209
+        ],
+        "yaw": 4.478456327095302,
+        "pitch": 0,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 0,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 30,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 0,
+          "hits": 0,
+          "kills": 0
+        },
+        "errors": []
+      }
+    },
+    "fired": {
+      "state": "playing",
+      "pos": [
+        41.149503840129796,
+        -3.251199960708618,
+        -85.57019807097504
+      ],
+      "eye": [
+        41.14950383990299,
+        -1.571202673168463,
+        -85.57019807002368
+      ],
+      "yaw": 4.4783522776967715,
+      "pitch": 0.002200886878128629,
+      "health": 100,
+      "alive": true,
+      "invulnerable": false,
+      "cut": 0,
+      "relays": [
+        {
+          "id": "relay_a",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_b",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_c",
+          "cut": false,
+          "progress": 0
+        }
+      ],
+      "ammo": 29,
+      "reserve": 150,
+      "weaponState": "idle",
+      "lookScale": 1,
+      "sensitivity": 1,
+      "ads": 0,
+      "combat": {
+        "shots": 1,
+        "hits": 0,
+        "kills": 0
+      },
+      "errors": []
+    },
+    "reloaded": {
+      "state": "playing",
+      "pos": [
+        41.149503840129796,
+        -3.251199960708618,
+        -85.57019807097504
+      ],
+      "eye": [
+        41.149503840129796,
+        -1.5711999607086184,
+        -85.57019807097504
+      ],
+      "yaw": 4.4783522776967715,
+      "pitch": 0.002200886878128629,
+      "health": 100,
+      "alive": true,
+      "invulnerable": false,
+      "cut": 0,
+      "relays": [
+        {
+          "id": "relay_a",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_b",
+          "cut": false,
+          "progress": 0
+        },
+        {
+          "id": "relay_c",
+          "cut": false,
+          "progress": 0
+        }
+      ],
+      "ammo": 30,
+      "reserve": 149,
+      "weaponState": "idle",
+      "lookScale": 1,
+      "sensitivity": 1,
+      "ads": 0,
+      "combat": {
+        "shots": 1,
+        "hits": 0,
+        "kills": 0
+      },
+      "errors": []
+    },
+    "jump": {
+      "height": 0.9410843562929254,
+      "onGround": false
+    },
+    "crouch": {
+      "crouching": true,
+      "eyeHeight": 1.0733916070032685
+    },
+    "stand": {
+      "crouching": false,
+      "eyeHeight": 1.6726013998183964
+    },
+    "pause": {
+      "state": "paused",
+      "displacement": 0
+    },
+    "resume": "playing",
+    "mapLinks": [
+      {
+        "name": "Assault",
+        "href": "index.html"
+      },
+      {
+        "name": "Dust",
+        "href": "dust.html"
+      },
+      {
+        "name": "Saltline original",
+        "href": "original.html"
+      }
+    ],
+    "dustLink": {
+      "url": "http://127.0.0.1:8767/dust.html",
+      "title": "Saltline · Dust"
+    }
+  },
+  "documentSha256": "f89fb0780efa806704b7e4cb598ba7a749c862819cd48548b18bf187b33f1cee",
+  "before": {
+    "state": "playing",
+    "pos": [
+      36.9824,
+      -3.251199960708618,
+      -86.5632
+    ],
+    "eye": [
+      36.9824,
+      -1.5711999607086182,
+      -86.5632
+    ],
+    "yaw": 1.5707963267948966,
+    "pitch": 0,
+    "health": 100,
+    "alive": true,
+    "invulnerable": false,
+    "cut": 0,
+    "relays": [
+      {
+        "id": "relay_a",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_b",
+        "cut": false,
+        "progress": 0
+      },
+      {
+        "id": "relay_c",
+        "cut": false,
+        "progress": 0
+      }
+    ],
+    "ammo": 30,
+    "reserve": 150,
+    "weaponState": "idle",
+    "lookScale": 1,
+    "sensitivity": 1,
+    "ads": 0,
+    "combat": {
+      "shots": 0,
+      "hits": 0,
+      "kills": 0
+    },
+    "errors": []
+  },
+  "standaloneRequests": [
+    "file:///Users/lgcarrier/Developer/saltline-remix/dust.html?q=high&dynres=0&seed=4207",
+    "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@400;500;600&display=swap",
+    "https://fonts.gstatic.com/s/bigshouldersdisplay/v24/fC1_PZJEZG-e9gHhdI4-NBbfd2ys3SjJCx1czNDuDJAM2w.woff2",
+    "https://fonts.gstatic.com/s/ibmplexmono/v23/-F63fjptAgt5VM-kVkqdyU8n1i8q131nj-o.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuYMBYro.woff2",
+    "https://fonts.gstatic.com/s/ibmplexmono/v23/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgsAXHNk.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4-Lwz3bWuYMBYro.woff2",
+    "https://fonts.gstatic.com/s/barlowcondensed/v13/HTx3L3I-JCGChYJ8VI-L6OO_au7B6xHT2lv0tKk.woff2"
+  ],
+  "standaloneErrors": [],
+  "errors": [],
+  "ok": true
+}

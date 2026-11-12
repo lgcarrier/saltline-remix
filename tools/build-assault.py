@@ -63,6 +63,8 @@ for old,new in [('me.isWalkable($,ue)','me.isWalkable($,ue,m.pos.y)'),('me.isWal
 # Exterior rescue point replaces boat wording inherited from the original mission.
 for old,new in [('Get to the boat','Return to the rescue perimeter'),('Reach the boat','Reach the rescue perimeter'),('Board the boat','Reach extraction'),('Boat inbound','Rescue inbound')]: text=text.replace(old,new)
 replace('</style>',ui_css+'\n</style>')
+replace('<p class="assault-subtitle">ASSAULT</p>', '<p class="assault-subtitle">ASSAULT</p>\n<nav class="map-select" aria-label="Choose a map"><a href="index.html" aria-current="page">Assault</a><a href="dust.html">Dust</a><a href="original.html">Saltline original</a></nav>')
+replace('</style>', '.map-select{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}.map-select a{color:var(--bone-dim);font:12px var(--f-mono);text-decoration:none;padding:8px 12px;border:1px solid var(--line);background:rgba(11,13,15,.45)}.map-select a:hover,.map-select a:focus-visible{color:var(--bone);border-color:var(--signal)}.map-select a[aria-current]{color:var(--signal);border-color:var(--signal)}\n</style>')
 output = args.output.resolve() if args.output else ROOT / 'index.html'
 output.write_text(text, encoding='utf-8')
 print(f'Built {output.name}: {len(text.encode()):,} bytes')

@@ -1,0 +1,119 @@
+{
+  "live": {
+    "state": "running",
+    "sampleRate": 48000,
+    "buffers": 93,
+    "queued": 0,
+    "genMs": 1145,
+    "bootMs": 122,
+    "voices": 0,
+    "loops": 10,
+    "tracked": 0,
+    "music": true,
+    "intensity": 0.15,
+    "interior": 0,
+    "gameState": "paused",
+    "reverb": [
+      true,
+      true
+    ]
+  },
+  "outside": {
+    "interior": false,
+    "renderMs": 1053,
+    "steps": 499,
+    "peak": 0.829,
+    "over": 0,
+    "nan": 0,
+    "rmsDb": [
+      -26.7,
+      -24.1,
+      -23,
+      -21.6,
+      -21.3,
+      -21.6,
+      -14.3,
+      -14.4,
+      -14.8,
+      -13.9,
+      -14.4,
+      -14.6,
+      -13.8,
+      -15.2,
+      -12.6,
+      -14.8,
+      -16.1,
+      -13.4,
+      -13.9,
+      -13.5
+    ],
+    "inst": {
+      "state": "closed",
+      "sampleRate": 48000,
+      "buffers": 0,
+      "queued": 0,
+      "genMs": 0,
+      "bootMs": 0,
+      "voices": 1,
+      "loops": 6,
+      "tracked": 2,
+      "music": true,
+      "intensity": 0.89,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    }
+  },
+  "inside": {
+    "interior": true,
+    "renderMs": 1028,
+    "steps": 499,
+    "peak": 0.824,
+    "over": 0,
+    "nan": 0,
+    "rmsDb": [
+      -27.3,
+      -22.6,
+      -20.8,
+      -19.6,
+      -19.5,
+      -20.2,
+      -13.7,
+      -13.3,
+      -13.4,
+      -12.9,
+      -13.4,
+      -13.5,
+      -12.4,
+      -13,
+      -12.3,
+      -14.2,
+      -15.3,
+      -12.9,
+      -13.3,
+      -13.1
+    ],
+    "inst": {
+      "state": "closed",
+      "sampleRate": 48000,
+      "buffers": 0,
+      "queued": 0,
+      "genMs": 0,
+      "bootMs": 0,
+      "voices": 1,
+      "loops": 6,
+      "tracked": 2,
+      "music": true,
+      "intensity": 0.89,
+      "interior": 1,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    }
+  }
+}

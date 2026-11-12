@@ -1,0 +1,469 @@
+{
+  "stats": {
+    "version": 1,
+    "sets": 9,
+    "size": 1024,
+    "channels": [
+      "sRGB albedo",
+      "linear normal",
+      "linear ORM"
+    ],
+    "generated": true,
+    "seeded": true,
+    "sourceImagesUsed": false,
+    "retainedTextureBytes": 150994944,
+    "bakeMs": 1578
+  },
+  "sets": [
+    {
+      "name": "dust_plaster",
+      "channels": {
+        "albedo": {
+          "min": [
+            141,
+            131,
+            112
+          ],
+          "max": [
+            199,
+            184,
+            156
+          ],
+          "seamXMean": 1.2353515625,
+          "seamYMean": 0.6979166666666666,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            49,
+            52,
+            228
+          ],
+          "max": [
+            203,
+            202,
+            254
+          ],
+          "seamXMean": 1.5992838541666667,
+          "seamYMean": 1.4117838541666667,
+          "normalLengthError": 0.010932501042890452
+        },
+        "orm": {
+          "min": [
+            175,
+            211,
+            0
+          ],
+          "max": [
+            255,
+            236,
+            0
+          ],
+          "seamXMean": 0.4964192708333333,
+          "seamYMean": 0.001953125,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_stone",
+      "channels": {
+        "albedo": {
+          "min": [
+            141,
+            131,
+            112
+          ],
+          "max": [
+            195,
+            180,
+            156
+          ],
+          "seamXMean": 1.4765625,
+          "seamYMean": 0.9609375,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            49,
+            52,
+            228
+          ],
+          "max": [
+            205,
+            203,
+            254
+          ],
+          "seamXMean": 2.1328125,
+          "seamYMean": 5.356770833333333,
+          "normalLengthError": 0.01118131132280975
+        },
+        "orm": {
+          "min": [
+            175,
+            211,
+            0
+          ],
+          "max": [
+            255,
+            237,
+            0
+          ],
+          "seamXMean": 1.4645182291666667,
+          "seamYMean": 0.0032552083333333335,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_trim",
+      "channels": {
+        "albedo": {
+          "min": [
+            142,
+            132,
+            104
+          ],
+          "max": [
+            192,
+            171,
+            139
+          ],
+          "seamXMean": 1.7360026041666667,
+          "seamYMean": 0.9664713541666666,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            48,
+            41,
+            218
+          ],
+          "max": [
+            207,
+            216,
+            254
+          ],
+          "seamXMean": 2.7620442708333335,
+          "seamYMean": 3.1201171875,
+          "normalLengthError": 0.011181311322809862
+        },
+        "orm": {
+          "min": [
+            175,
+            211,
+            0
+          ],
+          "max": [
+            255,
+            237,
+            0
+          ],
+          "seamXMean": 3.0055338541666665,
+          "seamYMean": 0.0016276041666666667,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_sand",
+      "channels": {
+        "albedo": {
+          "min": [
+            165,
+            145,
+            115
+          ],
+          "max": [
+            200,
+            180,
+            150
+          ],
+          "seamXMean": 0.5634765625,
+          "seamYMean": 0.6708984375,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            110,
+            111,
+            253
+          ],
+          "max": [
+            144,
+            144,
+            254
+          ],
+          "seamXMean": 1.0354817708333333,
+          "seamYMean": 1.0384114583333333,
+          "normalLengthError": 0.008199707567494108
+        },
+        "orm": {
+          "min": [
+            247,
+            239,
+            0
+          ],
+          "max": [
+            247,
+            239,
+            0
+          ],
+          "seamXMean": 0,
+          "seamYMean": 0,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_road",
+      "channels": {
+        "albedo": {
+          "min": [
+            151,
+            133,
+            107
+          ],
+          "max": [
+            197,
+            179,
+            153
+          ],
+          "seamXMean": 0.447265625,
+          "seamYMean": 0.361328125,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            108,
+            108,
+            253
+          ],
+          "max": [
+            146,
+            146,
+            254
+          ],
+          "seamXMean": 1.0315755208333333,
+          "seamYMean": 0.9348958333333334,
+          "normalLengthError": 0.008820135379446148
+        },
+        "orm": {
+          "min": [
+            247,
+            249,
+            0
+          ],
+          "max": [
+            247,
+            249,
+            0
+          ],
+          "seamXMean": 0,
+          "seamYMean": 0,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_crate",
+      "channels": {
+        "albedo": {
+          "min": [
+            73,
+            58,
+            43
+          ],
+          "max": [
+            142,
+            119,
+            96
+          ],
+          "seamXMean": 9.912434895833334,
+          "seamYMean": 0.0068359375,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            33,
+            120,
+            213
+          ],
+          "max": [
+            221,
+            134,
+            254
+          ],
+          "seamXMean": 55.835611979166664,
+          "seamYMean": 0.5149739583333334,
+          "normalLengthError": 0.010932501042890674
+        },
+        "orm": {
+          "min": [
+            178,
+            224,
+            0
+          ],
+          "max": [
+            255,
+            244,
+            0
+          ],
+          "seamXMean": 0.0016276041666666667,
+          "seamYMean": 0.0006510416666666666,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_military",
+      "channels": {
+        "albedo": {
+          "min": [
+            62,
+            63,
+            45
+          ],
+          "max": [
+            113,
+            115,
+            87
+          ],
+          "seamXMean": 1.53125,
+          "seamYMean": 0.001953125,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            32,
+            120,
+            212
+          ],
+          "max": [
+            221,
+            135,
+            254
+          ],
+          "seamXMean": 55.735677083333336,
+          "seamYMean": 0.5452473958333334,
+          "normalLengthError": 0.010932501042890674
+        },
+        "orm": {
+          "min": [
+            178,
+            224,
+            0
+          ],
+          "max": [
+            255,
+            244,
+            0
+          ],
+          "seamXMean": 0.0022786458333333335,
+          "seamYMean": 0.0009765625,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_door",
+      "channels": {
+        "albedo": {
+          "min": [
+            25,
+            20,
+            15
+          ],
+          "max": [
+            190,
+            175,
+            151
+          ],
+          "seamXMean": 0.9075520833333334,
+          "seamYMean": 92.49609375,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            9,
+            6,
+            159
+          ],
+          "max": [
+            246,
+            246,
+            255
+          ],
+          "seamXMean": 0.5110677083333334,
+          "seamYMean": 2.431640625,
+          "normalLengthError": 0.010745934400435586
+        },
+        "orm": {
+          "min": [
+            107,
+            175,
+            0
+          ],
+          "max": [
+            255,
+            237,
+            140
+          ],
+          "seamXMean": 0.0026041666666666665,
+          "seamYMean": 19.572265625,
+          "normalLengthError": 0
+        }
+      }
+    },
+    {
+      "name": "dust_window",
+      "channels": {
+        "albedo": {
+          "min": [
+            23,
+            24,
+            23
+          ],
+          "max": [
+            192,
+            177,
+            153
+          ],
+          "seamXMean": 1.0833333333333333,
+          "seamYMean": 1.0361328125,
+          "normalLengthError": 0
+        },
+        "normal": {
+          "min": [
+            4,
+            14,
+            157
+          ],
+          "max": [
+            250,
+            236,
+            255
+          ],
+          "seamXMean": 0.83203125,
+          "seamYMean": 14.207356770833334,
+          "normalLengthError": 0.010932501042890674
+        },
+        "orm": {
+          "min": [
+            107,
+            211,
+            0
+          ],
+          "max": [
+            255,
+            237,
+            0
+          ],
+          "seamXMean": 0.0016276041666666667,
+          "seamYMean": 0.011067708333333334,
+          "normalLengthError": 0
+        }
+      }
+    }
+  ]
+}

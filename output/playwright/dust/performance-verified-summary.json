@@ -1,0 +1,523 @@
+{
+  "metadata": {
+    "duration_requested_ms": 30000,
+    "mode": "normal keyboard traversal, live enemies and audio, fixed high quality",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "dpr": 1,
+    "drawingBuffer": [
+      1920,
+      1080
+    ],
+    "quality": {
+      "name": "high",
+      "scale": 1,
+      "msaa": 4,
+      "shadow": 4096,
+      "tex": 1024,
+      "volSteps": 24,
+      "ao": true,
+      "planar": 0.5,
+      "bloom": true,
+      "motionBlur": true,
+      "rain": 0
+    },
+    "audio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1099,
+      "bootMs": 116,
+      "voices": 3,
+      "loops": 10,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.15,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "stubs": {
+      "mats": false,
+      "physics": false,
+      "props": false,
+      "level": false,
+      "ground": false,
+      "enemies": false,
+      "weapon": false,
+      "audio": false
+    },
+    "startPlayer": [
+      36.9824,
+      -3.251199960708618,
+      -86.5632
+    ],
+    "startStats": {
+      "calls": 217,
+      "tris": 357010,
+      "geos": 385,
+      "tex": 144,
+      "programs": 149,
+      "res": [
+        1920,
+        1080
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 60.1,
+      "state": "playing"
+    },
+    "recording": false,
+    "endStats": {
+      "calls": 396,
+      "tris": 684159,
+      "geos": 385,
+      "tex": 144,
+      "programs": 149,
+      "res": [
+        1920,
+        1080
+      ],
+      "scale": 1,
+      "advanced": true,
+      "softShadows": true,
+      "fps": 60,
+      "state": "playing"
+    },
+    "endAudio": {
+      "state": "running",
+      "sampleRate": 48000,
+      "buffers": 93,
+      "queued": 0,
+      "genMs": 1099,
+      "bootMs": 116,
+      "voices": 3,
+      "loops": 10,
+      "tracked": 0,
+      "music": true,
+      "intensity": 0.61,
+      "interior": 0,
+      "gameState": "playing",
+      "reverb": [
+        true,
+        true
+      ]
+    },
+    "completed": true,
+    "documentSha256": "51771948991e36bbffad514db2405da1d62c245581021bc28f50abcc88800cc7",
+    "renderTuning": {
+      "aoRadius": 0.28,
+      "aoIntensity": 0.65,
+      "aoStrength": 0.5
+    },
+    "route": {
+      "ok": true,
+      "id": "relay_a",
+      "travel": {
+        "ok": true,
+        "target": [
+          7.7512,
+          1.625599980354309,
+          43.589761894323345
+        ],
+        "checkpoints": [
+          {
+            "target": [
+              32.625,
+              -3.251199960708618,
+              -77.375
+            ],
+            "pos": [
+              32.72479024301974,
+              -3.251199960708618,
+              -77.58679754021745
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              22.875,
+              0,
+              -72.875
+            ],
+            "pos": [
+              23.060165775891782,
+              0,
+              -72.97412815419685
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              18.375,
+              0,
+              -72.875
+            ],
+            "pos": [
+              18.482199917761438,
+              0,
+              -72.84929605761401
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              14.625,
+              0,
+              -57.875
+            ],
+            "pos": [
+              14.679728719327898,
+              0,
+              -58.01608018861077
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              7.875,
+              0,
+              -53.375
+            ],
+            "pos": [
+              7.942460829096172,
+              0,
+              -53.42112946518898
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              4.125,
+              0,
+              -53.375
+            ],
+            "pos": [
+              4.24482732584282,
+              0,
+              -53.3367581913458
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              2.625,
+              0.8127999901771545,
+              -51.875
+            ],
+            "pos": [
+              2.735555320203229,
+              0.8127999901771545,
+              -52.00308275017389
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              2.625,
+              0.8127999901771545,
+              -38.375
+            ],
+            "pos": [
+              2.6399436766481763,
+              0.8127999901771545,
+              -38.55769078143418
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              10.875,
+              0.8127999901771545,
+              -30.125
+            ],
+            "pos": [
+              10.800965399232483,
+              0.8127999901771545,
+              -30.216041097463002
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              14.625,
+              0.8127999901771545,
+              -30.125
+            ],
+            "pos": [
+              14.400439771757183,
+              0.8127999901771545,
+              -30.098939875586296
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              15.375,
+              0.8127999901771545,
+              -28.625
+            ],
+            "pos": [
+              15.346479571320378,
+              0.8127999901771545,
+              -28.691113122034974
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              14.625,
+              0,
+              -18.125
+            ],
+            "pos": [
+              14.680571172363342,
+              0,
+              -18.337944647372716
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              7.125,
+              0,
+              -10.625
+            ],
+            "pos": [
+              7.224204413389997,
+              0,
+              -10.748401409500733
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              4.875,
+              0,
+              -0.125
+            ],
+            "pos": [
+              4.887642082409703,
+              0,
+              -0.19711479421018602
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              5.625,
+              1.625599980354309,
+              39.625
+            ],
+            "pos": [
+              5.601421641104779,
+              1.625599980354309,
+              39.47808512973111
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              7.7512,
+              1.625599980354309,
+              43.589761894323345
+            ],
+            "pos": [
+              7.734278957191094,
+              1.625599980354309,
+              43.53757883197522
+            ],
+            "health": 100
+          },
+          {
+            "target": [
+              7.7512,
+              1.625599980354309,
+              43.589761894323345
+            ],
+            "pos": [
+              7.734278957191094,
+              1.625599980354309,
+              43.53757883197522
+            ],
+            "health": 100
+          }
+        ],
+        "state": {
+          "state": "playing",
+          "pos": [
+            7.734278957191094,
+            1.625599980354309,
+            43.53757883197522
+          ],
+          "eye": [
+            7.727321537867816,
+            3.3001772737209527,
+            43.54174301897214
+          ],
+          "yaw": -2.602258672285403,
+          "pitch": -0.0010615069215259114,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "cut": 0,
+          "relays": [
+            {
+              "id": "relay_a",
+              "cut": false,
+              "progress": 0
+            },
+            {
+              "id": "relay_b",
+              "cut": false,
+              "progress": 0
+            },
+            {
+              "id": "relay_c",
+              "cut": false,
+              "progress": 0
+            }
+          ],
+          "ammo": 22,
+          "reserve": 150,
+          "weaponState": "idle",
+          "lookScale": 1,
+          "sensitivity": 1,
+          "ads": 0,
+          "combat": {
+            "shots": 8,
+            "hits": 8,
+            "kills": 2
+          },
+          "errors": []
+        },
+        "elapsedMs": 42131
+      },
+      "fight": {
+        "ok": true,
+        "bursts": 0,
+        "state": {
+          "state": "playing",
+          "pos": [
+            7.860952671812867,
+            1.625599980354309,
+            43.74922210124041
+          ],
+          "eye": [
+            7.8604171224417225,
+            3.2964118514013703,
+            43.74954264074277
+          ],
+          "yaw": -2.602258672285403,
+          "pitch": -0.0010615069215259114,
+          "health": 100,
+          "alive": true,
+          "invulnerable": false,
+          "cut": 0,
+          "relays": [
+            {
+              "id": "relay_a",
+              "cut": false,
+              "progress": 0
+            },
+            {
+              "id": "relay_b",
+              "cut": false,
+              "progress": 0
+            },
+            {
+              "id": "relay_c",
+              "cut": false,
+              "progress": 0
+            }
+          ],
+          "ammo": 22,
+          "reserve": 150,
+          "weaponState": "idle",
+          "lookScale": 0.6140692726790034,
+          "sensitivity": 1,
+          "ads": 0.9970592677216064,
+          "combat": {
+            "shots": 8,
+            "hits": 8,
+            "kills": 2
+          },
+          "errors": []
+        }
+      },
+      "state": {
+        "state": "playing",
+        "pos": [
+          7.860952671812867,
+          1.625599980354309,
+          43.74922210124041
+        ],
+        "eye": [
+          7.860952671812867,
+          3.3055999803543084,
+          43.74922210124041
+        ],
+        "yaw": -2.647222070617043,
+        "pitch": -0.3017321067774871,
+        "health": 100,
+        "alive": true,
+        "invulnerable": false,
+        "cut": 1,
+        "relays": [
+          {
+            "id": "relay_a",
+            "cut": true,
+            "progress": 1
+          },
+          {
+            "id": "relay_b",
+            "cut": false,
+            "progress": 0
+          },
+          {
+            "id": "relay_c",
+            "cut": false,
+            "progress": 0
+          }
+        ],
+        "ammo": 22,
+        "reserve": 150,
+        "weaponState": "idle",
+        "lookScale": 1,
+        "sensitivity": 1,
+        "ads": 0,
+        "combat": {
+          "shots": 8,
+          "hits": 8,
+          "kills": 2
+        },
+        "errors": []
+      }
+    },
+    "runtimeErrors": []
+  },
+  "method": "wall-clock frame intervals; percentiles use linear interpolation",
+  "samples": 1680,
+  "discarded_samples": 121,
+  "discarded_ms": 2005.3,
+  "measured_ms": 27998.9,
+  "mean_ms": 16.666,
+  "p50_ms": 16.7,
+  "p95_ms": 16.7,
+  "p99_ms": 16.8,
+  "max_ms": 16.8,
+  "average_delivered_fps": 60.0,
+  "budget_ms": 16.67,
+  "over_budget_frames": 1044,
+  "over_budget_percent": 62.14,
+  "warnings": []
+}

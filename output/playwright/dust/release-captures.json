@@ -1,0 +1,406 @@
+{
+  "kind": "staged paused fixed-camera visual captures",
+  "seed": 4207,
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "documentSha256": "0217a300608800dc75a2360f9d135680c7840710f0b160bf8a8fe26e3ed227ee",
+  "readyAfterMs": 5829,
+  "records": [
+    {
+      "name": "t_spawn",
+      "camera": [
+        29,
+        -1.55,
+        -86.6,
+        4,
+        1.8,
+        -86
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 200,
+        "tris": 303739,
+        "geos": 385,
+        "tex": 144,
+        "programs": 149,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 60,
+        "state": "paused"
+      },
+      "simulationTime": 4.1652999999523255
+    },
+    {
+      "name": "underpass",
+      "camera": [
+        -26,
+        -3.2,
+        -26,
+        -26,
+        -2,
+        -52
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 501,
+        "tris": 630523,
+        "geos": 385,
+        "tex": 144,
+        "programs": 149,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 60,
+        "state": "paused"
+      },
+      "simulationTime": 5.482000000000006
+    },
+    {
+      "name": "tunnel",
+      "camera": [
+        0.2,
+        2.5,
+        -45,
+        1,
+        2.2,
+        -31
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 511,
+        "tris": 680364,
+        "geos": 385,
+        "tex": 144,
+        "programs": 149,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 59.9,
+        "state": "paused"
+      },
+      "simulationTime": 6.848700000047692
+    },
+    {
+      "name": "site_b",
+      "camera": [
+        33,
+        1.68,
+        -16,
+        49,
+        2,
+        -16
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 404,
+        "tris": 643538,
+        "geos": 385,
+        "tex": 144,
+        "programs": 149,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 59.8,
+        "state": "paused"
+      },
+      "simulationTime": 8.150000000000006
+    },
+    {
+      "name": "site_a",
+      "camera": [
+        1,
+        3.3,
+        35,
+        12,
+        3.2,
+        44
+      ],
+      "fov": 74,
+      "exposure": 1,
+      "quality": {
+        "name": "high",
+        "scale": 1,
+        "msaa": 4,
+        "shadow": 4096,
+        "tex": 1024,
+        "volSteps": 24,
+        "ao": true,
+        "planar": 0.5,
+        "bloom": true,
+        "motionBlur": true,
+        "rain": 0
+      },
+      "stats": {
+        "calls": 91,
+        "tris": 319810,
+        "geos": 385,
+        "tex": 144,
+        "programs": 149,
+        "res": [
+          1600,
+          900
+        ],
+        "scale": 1,
+        "advanced": true,
+        "softShadows": true,
+        "fps": 60.1,
+        "state": "paused"
+      },
+      "simulationTime": 9.431499999999994
+    }
+  ],
+  "diagnostics": {
+    "map": {
+      "file": "de_dust_cs16.zip",
+      "bspVersion": 30,
+      "bspSha256": "ac94fbda94e4a170b971f05936fe8706cb9aa895e55f7797916dc160171cab11",
+      "map": "de_dust",
+      "author": "Dave Johnston",
+      "originalTitle": "DUST by Dave Johnston - for CounterStrike"
+    },
+    "lighting": {
+      "sourceLights": 7,
+      "fixtureBatches": 2,
+      "weather": "dry",
+      "sky": "clear",
+      "sunDirection": [
+        0.479186074921886,
+        0.7287621556103683,
+        0.48916911814942526
+      ],
+      "sunIntensity": 5.2
+    },
+    "materials": {
+      "version": 4,
+      "sets": 9,
+      "size": 1024,
+      "channels": [
+        "sRGB albedo",
+        "linear normal",
+        "linear ORM"
+      ],
+      "generated": true,
+      "seeded": true,
+      "sourceImagesUsed": false,
+      "authoredPlaster": true,
+      "authoredSize": [
+        1254,
+        1254
+      ],
+      "authoredRoad": true,
+      "roadSize": [
+        1254,
+        1254
+      ],
+      "sourceJunctionSegments": 150,
+      "supportedWallContacts": 288,
+      "roadRelief": "inferred albedo micro-height, bounded 3 mm, no geometry changes",
+      "retainedTextureBytes": 164972245.33333334,
+      "bakeMs": 1499
+    },
+    "sourceGeometry": {
+      "renderTriangles": 10404,
+      "meshes": 253
+    },
+    "objectiveChecks": [
+      {
+        "id": "relay_a",
+        "floor": 1.625599980354309,
+        "pathNodes": 201
+      },
+      {
+        "id": "relay_b",
+        "floor": 0,
+        "pathNodes": 150
+      },
+      {
+        "id": "relay_c",
+        "floor": -4.876800060272217,
+        "pathNodes": 142
+      }
+    ],
+    "spawnCount": 16,
+    "groundSpawnCount": 11,
+    "airSpawnCount": 5,
+    "spawnRejections": []
+  },
+  "dressing": {
+    "windows": 68,
+    "doors": 0,
+    "crateFaces": 309,
+    "coping": 78,
+    "meshes": 9,
+    "triangles": 280658,
+    "sourceUVAligned": true,
+    "collisionChanges": 0,
+    "architectureTriangles": 17720,
+    "copingBlocks": 278,
+    "repairPockets": 30,
+    "fragments": 86
+  },
+  "backdrop": {
+    "tris": 19226,
+    "drawCalls": 6,
+    "setting": "desert",
+    "buildings": 19,
+    "towers": 2,
+    "collisionChanges": 0,
+    "sourceXZ": {
+      "min": [
+        -71.9328,
+        -100.7872
+      ],
+      "max": [
+        66.6496,
+        52.0192
+      ]
+    },
+    "clearanceMargin": 8,
+    "bounds": {
+      "min": [
+        -472.88,
+        -10,
+        -281.114
+      ],
+      "max": [
+        426.438,
+        65.762,
+        498.528
+      ]
+    },
+    "extentRule": "Every backdrop vertex lies outside the source XZ bounding rectangle expanded by 8 metres.",
+    "terrainLayers": 3
+  },
+  "warmup": {
+    "complete": true,
+    "meshes": 398,
+    "texturesInitialized": 40,
+    "skeletonTexturesCreated": 18,
+    "fxTextures": [
+      {
+        "material": "fx_decals",
+        "texture": "c0fc01ac-3eb1-4328-8cbf-845e01c895d2",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "7ecc91d3-ff84-4dfb-9d50-0568b7f8deeb",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_decals",
+        "texture": "9fead449-0d62-480e-bbb3-0b95570abb8b",
+        "before": false,
+        "after": true
+      },
+      {
+        "material": "fx_lit",
+        "texture": "4e023037-41bb-41f6-861d-1b67b5409689",
+        "before": true,
+        "after": true
+      },
+      {
+        "material": "fx_add",
+        "texture": "ee26563c-7794-4376-b57c-9fb20431b578",
+        "before": true,
+        "after": true
+      }
+    ],
+    "before": {
+      "geometries": 348,
+      "textures": 111
+    },
+    "after": {
+      "geometries": 385,
+      "textures": 151
+    },
+    "restored": true,
+    "elapsedMs": 260.6,
+    "gameplayUpdates": 0,
+    "offscreenSize": [
+      8,
+      8
+    ],
+    "samples": 4
+  },
+  "errors": [],
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)"
+}

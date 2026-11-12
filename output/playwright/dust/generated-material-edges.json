@@ -1,0 +1,28 @@
+[
+  {
+    "file": "assets/dust/lime-plaster-albedo.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "edgeMeanRGB255": [
+      8.526,
+      10.521
+    ],
+    "sampleAdjacentMean": 6.011,
+    "note": "Numerical edge comparison only; tiling still requires gameplay visual inspection."
+  },
+  {
+    "file": "assets/dust/desert-road-albedo.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "edgeMeanRGB255": [
+      11.142,
+      12.449
+    ],
+    "sampleAdjacentMean": 8.971,
+    "note": "Numerical edge comparison only; tiling still requires gameplay visual inspection."
+  }
+]

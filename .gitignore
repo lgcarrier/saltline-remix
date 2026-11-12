@@ -6,3 +6,8 @@ __pycache__/
 # Local inspection builds and raw recordings; named review artifacts are kept.
 /output/contact-shadow-test.html
 /output/playwright/**/video/
+/output/playwright/**/automated-video/
+
+# Separate Sites source checkouts and static packaging output.
+/.site-workspaces/
+/dist/

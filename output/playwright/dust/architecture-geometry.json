@@ -1,0 +1,1960 @@
+{
+  "kind": "source-derived geometry construction with minimal Three-compatible math harness; render pending",
+  "generationMs": 70.54345799999999,
+  "stats": {
+    "windows": 68,
+    "doors": 0,
+    "crateFaces": 309,
+    "coping": 78,
+    "meshes": 2348,
+    "triangles": 280658,
+    "sourceUVAligned": true,
+    "collisionChanges": 0,
+    "architectureTriangles": 17720,
+    "copingBlocks": 278,
+    "repairPockets": 30,
+    "fragments": 86,
+    "architecturePlacements": [
+      {
+        "kind": "coping",
+        "faceId": 192,
+        "sourceBounds": {
+          "min": [
+            45.9232,
+            5.6896,
+            -73.152
+          ],
+          "max": [
+            47.1424,
+            5.6896,
+            -72.3392
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 244,
+        "sourceBounds": {
+          "min": [
+            43.8912,
+            5.6896,
+            -71.12
+          ],
+          "max": [
+            44.704,
+            5.6896,
+            -69.9008
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 480,
+        "sourceBounds": {
+          "min": [
+            -2.8448,
+            6.5024,
+            -95.0976
+          ],
+          "max": [
+            -2.032,
+            6.5024,
+            -92.2528
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 481,
+        "sourceBounds": {
+          "min": [
+            -2.8448,
+            6.5024,
+            -100.7872
+          ],
+          "max": [
+            -2.032,
+            6.5024,
+            -95.0976
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 865,
+        "sourceBounds": {
+          "min": [
+            63.8048,
+            5.6896,
+            -33.3248
+          ],
+          "max": [
+            66.6496,
+            5.6896,
+            -32.512
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 904,
+        "sourceBounds": {
+          "min": [
+            54.0512,
+            5.6896,
+            -33.3248
+          ],
+          "max": [
+            56.4896,
+            5.6896,
+            -32.512
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1024,
+        "sourceBounds": {
+          "min": [
+            32.512,
+            5.6896,
+            -25.6032
+          ],
+          "max": [
+            33.7312,
+            5.6896,
+            -24.7904
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1128,
+        "sourceBounds": {
+          "min": [
+            19.9136,
+            5.6896,
+            -53.6448
+          ],
+          "max": [
+            21.1328,
+            5.6896,
+            -52.832
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1211,
+        "sourceBounds": {
+          "min": [
+            -2.8448,
+            5.6896,
+            -59.3344
+          ],
+          "max": [
+            3.2512,
+            5.6896,
+            -58.5216
+          ]
+        },
+        "blocks": 6,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1212,
+        "sourceBounds": {
+          "min": [
+            8.9408,
+            5.6896,
+            -60.1472
+          ],
+          "max": [
+            11.3792,
+            5.6896,
+            -59.3344
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1213,
+        "sourceBounds": {
+          "min": [
+            8.9408,
+            5.6896,
+            -59.3344
+          ],
+          "max": [
+            11.3792,
+            5.6896,
+            -58.928
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1214,
+        "sourceBounds": {
+          "min": [
+            3.2512,
+            5.6896,
+            -59.3344
+          ],
+          "max": [
+            8.9408,
+            5.6896,
+            -58.928
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1236,
+        "sourceBounds": {
+          "min": [
+            14.224,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            15.4432,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1237,
+        "sourceBounds": {
+          "min": [
+            8.5344,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            14.224,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1238,
+        "sourceBounds": {
+          "min": [
+            2.8448,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            8.5344,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1239,
+        "sourceBounds": {
+          "min": [
+            -2.8448,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            2.8448,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1241,
+        "sourceBounds": {
+          "min": [
+            8.9408,
+            5.6896,
+            -51.2064
+          ],
+          "max": [
+            14.6304,
+            5.6896,
+            -50.3936
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1550,
+        "sourceBounds": {
+          "min": [
+            -12.5984,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -11.7856,
+            5.6896,
+            -91.0336
+          ]
+        },
+        "blocks": 4,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1551,
+        "sourceBounds": {
+          "min": [
+            -13.8176,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -12.5984,
+            5.6896,
+            -94.6912
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1552,
+        "sourceBounds": {
+          "min": [
+            -19.5072,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -13.8176,
+            5.6896,
+            -94.6912
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1569,
+        "sourceBounds": {
+          "min": [
+            -12.5984,
+            5.6896,
+            -91.0336
+          ],
+          "max": [
+            -11.7856,
+            5.6896,
+            -85.344
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1654,
+        "sourceBounds": {
+          "min": [
+            -26.0096,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -20.32,
+            5.6896,
+            -94.2848
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1656,
+        "sourceBounds": {
+          "min": [
+            -39.0144,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -33.3248,
+            5.6896,
+            -94.2848
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1658,
+        "sourceBounds": {
+          "min": [
+            -32.512,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -26.8224,
+            5.6896,
+            -94.6912
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1681,
+        "sourceBounds": {
+          "min": [
+            -22.352,
+            6.096,
+            -84.1248
+          ],
+          "max": [
+            -19.9136,
+            6.096,
+            -83.7184
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1819,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            6.096,
+            -83.7184
+          ],
+          "max": [
+            -19.9136,
+            6.096,
+            -82.9056
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1826,
+        "sourceBounds": {
+          "min": [
+            -19.7104,
+            5.6896,
+            -83.312
+          ],
+          "max": [
+            -14.0208,
+            5.6896,
+            -82.9056
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1832,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            5.6896,
+            -70.104
+          ],
+          "max": [
+            -20.32,
+            5.6896,
+            -65.024
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1833,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            5.6896,
+            -75.7936
+          ],
+          "max": [
+            -20.32,
+            5.6896,
+            -70.104
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1834,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            5.6896,
+            -81.4832
+          ],
+          "max": [
+            -20.32,
+            5.6896,
+            -75.7936
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1841,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            6.096,
+            -82.9056
+          ],
+          "max": [
+            -20.32,
+            6.096,
+            -81.6864
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1863,
+        "sourceBounds": {
+          "min": [
+            -21.5392,
+            5.6896,
+            -81.4832
+          ],
+          "max": [
+            -21.1328,
+            5.6896,
+            -78.0288
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1872,
+        "sourceBounds": {
+          "min": [
+            -22.352,
+            5.6896,
+            -72.3392
+          ],
+          "max": [
+            -21.1328,
+            5.6896,
+            -71.5264
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1876,
+        "sourceBounds": {
+          "min": [
+            -22.352,
+            5.6896,
+            -68.2752
+          ],
+          "max": [
+            -21.5392,
+            5.6896,
+            -65.024
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1878,
+        "sourceBounds": {
+          "min": [
+            -21.5392,
+            5.6896,
+            -71.5264
+          ],
+          "max": [
+            -21.1328,
+            5.6896,
+            -65.8368
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1982,
+        "sourceBounds": {
+          "min": [
+            -41.4528,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -39.0144,
+            5.6896,
+            -94.6912
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1983,
+        "sourceBounds": {
+          "min": [
+            -47.1424,
+            5.6896,
+            -95.0976
+          ],
+          "max": [
+            -41.4528,
+            5.6896,
+            -94.6912
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 1997,
+        "sourceBounds": {
+          "min": [
+            -47.1424,
+            5.6896,
+            -86.9696
+          ],
+          "max": [
+            -45.5168,
+            5.6896,
+            -86.1568
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2111,
+        "sourceBounds": {
+          "min": [
+            -46.3296,
+            5.6896,
+            -67.4624
+          ],
+          "max": [
+            -45.9232,
+            5.6896,
+            -65.024
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2112,
+        "sourceBounds": {
+          "min": [
+            -48.768,
+            5.6896,
+            -67.8688
+          ],
+          "max": [
+            -45.9232,
+            5.6896,
+            -67.4624
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2113,
+        "sourceBounds": {
+          "min": [
+            -56.4896,
+            5.6896,
+            -67.8688
+          ],
+          "max": [
+            -55.2704,
+            5.6896,
+            -67.4624
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2115,
+        "sourceBounds": {
+          "min": [
+            -55.2704,
+            5.6896,
+            -68.2752
+          ],
+          "max": [
+            -49.5808,
+            5.6896,
+            -67.4624
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2262,
+        "sourceBounds": {
+          "min": [
+            -62.5856,
+            5.6896,
+            -76.4032
+          ],
+          "max": [
+            -61.7728,
+            5.6896,
+            -75.184
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2314,
+        "sourceBounds": {
+          "min": [
+            -58.5216,
+            5.6896,
+            -67.8688
+          ],
+          "max": [
+            -56.4896,
+            5.6896,
+            -67.4624
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2392,
+        "sourceBounds": {
+          "min": [
+            -9.7536,
+            5.6896,
+            -59.3344
+          ],
+          "max": [
+            -4.064,
+            5.6896,
+            -58.928
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2393,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            5.6896,
+            -65.024
+          ],
+          "max": [
+            -20.32,
+            5.6896,
+            -58.928
+          ]
+        },
+        "blocks": 6,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2394,
+        "sourceBounds": {
+          "min": [
+            -13.8176,
+            5.6896,
+            -52.0192
+          ],
+          "max": [
+            -9.7536,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 4,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2396,
+        "sourceBounds": {
+          "min": [
+            -13.8176,
+            5.6896,
+            -59.3344
+          ],
+          "max": [
+            -9.7536,
+            5.6896,
+            -58.5216
+          ]
+        },
+        "blocks": 4,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2398,
+        "sourceBounds": {
+          "min": [
+            -4.064,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -2.8448,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2399,
+        "sourceBounds": {
+          "min": [
+            -9.7536,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -4.064,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2536,
+        "sourceBounds": {
+          "min": [
+            -21.5392,
+            5.6896,
+            -65.024
+          ],
+          "max": [
+            -21.1328,
+            5.6896,
+            -58.928
+          ]
+        },
+        "blocks": 6,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2537,
+        "sourceBounds": {
+          "min": [
+            -22.352,
+            5.6896,
+            -65.024
+          ],
+          "max": [
+            -21.5392,
+            5.6896,
+            -61.7728
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2538,
+        "sourceBounds": {
+          "min": [
+            -33.3248,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -29.2608,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 4,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2539,
+        "sourceBounds": {
+          "min": [
+            -39.0144,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -33.3248,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2540,
+        "sourceBounds": {
+          "min": [
+            -39.0144,
+            5.6896,
+            -52.0192
+          ],
+          "max": [
+            -35.7632,
+            5.6896,
+            -51.6128
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2542,
+        "sourceBounds": {
+          "min": [
+            -29.2608,
+            5.6896,
+            -52.0192
+          ],
+          "max": [
+            -23.5712,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2543,
+        "sourceBounds": {
+          "min": [
+            -22.7584,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -21.1328,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2988,
+        "sourceBounds": {
+          "min": [
+            -46.3296,
+            5.6896,
+            -65.024
+          ],
+          "max": [
+            -45.5168,
+            5.6896,
+            -59.3344
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2989,
+        "sourceBounds": {
+          "min": [
+            -46.3296,
+            5.6896,
+            -52.832
+          ],
+          "max": [
+            -45.9232,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2990,
+        "sourceBounds": {
+          "min": [
+            -46.3296,
+            5.6896,
+            -58.5216
+          ],
+          "max": [
+            -45.9232,
+            5.6896,
+            -52.832
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2991,
+        "sourceBounds": {
+          "min": [
+            -40.2336,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -39.0144,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2992,
+        "sourceBounds": {
+          "min": [
+            -45.9232,
+            5.6896,
+            -51.6128
+          ],
+          "max": [
+            -40.2336,
+            5.6896,
+            -51.2064
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 2993,
+        "sourceBounds": {
+          "min": [
+            -42.2656,
+            5.6896,
+            -52.0192
+          ],
+          "max": [
+            -39.0144,
+            5.6896,
+            -51.6128
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3089,
+        "sourceBounds": {
+          "min": [
+            64.2112,
+            5.6896,
+            -9.3472
+          ],
+          "max": [
+            65.024,
+            5.6896,
+            -8.128
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3265,
+        "sourceBounds": {
+          "min": [
+            51.2064,
+            5.6896,
+            -9.3472
+          ],
+          "max": [
+            52.0192,
+            5.6896,
+            -8.128
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3285,
+        "sourceBounds": {
+          "min": [
+            38.2016,
+            5.6896,
+            -9.3472
+          ],
+          "max": [
+            39.0144,
+            5.6896,
+            -8.128
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3739,
+        "sourceBounds": {
+          "min": [
+            24.7904,
+            7.3152,
+            6.9088
+          ],
+          "max": [
+            25.6032,
+            7.3152,
+            12.5984
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3781,
+        "sourceBounds": {
+          "min": [
+            12.5984,
+            5.6896,
+            -0.4064
+          ],
+          "max": [
+            13.4112,
+            5.6896,
+            2.8448
+          ]
+        },
+        "blocks": 3,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3920,
+        "sourceBounds": {
+          "min": [
+            19.9136,
+            5.6896,
+            18.6944
+          ],
+          "max": [
+            21.1328,
+            5.6896,
+            19.5072
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3931,
+        "sourceBounds": {
+          "min": [
+            24.7904,
+            7.3152,
+            19.9136
+          ],
+          "max": [
+            25.6032,
+            7.3152,
+            25.6032
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 3959,
+        "sourceBounds": {
+          "min": [
+            19.9136,
+            5.6896,
+            31.6992
+          ],
+          "max": [
+            21.1328,
+            5.6896,
+            32.512
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 4093,
+        "sourceBounds": {
+          "min": [
+            19.9136,
+            7.3152,
+            44.704
+          ],
+          "max": [
+            21.1328,
+            7.3152,
+            45.5168
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 4550,
+        "sourceBounds": {
+          "min": [
+            -14.6304,
+            5.6896,
+            13.8176
+          ],
+          "max": [
+            -13.4112,
+            5.6896,
+            14.6304
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 4552,
+        "sourceBounds": {
+          "min": [
+            -6.9088,
+            5.6896,
+            1.6256
+          ],
+          "max": [
+            -6.096,
+            5.6896,
+            7.3152
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 4903,
+        "sourceBounds": {
+          "min": [
+            -13.4112,
+            5.6896,
+            14.6304
+          ],
+          "max": [
+            -7.7216,
+            5.6896,
+            15.4432
+          ]
+        },
+        "blocks": 5,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 5147,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            5.6896,
+            35.3568
+          ],
+          "max": [
+            -19.9136,
+            5.6896,
+            35.7632
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 5172,
+        "sourceBounds": {
+          "min": [
+            -21.1328,
+            7.3152,
+            44.704
+          ],
+          "max": [
+            -19.9136,
+            7.3152,
+            45.5168
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "coping",
+        "faceId": 5195,
+        "sourceBounds": {
+          "min": [
+            -3.2512,
+            5.6896,
+            47.5488
+          ],
+          "max": [
+            -2.8448,
+            5.6896,
+            48.768
+          ]
+        },
+        "blocks": 2,
+        "maxProjection": 0.018,
+        "maxHeight": 0.137
+      },
+      {
+        "kind": "repair",
+        "faceId": 894,
+        "pos": [
+          60.10026330445806,
+          1.4938273853901372,
+          -31.6992
+        ],
+        "floor": 0.8127999999999999,
+        "extent": [
+          1.7127734691516434,
+          0.6020547707802744
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 954,
+        "pos": [
+          50.29485905769255,
+          1.4593606992415993,
+          -31.6992
+        ],
+        "floor": 0.8128000000000001,
+        "extent": [
+          1.2599786787782745,
+          0.5331213984831984
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3196,
+        "pos": [
+          55.12117196070057,
+          0.7558903027397791,
+          -10.5664
+        ],
+        "floor": 0,
+        "extent": [
+          1.8308138648469034,
+          0.7517806054795582
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3742,
+        "pos": [
+          18.6944,
+          1.1928426101556613,
+          9.981125915139245
+        ],
+        "floor": 0.5151101848481014,
+        "extent": [
+          1.7923115063557196,
+          0.5600852203113225
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3406,
+        "pos": [
+          29.222339263574764,
+          1.21985202675612,
+          -10.5664
+        ],
+        "floor": 0.5696,
+        "extent": [
+          1.800806315860433,
+          0.5405040535122398
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2930,
+        "pos": [
+          -22.7584,
+          -4.133994065735022,
+          -27.463676855238077
+        ],
+        "floor": -4.8768,
+        "extent": [
+          1.8194362841475373,
+          0.7256118685299557
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 4500,
+        "pos": [
+          -26.534032669210347,
+          -4.243654633831386,
+          -13.0048
+        ],
+        "floor": -4.8768,
+        "extent": [
+          1.555259619270279,
+          0.5062907323372295
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 5184,
+        "pos": [
+          -6.633751191275603,
+          2.382811248000668,
+          46.3296
+        ],
+        "floor": 1.7888000000000006,
+        "extent": [
+          1.6120031511206188,
+          0.4280224960013345
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 364,
+        "pos": [
+          21.1328,
+          1.95645014467194,
+          -95.0151677347066
+        ],
+        "floor": 1.2192,
+        "extent": [
+          1.5680976755260718,
+          0.7145002893438797
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1229,
+        "pos": [
+          0.29730937533111046,
+          1.2067644872546115,
+          -58.1152
+        ],
+        "floor": 0,
+        "extent": [
+          1.8079110534298026,
+          0.5879289745092227
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 615,
+        "pos": [
+          24.12917933415649,
+          1.5232149229092093,
+          -71.5264
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.8748887334658972,
+          0.6608298458184185
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 758,
+        "pos": [
+          6.0151288203744055,
+          1.1405229443839107,
+          -72.3392
+        ],
+        "floor": 0.09386632456761367,
+        "extent": [
+          1.3141343214232788,
+          0.4554458887678212
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1135,
+        "pos": [
+          19.5072,
+          1.2747343065742718,
+          -61.116532385490025
+        ],
+        "floor": 0,
+        "extent": [
+          1.7786676752214943,
+          0.7238686131485432
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1327,
+        "pos": [
+          27.027346345578167,
+          1.4111751090996376,
+          -34.1376
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.3458514484450808,
+          0.436750218199275
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1535,
+        "pos": [
+          -7.223013571863764,
+          2.2157526314358114,
+          -91.44
+        ],
+        "floor": 1.6256,
+        "extent": [
+          1.2772461409394738,
+          0.42030526287162334
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1565,
+        "pos": [
+          -16.912683713045134,
+          1.5095239858283958,
+          -94.2848
+        ],
+        "floor": 0.7728000000000007,
+        "extent": [
+          1.9891603953412642,
+          0.71344797165679
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1647,
+        "pos": [
+          -36.25123594465741,
+          1.239182342877654,
+          -93.8784
+        ],
+        "floor": 0.23429775345891296,
+        "extent": [
+          1.9418981852805937,
+          0.6527646857553079
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 1790,
+        "pos": [
+          -11.3792,
+          1.1582938483821448,
+          -80.80889317647576
+        ],
+        "floor": 0,
+        "extent": [
+          1.669466225004165,
+          0.4909876967642893
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2000,
+        "pos": [
+          -45.1104,
+          1.1927803536862556,
+          -88.80068752259777
+        ],
+        "floor": 0,
+        "extent": [
+          1.7516321390288958,
+          0.5599607073725109
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2129,
+        "pos": [
+          -52.09119499093928,
+          1.4598090453214965,
+          -68.6816
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.9615617817527524,
+          0.5340180906429929
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2308,
+        "pos": [
+          -66.36872173542439,
+          1.549299691937701,
+          -74.7776
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.3448084920749088,
+          0.7129993838754015
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2504,
+        "pos": [
+          -13.328177067179276,
+          1.1275291182574652,
+          -58.1152
+        ],
+        "floor": 0,
+        "extent": [
+          1.7819585026083418,
+          0.4294582365149302
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2555,
+        "pos": [
+          -26.279841617355086,
+          1.1429055710658211,
+          -52.4256
+        ],
+        "floor": 0,
+        "extent": [
+          1.31838966261558,
+          0.4602111421316422
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2650,
+        "pos": [
+          -22.7584,
+          -4.165171914110234,
+          -50.14504455194274
+        ],
+        "floor": -4.8768,
+        "extent": [
+          1.948924948449462,
+          0.6632561717795339
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2727,
+        "pos": [
+          -10.022409252920749,
+          1.4561039974987748,
+          -34.1376
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.378273220762674,
+          0.5266079949975497
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2825,
+        "pos": [
+          -19.5072,
+          1.1385022418490849,
+          -27.443354929317568
+        ],
+        "floor": 0,
+        "extent": [
+          1.7061024098554864,
+          0.45140448369816977
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 2933,
+        "pos": [
+          -22.7584,
+          -4.243813564989207,
+          -36.51571239019644
+        ],
+        "floor": -4.8768,
+        "extent": [
+          1.732785658499409,
+          0.5059728700215865
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3012,
+        "pos": [
+          -45.1104,
+          1.5183740840862445,
+          -61.60350819907419
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.4996667900121927,
+          0.6511481681724889
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3066,
+        "pos": [
+          -69.04000372069702,
+          1.4539390413858786,
+          -60.1472
+        ],
+        "floor": 0.8128,
+        "extent": [
+          1.7455302804581658,
+          0.5222780827717571
+        ],
+        "maxProjection": 0.016
+      },
+      {
+        "kind": "repair",
+        "faceId": 3730,
+        "pos": [
+          16.98752608131513,
+          1.2119408430328922,
+          0
+        ],
+        "floor": 0,
+        "extent": [
+          1.6036821911934953,
+          0.598281686065784
+        ],
+        "maxProjection": 0.016
+      }
+    ]
+  },
+  "materialBatches": [
+    "dust_stone",
+    "dust_crate",
+    "steel_dark",
+    "dust_military",
+    "dust-exposed-masonry",
+    "dust_plaster"
+  ]
+}

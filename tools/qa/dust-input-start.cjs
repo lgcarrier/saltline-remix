@@ -1,0 +1,23 @@
+// Independent normal-input run: fresh page, Deploy button, real keyboard only.
+globalThis.fs=await import('node:fs/promises');globalThis.sleep=ms=>new Promise(r=>setTimeout(r,ms));
+globalThis.REPO=process.cwd();globalThis.ROOT=REPO+'/output/playwright/dust';
+globalThis.dustDriverModule={exports:{}};
+new Function('module','exports',await fs.readFile(REPO+'/tools/qa/dust-route.cjs','utf8'))(dustDriverModule,dustDriverModule.exports);
+globalThis.dustDriver=dustDriverModule.exports;
+globalThis.dustInputEvidence={kind:'browser keyboard/button mission, no gameplay state mutations',steps:[]};
+errors.length=0;
+const response=await page.goto('http://127.0.0.1:8767/dust.html?q=high&dynres=0&seed=4207&inputtest=1',{waitUntil:'domcontentloaded'});
+const artifactBytes=await fs.readFile(REPO+'/dust.html');
+if(Number(response.headers()['content-length'])!==artifactBytes.length)throw Error('Served Dust size differs from local build');
+dustInputEvidence.hash=(await import('node:crypto')).createHash('sha256').update(artifactBytes).digest('hex');
+await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:120000});
+const fatal=await page.evaluate(()=>window.__fatal);if(fatal)throw Error(fatal);
+await page.waitForFunction(()=>document.querySelector('#boot').hidden);
+await page.getByRole('button',{name:'Deploy',exact:true}).click();
+await page.waitForFunction(()=>__G.game.state==='playing');
+await sleep(500);
+dustInputEvidence.start=await dustDriver.state(page);
+await page.screenshot({path:ROOT+'/normal-start.png'});
+await page.keyboard.press('p');
+await page.waitForFunction(()=>__G.game.state==='paused');
+return dustInputEvidence.start;

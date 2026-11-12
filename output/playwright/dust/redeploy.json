@@ -1,0 +1,48 @@
+{
+  "state": "playing",
+  "pos": [
+    36.9824,
+    -3.251199960708618,
+    -86.5632
+  ],
+  "eye": [
+    36.9824,
+    -1.5711999607086182,
+    -86.5632
+  ],
+  "yaw": 1.5707963267948966,
+  "pitch": 0,
+  "health": 100,
+  "alive": true,
+  "invulnerable": false,
+  "cut": 0,
+  "relays": [
+    {
+      "id": "relay_a",
+      "cut": false,
+      "progress": 0
+    },
+    {
+      "id": "relay_b",
+      "cut": false,
+      "progress": 0
+    },
+    {
+      "id": "relay_c",
+      "cut": false,
+      "progress": 0
+    }
+  ],
+  "ammo": 30,
+  "reserve": 150,
+  "weaponState": "idle",
+  "lookScale": 1,
+  "sensitivity": 1,
+  "ads": 0,
+  "combat": {
+    "shots": 0,
+    "hits": 0,
+    "kills": 0
+  },
+  "errors": []
+}
