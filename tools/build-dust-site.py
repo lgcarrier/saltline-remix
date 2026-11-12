@@ -31,7 +31,7 @@ for name in ('dust.html', 'index.html', 'original.html'):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Saltline · Dust</title>
+<title>Dust</title>
 <meta name="description" content="Play Dust, an additional Saltline mission with a complete desert map, robotic enemies and three uplinks.">
 <meta http-equiv="refresh" content="0;url=game/dust.html">
 <style>body{margin:0;background:#101416;color:#eee6d5;font:18px system-ui;min-height:100vh;display:grid;place-items:center}main{padding:32px;max-width:36rem}a{color:#e6b767}h1{font-size:2.5rem}p{line-height:1.6}</style>
@@ -41,7 +41,7 @@ destination.search=location.search;destination.hash=location.hash;
 location.replace(destination.href);
 </script>
 </head>
-<body><main><h1>Saltline · Dust</h1><p><a href="game/dust.html">Launch Dust</a></p><p><a href="game/index.html">Assault</a> · <a href="game/original.html">Saltline original</a></p></main></body>
+<body><main><h1>Dust</h1><p><a href="game/dust.html">Launch Dust</a></p><p><a href="game/index.html">Assault</a> · <a href="game/original.html">Saltline original</a></p></main></body>
 </html>
 ''', encoding='utf-8')
 commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()

@@ -89,5 +89,27 @@ for old, new in replacements.items():
     text = text.replace(old, new)
 text = text.replace('href="index.html" aria-current="page"', 'href="index.html"')
 text = text.replace('href="dust.html"', 'href="dust.html" aria-current="page"')
+# Dust owns its visible identity; engine identifiers and source attribution stay intact.
+for old, new in {
+    '<title>Saltline · Dust</title>': '<title>Dust</title>',
+    'SALTLINE · ASSAULT': 'DUST',
+    'Raising the terminal': 'Preparing the desert outpost',
+    'aria-label="Saltline Dust"': 'aria-label="Dust"',
+    '<h1 class="m-word">SALTLINE</h1>': '<h1 class="m-word">DUST</h1>',
+    '        <p class="assault-subtitle">DUST</p>': '',
+    'Saltline Expeditionary Unit': 'Desert Expeditionary Unit',
+    'Saltline arsenal. A new desert theatre.': 'Three uplinks. One extraction.',
+    'Saltline Remix': 'Desert Operations',
+    'Saltline is dark': 'Dust is dark',
+    'Saltline could not start: ': 'Dust could not start: ',
+    'SALTLINE BENCH': 'DUST BENCH',
+    'SALTLINE TERMINAL': 'DUST OUTPOST',
+    'SALTLINE 04': 'DUST 04',
+    '"SALTLINE"': '"DUST"',
+    '  SALTLINE': '  DUST',
+    'PROPERTY OF PORT AUTHORITY': 'EXPEDITIONARY UNIT EQUIPMENT',
+}.items():
+    text = text.replace(old, new)
+
 args.output.write_text(text, encoding='utf-8')
 print(f'Built {args.output.name}: {len(text.encode()):,} bytes')

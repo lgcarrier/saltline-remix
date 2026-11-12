@@ -58,6 +58,6 @@ await page.waitForFunction(()=>window.__ready||window.__fatal,null,{timeout:1200
 await page.waitForFunction(()=>document.querySelector('#boot').hidden);
 record.checks.dustLink={url:page.url(),title:await page.title()};
 record.errors=[...errors];
-record.ok=record.errors.length===0&&record.checks.dustLink.title==='Saltline · Dust';
+record.ok=record.errors.length===0&&record.checks.dustLink.title==='Dust';
 await fs.writeFile(out+'/delivery.json',JSON.stringify(record,null,2)+'\n');
 return record;
