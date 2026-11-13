@@ -22,4 +22,6 @@ Boots to the title and starts a game. Collisions, enemy pathing, relay interacti
 ![Gantry corridor](screenshots/02-gantry-corridor.png)
 ![Top-down](screenshots/05-topdown.png)
 
+See [docs/engine-design.md](docs/engine-design.md) for a design sketch of an AI-native, browser-first game engine and editor based on this approach.
+
 All credit for the engine, assets and audio goes to the original Saltline.
